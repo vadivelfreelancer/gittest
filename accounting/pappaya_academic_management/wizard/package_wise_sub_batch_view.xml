@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="package_wise_sub_view_form" model="ir.ui.view">
+        <field name="name">package.wise.subbatch.view.form</field>
+        <field name="model">package.sub.batch.view</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+                </group>
+                <separator string="Sub Batch Wise Mapping"/>
+                <group col="2">
+                    <group>
+                        <field name="course"/>
+                        <field name="batch"/>
+                    </group>
+                    <group>
+                        <field name="group"/>
+                        <button string="Go" class="oe_highlight" type="action" name="sub_batch_section_batch_go"/>
+                    </group>
+                </group>
+                <field name="package_sub_batch_lines">
+                    <tree editable="bottom" create="false">
+                        <field name="course"/>
+                        <field name="group"/>
+                        <field name="batch"/>
+                        <field name="package"/>
+                        <field name="sub_batch"/>
+                    </tree>
+                </field>
+                <div style="text-align:center">
+                    <button special="cancel" class="oe_highlight" string="Save"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_wise_sub_view_only_action" model="ir.actions.act_window">
+        <field name="name">SubBatch Wise</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">package.sub.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="package_wise_sub_view_sub_menu"
+          name="Package Wise Sub Batch"
+          parent="academic_main_menu"
+          sequence="197"
+          action="package_wise_sub_view_only_action"/>
+
+</odoo>

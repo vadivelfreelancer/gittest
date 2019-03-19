@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- <data noupdate="1">
+ 
+        <record model="pappaya.business.stage" id="pappaya_business_stage_data_id1">
+        	<field name="name">Sales Of Application</field>
+            <field name="code">SOA</field>
+            <field name="sequence">1</field>
+            <field name="is_active">True</field>
+            <field name="school_id">1</field>
+        </record>
+
+
+        <record model="pappaya.business.stage" id="pappaya_business_stage_data_id2">
+        	<field name="name">Reservation</field>
+            <field name="code">RES</field>
+            <field name="sequence">2</field>
+            <field name="is_active">True</field>
+            <field name="school_id">1</field>
+        </record>
+
+         <record model="pappaya.business.stage" id="pappaya_business_stage_data_id3">
+        	<field name="name">Admission</field>
+            <field name="code">ADM</field>
+            <field name="sequence">3</field>
+            <field name="is_active">True</field>
+            <field name="school_id">1</field>
+             <field name="is_final_stage">True</field>
+        </record>
+
+	</data> -->
+</odoo>

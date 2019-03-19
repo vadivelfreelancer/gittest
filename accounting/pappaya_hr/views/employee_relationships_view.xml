@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_employee_relationship_tree" model="ir.ui.view">
+			<field name="name">pappaya.employee.relationship.tree</field>
+			<field name="model">pappaya.employee.relationship</field>
+			<field name="arch" type="xml">
+				<tree string="Employee Relationship" duplicate="0" delete="0">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_employee_relationship_form" model="ir.ui.view">
+			<field name="name">pappaya.employee.relationship.form</field>
+			<field name="model">pappaya.employee.relationship</field>
+			<field name="arch" type="xml">
+				<form string="Employee Relationship" duplicate="0" delete="0">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_employee_relationship_search" model="ir.ui.view">
+            <field name="name">pappaya.employee.relationship.search</field>
+            <field name="model">pappaya.employee.relationship</field>
+            <field name="arch" type="xml">
+                <search string="Employee Relationship">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_employee_relationship_form" model="ir.actions.act_window">
+			<field name="name">Employee Relationships</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.employee.relationship</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_employee_relationship_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to configure Employee Relationships.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

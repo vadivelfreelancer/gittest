@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="course_group_subjects_view_view_form" model="ir.ui.view">
+        <field name="name">course.group.subject.batch.view.form</field>
+        <field name="model">course.group.view</field>
+        <field name="arch" type="xml">
+            <form string="Course Group Subjects">
+                    <group col="4">
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <group col="4" string="Class Group Wise Subject Details">
+                        <field name="course"/>
+                        <field name="group"/>
+                    </group>
+                    <div class="row" style="text-align:center;">
+                        <button string="Go" class="oe_highlight" type="action" name="course_group_go"/>
+                    </div>
+
+                    <field name="course_group_lines">
+                        <tree editable="bottom" create="false">
+                            <field name="name"/>
+                            <field name="course"/>
+                            <field name="group"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.course_group_subjects_single_action)d"
+                            context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"/>
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left:10px"
+                            name="%(pappaya_academic_management.course_group_batch_mode_action)d"
+                            context="{'default_academic_year': academic_year,
+                                       'default_institution_type': institution_type,}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="course_group_subject_batch_view_only_action" model="ir.actions.act_window">
+        <field name="name">Class Group Wise Subject Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.group.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+        <menuitem id="course_group_subject_batch_view_sub_menu"
+              name="Course Group Subjects"
+              parent="academic_main_menu"
+              sequence="186"
+              action="course_group_subject_batch_view_only_action"/>
+
+</odoo>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="account.view_account_group_form" model="ir.ui.view">
+		<field name="name">account.group.form</field>
+		<field name="model">account.group</field>
+		<field name="arch" type="xml">
+			<form string="Ledger">
+				<sheet>
+					<group>
+						<field name="name" />
+						<field name="sub_group_id" required="1"
+							options="{'no_open': True,'no_create':True}" />
+						<field name="color" />
+						<field name="description" />
+						<field name="code_prefix" invisible="1" />
+						<field name="parent_id" invisible="1" />
+					</group>
+					<group />
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<!-- <record id="view_account_group_form" model="ir.ui.view"> <field name="name">account.group.form</field> 
+		<field name="model">account.group</field> <field name="inherit_id" ref="account.view_account_group_form" 
+		/> <field name="arch" type="xml"> <xpath expr="//group" position="after"> 
+		<group> <group id="links"> <field name="color" /> <field name="description" 
+		/> <field name="sub_group_id" required="1" options="{'no_open': True,'no_create':True}"/> 
+		<label for="account_ids" /> <field name="account_ids" widget="many2many" 
+		nolabel="1" options="{'no_create_edit': True}" /> </group> </group> </xpath> 
+		<xpath expr="//field[@name='code_prefix']" position="attributes"> <attribute 
+		name="invisible">1</attribute> </xpath> <xpath expr="//field[@name='parent_id']" 
+		position="attributes"> <attribute name="invisible">1</attribute> </xpath> 
+		</field> </record> -->
+
+	<record id="account.view_account_group_tree" model="ir.ui.view">
+		<field name="name">account.group.tree</field>
+		<field name="model">account.group</field>
+		<field name="arch" type="xml">
+			<tree string="Ledger">
+				<field name="name" />
+				<field name="color" />
+				<field name="sub_group_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="account.action_account_group_tree" model="ir.actions.act_window">
+		<field name="name">Ledger</field>
+		<field name="res_model">account.group</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="account.view_account_group_search" />
+	</record>
+
+	<menuitem name="Ledger" id="account_group_menu" action="account.action_account_group_tree"
+		sequence="-1" parent="account.account_account_menu" />
+
+
+
+	<record id="view_account_form_inherted_pappaya" model="ir.ui.view">
+		<field name="name">account.account.form.inherited.pappaya</field>
+		<field name="model">account.account</field>
+		<field name="inherit_id" ref="account.view_account_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='group_id']" position="attributes">
+				<attribute name="string">Ledger</attribute>
+				<attribute name="options">{'no_open': True,'no_create':True}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='group_id']" position="after">
+				<field name="main_group_id" invisible="1"/>
+				<field name="pap_group_id" invisible="1"/>
+				<field name="pap_sub_group_id" invisible="1"/>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_account_list_inherted_pappaya" model="ir.ui.view">
+		<field name="name">account.account.list.inherited.pappaya</field>
+        <field name="model">account.account</field>
+		<field name="inherit_id" ref="account.view_account_list" />
+		<field name="arch" type="xml">
+			<!-- <xpath expr="//field[@name='user_type_id']" position="after">
+				<field name="group_id" string="Ledger"/>
+			</xpath> -->
+			<xpath expr="//field[@name='code']" position="before">
+				<field name="main_group_id" />
+				<field name="pap_group_id" />
+				<field name="pap_sub_group_id" />
+				<field name="group_id" string="Ledger"/>
+			</xpath>
+			<xpath expr="//field[@name='company_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='user_type_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="account.view_account_search" model="ir.ui.view">
+        <field name="name">account.account.search</field>
+        <field name="model">account.account</field>
+        <field name="arch" type="xml">
+            <search string="Accounts">
+                <field name="name" filter_domain="['|', ('name','ilike',self), ('code','=like',str(self)+'%')]" string="Account"/>
+                
+                <field name="main_group_id"/>
+				<field name="pap_group_id"/>
+				<field name="pap_sub_group_id"/>
+				<field name="group_id"/>
+				
+                <filter string="Receivable Accounts" domain="[('internal_type','=','receivable')]"/>
+                <filter string="Payable Accounts" domain="[('internal_type','=','payable')]"/>
+                <field name="user_type_id"/>
+                <group expand="0" string="Group By">
+                    
+                    <filter string="Main Group" domain="" context="{'group_by':'main_group_id'}"/>
+                    <filter string="Group" domain="" context="{'group_by':'pap_group_id'}"/>
+                    <filter string="Sub Group" domain="" context="{'group_by':'pap_sub_group_id'}"/>
+                    <filter string="Ledger" domain="" context="{'group_by':'group_id'}"/>
+                    <filter string="Account Type" domain="" context="{'group_by':'user_type_id'}"/>
+                    
+                </group>
+            </search>
+        </field>
+    </record>
+	
+</odoo>

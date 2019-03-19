@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_pappaya_hr_arrears_form" model="ir.ui.view">
+			<field name="name">hr.arrears.form</field>
+			<field name="model">hr.arrears</field>
+			<field name="arch" type="xml">
+				<form string="Arrears">
+					<header>
+						<button name="to_request" string="Request" states="draft" type="object" class="oe_highlight" />
+						<button name="to_approve" string="Approve" states="request" type="object" class="oe_highlight" />
+						<button name="to_cancel" string="Cancel" states="request" type="object" class="oe_highlight" />
+						<field name="state" widget="statusbar" statusbar_visible="draft,request" readonly="1" />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="branch_id" required="1" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="from_month_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+							<group>
+								<field name="date" readonly="1" force_save="1"/>
+								<field name="to_month_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+						</group>
+						
+						<field name="line_ids">
+							<tree editable="bottom" delete="false" create="false" open="false">
+								<field name="arrears_id" invisible="1"/>
+								<field name="date_from" invisible="1"/>
+								<field name="date_to" invisible="1"/>
+								<field name="emp_id" readonly="1" force_save="1"/>
+								<field name="employee_id" domain="[('branch_id','=',parent.branch_id)]" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="from_month_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="to_month_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="branch_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="category_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="sub_category_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="department_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="designation_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="proposed_amount" readonly="1" force_save="1"/>
+								<field name="approved_amount" attrs="{'invisible':[('state','=','draft')],'required':[('state','=','request')]}"/>
+								<field name="state" readonly="1" force_save="1"/>
+								<field name="employee_gross_ids" invisible="1"/>
+							</tree>
+							<form>
+								<group col="4">
+									<field name="emp_id"/>
+									<field name="employee_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="from_month_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="to_month_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="category_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="sub_category_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="department_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="designation_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="proposed_amount"/>
+									<field name="approved_amount" attrs="{'invisible':[('state','=','draft')]}"/>
+									<field name="state"/>
+									<field name="employee_gross_ids" widget="many2many_tags" invisible="1"/>
+								</group>
+							</form>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+    
+        
+        <record id="view_pappaya_hr_arrears_tree" model="ir.ui.view">
+            <field name="name">hr.arrears.tree</field>
+            <field name="model">hr.arrears</field>
+            <field name="arch" type="xml">
+                 <tree string="Arrears">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <field name="from_month_id"/>
+                    <field name="to_month_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>  
+        
+        <record id="view_pappaya_hr_arrears_search" model="ir.ui.view">
+            <field name="name">hr.arrears.search</field>
+            <field name="model">hr.arrears</field>
+            <field name="arch" type="xml">
+                 <search string="Arrears">
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <field name="from_month_id"/>
+                    <field name="to_month_id"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter name="from_month_id" string="From Month" domain="[]" context="{'group_by':'from_month_id'}" />
+                        <filter name="to_month_id" string="To Month" domain="[]" context="{'group_by':'to_month_id'}" />
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>    
+    
+        <record id="action_pappaya_hr_arrears" model="ir.actions.act_window">
+            <field name="name">Arrears</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.arrears</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>    
+    
+        <menuitem id="menu_action_pappaya_hr_arrears"  parent="hr.menu_hr_root" action="action_pappaya_hr_arrears" name="Arrears" sequence="6" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+    
+
+    </data>
+</odoo>

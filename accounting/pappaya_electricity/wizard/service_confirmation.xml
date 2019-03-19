@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<record id="service_number_confirmation_master_form" model="ir.ui.view">
+        <field name="name">Service Number Confirmation</field>
+        <field name="model">service.confirmation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                             <field name="branch_id" options='{"no_open": True, "no_create": True}' required="1"/>
+                        </group>
+                        <group>
+                             <div>
+                                <label for="month" string="Month"
+                                       style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                <field name="month" style="width:110px" required="1"/>
+                                <field name="year" style="width:110px;margin-left: 34px;" required="1"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="division_id" options='{"no_open": True, "no_create": True}' required="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                            <page string="Electricity Service Number Details ">
+                                <field name="confirmation_details">
+                                    <tree editable="bottom">
+                                        <field name="building_id" options='{"no_open": True, "no_create": True}' domain="[('branch_id','=',branch_id)]"/>
+                                        <field name="service_number" options='{"no_open": True, "no_create": True}' required="1" domain="[('branch_id','=',branch_id),('state','=','approved')]"/>
+                                        <field name="is_paid"/>
+                                        <field name="branch_id" invisible="1"/>
+                                        <field name="confirmation_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="service_number_confirmation_tree_view" model="ir.ui.view">
+        <field name="name">Service Number Confirmation</field>
+        <field name="model">service.confirmation</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="division_id"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="service_number_confirmation_action" model="ir.actions.act_window">
+            <field name="name">Service Number Confirmation</field>
+            <field name="res_model">service.confirmation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+     </record>
+
+     <menuitem id="electricity_division_master_sub_menu" action="service_number_confirmation_action" parent="transaction_menu" name="Service Number Confirmation" sequence="12"/>
+
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="section_teacher_subject_view_form" model="ir.ui.view">
+        <field name="name">section.teacher.subject.view.form</field>
+        <field name="model">section.teacher.subject</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+
+                </group>
+                <group string="Section Wise Teacher Subject Map">
+                    <group>
+                        <field name="branch"/>
+                        <field name="group"/>
+                        <field name="section"/>
+                    </group>
+                    <group>
+                        <field name="course"/>
+                        <field name="batch"/>
+                    </group>
+                </group>
+
+                <field name="section_teacher_line">
+                    <tree editable="bottom">
+                        <field name="subject"/>
+                        <field name="faculty"/>
+                        <button special="save" class="oe_highlight" string="Add Subject"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="section_teacher_subject_view_only_action" model="ir.actions.act_window">
+        <field name="name">Section Wise Teacher Subject</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">section.teacher.subject</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="section_teacher_subject_view_sub_menu"
+          name="Section Wise Teacher Subject"
+          parent="academic_main_menu"
+          sequence="208"
+          action="section_teacher_subject_view_only_action"/>
+
+</odoo>

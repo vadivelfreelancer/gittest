@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_pappaya_group_tree" model="ir.ui.view">
+		<field name="name">pappaya.group.tree</field>
+		<field name="model">pappaya.account.group</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Group">
+				<field name="name" />
+				<field name="color" />
+				<field name="description" />
+				<field name="main_group_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_pappaya_group_form" model="ir.ui.view">
+		<field name="name">pappaya.group.form</field>
+		<field name="model">pappaya.account.group</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Group">
+				<sheet>
+					<group>
+						<field name="name" required="1"/>
+						<field name="color" />
+						<field name="description" />
+						<field name="main_group_id" options="{'no_open': True,'no_create':True}" required="1"/>
+					</group>
+					<group/>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_open_pappaya_group_view">
+		<field name="name">Group</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">pappaya.account.group</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_pappaya_group" parent="account.account_account_menu"
+		sequence="-3" action="act_open_pappaya_group_view" />
+
+</odoo>

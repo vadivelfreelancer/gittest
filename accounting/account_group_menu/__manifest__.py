@@ -1,0 +1,20 @@
+{
+    'name': 'Pappaya - Account Group Menu',
+    'version': '11.0.1.0.0',
+    'category': 'Accounting',
+    'sequence': -15,
+    'summary': "Adds menu entries for Account Group and Tax Group",
+    'author': 'Think42labs',
+    'website': 'https://www.think42labs.com',
+    'depends': ['account'],
+    'data': ['views/pappaya_main_group_view.xml',
+             'views/pappaya_group_view.xml',
+             'views/pappaya_sub_group_view.xml',
+             'views/account_group.xml',
+             # Reports
+             'views/inherited_report_generalledger.xml',
+             ],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

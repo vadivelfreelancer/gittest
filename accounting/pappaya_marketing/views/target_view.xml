@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+    	<!--Marketing Target Obect Master  -->
+    	
+        <record id="view_marketing_target_object_form" model="ir.ui.view">
+            <field name="name">view.marketing.target.object.form</field>
+            <field name="model">marketing.target.object</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Marketing Target">
+   					<group>
+   						<field name="name" required="1"/>
+   						<field name="model_id" options="{'no_create':True,'no_open':True}"/>
+   						<field name="sequence" />
+   						<field name="description"/>
+   					</group>
+            	</form>
+	        </field>
+		</record>
+    
+		<record id="view_marketing_target_object_tree" model="ir.ui.view">
+			<field name="name">view.marketing.target.object.tree</field>
+			<field name="model">marketing.target.object</field>
+			<field name="arch" type="xml">
+				<tree string="Marketing Target Object">
+					<field name="sequence" widget="handle"/>
+					<field name="name"/>
+					<field name="model_id" options="{'no_create':True,'no_open':True}"/>
+				</tree>
+			</field>
+		</record>    
+    
+		<record id="open_action_marketing_target_object" model="ir.actions.act_window">
+			<field name="name">Target Object</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">marketing.target.object</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Target Object.
+				</p>
+			</field>
+		</record>
+    
+    	<!-- Marketing Target -->
+    	
+        <record id="view_marketing_target_form" model="ir.ui.view">
+            <field name="name">view.marketing.target.form</field>
+            <field name="model">marketing.target</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form>
+	            	<sheet>
+	            		<group>
+	            			<group>
+	            				<field name="name" required="1"/>
+	            				<field name="sequence"/>
+	            				<field name="target_type" required="1"/>
+	            			</group>
+	            			<group>
+	            				<field name="academic_year_id" options="{'no_create':True,'no_open':True}" readonly="1"/>
+	            			</group>
+	            		</group>            		
+	            		<notebook>
+							<page string="Target Details">
+								<field name="target_line_ids" required="1" context="{'marketing_target':True}">
+									<tree editable="bottom">
+										<field name="target_id" invisible="1"/>
+										<field name="admission_model_id" invisible="1"/>
+										<field name="target_ref" options="{'no_create':True, 'no_open':True}" required="1"/>
+										<field name="admission_field" domain="[('model_id','=',admission_model_id)]" required="1" 
+											options="{'no_create':True,'no_open':True}" context="{'marketing_target':True}"/>
+										<field name="logical_condition"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+	            	</sheet>
+            	</form>
+	        </field>
+		</record>
+    
+		<record id="view_marketing_target_tree" model="ir.ui.view">
+			<field name="name">view.marketing.target.tree</field>
+			<field name="model">marketing.target</field>
+			<field name="arch" type="xml">
+				<tree string="Marketing Target">
+					<field name="sequence" widget="handle"/>
+					<field name="name"/>
+					<field name="academic_year_id"/>
+					<field name="target_type"/>
+					<!-- <field name="state"/> -->
+				</tree>
+			</field>
+		</record>    
+    
+		<record id="open_action_marketing_target" model="ir.actions.act_window">
+			<field name="name">Marketing Target</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">marketing.target</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Marketing Target.
+				</p>
+			</field>
+		</record>    	
+		
+		
+    	<!-- Target Allocation -->
+    	
+        <record id="view_target_allocation_form" model="ir.ui.view">
+            <field name="name">view.target.allocation.form</field>
+            <field name="model">target.allocation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form>
+	            	<sheet>
+	            		<header>
+	            			<button string="Confirm" name="action_confirm" type="object" class="oe_highlight" states="draft"/>
+	            			<button string="Archive" name="action_archive" type="object" class="oe_highlight" states="active"/>
+	            			<button string="Cancel" name="action_cancel" type="object" class="oe_highlight" states="draft,active"/>
+	            			<button string="Reset" name="action_reset" type="object" class="oe_highlight" states="active,cancel,archive"/>
+	            			<field name="state" widget="statusbar" statusbar_visible="draft,active,archive"/>
+	            		</header>
+	            		<group>
+	            			<group>
+	            				<field name="name" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+	            				<field name="target_allocation_type" widget="radio" options="{'horizontal': true}"/>
+	            				<field name="staff_hierarchy_id" options="{'no_create':True,'no_open':True}" domain="[('academic_type','=',academic_type)]"
+	            					attrs="{'required':[('target_allocation_type','=','employee_wise')], 'invisible':[('target_allocation_type','!=','employee_wise')]}"/>
+	            				<field name="location_type" attrs="{'required':[('target_allocation_type','!=','employee_wise')], 'invisible':[('target_allocation_type','=','employee_wise')]}"/>
+	            			</group>
+	            			<group>
+	            				<field name="academic_year_id" options="{'no_create':True,'no_open':True}" readonly="1"/>
+								<field name="academic_type" required="1" widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('state','!=','draft')]}"/>
+	            				<field name="head_employee_id" options="{'no_create':True,'no_open':True}" attrs="{'invisible':[('target_allocation_type','!=','employee_wise')]}"/>
+	            			</group>
+	            		</group>            		
+	            		<notebook>
+							<page string="Target Allocation Details">
+								<field name="target_allocation_line_ids" attrs="{'readonly':[('state','!=','draft')]}" 
+										context="{'head_employee_id':head_employee_id, 'staff_hierarchy_id':staff_hierarchy_id}">
+									<tree editable="bottom">
+										<field name="target_allocation_id" invisible="1"/>
+										<field name="head_employee_id" invisible="1"/>
+										<field name="target_ref" options="{'no_create':True, 'no_open':True}" invisible="1"/>
+										<field name="academic_year_id" invisible="1"/>
+										<field name="employee_id" options="{'no_create':True,'no_open':True}" />
+											<!-- attrs="{'readonly':[('head_employee_id','!=',False)]}"/> -->
+										<field name="target_sub_total" sum="Total"/>
+										<field name="target_info" invisible="1"/>
+										<!-- Marketing Target Dynamic fields -->
+										<field name="target_count1"/>
+										<field name="target_count2"/>
+										<field name="target_count3"/>
+										<field name="target_count4"/>
+										<field name="target_count5"/>
+										<field name="target_count6"/>
+										<field name="target_count7"/>
+										<field name="target_count8"/>
+										<field name="target_count9"/>
+										<field name="target_count10"/>
+										<field name="target_count11"/>
+										<field name="target_count12"/>
+										<field name="target_count13"/>
+										<field name="target_count14"/>
+										<field name="target_count15"/>
+										<field name="target_count16"/>
+										<field name="target_count17"/>
+										<field name="target_count18"/>
+										<field name="target_count19"/>
+										<field name="target_count20"/>
+										<field name="target_count21"/>
+										<field name="target_count22"/>
+										<field name="target_count23"/>
+										<field name="target_count24"/>
+										<field name="target_count25"/>
+										<field name="target_count26"/>
+										<field name="target_count27"/>
+										<field name="target_count28"/>
+										<field name="target_count29"/>
+										<field name="target_count30"/>		
+									</tree>
+									<form>
+										<group>
+											<field name="employee_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+										</group>
+									</form>
+								</field>
+							</page>
+								<page string="Location Target Allocation">
+									<group string="State Target Allocation">
+										<field name="state_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="state_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="state_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="Cluster Target Allocation">
+										<field name="cluster_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="cluster_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="cluster_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>	
+									</group>
+									<group string="District">
+										<group>
+										<field name="state_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<group>
+										<field name="cluster_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<field name="district_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="district_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="district_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="Division">
+										<field name="division_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="division_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="division_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="Mandal Target Allocation">
+										<group>
+											<field name="district_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<group>
+											<field name="division_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<field name="mandal_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="mandal_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="mandal_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="Village">
+										<group>
+											<field name="mandal_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<field name="village_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="village_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="village_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="City Target Allocation">
+										<group>
+											<field name="city_district_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<field name="city_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="city_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="city_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="Ward Target Allocation">
+										<group>
+											<field name="city_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<field name="ward_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="ward_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="ward_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="Area Target Allocation">
+										<group>
+											<field name="ward_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+										</group>
+										<field name="area_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="area_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="area_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+									<group string="Branch Target Allocation">
+										<field name="branch_target_allocation_line" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+											<tree editable="bottom">
+												<field name="target_allocation_id" invisible="1"/>
+												<field name="academic_year_id" invisible="1"/>
+												<field name="branch_id" options="{'no_create':True,'no_open':True}" />
+												<field name="target_sub_total"/>
+												<field name="target_info" invisible="1"/>
+												<!-- Marketing Target Dynamic fields -->
+												<field name="target_count1"/>
+												<field name="target_count2"/>
+												<field name="target_count3"/>
+												<field name="target_count4"/>
+												<field name="target_count5"/>
+												<field name="target_count6"/>
+												<field name="target_count7"/>
+												<field name="target_count8"/>
+												<field name="target_count9"/>
+												<field name="target_count10"/>
+												<field name="target_count11"/>
+												<field name="target_count12"/>
+												<field name="target_count13"/>
+												<field name="target_count14"/>
+												<field name="target_count15"/>
+												<field name="target_count16"/>
+												<field name="target_count17"/>
+												<field name="target_count18"/>
+												<field name="target_count19"/>
+												<field name="target_count20"/>
+												<field name="target_count21"/>
+												<field name="target_count22"/>
+												<field name="target_count23"/>
+												<field name="target_count24"/>
+												<field name="target_count25"/>
+												<field name="target_count26"/>
+												<field name="target_count27"/>
+												<field name="target_count28"/>
+												<field name="target_count29"/>
+												<field name="target_count30"/>		
+											</tree>
+											<form>
+												<group>
+													<field name="branch_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+												</group>
+											</form>
+										</field>
+									</group>
+								</page>
+						</notebook>
+	            	</sheet>
+	            	<footer>
+	                    <group class="oe_subtotal_footer oe_right" colspan="1">
+	                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+	                            <label for="total_target_count" />
+	                        </div>
+	                        <field name="total_target_count" nolabel="1" class="oe_subtotal_footer_separator"/>
+	                    </group>	            	
+	            	</footer>
+            	</form>
+	        </field>
+		</record>
+    
+		<record id="view_target_allocation_tree" model="ir.ui.view">
+			<field name="name">view.target.allocation.tree</field>
+			<field name="model">target.allocation</field>
+			<field name="arch" type="xml">
+				<tree string="Target Allocation">
+					<field name="name"/>
+					<field name="academic_year_id"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>    
+    
+		<record id="open_action_target_allocation" model="ir.actions.act_window">
+			<field name="name">Target Allocation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">target.allocation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Target Allocation.
+				</p>
+			</field>
+		</record> 		
+
+    </data>
+</odoo>

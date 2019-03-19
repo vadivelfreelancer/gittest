@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+	
+	<!-- inherit vendor form -->
+	<record id="invoice_supplier_form_tds_tis_inherit" model="ir.ui.view">
+	    <field name="name">account.invoice.supplier.form.tds</field>
+	    <field name="model">account.invoice</field>
+	    <field name="inherit_id" ref="account.invoice_supplier_form"/>
+	    <field name="arch" type="xml">
+	    	<field name="invoice_line_ids" position="after">
+	    		<div class="oe_right">
+	    			<field name="vendor_type" invisible="1"/>
+		    		<label for="tds"/>
+		    		<field name="tds" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		    		<field name="tds_tax_id" attrs="{'invisible':[('tds','=', False)],'readonly': [('state', '!=', 'draft')],
+		    								'required':[('tds','=',True)]}" domain="[('tds','=',True)]" nolabel="1" col="1"/>
+		    		<button name="update_tds" type="object" string="Update" class="oe_highlight" attrs="{'invisible':['|',('tds','=', False),('state', '!=', 'draft')]}"/>
+		    		<button name="clear_tds" type="object" string="Clear" class="oe_link" attrs="{'invisible':['|',('tds','=', False),('state', '!=', 'draft')]}"/>
+	    		</div>
+	    	</field>
+	    	<field name="amount_tax" position="after">
+	    		<field name="total_gross" class="oe_subtotal_footer_separator"/>
+	    		<field name="tds_amt" attrs="{'invisible':[('tds','=', False)]}"/>
+	    	</field>
+	    	<field name="amount_total" position="attributes">
+        		<attribute name="string">Net Total</attribute>
+        	</field>
+		 <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='invoice_line_tax_ids']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+	    </field>
+    </record>
+    
+    
+    <!-- inherit vendor invoice tree -->
+    <record id="invoice_supplier_tree_tis_tds" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.tree.tis.tds</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+        <field name="arch" type="xml">
+        	<field name="amount_total_signed" position="before">
+        		<field name="total_gross"/>
+        	</field>
+        	<field name="amount_total_signed" position="attributes">
+        		<attribute name="string">Net Total</attribute>
+        	</field>
+        </field>
+    </record>
+            
+
+</odoo>

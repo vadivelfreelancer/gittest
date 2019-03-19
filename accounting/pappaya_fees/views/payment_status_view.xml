@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="bank_payment_status_form" model="ir.ui.view">
+			<field name="name">Payment Status Form</field>
+			<field name="model">bank.deposit.clearance</field>
+			<field name="arch" type="xml">
+				<form string="Payment Status" duplicate="0" create="false">
+					<header>
+						 <field name="payment_line_status" widget="statusbar" statusbar_visible="uncleared,cleared" />
+					</header>
+					<sheet>
+                        <group>
+                            <group col="4">
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]"  required="1" class="asterik" readonly="1"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" required="1" class="asterik" readonly="1"/>
+                                <field name="payment_mode_id" required="1" class="asterik" readonly="1"/>
+                            	<field name="confirm_on" readonly="1"/>
+                            	<field name="cleared_date" attrs="{'invisible': [('payment_line_status','not in',['cleared'])]}" readonly="1"/>
+                            </group>
+                        </group>
+                        
+						<!--Cheque-->
+                        <separator string="Payment Details " class="asterik"/>
+                        <!--DD-->
+  <!--                       <separator string="Demand Draft (DD)" attrs="{'invisible': [('payment_mode_id.is_cheque','=',False)],'required': [('payment_mode_id.is_cheque','!=',False)]}" class="asterik"/>
+                        POS
+                        <separator string="PoS" attrs="{'invisible': [('payment_mode_id.is_card','=',False)],'required': [('payment_mode_id.is_card','!=',False)]}" class="asterik"/>
+   -->                      <!--Neft/RTGS-->
+                        <!-- <separator string="Neft/RTGS" attrs="{'invisible': [('payment_mode','not in',['neft/rtgs'])],'required': [('payment_mode','in',['neft/rtgs'])]}" class="asterik"/> -->
+                        <div class="text-right">
+								<button name="confirm_cleared" string="Cleared" attrs="{'invisible': [('payment_line_status','in',['cleared'])]}"
+									type="object" 
+									class="oe_highlight" 
+							    	/>
+							    <button name="confirm_rejected" string="Rejected" attrs="{'invisible': [('payment_line_status','in',['cleared'])]}"
+									type="object" 
+									class="oe_highlight" 
+								    />
+						</div>
+                        <group>
+	                        <field name="status_line_ids" nolabel="1">
+								<tree create="false" editable="bottom" delete="false" open="false">
+	                            	<field name="receipt_id" invisible="1"/>
+	                                <field name="is_select" attrs="{'readonly':[('read_only','=',True)]}"/>
+	                                <field name="receipt_date" readonly="1"/>
+	                                <!-- <field name="name" string="Receipt No" readonly="1"/>
+	                                <field name="grade_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+	                                <field name="enrollment_number" readonly="1"/>
+	                                <field name="student_id" readonly="1" options="{'no_open': True,'no_create':True}"/> -->
+	                                <field name="cheque_dd" readonly="1" string="Ref No"/>
+	                                <field name="payment_mode_id" invisible="1"/>
+	                                <field name="total" readonly="1" string="Paid Amount"/>
+	                                <field name="attachment" filename="file_name" readonly="1"/>
+	                                <field name="file_name" invisible="1"/>
+	                                <field name="remarks" />
+	                                <field name="clear_date" />
+	                                <field name="state" readonly="1"/>
+	                                <field name="read_only" invisible="1"/>
+	                            </tree>
+	                            <form>
+	                            	<field name="receipt_id" invisible="1"/>
+	                                <field name="is_select" attrs="{'readonly':[('read_only','=',True)]}"/>
+	                                <field name="receipt_date" readonly="1"/>
+	                                <!-- <field name="name" string="Receipt No" readonly="1"/>
+	                                <field name="grade_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+	                                <field name="enrollment_number" readonly="1"/>
+	                                <field name="student_id" readonly="1" options="{'no_open': True,'no_create':True}"/> -->
+	                                <field name="cheque_dd" readonly="1" string="Ref No"/>
+	                                <field name="payment_mode_id" invisible="1"/>
+	                                <field name="total" readonly="1" string="Paid Amount"/>
+	                                <field name="attachment" filename="file_name" readonly="1"/>
+	                                <field name="file_name" invisible="1"/>
+	                                <field name="clear_date" invisible="1"/>
+	                                <field name="remarks" />
+	                                <field name="state" readonly="1"/>
+	                                <field name="read_only" invisible="1"/>
+	                            </form>
+	                        </field>
+	                    </group>   
+	                  <group>
+                         <field name="c_bank_id"  options="{'no_open': True,'no_create':True}" readonly="1"/>
+                       </group>
+					<group>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" >
+                                <field name="cleared_amt"/>
+                                <field name="uncleared_amt"/>
+                                <field name="rejected_amt"/>
+                                <field name="total_amt" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remarks" readonly="1"/>
+			            </group>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="payment_status_tree" model="ir.ui.view">
+			<field name="name">Bank Deposit Clearance Tree</field>
+			<field name="model">bank.deposit.clearance</field>
+			<field name="arch" type="xml">
+				<tree create="false" delete="false" default_order='confirm_on desc,id desc' string="Bank Deposit Clearance">
+				    <field name="school_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="payment_mode_id"/>
+                    <field name="payment_line_status"/>
+                    <field name="confirm_on"/>
+                   
+				</tree>
+			</field>
+		</record>
+
+        <record id="payment_status_search_id" model="ir.ui.view">
+			<field name="name">Payment Status Search</field>
+			<field name="model">bank.deposit.clearance</field>
+            <field name="arch" type="xml">
+                <search string="Payment Status">
+                    <field name="school_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="payment_mode_id"/>
+                    <field name="payment_line_status"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Payment Mode" domain="[]" context="{'group_by':'payment_mode_id'}"/>
+                        <filter string="status" domain="[]" context="{'group_by':'payment_line_status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_payment_status_id">
+            <field name="name">Fees Management > Bank Reconciliation > Non Cash Deposit Clear</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bank.deposit.clearance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+				eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('payment_status_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('bank_payment_status_form')})]" />
+        </record>
+		
+		<!--  -->
+		<record id="payment_status_line_tree" model="ir.ui.view">
+			<field name="name">payment.status.line.tree</field>
+			<field name="model">payment.status.line</field>
+			<field name="arch" type="xml">
+				<tree create="false" delete="false" editable="bottom" string="Payment Status Line">
+				    <field name="receipt_id" options="{'no_open': True,'no_create':True}" string="Name" readonly="1"/>
+                    <field name="is_select" invisible="1" attrs="{'readonly':[('read_only','=',True)]}"/>
+                    <field name="receipt_date" readonly="1"/>
+                    <field name="cheque_dd" readonly="1" string="Ref No"/>
+                    <field name="payment_mode_id" invisible="1"/>
+                    <field name="total" readonly="1" string="Paid Amount"/>
+                    <field name="remarks" attrs="{'readonly':[('read_only1','=',True)]}"/>
+                    <field name="reason" invisible="1"/>
+					<field name="cheque_date" readonly="1"/>
+                    <field name="clear_date" attrs="{'readonly':[('read_only1','=',True)]}"/>
+                    <field name="state" readonly="1"/>
+                    <field name="attachment" filename="file_name" widget="binary" readonly="1"/>
+                    <field name="file_name" invisible="1"/>
+                    <field name="read_only" invisible="1"/>
+                    <field name="read_only1" invisible="1"/>
+                    <field name="bank_clearance_id" invisible="1"/>
+                    <button name="confirm_cleared" string="Cleared" attrs="{'invisible': ['|',('state','in',['cleared','rejected'])]}"
+							type="object" class="oe_highlight"
+							groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+									pappaya_base.group_admission_revenue_assistant,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+				    <button name="confirm_rejected" string="Rejected" attrs="{'invisible': ['|',('state','in',['cleared','rejected'])]}"
+						type="object" class="oe_highlight"
+						groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+								pappaya_base.group_admission_revenue_assistant"/>
+				</tree>
+			</field>
+		</record>
+		<record id="payment_status_line_form" model="ir.ui.view">
+			<field name="name">payment.status.line.form</field>
+			<field name="model">payment.status.line</field>
+			<field name="arch" type="xml">
+				<form create="false" delete="false" string="Payment Status Line">
+					<sheet>
+						<group>
+							<field name="receipt_id" invisible="1"/>
+		                    <field name="is_select" attrs="{'readonly':[('read_only','=',True)]}"/>
+		                    <field name="receipt_date" readonly="1"/>
+		                    <!-- <field name="name" string="Receipt No" readonly="1"/>
+		                    <field name="grade_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+		                    <field name="enrollment_number" readonly="1"/>
+		                    <field name="student_id" readonly="1" options="{'no_open': True,'no_create':True}"/> -->
+		                    <field name="cheque_dd" readonly="1" string="Ref No"/>
+		                    <field name="payment_mode_id" invisible="1"/>
+		                    <field name="total" readonly="1" string="Paid Amount"/>
+		                    <field name="attachment" filename="file_name" readonly="1"/>
+		                    <field name="file_name" invisible="1"/>
+		                    <field name="remarks" attrs="{'readonly':[('read_only1','=',True)]}"/>
+		                    <field name="clear_date" attrs="{'readonly':[('read_only1','=',True)]}"/>
+		                    <field name="state" readonly="1"/>
+		                    <field name="read_only1" invisible="1"/>
+		                    <field name="read_only" invisible="1"/>
+						</group>
+						<group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_payment_status_line_view">
+            <field name="name">Non Cash Clearance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payment.status.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+				eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('payment_status_line_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('payment_status_line_form')})]" />
+        </record>
+		<!--  -->
+		
+		<record id="view_pappaya_status_line_search" model="ir.ui.view">
+			<field name="name">payment.status.line_search</field>
+			<field name="model">payment.status.line</field>
+			<field name="type">search</field>
+			<field name="priority" eval="8"/>
+			<field name="arch" type="xml">
+				<search string="Clearance">
+					<field name="receipt_id" string="Student"/>
+					<field name="receipt_date" />
+					<field name="cheque_dd" />
+					<field name="clear_date" />
+					<field name="state"/>
+					<newline/>
+					<group expand="0" string="Group By...">
+                        <filter string="Ref Number" name="cheque_dd" domain="[]" context="{'group_by':'cheque_dd'}"/>
+						<filter string="Receipt Date" name="receipt_date" domain="[]" context="{'group_by':'receipt_date'}"/>
+						<filter string="Clear Date" name="clear_date" domain="[]" context="{'group_by':'clear_date'}"/>
+						<filter string="Payment Mode" name="payment_mode_id" domain="[]" context="{'group_by':'payment_mode_id'}"/>
+						<filter string="Status" name="state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+		
+		
+    </data>
+</odoo>

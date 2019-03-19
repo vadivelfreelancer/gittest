@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_pappaya_division_target_form" model="ir.ui.view">
+            <field name="name">pappaya.division.target.form</field>
+            <field name="model">pappaya.division</field>
+            <field name="inherit_id" ref="pappaya_base.view_pappaya_division_form"/>
+            <field name="arch" type="xml">
+            	<field name="description" position="before">
+            		<field name="mandal_ids_m2m">
+            			<tree editable="bottom">
+            				<field name="name"/>
+                    		<field name="district_id"/>
+            			</tree>
+            		</field>
+            	</field>
+	        </field>
+		</record>
+        </data>
+    </odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="bank_subledger_fy_wizard_wizard_form_view" model="ir.ui.view">
+        <field name="name">Branch Linking to Sub Ledger Form</field>
+        <field name="model">bank.subledger.fy.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group >
+                            <field name="financial_year"/>
+                            <field name="bank"/>
+                    </group>
+                    <field name="branches" string="Branches">
+                        <tree>
+                            <field name="name" string="Branches"/>
+                        </tree>
+                    </field>
+                </sheet>
+                 <footer class="oe_edit_only">
+                    <button special="save" type="object" string="Save" class="oe_highlight"/>
+                    <button string="Discard" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="bank_subledger_fy_wizard_wizard_action" model="ir.actions.act_window">
+        <field name="name">Branch Sub Ledger Mapping</field>
+        <field name="res_model">bank.subledger.fy.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="bank_subledger_fy_wizard_wizard_menu" parent="accounting_main_sub_menu"
+              action="bank_subledger_fy_wizard_wizard_action" name="Branch Bank Mapping" sequence="9"/>
+
+
+</odoo>

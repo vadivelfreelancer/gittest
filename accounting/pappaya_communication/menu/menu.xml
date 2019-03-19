@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+	<menuitem id="menu_communication_root" name="Communication" sequence="100"/>
+	<menuitem id="menu_masters" name="Masters" parent="menu_communication_root" sequence="110"/>
+	
+        <menuitem id="menu_communication_master"
+	    parent="menu_masters"
+	    sequence="10"
+	    name="Communication Master"	
+	    action="act_open_communication_master_view"/>
+
+    </data>
+</odoo>

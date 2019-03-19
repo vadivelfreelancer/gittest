@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+        <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="100"/>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-string='General Settings']/div[@name='integration']/div[1]/div/div" position='replace'>
+                    <div class="text-muted">
+                        Use external pads in Pappaya Notes
+                    </div>
+                </xpath>
+                <xpath expr="//div[@data-string='General Settings']/div[@name='integration']/div[4]/div/div" position='replace'>
+                    <div class="text-muted">
+                        Extract and analyze Pappaya data from Google Spreadsheet
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

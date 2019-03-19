@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pappaya_subject_academic_tree" model="ir.ui.view">
+        <field name="name">pappaya.subject.tree</field>
+        <field name="model">pappaya.subject</field>
+        <field name="arch" type="xml">
+            <tree string="Subject">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pappaya_subject_academic_form" model="ir.ui.view">
+        <field name="name">pappaya.subject.form</field>
+        <field name="model">pappaya.subject</field>
+        <field name="arch" type="xml">
+            <form string="Subject" duplicate="0" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" default_focus="1" required="1"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pappaya_subject_academic_search" model="ir.ui.view">
+        <field name="name">pappaya.subject.search</field>
+        <field name="model">pappaya.subject</field>
+        <field name="arch" type="xml">
+            <search string="Subject">
+                <field name="name" filter_domain="[('name','ilike',self)]"/>
+                <field name="institution_type"/>
+                <separator/>
+                <filter name="institution_type" string="Type" domain="[]" context="{'group_by':'institution_type'}"/>
+                <filter name="institution_type" string="School" domain="[('institution_type','=','school')]"/>
+                <filter name="institution_type" string="College" domain="[('institution_type','=','college')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pappaya_subject_academic" model="ir.actions.act_window">
+        <field name="name">Subject</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pappaya.subject</field>
+        <field name="view_type">form</field>
+        <field name="limit">10</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_pappaya_subject_academic_search"/>
+        <field name="help" type="html">
+            <p subject="oe_view_nocontent_create">
+                Click to add a new Subject.
+            </p>
+        </field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_pappaya_subject_academic_tree">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_pappaya_subject_academic_tree"/>
+        <field name="act_window_id" ref="action_pappaya_subject_academic"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_pappaya_subject_academic_form">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_pappaya_subject_academic_form"/>
+        <field name="act_window_id" ref="action_pappaya_subject_academic"/>
+    </record>
+</odoo>

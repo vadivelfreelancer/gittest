@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <template id="report_loans_advance_policy">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pappaya_hr_recruitment.pappaya_narayana_report_custom_layout">
+                        <div class="page">
+
+                            <style>
+                                th,td,tr {border-collapse:collapse; font-family:Liberation Serif;}
+                                th,td {vertical-align:middle; font-size:16px;}
+                            </style>
+
+                            <div class="row">
+
+                                <div style="text-align:center; width:100%; padding-top:20px; font-size:18px;">
+                                    <u><strong>LOANS and ADVANCES POLICY</strong></u>
+                                </div>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px">
+                                    <tr>
+                                        <td colspan="2" style="padding-top:20px; padding-left:3px;"><u><b>LOANS:</b></u></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px; padding-left:3px;"><u><b>I. Short Term Loan:</b></u></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">1.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The Employee shall have a minimum of ONE year of continued service with the company.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">2.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Eligible employees shall apply by duly filling-up the Short Term Loan application form.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">3.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The rate of Interest shall be @ 9 % per annum.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">4.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The maximum Short Term Loan amount shall be equivalent to two (2) months of the respective employee’s gross salary.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">5.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The loan amount shall be recovered from the respective employee’s salary in a maximum of 6 equal monthly installments.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">6.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            There shall be a minimum six months’ lean period between the completed loan and the new loan.
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px; padding-left:3px;"><u><b>II. Long Term Loan:</b></u></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">1.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The Employee shall have a minimum of TWO years of continued service with the company.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">2.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The eligible employee’s shall apply through Long Term Loan application form.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">3.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The maximum amount shall be equivalent up to five (5) months of the respective employee’s gross salary.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">4.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The rate of Interest shall be @ 12 % per annum.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">5.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The Loan amount shall be recovered from the respective employee’s salary in a maximum of 12 equal monthly installments respectively.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">6.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            There shall be a minimum six months’ lean period between the completed loan and the new loan.
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px; padding-left:3px;">
+                                            <u><b>Procedure for Availing the Loan against salary deduction:</b></u>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">1.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The Employee who intend to avail the loan shall have to forward their Loan application form in the
+                                            prescribed format duly filled in along with two surety signatures through their respective HOD / Principal
+                                            / Dean / DGM / GM.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">2.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            HOD / Principal / Dean / DGM / GM shall scrutinize the same and basing on the genuine reasons for
+                                            seeking loan, he/ she shall forward Loan request to CO/Regional HR along with his/ her remarks for
+                                            further process.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">3.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            HR shall process all the applications received based on eligibility.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">4.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The employee, in case of leaving the organization without settling the loan amount, the outstanding amount due shall be recovered,<br/>
+                                            <span style="padding-left:40px;"/>a. from the employee’s full and final settlement.<br/>
+                                            <span style="padding-left:40px; padding-top:10px;"/>b. In case of any further short fall in the amount to be recovered, the same shall be <br/>
+                                                <span style="padding-left:40px;"/>recovered from both the sureties equally from their respective monthly salary / incentive / <br/>
+                                                <span style="padding-left:40px;"/>full and final settlement or any other benefits due to the employee.<br/>
+                                            <span style="padding-left:40px; padding-top:10px;"/>c. In case the surety / sureties leaves the organization prior to the loan availed employee, the <br/>
+                                                <span style="padding-left:40px;"/>concerned loan availed employee shall need to provide replacement of surety / sureties within <br/>
+                                                <span style="padding-left:40px;"/>seven days from the surety’s resignation from the company.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">5.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            The employee members, in case of normal / accidental death (Not Suicide) while in service, the
+                                            outstanding amount, if any, shall be recovered from the two sureties equally from their
+                                            respective salary / full and final settlement.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">6.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            One employee cannot give surety for more than 2 employees.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">7.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Loan disbursement eligibility will be based on the salaries of 2 two sureties also.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">8.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Pre-closure of loan will be based on monthly proportionate interest calculation. No interest if repaid within one month.
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px; padding-left:3px;"><b>Criteria for Sanctioning of Loans:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">1.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Medical grounds – Self / Family (after exhausting GMC/GPA limits)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">2.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Education – Self, Spouse and or Children
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">3.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Marriage – Self / Children
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">4.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Purchase of Plot / House.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">5.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Purchase of Two / Four Wheeler.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">6.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Purchase of Electronic gadgets.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">7.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Celebration of social functions.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:3px; vertical-align:top;">8.</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; word-spacing:3px;">
+                                            Ceremonies in the house, of specific nature caused due to death of any first line family member.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; padding-top:15px; padding-left:3px; word-spacing:3px;">
+                                            Documents related to the specific reason (mentioned above) need to be attached along with Loan Form.
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px">
+
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px; padding-left:3px;"><u><b>III.ADVANCE</b></u></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px; padding-left:3px;"><b>Salary Advance:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; padding-top:15px; padding-left:3px; word-spacing:3px;">
+                                            Our Organization recognizes that employees may have a “rare or extraordinary need” to receive a salary
+                                            advance for personal reasons, employees are, however, discouraged from the use of salary advances.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:7%; padding-top:15px; padding-left:3px; vertical-align:top; text-align:right;">1.</td>
+                                        <td style="text-align:left; width:93%; padding-top:15px; padding-left:7px; word-spacing:3px;">
+                                            Salary advances are NOT available to employees on unpaid leave or who have applied for or been
+                                            approved for upcoming unpaid leave.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:7%; padding-top:15px; padding-left:3px; vertical-align:top; text-align:right;">2.</td>
+                                        <td style="text-align:left; width:93%; padding-top:15px; padding-left:7px; word-spacing:3px;">
+                                            Salary advances are only available to confirmed permanent employees. Not applicable for
+                                            employees in probation period.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:7%; padding-top:15px; padding-left:3px; vertical-align:top; text-align:right;">3.</td>
+                                        <td style="text-align:left; width:93%; padding-top:15px; padding-left:7px; word-spacing:3px;">
+                                            No more than one advance will be granted to an employee in any financial year (April to March).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:7%; padding-top:15px; padding-left:3px; vertical-align:top; text-align:right;">4.</td>
+                                        <td style="text-align:left; width:93%; padding-top:15px; padding-left:7px; word-spacing:3px;">
+                                            No salary advances to an employee may exceed 50% of the amount of the Net salary.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:7%; padding-top:15px; padding-left:3px; vertical-align:top; text-align:right;">5.</td>
+                                        <td style="text-align:left; width:93%; padding-top:15px; padding-left:7px; word-spacing:3px;">
+                                            Full salary advance amount will be deducted in the coming month.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; padding-top:20px; padding-left:3px; word-spacing:3px;">
+                                            Any benefit arising out of the Difference between the rate of interest charged by the Company and Bank
+                                            Interest will be treated as taxable income and will be taxed as per applicable tax laws.
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+                            <div class="footer">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="col-xs-5 pull-left" style="font-size:12px;">
+                                                <strong>Approved by: </strong> <span t-esc="user.name"/>
+                                            </td>
+                                            <td class="col-xs-4 pull-right" style="font-size:12px;">
+                                                <strong>Effective Date:  </strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y %H:%M:%S')"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-xs-5 pull-left" style="font-size:12px;">
+                                                <strong>Confidential &amp; Only for Internal Circulation.</strong>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+			id="loans_advance_policy_report"
+			model="hr.applicant"
+			string="Loans and Advances Policy"
+			report_type="qweb-pdf"
+			name="pappaya_hr_recruitment.report_loans_advance_policy"
+			file="pappaya_hr_recruitment.report_loans_advance_policy"
+		/>
+
+        <record id="paperformat_loans_advance_policy_report" model="report.paperformat">
+            <field name="name">European A4 - Loans and Advances Policy</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="pappaya_hr_recruitment.loans_advance_policy_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="pappaya_hr_recruitment.paperformat_loans_advance_policy_report"/>
+        </record>
+
+    </data>
+</odoo>

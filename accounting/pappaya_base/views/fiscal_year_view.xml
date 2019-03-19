@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_fiscal_year_tree" model="ir.ui.view">
+        <field name="name">fiscal.year.tree</field>
+        <field name="model">fiscal.year</field>
+        <field name="arch" type="xml">
+            <tree string="Date range" duplicate="false" delete="false">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_fiscal_year_form_view" model="ir.ui.view">
+        <field name="name">fiscal.year.form</field>
+        <field name="model">fiscal.year</field>
+        <field name="arch" type="xml">
+            <form string="Date Range" duplicate="false" delete="false">
+            	<sheet>
+	                <group>
+	                    <group>
+	                    	<field name="name"/>
+	                    </group>
+	                    <group>
+                            <field name="date_start" required="1"/>
+                            <field name="date_end" required="1"/>
+                        	<field name="active"/>
+                        </group>
+	                </group>
+	            </sheet> 
+            </form>
+        </field>
+    </record>
+   
+    <record id="fiscal_year_action" model="ir.actions.act_window">
+        <field name="name">Fiscal Year</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fiscal.year</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_fiscal_year_tree"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to configure Fiscal Year.
+            </p>
+        </field>
+    </record>
+    
+   
+</odoo>

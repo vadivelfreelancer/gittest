@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_paymode_tree" model="ir.ui.view">
+            <field name="name">pappaya.paymode.tree</field>
+            <field name="model">pappaya.paymode</field>
+            <field name="arch" type="xml">
+                <tree string="Paymode">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="academic_year_id" />
+                    <field name="school_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_paymode_form" model="ir.ui.view">
+            <field name="name">pappaya.paymode.form</field>
+            <field name="model">pappaya.paymode</field>
+            <field name="arch" type="xml">
+                <form string="Paymode" duplicate="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" required="1"/>
+                                <field name="description"/>
+                                <field name="active" />
+                                <field name="credit_account_id"
+                                       attrs="{'invisible': [('is_cash','!=',True)], 'required': [('is_cash','=',True)]}"
+                                       options="{'no_open': True,'no_create':True}"/>
+                                <field name="debit_account_id"
+                                       attrs="{'invisible': [('is_cash','!=',True)], 'required': [('is_cash','=',True)]}"
+                                       options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" domain="[('is_active','=',True)]" required="1"/>
+                                <field name="is_cheque"/>
+                                <field name="is_card"/>
+                                <field name="is_cash"/>
+                                <field name="is_challan"/>
+                                <field name="is_paytm" />
+                                <field name="is_dependent" invisible="1"/>
+                                <field name="sequence" invisible="1"/>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_paymode_search" model="ir.ui.view">
+            <field name="name">pappaya.paymode.search</field>
+            <field name="model">pappaya.paymode</field>
+            <field name="arch" type="xml">
+                <search string="Paymode">
+                	<filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_paymode_form" model="ir.actions.act_window">
+            <field name="name">Paymode</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.paymode</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_paymode_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Paymode.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

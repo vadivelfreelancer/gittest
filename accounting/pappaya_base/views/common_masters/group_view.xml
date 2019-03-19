@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="mail.mail_channel_menu_root_chat" model="ir.ui.menu">
+			<field name="groups_id" eval="[(6,0, [ref('pappaya_base.pappaya_group_hidden')])]"/>
+		</record>
+
+		<record id="view_pappaya_group_curriculam_tree" model="ir.ui.view">
+			<field name="name">pappaya.group.curriculam.tree</field>
+			<field name="model">pappaya.group</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Group">
+					<field name="name"/>
+					<field name="course_id" invisible="1"/>
+					<!-- <field name="office_type_id"/> -->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_group_curriculam_form" model="ir.ui.view">
+			<field name="name">pappaya.group.curriculam.form</field>
+			<field name="model">pappaya.group</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Group">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<!-- <field name="office_type_id" options="{'no_open': True,'no_create':True}" required="1"/> -->
+								<field name="course_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+							</group>
+							<group/>
+						</group>
+						<separator string="Description"/>
+                        <field name="description" nolabel="1" style="height:100px !important"/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_group_curriculam_search" model="ir.ui.view">
+			<field name="name">pappaya.group.curriculam.search</field>
+			<field name="model">pappaya.group</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Group">
+					<field name="name" />
+					<field name="course_id"/>
+					<!-- <field name="academic_year" />
+					<field name="zone_id" />
+					<field name="branch_id" />
+					<newline />
+					<group expand="0" string="Group By...">
+                        <filter name="academic_year" string="Academic Year" domain="[]" context="{'group_by':'academic_year'}" />
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter name="zone_id" string="Zone" domain="[]" context="{'group_by':'zone_id'}" />
+                    </group> -->
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_curriculam_group_view">
+			<field name="name">Group</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.group</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_group_curriculam_search"/>
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Group.
+                </p>
+            </field>
+		</record>
+
+	</data>
+</odoo>

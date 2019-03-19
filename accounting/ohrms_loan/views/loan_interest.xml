@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Loan Tree view-->
+    <record id="loan_interest_tree_view" model="ir.ui.view">
+        <field name="name">loan.interest.tree</field>
+        <field name="model">loan.interest</field>
+        <field name="arch" type="xml">
+            <tree string="Loan Interest">
+                <field name="name"/>
+                <field name="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Loan Form view-->
+    <record id="loan_interest_form_view" model="ir.ui.view">
+        <field name="name">loan.interest.form</field>
+        <field name="model">loan.interest</field>
+        <field name="arch" type="xml">
+            <form string="Loan Interest">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="percentage"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_loan_interest" model="ir.actions.act_window">
+        <field name="name">Loan Interest</field>
+        <field name="res_model">loan.interest</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Loan Interest.
+            </p><p>
+                Use this menu to create loan interests.
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Loan Interest"
+        id="menu_base_hr_loan_interest" action="action_loan_interest"
+        parent = "hr.menu_human_resources_configuration"
+        sequence="49"/>
+
+</odoo>

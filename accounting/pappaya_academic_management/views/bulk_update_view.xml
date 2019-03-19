@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="bulk_update_view_form" model="ir.ui.view">
+        <field name="name">result.upload.view.form</field>
+        <field name="model">bulk.update</field>
+        <field name="arch" type="xml">
+            <form string="Lock">
+
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Bulk Update"/>
+                    <group>
+                        <group>
+                            <field name="type"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="from_subbatch" attrs="{'invisible': [('type', '=', 'exam_target')]}"/>
+                            <field name="from_exam" attrs="{'invisible': [('type', '=', 'sub_batch')]}"/>
+
+                        </group>
+                        <group>
+                            <field name="to_subbatch" attrs="{'invisible': [('type', '=', 'exam_target')]}"/>
+                            <field name="to_exam" attrs="{'invisible': [('type', '=', 'sub_batch')]}"/>
+                        </group>
+                    </group>
+
+                    <div style="text-align:center">
+                        <button special="save" class="oe_highlight" string="Upload File"/>
+                    </div>
+
+            </form>
+        </field>
+    </record>
+
+    <!--<record id="bulk_update_view_tree" model="ir.ui.view">-->
+        <!--<field name="name">bulk.update.view.tree</field>-->
+        <!--<field name="model">bulk.update</field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<tree string="Subject Order">-->
+                <!--<field name="academic_year"/>-->
+                <!--<field name="pre_course"/>-->
+            <!--</tree>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <record id="bulk_update_menu_action" model="ir.actions.act_window">
+        <field name="name">Bulk Update</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bulk.update</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="bulk_update_sub_menu"
+      name="Bulk Upload"
+      parent="academic_main_menu"
+      sequence="205"
+      action="bulk_update_menu_action"/>
+
+</odoo>

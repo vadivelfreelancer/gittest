@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="division_batch_view_form" model="ir.ui.view">
+        <field name="name">division.batch.view.form</field>
+        <field name="model">division.view</field>
+        <field name="arch" type="xml">
+            <form string="Division">
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+                    <field name="branch"/>
+                </group>
+                <group string="Division">
+                    <group>
+                        <field name="employee_number"/>
+                        <field name="short_name"/>
+                        <field name="ic_name"/>
+                    </group>
+                    <group>
+                        <field name="name"/>
+                        <field name="mobile_number"/>
+                        <field name="email"/>
+                    </group>
+                </group>
+
+                <field name="division_lines">
+                    <tree editable="bottom" create="false">
+                        <field name="exam_region_number"/>
+                        <field name="name"/>
+                        <field name="short_name"/>
+                        <field name="mobile_number"/>
+                        <field name="employee_number"/>
+                        <field name="ic_name"/>
+                        <field name="email"/>
+                    </tree>
+                </field>
+                <div style="text-align:center;">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.division_single_type_action)d"
+                            context="{'default_academic_year': academic_year,
+                                  'default_institution_type': institution_type,}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="division_batch_view_only_action" model="ir.actions.act_window">
+        <field name="name">Division</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">division.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="division_batch_view_sub_menu"
+          name="Division"
+          parent="academic_main_menu"
+          sequence="182"
+          action="division_batch_view_only_action"/>
+
+</odoo>

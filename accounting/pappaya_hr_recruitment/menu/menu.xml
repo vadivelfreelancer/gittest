@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    
+    
+    	<!-- CORE Menus Changes -->
+    	
+    	
+    	<menuitem
+        name="Recruitment"
+        id="hr_recruitment.menu_hr_recruitment_root"
+        web_icon="hr_recruitment,static/description/icon.png"
+        groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"
+        sequence="80"/>
+
+	    <menuitem
+	        name="All Applications"
+	        parent="hr_recruitment.menu_crm_case_categ0_act_job"
+	        id="hr_recruitment.menu_crm_case_categ_all_app" action="hr_recruitment.crm_case_categ0_act_job" sequence="2" groups="pappaya_base.pappaya_group_hidden"/>
+	
+	    <menuitem id="hr_recruitment.hr_applicant_nmenu_activity"
+	        name="Next Activities"
+	        parent="hr_recruitment.menu_crm_case_categ0_act_job"
+	        action="hr_recruitment.hr_applicant_action_activity"
+	        sequence="20" groups="pappaya_base.pappaya_group_hidden"/>
+	        
+	     <menuitem
+	        id="hr_recruitment.menu_hr_recruitment_stage"
+	        name="Stages"
+	        parent="hr_recruitment.menu_hr_recruitment_configuration"
+	        action="hr_recruitment.hr_recruitment_stage_act"
+	        groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"
+	        sequence="1"/>
+	        
+	     <menuitem id="hr_recruitment.menu_hr_recruitment_global_settings" name="Settings"
+            parent="hr_recruitment.menu_hr_recruitment_configuration" sequence="0" action="hr_recruitment.action_hr_recruitment_configuration"
+            groups="base.group_no_one,pappaya_base.pappaya_group_hidden"/>
+            
+            
+         <menuitem
+            id="hr_recruitment.menu_hr_recruitment_degree"
+            name="Degrees"
+            parent="hr_recruitment.menu_hr_recruitment_configuration"
+            action="hr_recruitment.hr_recruitment_degree_action"
+            sequence="5" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+		<menuitem id="hr_recruitment.menu_hr_recruitment_configuration" name="Configuration" parent="hr_recruitment.menu_hr_recruitment_root"
+        	sequence="100" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+            
+            
+         <menuitem
+	        id="hr_recruitment.menu_hr_recruitment_source"
+	        parent="hr_recruitment.menu_hr_recruitment_configuration"
+	        action="hr_recruitment.hr_recruitment_source_action"
+	        groups="pappaya_hr.pappaya_group_invisible"
+	        sequence="10"/>
+            
+         <menuitem
+	        id="hr_recruitment_act_open_recruitment_document_view_menu"
+	        parent="hr_recruitment.menu_hr_recruitment_configuration"
+	        action="act_open_recruitment_document_view"
+	        groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"
+	        sequence="14"/>
+
+    	
+    	<!--  -->
+    	
+    	<!-- <menuitem id="menu_act_open_manpower_wrf_view" name="Manpower WRF"
+            parent="hr_recruitment.menu_hr_recruitment_root" sequence="-20" action="act_open_manpower_wrf_view" groups="pappaya_base.hr_payroll_hr_and_admin"/>
+    	
+    	<menuitem id="menu_aact_open_department_wrf_view" name="Department WRF"
+            parent="hr_recruitment.menu_hr_recruitment_root" sequence="-15" action="act_open_department_wrf_view" groups="pappaya_base.hr_payroll_hr_and_admin"/> -->
+    	
+    	<menuitem id="menu_act_open_requisition_form_view" name="Requisition Form" parent="hr_recruitment.menu_hr_recruitment_root" sequence="-10"
+				  action="act_open_requisition_form_view" groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+    	
+        <!-- <menuitem parent="hr_recruitment.menu_hr_recruitment_root" id="hr_recruitment.menu_hr_job_position" action="pappaya_action_hr_job_inherit_hr_recruitment" sequence="-5" groups="pappaya_base.pappaya_group_hidden"/> -->
+       <menuitem parent="hr_recruitment.menu_hr_recruitment_root" id="hr_recruitment.menu_hr_job_position" action="hr_recruitment.action_hr_job" sequence="1" groups="pappaya_base.pappaya_group_hidden"/>
+       
+       
+       	<menuitem id="menu_pappaya_hr_job_description" name="Job Description" parent="hr_recruitment.menu_hr_recruitment_root" action="pappaya_hr_job_description_action_view"
+				  sequence="-4" groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+       	<menuitem id="menu_pappaya_jobs_form_crm_case_form_view_job" parent="hr_recruitment.menu_hr_recruitment_root" action="pappaya_jobs_form_crm_case_form_view_job_action"
+				  sequence="-1" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+       
+		<menuitem id="menu_screening_process" parent="hr_recruitment.menu_hr_recruitment_root" action="action_open_screening_process_view"
+				  sequence="1" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+		<menuitem name="Applications" parent="hr_recruitment.menu_hr_recruitment_root" id="hr_recruitment.menu_crm_case_categ0_act_job" action="crm_case_categ0_act_job_pappaya"
+				  sequence="2" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+		<menuitem name="Applicant Attachments" parent="hr_recruitment.menu_hr_recruitment_root" id="menu_applicant_attachment" action="action_open_applicant_attachment_view"
+				  sequence="2" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+		<menuitem name="Resumes and Letters" parent="hr_recruitment.menu_hr_recruitment_root" id="hr_recruitment.menu_crm_case_categ0_act_job02" action="hr_recruitment.hr_applicant_resumes"
+				  sequence="3" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+        <menuitem id="menu_budget_hr" parent="hr_recruitment.menu_hr_recruitment_configuration" action="action_open_budget_hr_view"
+				  sequence="-4" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+        <menuitem id="menu_number_students" parent="hr_recruitment.menu_hr_recruitment_configuration" action="action_open_pappaya_number_students_view"
+				  sequence="-6" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+        <menuitem id="menu_work_hours_subject" parent="hr_recruitment.menu_hr_recruitment_configuration" action="action_open_work_hours_subject_view"
+				  sequence="-5" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+		<menuitem id="menu_number_hours_subject" parent="hr_recruitment.menu_hr_recruitment_configuration" action="action_open_number_hours_subject_view"
+				  sequence="-5" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+    </data>
+</odoo>

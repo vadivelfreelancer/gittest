@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!--Building Group Update-->
+
+		<record id="view_building_group_update_tree" model="ir.ui.view">
+			<field name="name">Building Group Tree</field>
+			<field name="model">building.group.update</field>
+			<field name="arch" type="xml">
+				<tree string="Building Group">
+					<field name="branch_id"/>
+					<field name="building_id"/>
+					<field name="apex_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_building_group_update_form" model="ir.ui.view">
+			<field name="name">Building Group Form</field>
+			<field name="model">building.group.update</field>
+			<field name="arch" type="xml">
+				<form string="Building Group">
+					<sheet>
+						<group>
+                           <field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+                           <field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+                           <field name="apex_id" domain="[('type','=','entity')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+                         </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_pappaya_building_group_view">
+			<field name="name">Building Group Update</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">building.group.update</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+    </data>
+</odoo>

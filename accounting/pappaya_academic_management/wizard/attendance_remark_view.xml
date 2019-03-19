@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="attendance_remark_form_view" model="ir.ui.view">
+        <field name="name">attendance.remark.form.view</field>
+        <field name="model">attendance.remark</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="academic_year"/>
+                    </group>
+                    <group>
+                        <field name="institution_type"/>
+                    </group>
+                </group>
+                <separator string="Attendance Remark(Single Mode)"/>
+                <field name="attendance_remark_line">
+                    <tree editable="bottom">
+                        <field name="attendance_remark"/>
+                        <field name="remark_code"/>
+                    </tree>
+                </field>
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.attendance_remark_single_action)d"/>
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left:10px"
+                            name="%(pappaya_academic_management.attendance_remark_batch_mode_action)d"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_remark_tree_view" model="ir.ui.view">
+        <field name="name">attendance.remark.tree.view</field>
+        <field name="model">attendance.remark</field>
+        <field name="arch" type="xml">
+            <tree string="Previous Courses">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="attendance_remark_menu_action" model="ir.actions.act_window">
+        <field name="name">Attendance Remark</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.remark</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="attendance_remark_sub_menu"
+              name="Attendance Remark"
+              parent="pappaya_academic_management.attendance_sub_menu"
+              sequence="6"
+              action="attendance_remark_menu_action"/>
+
+
+</odoo>

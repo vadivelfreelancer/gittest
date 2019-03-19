@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	
+	<!-- <record id="hr_payslip_run_form_inherit_pappaya" model="ir.ui.view">
+		<field name="name">hr.employee.inherit.tree.pappaya</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='close_payslip_run']" position="attributes">
+			    <attribute name="string">Confirm</attribute>
+			</xpath>
+		</field>
+	</record> -->
+	
+	
+
+    <!-- <record id="view_hr_payslip_run_inherit_form_inherit_account" model="ir.ui.view">
+        <field name="name">view_hr_payslip_run_inherit.form.inherit.account</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll_account.hr_payslip_run_form_inherit"/>
+        <field name="arch" type="xml">
+                <field name="journal_id" position="replace">
+                	<field name="journal_id" required="0"/>
+                </field>
+        </field>
+    </record> -->
+
+    <!-- <record model="ir.ui.view" id="view_view_hr_contract_form_inheritance_pappaya">
+        <field name="name">hr.contract.form.form.view.inheritance</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+        <field name="arch" type="xml">
+            <field name="struct_id" position="replace">
+                <field name="struct_id" domain="[('company_id','=',company_id)]" required="1" options="{'no_open': True,'no_create':True}"/>
+            </field>
+        </field>
+    </record> -->
+	
+	<!-- <record id="hr_kanban_view_employees_inherit_kanban_pappaya" model="ir.ui.view">
+		<field name="name">hr.employee.inherit.kanban.pappaya</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.hr_kanban_view_employees" />
+		<field name="arch" type="xml">
+			<xpath expr="//span[@class='o_kanban_record_subtitle']" position="before">
+                <span class="o_kanban_record_subtitle"><field name="emp_no"/></span>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_employee_tree_inherit_kanban_pappaya" model="ir.ui.view">
+		<field name="name">hr.employee.inherit.tree.pappaya</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_tree" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="emp_no"/>
+			</xpath>
+			<xpath expr="//field[@name='coach_id']" position="attributes">
+			    <attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="hr.view_employee_tree" model="ir.ui.view">
+        <field name="name">hr.employee.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <tree string="Employees" decoration-bf="message_needaction==True">
+                <field name="name"/>
+                <field name="work_email"/>
+                <field name="work_phone"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="parent_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="coach_id" invisible="1"/>
+                <field name="message_needaction" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="hr_contract.hr_hr_employee_view_form2" model="ir.ui.view">
+            <field name="name">hr.hr.employee.view.form2</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                	Beginning  - User Creation from Employee 
+                	
+                	<field name="work_email" position="after">
+		                <field name="user_check_tick" invisible="1"/>
+		            </field>
+		            <xpath expr="//form/sheet" position="before">
+		                <header>
+		                    <button name="create_user" string="Create User" type="object" class="oe_highlight"
+		                            attrs="{'invisible': [('user_check_tick', '=', True)]}"/>
+		                </header>
+		            </xpath>
+		            <field name="work_email" position="attributes">
+		                <attribute name="required">1</attribute>
+		            </field>
+            		End  - User Creation from Employee
+                    <xpath expr="//button[@name='toggle_active']" position="before">
+                        <button name="%(hr_contract.act_hr_employee_2_hr_contract)d"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            type="action"
+                            groups="hr.group_hr_manager">
+                            <field name="contracts_count" widget="statinfo" string="Contracts"/>
+                        </button>
+                    </xpath>
+                    <xpath expr="//field[@name='coach_id']" position="after">
+                        <field name="manager"/>
+                    </xpath>
+                    <xpath expr="//group[@name='active_group']" position="after">
+                        <group string="Current Contract">
+                            <field name="medic_exam" string="Medical Exam"/>
+                            <field name="vehicle"/>
+                            <field name="vehicle_distance"/>
+                        </group>
+                    </xpath>
+                    <xpath expr="//field[@name='marital']" position="after">
+                        <field name="children"/>
+                    </xpath>
+                    <xpath expr="//field[@name='birthday']" position="after">
+                        <field name="place_of_birth"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        
+    <record id="hr_attendance.view_employee_form_inherit_hr_attendance" model="ir.ui.view">
+        <field name="name">hr.employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority">10</field>
+        <field name="groups_id" eval="[(4,ref('hr_attendance.group_hr_attendance_user'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="before">
+                <field name="attendance_state" invisible="1"/>
+                <button name="%(hr_attendance.hr_attendance_action_employee)d"
+                    class="oe_stat_button"
+                    type="action" attrs="{'invisible': [('attendance_state', '=', False)]}">
+                    <div id="oe_hr_attendance_status" class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_green" attrs="{'invisible': [('attendance_state', '=', 'checked_out')]}"/>
+                    <div id="oe_hr_attendance_status" class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_red" attrs="{'invisible': [('attendance_state', '=', 'checked_in')]}"/>
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Attendance</span>
+                    </div>
+                </button>
+            </xpath> -->
+	            <!-- <xpath expr="//group[@name='active_group']" position="after">
+	                <group string='Attendance' groups="hr_attendance.group_hr_attendance_user">
+	                    <field name="barcode"/>
+	                    <field name="pin" groups="hr_attendance.group_hr_attendance_use_pin"/>
+	                    <field name="manual_attendance" attrs="{'invisible': [('user_id', '=', False)]}"/>
+	                </group>
+	            </xpath> 
+        </field>
+    </record>-->
+
+	<!-- Hr employee inherit Legal Leaves -->
+    <!-- <record id="hr_holidays.view_employee_form_leave_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.leave.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='active_group']" position="before">
+                <group string="Leaves" groups="base.group_no_one">
+                    <label for="remaining_leaves"/>
+                    <div>
+                        <field name="remaining_leaves" class="oe_inline"/> days
+                    </div>
+                </group>
+            </xpath>
+            <button name="toggle_active" position="before">
+                <field name="show_leaves" invisible="1"/>
+                <button name="%(hr_holidays.act_hr_employee_holiday_request)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-calendar"
+                        attrs="{'invisible': [('show_leaves','=', False)]}"
+                        groups="base.group_user"
+                        help="Remaining leaves">
+                    <field string="Leaves Left" name="leaves_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+	
+	<record id="view_hr_employee_inherit_form" model="ir.ui.view">
+		<field name="name">hr.employee.inherit.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form" />
+		<field name="arch" type="xml">
+		
+			<xpath expr="//field[@name='coach_id']" position="attributes">
+			    <attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='coach_id']" position="after">
+			    <field name="doj" string="Date Of Joining" required="1"/>
+			    <field name="join_trans_date" />
+			</xpath>
+			<xpath expr="//field[@name='user_id']" position="after">
+			    <field name="dor" string="Date Of Relieving" />
+			    <field name="no_of_yrs"/>
+			</xpath>
+			<xpath expr="//field[@name='address_id']" position="before">
+			    <field name="emp_no" required="1" invisible="1"/>
+			    <field name="emp_no_duplicate" readonly="1" />
+			</xpath>
+			<xpath expr="//field[@name='bank_account_id']" position="replace">
+                <field name="bank_account_id" context="{'display_partner':True}" domain="[('emp_no','=',emp_no)]"/>
+            </xpath>
+            <xpath expr="//field[@name='bank_account_id']" position="before">
+            	<field name="religion" />
+            </xpath>
+			<xpath expr="//page[@name='personal_information']" position="attributes">
+			    <attribute name="string">Personal Information</attribute>
+			</xpath>
+			<xpath expr="//field[@name='birthday']" position="after">
+			    <field name="age" readonly="1"/>
+			</xpath>
+			<xpath expr="//field[@name='country_id']" position="before">
+			    <field name="aadhar_no" invisible="1" />
+			</xpath>
+			<xpath expr="//group[@name='active_group']" position="after">
+				<group string="Other Information" invisible="1">
+					<field name="bank_account_id" context="{'default_partner_id': address_home_id}"/>
+					<field name="pan_no" />
+					<field name="pf_no" />
+					<field name="esi_no" />
+					<field name="uan_no" />
+					<field name="apex" />
+					<field name="pbranchslno" />
+					<field name="account_no"/>
+					<field name="pfstatus" />
+					<field name="estatus" />
+				</group>
+			</xpath>
+			<xpath expr="//notebook/page/group/group[@name='work_permit']" position="replace">
+				<group string="Other Information">
+					<field name="ispf" />
+					<field name="biometric_no" />
+					<field name="education" invisible="1"/>
+					<field name="code" />
+				</group>
+			</xpath>
+			<xpath expr="//notebook/page[1]" position="after">
+				<page string="Qualification">
+					<group>
+						<field name="qualification_ids">
+							<tree>
+								<field name="degree" />
+								<field name="year_of_completion" />
+								<field name="institute_of_study" />
+								<field name="university" />
+							</tree>
+							<form>
+								<sheet>
+									<group>
+										<group>
+											<field name="degree" />
+											<field name="year_of_completion" />
+											<field name="institute_of_study" />
+											<field name="university" />
+										</group>
+										<group>
+											<label for="attachments" />
+											<div>
+												<field name="attachments" widget="many2many_binary"
+													string="Upload" class="oe_inline" />
+											</div>
+										</group>
+									</group>
+								</sheet>
+							</form>
+						</field>
+					</group>
+				</page>
+				<page string="Experience Details">
+					<group>
+						<field name="experience_ids">
+							<tree>
+								<field name="company_name" />
+								<field name="designation" />
+								<field name="start_date" />
+								<field name="end_date" />
+							</tree>
+							<form>
+								<sheet>
+									<group>
+										<group>
+											<field name="company_name" />
+											<field name="designation" />
+											<field name="start_date" />
+											<field name="end_date" />
+										</group>
+										<group>
+											<label for="attachments" />
+											<div>
+												<field name="attachments" widget="many2many_binary"
+													string="Upload" class="oe_inline" />
+											</div>
+											<field name="description" />
+										</group>
+									</group>
+								</sheet>
+							</form>
+						</field>
+					</group>
+				</page>
+			</xpath>
+		</field>
+	</record> -->
+	
+</odoo>

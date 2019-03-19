@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="previous_course_form_view" model="ir.ui.view">
+        <field name="name">previous.course.form.view</field>
+        <field name="model">previous.course</field>
+        <field name="arch" type="xml">
+            <form string="Previous Course">
+                <header>
+                    <button name="%(pappaya_academic_management.batch_previous_course_addition_action)d"
+                            context="{'default_course_id': active_id,
+                            'default_academic_year': academic_year, 'default_institution_type': institution_type}"
+                            string="Batch Mode" class="oe_highlight" type="action"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Previous Courses"/>
+                    <field name="previous_courses">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="is_external"/>
+                            <field name="result_entry"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="previous_course_tree_view" model="ir.ui.view">
+        <field name="name">previous.course.tree.view</field>
+        <field name="model">previous.course</field>
+        <field name="arch" type="xml">
+            <tree string="Previous Courses">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="previous_course_menu_action" model="ir.actions.act_window">
+        <field name="name">Previous Courses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">previous.course</field>
+        <field name="view_mode">tree,form</field>
+        <!--        <field name="target">new</field>-->
+    </record>
+</odoo>

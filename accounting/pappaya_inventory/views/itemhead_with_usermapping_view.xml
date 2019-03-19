@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_itemhead_with_usermapping_tree" model="ir.ui.view">
+			<field name="name">item.head.user.mapping.tree</field>
+			<field name="model">item.head.user.mapping</field>
+			<field name="arch" type="xml">
+				<tree string="Item Head Mapping To User">
+					<field name="item_head"/>
+					<field name="user_category"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_itemhead_with_usermapping_form" model="ir.ui.view">
+			<field name="name">item.head.user.mapping.form</field>
+			<field name="model">item.head.user.mapping</field>
+			<field name="arch" type="xml">
+				<form string="Item Head Mapping To User">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="item_head" required="1"/>
+								<field name="user_category" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+				</form>
+			</field>
+		</record>
+
+         <record id="view_itemhead_with_usermapping_search" model="ir.ui.view">
+			<field name="name">item.head.user.mapping.search</field>
+			<field name="model">item.head.user.mapping</field>
+			<field name="arch" type="xml">
+				<search string="Item Head Mapping To User">
+					<field name="item_head"/>
+					<field name="user_category"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action__itemhead_with_usermapping_view" model="ir.actions.act_window">
+			<field name="name">Item Head Mapping To User</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">item.head.user.mapping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_itemhead_with_usermapping_search"/>
+		</record>
+	</data>
+</odoo>

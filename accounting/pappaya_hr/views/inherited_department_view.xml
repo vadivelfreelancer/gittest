@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- hr.department -->
+		<record id="pappaya_hr_view_department_form" model="ir.ui.view">
+			<field name="name">hr.department.form</field>
+			<field name="model">hr.department</field>
+			<field name="inherit_id" ref="hr.view_department_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//group[1]" position="replace">
+					<group col="4">
+						<field name="name" string="Department Name" required="1"/>
+						<field name="code" required="0" />
+						<field name="company_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+		
+        <!--<record id="view_department_tree_inherit" model="ir.ui.view">-->
+            <!--<field name="name">hr.department.tree.inherit</field>-->
+            <!--<field name="model">hr.department</field>-->
+            <!--<field name="inherit_id" ref="hr.view_department_tree"/>-->
+            <!--<field name="arch" type="xml">-->
+            	<!--<field name="display_name" position="before">-->
+            		<!--<field name="record_id"/>-->
+            	<!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+
+		<record id="hr_view_department_tree" model="ir.ui.view">
+            <field name="name">hr.department.tree</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_tree"/>
+            <field name="arch" type="xml">
+	           	 <field name="display_name" position="replace">
+	           	     <field name="name" string="Department"/>
+					 <field name="code"/>
+	           	 </field>
+	           	 <field name="parent_id" position="replace"/>
+				 <field name="manager_id" position="replace"/>
+	           	 <field name="company_id" position="replace"/>
+            </field>
+        </record>
+        
+        <record id="hr.open_module_tree_department" model="ir.actions.act_window">
+            <field name="name">Department</field>
+            <field name="res_model">hr.department</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="hr.view_department_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a department.
+              </p><p>
+                Narayana's department structure is used to manage all documents
+                related to employees by departments: expenses, timesheets,
+                leaves, recruitments, etc.
+              </p>
+            </field>
+        </record>
+        
+
+	</data>
+</odoo>

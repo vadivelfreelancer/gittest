@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="attendance_range_view_form" model="ir.ui.view">
+        <field name="name">attendance.range.view.form</field>
+        <field name="model">attendance.range</field>
+        <field name="arch" type="xml">
+            <form string="Subject Order">
+
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Attendance Range Master"/>
+                    <field name="attendance_range_lines">
+                        <tree editable="bottom">
+                            <field name="range_from"/>
+                            <field name="range_to"/>
+                            <field name="is_active"/>
+                        </tree>
+                    </field>
+                    <div style="text-align:center;">
+                        <button special="save" class="oe_highlight" style="margin-right:25px;" string="Save"/>
+                        <button special="cancel" class="oe_highlight" string="Cancel"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_range_view_tree" model="ir.ui.view">
+        <field name="name">attendance.range.view.tree</field>
+        <field name="model">attendance.range</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Range Master">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="attendance_range_menu_action" model="ir.actions.act_window">
+        <field name="name">Attendance Range Master</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.range</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="attendance_range_sub_menu"
+              name="Attendance Range Entry"
+              parent="pappaya_academic_management.attendance_sub_menu"
+              sequence="3"
+              action="attendance_range_menu_action"/>
+
+</odoo>

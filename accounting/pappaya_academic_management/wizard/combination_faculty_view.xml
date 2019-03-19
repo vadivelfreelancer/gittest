@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="combination_faculty_view_form" model="ir.ui.view">
+        <field name="name">combination.faculty.view.form</field>
+        <field name="model">combination.faculty.view</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group col="4">
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Combination Wise Faculty Details"/>
+                    <group col="2">
+                        <group>
+                            <field name="combination"/>
+                            <field name="exam_branch"/>
+                            <field name="subject"/>
+                        </group>
+                        <group>
+                            <button string="Go" class="oe_highlight" type="action" name="course_group_batch_go"/>
+                        </group>
+                    </group>
+
+                    <field name="combination_faculty_lines">
+                        <tree editable="bottom" create="false">
+                            <field name="combination"/>
+                            <field name="branch"/>
+                            <field name="course"/>
+                            <field name="employee_name"/>
+                            <field name="subject"/>
+                            <field name="sub_batch"/>
+                            <field name="status"/>
+                            <field name="description"/>
+
+                        </tree>
+                    </field>
+
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.combination_faculty_single_action)d"
+                            context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="combination_faculty_view_only_action" model="ir.actions.act_window">
+        <field name="name">Combination Wise Faculty Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">combination.faculty.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+        <menuitem id="combination_faculty_view_sub_menu"
+              name="Combination Faculty"
+              parent="academic_main_menu"
+              sequence="195"
+              action="combination_faculty_view_only_action"/>
+
+</odoo>

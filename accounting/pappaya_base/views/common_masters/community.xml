@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="pappaya_community_tree_view">
+            <field name="name">pappaya.community.tree</field>
+            <field name="model">pappaya.community</field>
+            <field name="arch" type="xml">
+                <tree string="Community">
+                    <field name="name" />
+                    <field name="community_code" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="pappaya_community_form_view">
+            <field name="name">pappaya.community.form</field>
+            <field name="model">pappaya.community</field>
+            <field name="arch" type="xml">
+                <form string="Community">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="community_code"/>
+                            </group>
+                            <group/>
+                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pappaya_community_action">
+           <field name="name">Community</field>
+           <field name="type">ir.actions.act_window</field>
+           <field name="res_model">pappaya.community</field>
+           <field name="view_type">form</field>
+           <field name="view_mode">tree,form</field>
+           <field name="help" type="html">
+               <p class="oe_view_nocontent_create">
+                    Click to configure a new Community.
+                </p>
+            </field>
+        </record>   
+
+    </data>
+</odoo>

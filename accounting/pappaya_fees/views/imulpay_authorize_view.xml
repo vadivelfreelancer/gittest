@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_imulpay_authorize_tree" model="ir.ui.view">
+            <field name="name">pappaya.imulpay.authorize.tree</field>
+            <field name="model">pappaya.imulpay.authorize</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="iMulPay Authorize" delete="false" duplicate="0">
+                    <field name="name"/>
+                    <field name="entity_id" options="{'no_open':True,'no_create':True}"/>
+                    <field name="account_id" options="{'no_open':True,'no_create':True}"/>
+                    <field name="total_amount"/>
+                    <field name="transaction_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_imulpay_authorize_form" model="ir.ui.view">
+            <field name="name">pappaya.imulpay.authorize.form</field>
+            <field name="model">pappaya.imulpay.authorize</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="iMulPay Authorize" delete="false" duplicate="0">
+                    <header>
+                        <button string="Request" states="draft" type="object" name="action_request"
+                            groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head, pappaya_base.group_admission_revenue_operation_assistant"/>
+
+                        <button string="Approve" states="request" type="object" name="action_approve" groups="pappaya_base.group_admission_admin"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,request,authorize"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="entity_id" domain="[('type','=','entity')]"
+                                       options="{'no_open': True,'no_create':True}" required="1"
+                                       attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                                <field name="branch_ids" options="{'no_open': True,'no_create':True}" required="1"
+                                       widget="many2many_tags" attrs="{'readonly': [('state','!=', 'draft')]}"
+                                       domain="[('parent_id', '=', entity_id),('type','=','branch'), ('parent_id', '!=', False)]"
+                                />
+                                <field name="refund_type" required="1" attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="transaction_date" required="1"
+                                       attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                                <field name="account_id" attrs="{'readonly': [('state','!=', 'draft')]}"
+                                       options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="total_amount"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}"
+                                       invisible="1"/>
+                                <field name="is_update" invisible="1"/>
+                            </group>
+                        </group>
+                        <separator/>
+                        <button name="get_refund_students" type="object" string="Get Refund" class="oe_highlight"
+                                attrs="{'invisible':[('is_update','=',True)]}"/>
+                        <group>
+                            <field name="authorize_line_ids" nolabel="1" create="false" edit="false" delete="false">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="admission_no"/>
+                                    <field name="student_id"/>
+                                    <field name="father_name"/>
+                                    <field name="account_number"/>
+                                    <field name="bank_name"/>
+                                    <field name="ifsc_no"/>
+                                    <field name="refund_amount"/>
+                                    <field name="branch_id"/>
+                                    <field name="academic_year_id" invisible="1"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_pappaya_imulpay_authorize_search" model="ir.ui.view">
+            <field name="name">pappaya.imulpay.authorize.search</field>
+            <field name="model">pappaya.imulpay.authorize</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="iMulPay Authorize">
+                    <field name="name"/>
+                    <field name="entity_id"/>
+                    <field name="account_id"/>
+                    <field name="transaction_date"/>
+                    <separator/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Entity" name="entity_id" domain="[]" context="{'group_by':'entity_id'}"/>
+                        <filter string="A/C No" name="account_id" domain="[]"
+                                context="{'group_by':'account_id'}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_pappaya_imulpay_authorize_view">
+            <field name="name">iMulPay Authorize</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.imulpay.authorize</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_imulpay_authorize_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+
+    </data>
+</odoo>

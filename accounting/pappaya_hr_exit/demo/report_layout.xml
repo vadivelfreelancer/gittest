@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <template id="pappaya_narayana_report_custom_header_layout">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-12" style="text-align:center; padding-top:20px">
+                        <img t-attf-src="/pappaya_hr_exit/static/description/nspira_logo.png" style="max-height: 350px; max-width: 200px;"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="pappaya_narayana_report_custom_footer_layout">
+            <div class="footer">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-2 pull-center" style="font-size:12px;text-align:center;">
+                                <strong>10th Floor, Melange Towers, No. 80-84, Patrika Nagar, Hitech City, Madhapur, Hyderabad – 500 081.</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-xs-2 pull-center" style="font-size:12px;text-align:center;">
+								<strong>		Web: www.nspira.in  Phone: 040 - 45009999.</strong> 
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </template>
+
+        <template id="pappaya_narayana_report_custom_layout">
+         <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+            <div class="article">
+                <t t-call="pappaya_hr_exit.pappaya_narayana_report_custom_header_layout"/>
+                <t t-raw="0"/>
+                <t t-call="pappaya_hr_exit.pappaya_narayana_report_custom_footer_layout"/>
+            </div>
+        </template>
+
+    </data>
+</odoo>

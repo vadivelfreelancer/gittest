@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="exam_course_batch_view_view_form" model="ir.ui.view">
+        <field name="name">exam.course.batch.view.form</field>
+        <field name="model">exam.course.view</field>
+        <field name="arch" type="xml">
+            <form string="Exam Course">
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+                </group>
+                <group string="Exam Course">
+                    <group>
+                        <field name="exam_type"/>
+                    </group>
+                </group>
+
+                <field name="exam_course_lines">
+                    <tree editable="bottom" create="false">
+                        <field name="name"/>
+                        <field name="description"/>
+                    </tree>
+                </field>
+                <div style="text-align:center;">
+                    <button string="Add" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.exam_course_single_mode_action)d"
+                            context="{'default_academic_year': academic_year,
+                                  'default_institution_type': institution_type,
+                                  'default_exam_type':exam_type}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="exam_course_batch_view_only_action" model="ir.actions.act_window">
+        <field name="name">Exam Course</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.course.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+        <menuitem id="exam_course_batch_view_sub_menu"
+              name="Exam Course"
+              parent="academic_main_menu"
+              sequence="120"
+              action="exam_course_batch_view_only_action"/>
+
+</odoo>

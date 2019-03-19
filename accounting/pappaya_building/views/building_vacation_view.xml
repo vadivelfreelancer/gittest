@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		
+        
+        <record id="view_building_vacation_tree" model="ir.ui.view">
+			<field name="name">building.vacation.tree</field>
+			<field name="model">building.vacation</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Building Vacation/Shutdown">
+				    <field name="name" />
+					<field name="apex_id"/>
+                    <field name="branch_id"/>
+                    <field name="building_id"/>
+                    <field name="owner_id"/>
+                    <field name="type"/>
+                    <field name="date"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_building_vacation_form" model="ir.ui.view">
+			<field name="name">building.vacation.form</field>
+			<field name="model">building.vacation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Building Vacation/Shutdown">
+					<header>
+						<button name="act_proposal" states="draft" type="object" string="Proposal" class="oe_highlight"/>
+						<button name="act_approval" states="proposed" type="object" string="Approval" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,proposed,approved"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+                       		<h1>
+                           		<strong><field name="name" readonly="1"/></strong>
+                       		</h1>
+                        </div>
+						<group colspan="4" col="4">
+							<field name="apex_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="branch_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="building_id" required="1" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="owner_id" required="1" domain="[('building_id','=',building_id)]" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="type" widget="radio" required="1"/>
+                            <field name="date" required="1"/>
+                            <field name="transactions"/>
+                            <field name="narration"/>
+						</group>
+						<group colspan="4" col="4">
+						<field name="from_month" required="1"/>
+						<field name="from_year" required="1" nolabel="1"/>
+						</group>
+						<div align="center">
+						<button name="search_building_vacation" type="object" string="Search" class="oe_highlight"/>
+						</div>
+						<separator string="" />
+						<field name="building_vacation_ids" />
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_building_vacation_search" model="ir.ui.view">
+			<field name="name">building.vacation.search</field>
+			<field name="model">building.vacation</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Building Vacation/Shutdown">
+					<field name="apex_id"/>
+                    <field name="branch_id"/>
+                    <field name="building_id"/>
+                    <field name="owner_id"/>
+					<field name="state"/>
+				</search>
+			</field>
+		</record>
+		
+		<record id="view_building_vacation_line_tree" model="ir.ui.view">
+			<field name="name">Building Vacation Line Tree</field>
+			<field name="model">building.vacation.line</field>
+			<field name="arch" type="xml">
+				<tree editable="bottom">
+				    <field name="sno" />
+				    <field name="owner_name"/>
+                    <field name="paid_amt"/>
+					<field name="outstanding_amt"/>
+					<field name="adjust_amt" />
+					<field name="tds_amt"/>
+					<field name="building_vacation_id" invisible="1" />
+					<field name="owner_id" invisible="1" />
+					<field name="total_amt" invisible="1" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_building_vacation_view">
+			<field name="name">Building Vacation/Shutdown</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">building.vacation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_building_vacation_search"/>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_open_building_vacation_line_view">
+			<field name="name">Building Vacation Line</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">building.vacation.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</odoo>

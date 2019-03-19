@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_bank_machine_tree" model="ir.ui.view">
+			<field name="name">bank.machine.tree</field>
+			<field name="model">bank.machine</field>
+			<field name="arch" type="xml">
+				<tree string="Bank Machine">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_bank_machine_form" model="ir.ui.view">
+			<field name="name">bank.machine.form</field>
+			<field name="model">bank.machine</field>
+			<field name="arch" type="xml">
+				<form string="Bank Machine" delete="false" duplicate="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1"/>
+								<field name="bank_machine_type_id" required="1" domain="[('type','=','bank_machine_type')]" context="{'master_type':'others','individual_master_type':'bank_machine_type'}" options="{'no_open': True,'no_create':True}"/>
+                        	</group>
+                        	<group>
+								<field name="description"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_bank_machine_search" model="ir.ui.view">
+            <field name="name">bank.machine.search</field>
+            <field name="model">bank.machine</field>
+            <field name="arch" type="xml">
+                <search string="Bank Machine">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_bank_machine_view" model="ir.actions.act_window">
+			<field name="name">Bank Machine</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">bank.machine</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_bank_machine_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Bank Machine.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

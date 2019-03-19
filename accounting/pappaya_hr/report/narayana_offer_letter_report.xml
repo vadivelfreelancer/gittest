@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <template id="report_narayana_offer_letter">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pappaya_hr.pappaya_hr_report_custom_layout">
+                        <div class="page">
+
+                            <style>
+                                th,td,tr {border-collapse:collapse; font-family:Liberation Serif;}
+                                th,td {vertical-align:middle; font-size:14px;}
+                            </style>
+
+                            <div class="row" style="border:1px solid black; padding-left:10px; padding-right:10px;">
+
+                                <div style="text-align:center; width:100%; padding-top:20px; padding-bottom:15px; font-size:16px;">
+                                    <u><strong>CONFIDENTIAL</strong></u>
+                                </div>
+
+                                <div style="text-align:center; width:100%; padding-bottom:20px; font-size:16px;">
+                                    <u><strong>OFFER LETTER</strong></u>
+                                </div>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px;">
+                                    <tr>
+                                        <td style="width:20%; text-align:left;"><strong>To,</strong></td>
+                                        <td style="width:50%; text-align:left;"></td>
+                                        <td style="width:30%; text-align:right;"><strong>Date: </strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; padding-top:10px;"><b><span t-field ="o.name"/>,</b></td>
+                                        <td></td>
+                                        <td style="text-align:right;"><strong>Ref: NGS/RO/HYD/xx/18-19/xxx</strong></td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td style="padding-top:30px;"><b>Dear <span t-field ="o.name"/>,</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            With reference to the interview you had with us we are pleased to offer you an appointment as
+                                            <b>“<span t-field ='o.job_id'/> – <span t-field ='o.department_id'/>”</b> at <b><span t-field ="o.branch_id"/>.</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            Compensation as already discussed and agreed with you, is appended in the Annexure.
+                                            You are required to report to xxxxxxxxxxxxxxxxxxx at 8:30 am on xxxxxxxxxxxxx.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            This offer is made to you on a good faith on the basis of the information provided by you
+                                            through your profile and discussion during your interview. This offer as well as the appointment
+                                            with the organization is subject to verification of your credentials. In case any of your
+                                            professional or personal credentials is found to be negative or not in line with the
+                                            details provided by you, your employment with the organization will become null and void.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            The offer letter entails you to join by the stipulated date. Any extension
+                                            shall be approved in writing failing which, the offer will lapses on the stipulated date.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            Under any circumstances if the recipient opts to leave the company,
+                                            he/she should serve One month as a notice period. As per the company norms
+                                            if the notice is not served, he/she is liable to pay the company One month salary towards the same.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            You will be on probation for a period of Six months from your date of joining. Your confirmation is subject to our evaluation of your performance.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            Kindly ensure to send us your acceptance of the offer through email within 3 days from the date of issuance, failing which the offer would stand null and void.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            On the day of joining bring along all the documents as mentioned in the Annexure - II
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            Thanking you,
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            <b>For NARAYANA GROUP OF SCHOOLS</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:40px;">
+                                            Authorized Signature
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            I agree &amp; accept employment on the terms and conditions mentioned in the letter.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            I shall be reporting to work on <span t-field ="o.branch_id"/>.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:40px;">
+                                            <span>Signature:</span>
+                                            <span style="padding-left:150px; border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px;">Date:</span>
+                                            <span style="border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-left:40px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-right:50px; border-bottom:1px solid black;"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <p style="page-break-before:always;"></p>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td colspan="2" style="height:10px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; border:1px solid black;"><b>Annexure – 1 (Confidential, not for circulation)</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; border:1px solid black;">
+                                            <b>(Enclosure to the “Offer Letter” Ref No. NGS/RO/HYD/xx/18-19/xxx Dated: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>)</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:35%; text-align:left; border:1px solid black; padding:5px;"><b>Name</b></td>
+                                        <td style="width:65%; text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>Designation</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.job_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>CTC (Cost to the Company)</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Rs. <span t-field ="o.gross_salary"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>Leave</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">As per the leave policy</td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; border:1px solid black;"><b>Annexure – 2</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; border:1px solid black;">
+                                            <b>Check List of Employee Forms</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Name</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>DOJ</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.date_of_joining" t-field-options='{"format": "dd-MMM-Y"}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>Designation</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.job_id"/></td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td colspan="3" style="padding-top:15px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:10%; text-align:center; border:1px solid black; padding:5px;"><b>S.No.</b></td>
+                                        <td style="width:75%; text-align:center; border:1px solid black; padding:5px;"><b>Joining / Post Joining Documents</b></td>
+                                        <td style="width:15%; text-align:center; border:1px solid black; padding:5px;"><b>Check</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">1</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Joining Report (duly signed)</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">2</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Terms Of Employment (duly signed on all the pages)</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">3</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Offer Letter (acknowledged)</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">4</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Experience letter / Relieving Letter / Resignation acceptance documents</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align:center; border:1px solid black;"><b>Pre Joining Documents</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">5</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Educational Certificates (PG, Graduation, HSC , SSC)</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">6</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Current Address proof</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">7</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Permanent Address Proof (<b>Aadhaar Card</b>, Passport, Driving, License, Ration Card, Bank Statement, Voter ID…)</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">8</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Pan card / Acknowledgement</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">9</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Photographs (Min 3)</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">10</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">
+                                            New Joinee need to have Bank A/C:<br/>
+                                            SBI /Andhra Bank/Dena Bank/ICICI/HDFC/AXIS/IDBI)
+                                        </td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">11</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Personal Data Form/Background Verification Form</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">12</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Salary Slip</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">13</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Interview Rating Sheet / Pre interview evaluation sheet</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">14</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Resume</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">15</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Two Undated Cheque</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; border:1px solid black; padding:5px;">16</td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">Indemnity bond / Bond as per the requirement</td>
+                                        <td style="border:1px solid black; padding:5px;"></td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td style="width:50%; padding-top:40px;"><b>Authorized Signature</b></td>
+                                        <td style="width:50%; padding-top:40px;"><b>Signature:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;"><b>Date:</b></td>
+                                        <td style="padding-top:20px;"><b>Date:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="height:60px;"></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+			id="narayana_offer_letter_report"
+			model="hr.employee"
+			string="Narayana Offer Letter"
+			report_type="qweb-pdf"
+			name="pappaya_hr.report_narayana_offer_letter"
+			file="pappaya_hr.report_narayana_offer_letter"
+		/>
+
+        <record id="paperformat_narayana_offer_letter_report" model="report.paperformat">
+            <field name="name">European A4 - Narayana Offer Letter</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="pappaya_hr.narayana_offer_letter_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="pappaya_hr.paperformat_narayana_offer_letter_report"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_leave_compensatory_request_form" model="ir.ui.view">
+			<field name="name">view.leave.compensatory.request.form</field>
+			<field name="model">leave.compensatory.request</field>
+			<field name="arch" type="xml">
+				<form string="Compensatory/Maternity Leave Request" duplicate="0">
+					<header>
+						<button name="button_request" string="Request" states="draft" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_branch_employees"/>
+						<button name="button_approve" string="Approve" states="requested" type="object" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo" class="oe_highlight"/>
+						<button name="button_reject" string="Reject" states="requested" type="object" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo" class="oe_highlight" />
+						<button name="button_cancel" string="Cancel" states="requested" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_branch_employees"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,requested" readonly="1" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="emp_id" required="1"/>
+								<field name="employee_id" options="{'no_open': True, 'no_create':True}"/>
+								<field name="leave_type_id" required="1" options="{'no_open': True, 'no_create':True}"/>
+								<field name="year_of_passing" required="1"/>
+								<field name="leave_type_value" invisible="1"/>
+							</group>
+							<group>
+								<field name="requested_date" invisible="1"/>
+								<field name="branch_id" options="{'no_open': True, 'no_create':True}" readonly="1" force_save="1"/>
+								<field name="department_id" options="{'no_open': True, 'no_create':True}" readonly="1" force_save="1"/>
+								<field name="work_date" attrs="{'invisible':['|',('leave_type_value','=','MTL'),('leave_type_value','=',False)],'required':[('leave_type_value','!=','MTL')]}"/>
+								<field name="compoff_date" attrs="{'invisible':['|',('leave_type_value','=','MTL'),('leave_type_value','=',False)],'required':[('leave_type_value','!=','MTL')]}"/>
+								<field name="date_from" attrs="{'invisible':['|',('leave_type_value','=','C-Off'),('leave_type_value','=',False)],'required':[('leave_type_value','!=','C-Off')]}"/>
+								<field name="date_to" attrs="{'invisible':['|',('leave_type_value','=','C-Off'),('leave_type_value','=',False)],'required':[('leave_type_value','!=','C-Off')]}"/>
+							</group>
+						</group>
+						<separator string="Attendance" colspan="4" attrs="{'invisible':['|',('leave_type_value','=','MTL'),('daily_attendance_line','=',[])]}"/>
+						<field name="daily_attendance_line" attrs="{'invisible':['|',('leave_type_value','=','MTL'),('daily_attendance_line','=',[])]}" readonly="1">
+							<tree string="Attendance">
+                                <field name="employee_id" options="{'no_open': True,'no_create':True}"/>
+                                <field name="biometric_id"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="attendance_status"/>
+                                <field name="worked_hours"/>
+                                <field name="state"/>
+                                <field name="attendance_date" invisible="1"/>
+                            </tree>
+                            <form string="Attendance">
+								<group col="4">
+									<field name="employee_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="biometric_id"/>
+									<field name="check_in"/>
+									<field name="check_out"/>
+									<field name="attendance_status"/>
+									<field name="worked_hours"/>
+									<field name="state"/>
+								</group>
+                            </form>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+    
+        <record id="view_leave_compensatory_request_tree" model="ir.ui.view">
+            <field name="name">view.leave.compensatory.request.tree</field>
+            <field name="model">leave.compensatory.request</field>
+            <field name="arch" type="xml">
+                <tree string="Compensatory/Maternity Leave Request" duplicate="0">
+					<field name="requested_date"/>
+				 	<field name="emp_id"/>
+                    <field name="employee_id"/>
+                    <field name="branch_id"/>
+                    <field name="department_id"/>
+                    <field name="state" string="Status"/>
+                </tree>
+            </field>
+        </record>
+
+		<record id="view_leave_compensatory_request_search" model="ir.ui.view">
+			<field name="name">view.leave.compensatory.request.search</field>
+			<field name="model">leave.compensatory.request</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Compensatory/Maternity Leave Request">
+					<field name="employee_id" />
+					<field name="emp_id" string="Employee ID"/>
+					<field name="branch_id" />
+					<group expand="0" string="Group By...">
+						<filter name="employee_id" string="Employee" domain="[]" context="{'group_by':'employee_id'}" />
+						<filter name="emp_id" string="Employee ID" domain="[]" context="{'group_by':'emp_id'}" />
+						<filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+						<filter name="state" string="State" domain="[]" context="{'group_by':'state'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+    
+        <record id="action_leave_compensatory_request" model="ir.actions.act_window">
+            <field name="name">Compensatory/Maternity Leave Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">leave.compensatory.request</field>
+            <field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_leave_compensatory_request_search" />
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to Create a Compensatory/Maternity Leave Request.
+				</p>
+			</field>
+        </record>    
+    
+        <menuitem id="menu_action_leave_compensatory_request" parent="hr_holidays.menu_hr_holidays_my_leaves" action="action_leave_compensatory_request" name="Compensatory/Maternity Leave Request"
+				  sequence="39" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_branch_employees"/>
+
+    </data>
+</odoo>

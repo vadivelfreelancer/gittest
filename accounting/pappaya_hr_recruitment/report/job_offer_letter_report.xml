@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<report
+			id="job_offer_letter"
+			model="hr.applicant"
+			string="Job Offer Letter"
+			report_type="qweb-pdf"
+			name="pappaya_hr_recruitment.report_job_offer_letter"
+			file="pappaya_hr_recruitment.report_job_offer_letter"
+            menu="False"
+		/>
+
+        <template id="report_job_offer_letter">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pappaya_base.report_custom_layout">
+                        <div class="page">
+
+                            <style>
+                                th,td,tr {border-collapse:collapse; font-family:Liberation Serif;}
+                                th,td {vertical-align:middle; font-size:18px;}
+                            </style>
+
+                            <div class="row">
+
+                                <div style="text-align:center; width:100%; padding-top:3px; font-size:20px;">
+                                    <u><strong>Job Offer Letter</strong></u>
+                                </div>
+                                <div style="width:100%; padding-top:20px; padding-left:3px;">
+                                    <b><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/></b>
+                                </div>
+                                <div style="width:100%; padding-top:20px; padding-left:3px;">
+                                    <span t-field ="o.partner_name"/>
+                                </div>
+                                <div style="width:100%; padding-left:3px;">
+                                    <span t-field ="o.job_id"/>
+                                </div>
+                                <div style="width:100%; padding-left:3px;">
+                                    <span t-field ="o.email_from"/>
+                                </div>
+                                <div style="width:100%; padding-left:3px;">
+                                    <span t-field ="o.partner_mobile"/>
+                                </div>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px">
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">Dear <b><span t-field ="o.partner_name"/></b>:</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">We are pleased to offer you employment at <b><span t-field ="o.company_id"/></b>. We feel that your skills and background will be valuable assets to our team.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">Per our discussion, the position is <b><span t-field ="o.job_id"/></b>.
+                                            Your starting date will be <b><span t-field ="o.availability" t-field-options='{"format": "dd-MM-yy"}'/></b>. The enclosed employee handbook outlines the
+                                            medical and retirement benefits that our company offers.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">If you choose to accept this offer, please sign the
+                                            second copy of this letter in the space provided and return it to us.
+                                            A stamped, self-addressed envelope is enclosed for your convenience.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">We look forward to welcoming you as a new employee at <b><span t-field ="o.company_id"/></b>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">Sincerely,</td>
+                                    </tr>
+                                </table>
+
+                                <div style="width:100%; padding-top:30px; padding-left:3px;">
+                                    <b>HR <br/>Narayana Team</b>
+                                </div>
+                                <div style="width:100%; padding-top:15px; padding-left:3px;">
+                                    Enclosure
+                                    <t t-set="s_no" t-value="0"/>
+                                    <table>
+                                    <t t-foreach="o.stage_id.doc_ids" t-if="o.stage_id.doc_ids" t-as="d">
+                                    	<t t-set="s_no" t-value="s_no + 1"/>
+                                    	
+                                    	<tr>
+                                    		<td><span t-esc ="s_no"/>.  <span t-field ="d.document_id.name"/></td>
+                                    	</tr>
+                                    </t>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

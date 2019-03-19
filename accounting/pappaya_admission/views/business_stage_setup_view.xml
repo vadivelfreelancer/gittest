@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="pappaya_business_stage_form" model="ir.ui.view">
+			<field name="name">pappaya.business.stage.form</field>
+			<field name="model">pappaya.business.stage</field>
+			<field name="arch" type="xml">
+				<form string="Admission Stage" version="7.0" delete="false">
+					<sheet>
+                        <group>
+                            <field name="school_id"  domain="[('type','=', 'branch')]" options="{'no_open': True,'no_create':True}" required="1"/>
+                        </group>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<field name="sequence" required="1"/>
+								<field name="is_fees_applicable" attrs="{'invisible':[('is_final_stage','=',True)]}"/>
+								<field name="fees_id" attrs="{'invisible':['|',('is_fees_applicable','=',False),('is_final_stage','=',True)],'required':[('is_fees_applicable','=',True)]}" options="{'no_open': True,'no_create':True}" widget="many2many_tags"/>
+								<field name="transaction_type_ids" options="{'no_open': True,'no_create':True}" widget="many2many_tags" domain="[('type','=','transaction_type')]" context="{'master_type':'others','individual_master_type':'transaction_type'}"/>
+							</group>
+							<group>
+								<field name="code" required="1"/>
+								<field name="is_active" readonly="1"/>
+								<field name="is_final_stage"/>
+								<field name="grade_ids" options="{'no_open': True,'no_create':True}" widget="many2many_tags" invisible="1"/>
+								<field name="is_fin_short_list_stage" invisible="1"/>
+								<field name="notification_required" invisible="1" />
+								<field name="notification_mails" attrs="{'invisible':[('notification_required','=',False)]}" invisible="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Grade Joining Document">
+								<field name="grade_join_doc_o2m">
+									<tree>
+										<field name="document_name"/>
+										<field name="description"/>
+										<field name="required"/>
+									</tree>
+									<form>
+										<group>
+											<field name="document_name" required="1"/>
+											<field name="description"/>
+											<field name="required"/>
+										</group>
+									</form>
+								</field>
+							</page>
+							<page string="Email Content">
+								<field name="email_content" widget="html" placeholder="Hi [[APPLICANT]],
+									Please find the status of your application,
+
+									Enquiry No: [[ENQUIRY_NO]]
+									Grade : [[GRADE]]
+									Stage: [[STAGE]]
+
+									Regards,
+									[[SCHOOL]]"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="pappaya_business_stage_tree" model="ir.ui.view">
+			<field name="name">pappaya_business_stage_tree</field>
+			<field name="model">pappaya.business.stage</field>
+			<field name="priority" eval="5" />
+			<field name="arch" type="xml">
+				<tree string="Admission Stage" delete="false">
+					<field name="sequence" />
+					<field name="name" />
+					<field name="code" />
+					<field name="school_id"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_business_stage_search" model="ir.ui.view">
+            <field name="name">pappaya.business.stage.search</field>
+            <field name="model">pappaya.business.stage</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Admission Stage">
+                    <field name="name" />
+					<field name="code" />
+					<field name="school_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Branch" name="school_id" domain="[]" context="{'group_by':'school_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+		
+		<record model="ir.ui.view" id="view_pappaya_business_stage_graph">
+            <field name="name">pappaya.business.stage.graph</field>
+            <field name="model">pappaya.business.stage</field>
+            <field name="arch" type="xml">
+                <graph string="Admission Stage">
+                	<field name="name"/>
+                    <field name="school_id"/>
+                </graph>
+            </field>
+        </record>
+		
+		<record model="ir.actions.act_window" id="action_pappaya_business_stage_id">
+			<field name="name">Admission Stage Setup</field>
+			<field name="res_model">pappaya.business.stage</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="search_view_id" ref="view_pappaya_business_stage_search" />
+		</record>
+
+	</data>
+</odoo>

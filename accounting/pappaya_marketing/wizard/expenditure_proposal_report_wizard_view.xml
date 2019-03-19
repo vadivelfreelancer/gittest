@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+	
+		<!-- Ependiture Proposal Report -->
+		
+        <record id="view_expenditure_proposal_report_form" model="ir.ui.view">
+            <field name="name">view.expenditure.proposal.report.form</field>
+            <field name="model">expenditure.proposal.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Expenditure Proposal Report">
+                	<group>
+                		<group>
+                			<field name="state_id" options="{'no_create':True}" required="1"/>
+                			<field name="cluster_id" options="{'no_create':True}"/> 
+                		</group>
+                		<group>
+                			<field name="district_id" domain="[('state_id','=',state_id)]" options="{'no_create':True}"/>
+                			<field name="division_id" options="{'no_create':True}"/>
+                		</group>
+                	</group>
+                	<footer>
+                		<button name="action_get_pdf" type="object" string="Export PDF" class="oe_highlight"/> or
+                		<button name="action_get_excel" type="object" string="Export EXCEL" class="oe_highlight"/> or
+                		<button string="Cancel" special="cancel"/>
+                	</footer>
+                </form>
+            </field>
+        </record>		
+		
+		<record id="action_view_expenditure_proposal_report_form" model="ir.actions.act_window">
+			<field name="name">Expenditure proposal report</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">expenditure.proposal.report.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_expenditure_proposal_report_form"/>
+			<field name="target">new</field>
+		</record>
+		
+	</data>
+</odoo>

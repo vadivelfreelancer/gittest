@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <template id="report_nspira_appointment_letter_pappaya_hr">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pappaya_hr.pappaya_nspira_report_custom_layout_pappaya_hr">
+                        <div class="page" style="padding-left:5px; padding-right:5px;">
+
+                            <style>
+                                th,td,tr {border-collapse:collapse; font-family:Liberation Serif;}
+                                th,td {vertical-align:middle; font-size:14px;}
+                            </style>
+
+                            <div class="row">
+
+                                <div style="width:100%; padding-top:10px;">
+                                    <span style="float:left;">
+                                        <strong>Date: </strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/>
+                                    </span>
+                                    <span style="float:right;"><strong>Nspira: HRD/HYD-RO/18-19/10/022</strong></span>
+                                </div>
+
+                                <div style="text-align:center; width:100%; padding-top:30px; padding-bottom:15px; font-size:16px;">
+                                    <u><strong>LETTER OF APPOINTMENT</strong></u>
+                                </div>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px;">
+                                    <tr>
+                                        <td style="width:10%; text-align:left;"><strong>Name</strong></td>
+                                        <td style="width:90%; text-align:left;">: <span style="padding-left:3px;" t-field ="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; padding-top:10px;"><b>Emp. ID</b></td>
+                                        <td style="text-align:left; padding-top:10px;">: <span style="padding-left:3px;" t-field ="o.emp_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; padding-top:10px;"><b>Address</b></td>
+                                        <td style="text-align:left; padding-top:10px;">
+                                            : <span style="padding-left:3px;" t-field ="o.work_street"/>,<span t-field ="o.work_city_id"/>,<span t-field ="o.work_district_id"/>,<span t-field ="o.work_state_id"/>-<span t-field ="o.work_zip"/>,
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td style="padding-top:30px;"><b>Dear <span t-field ="o.name"/>,</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            We are pleased to confirm our offer of employment to you for a regular full-time position with
+                                            <b>Nspira Management Services Pvt. Ltd</b> as a <span t-field ='o.job_id'/>, effective from <span t-field ="o.date_of_joining" t-field-options='{"format": "dd-MMM-Y"}'/>.
+                                            As discussed, this offer is conditional upon completion of satisfactory references that could include,
+                                            but is not necessarily limited to, a review of past employment and education records.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            The details of our offer, including the terms and conditions of your employment, are attached as <u><b>Schedule “A.”</b></u>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            Please take the time to carefully review our offer. This letter, along with the enclosed schedules,
+                                            outlines the obligations of both <b>Nspira Management Services Pvt. Ltd</b> and yourself with respect to your
+                                            employment conditions, and is governed by State and Central Laws of India. It details the terms and conditions of
+                                            your employment with <b>Nspira Management Services Pvt. Ltd</b> and will form our agreed upon employment contract with you once signed.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            Accepting employment will be conditional upon agreeing to and signing the attached copy of this letter and the
+                                            attached Schedule(s), initialing each page in the right-hand corner, and returning it to us upon
+                                            your earliest convenience, but prior to your first day of employment.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            <span t-field ="o.name"/>, we look forward to welcoming you to the
+                                            <b>Nspira Management Services Pvt. Ltd</b> team and wish you a successful and rewarding career with us.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            Sincerely,
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            <b>For Nspira Management Services Pvt. Ltd</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:40px;">
+                                            <b>Sivakumar Raghavan<br/>Chief People Officer</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            I, <span t-field ="o.name"/>, acknowledge that I have read, understood and accept this offer and the terms and conditions
+                                            contained in the attached Schedule(s), and agree to be bound by the terms and conditions of employment as outlined therein.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:15px;">
+                                            <span>Signature:</span>
+                                            <span style="padding-left:150px; border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px;">Date:</span>
+                                            <span style="border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-left:40px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-right:50px; border-bottom:1px solid black;"></span>
+                                        </td>
+                                    </tr>
+                                    <!--<p style="page-break-before:always;"></p>-->
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; padding-top:25px;"><u><b>SCHEDULE A</b></u></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:10px; padding-bottom:10px;">
+                                            <b>Terms and Conditions of Employment.</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-bottom:15px;">
+                                            The following outlines the terms and conditions of employment with us. The Company reserves the
+                                            right to change these terms and conditions as necessary, with due notice.
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Salary</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            Rs. <span t-field ="o.gross_salary"/> /-pm.
+                                            <span t-esc="o.branch_id.currency_id.amount_to_text(o.gross_salary)"/> per month.
+                                            Compensation structure is given below.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Payroll Schedule</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            Your salary will be paid to you on a <b>monthly</b> basis, less
+                                            required deductions, (through direct deposit) <b>OR</b> (by cheque).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Holidays/Leaves</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            In respect of working hours, availing of Weekly off and eligibility for national and festival holidays,
+                                            employee will be governed by the terms and conditions as applicable to employees in employee’s grade at his/her place of posting.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Superannuation</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            On attaining the age of 60 years, the employee is liable to be superannuated/retire from the services of the Company/Society.
+                                            The Management may at its discretion extend your service period.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Benefits</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            You shall be entitled to participate in all benefit plans of <b>Company</b> as may be made available to employees of <b>Company</b>
+                                            from time to time for which you are eligible. You will receive complete details of all benefits plans as part of your new
+                                            employee orientation, and enrollment will take place (immediately) <b>OR</b> (once you meet the eligibility criteria).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Medical Fitness</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            The appointment and its continuance is subject to the employee being found and remaining medically (Physically and mentally) fit.
+                                            The management reserves its right to ask the employee to undergo medical examination if and when considered necessary from the management’s authorized Doctor.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Travel</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            As per the requirements of your position, you will be expected to travel as per company policy.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Probationary Period</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            To assess your fit within Company, the first Six(6) months of your employment will constitute a probationary period.
+                                            At any time during this probationary period, Company may terminate your employment without cause and without advance notice or pay in lieu of notice.
+                                            If this occurs, we would have no further obligation to you, financial or otherwise.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Policies and Standards</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            <b>Company</b> has established a variety of policies and standards that ensure a safe, enjoyable working environment.
+                                            During the period of your employment with us, you agree to be bound by these policies and standards, and any future policies and standards that are
+                                            reasonably introduced by the <b>Company</b>. It is agreed that the introduction and administration of these policies is within the sole discretion of
+                                            <b>Company</b> and that these policies do not form a part of this Agreement. It is agreed that if <b>Company</b> introduces, amends or deletes
+                                            employment-related policies as conditions warrant that such introduction, deletion or amendment does not constitute a breach of this Agreement.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Confidentiality and Intellectual Property</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            Our offer of employment is conditional upon you agreeing to and abiding by the
+                                            “Confidentiality and Proprietary Information Agreement.”  Attached Schedule “B.”
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Non-Solicitation</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            You hereby agree that, while you are employed by <b>Company</b> and for one (1) year following the termination of your employment with <b>Company</b>,
+                                            you will not ( i ) recruit, attempt to recruit or directly or indirectly participate in the recruitment of, any <b>Company</b> employee or (ii) directly or
+                                            indirectly solicit, attempt to solicit, canvass or interfere with any customer or supplier of <b>Company</b> in a manner that conflicts with or
+                                            interferes in the business of <b>Company</b> as conducted with such customer or supplier.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Representation</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            You hereby represent and warrant to <b>Company</b> that you are not party to any written or oral agreement with any third party that would
+                                            restrict your ability to enter into this Agreement or the Confidentiality and Proprietary Information Agreement or to perform your obligations hereunder and that
+                                            you will not, by joining <b>Company</b>, breach any non-disclosure, proprietary rights, non-competition, non-solicitation or other covenant in favour of any third party.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Changes to Duties and/or Compensation</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            If your duties or compensation should change during the course of your employment with Company, the validity of our agreement will not be affected.
+                                            In addition, if one or more of the provisions in our agreement are deemed void by law, then the remaining provisions will continue in full force and effect.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Resignation</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            Should you wish to resign your employment with Company, you will be required to provide One Month written notice to enable us transition your work.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%; text-align:left; border:1px solid black; padding:5px;"><b>Termination</b></td>
+                                        <td style="width:75%; text-align:left; border:1px solid black; padding:5px;">
+                                            Company may terminate your employment at any time for causes,<br/><br/>
+                                            After the end of your probationary period, Company may terminate your employment without cause at any time by providing you
+                                            with the minimum notice of 15 days, or pay in lieu of such notice.<br/><br/>
+                                            If company receives any information that an employee being implicated directly or indirectly in any criminal prosecution
+                                            or criminal act prior to his/her joining the company or during their terms of service with the company.<br/><br/>
+                                            In the event a temporary layoff is ever required, it may be implemented in accordance with the requirements of the Minimum Wages Act.
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td colspan="3" style="text-align:center; padding-top:25px; padding-bottom:15px;"><u><b>Compensation Structure</b></u></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align:center; border:1px solid black;">
+                                            <b>NSPIRA MANAGEMENT SERVICES PVT LTD</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align:center; border:1px solid black;">
+                                            <b>SALARY STRUCTURE</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;"><b>Employee Name</b></td>
+                                        <td colspan="2" style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px; width:50%;"><b>Gross Salary Per Month</b></td>
+                                        <td style="border:1px solid black; width:25%;"></td>
+                                        <td style="border:1px solid black; width:25%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Basic salary</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">HRA</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Transport</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">LTA</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Medical</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Food</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Personal Allowance</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Education</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Bonus</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                        <td style="border:1px solid black;height:20px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Gross Salary</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px solid black; padding:5px;">Rupees</td>
+                                        <td style="border:1px solid black;"></td>
+                                        <td style="border:1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="padding-top:20px;">
+                                            Sincerely,
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="padding-top:20px;">
+                                            <b>For Nspira Management Services Pvt. Ltd</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="padding-top:40px;">
+                                            <b>Sivakumar Raghavan<br/>Chief People Officer</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="padding-top:20px;">
+                                            I, <span t-field ="o.name"/>, acknowledge that I have read, understood and accept this offer and the terms and conditions
+                                            contained in the attached Schedule(s), and agree to be bound by the terms and conditions of employment as outlined therein.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="padding-top:15px;">
+                                            <span>Signature:</span>
+                                            <span style="padding-left:150px; border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px;">Date:</span>
+                                            <span style="border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-left:40px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-right:50px; border-bottom:1px solid black;"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; padding-top:25px;"><u><b>SCHEDULE B</b></u></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:10px;">
+                                            <b>Employee Covenants<br/>Confidentiality and Proprietary Information Agreement</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:10px;">
+                                            In consideration of employment as an employee or engagement as an independent contractor
+                                            with Company (the <b>“Company”</b>), the undersigned (the <b>“Employee”</b>) agrees and covenants as follows:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">1.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Employment with the Company as an employee or engagement with the Company as an independent contractor, as the case may be (the <b>“Engagement”</b>),
+                                            will give the Employee access to proprietary and confidential information belonging to the Company, its customers, its suppliers and
+                                            others (the proprietary and confidential information is collectively referred to in this Agreement as <b>“Confidential Information”</b>).
+                                            Confidential Information includes but is not limited to customer lists, marketing plans, proposals, contracts, technical and/or financial information,
+                                            databases, software and know-how. All Confidential Information remains the confidential and proprietary information of the Company.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">2.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            As referred to herein, the <b>“Business of the Company”</b> shall relate to the business of the Company as the same is determined by the
+                                            Board of Directors/Members of the Society of the Company/Society from time to time.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">3.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee may in the course of the Engagement conceive, develop or contribute to material or information related to the Business of the Company/ Society,
+                                            including, without limitation, software, technical documentation, ideas, inventions (whether or not patentable), hardware, know-how, marketing plans,
+                                            designs, techniques, documentation and records, regardless of the form or media, if any, on which such is stored (referred to in this
+                                            Agreement as <b>“Proprietary Property”</b>). The Company/ Society shall exclusively own all Proprietary Property which the Employee conceives, develops or
+                                            contributes to in the course of the Engagement and all intellectual and industrial property and other rights of any kind in or relating to the
+                                            Proprietary Property, including but not limited to all copyright, patent, trade secret and trade-mark rights in or relating to the Proprietary Property.
+                                            For greater certainty, the Employee hereby assigns to the Company any and all rights that the Employee may have or obtain in or to the Proprietary Property.
+                                            Material or information conceived, developed or contributed to by the Employee outside work hours on the Company’s premises or through the use of the Company’s/ Society’s property and/or
+                                            assets shall also be Proprietary Property and be governed by this Agreement if such material or information relates to the Business of the Company/Society.
+                                            The Employee shall keep full and accurate records accessible at all times to the Company relating to all Proprietary Property and shall promptly disclose and deliver to the Company all Proprietary Property.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">4.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee shall, both during and after the Engagement, keep all Confidential Information and Proprietary Property confidential and shall not use any of it
+                                            except for the purpose of carrying out authorized activities on behalf of the Company/ Society. The Employee may, however, use or disclose Confidential Information which:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;"></td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+
+                                            <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                                <tr>
+                                                    <td style="text-align:right; width:5%; padding-top:10px; padding-left:20px; vertical-align:top;">(i)</td>
+                                                    <td style="width:95%; padding-top:10px; padding-left:8px;">
+                                                        is or becomes public other than through a breach of this Agreement;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:right; width:5%; padding-top:10px; padding-left:20px; vertical-align:top;">(ii)</td>
+                                                    <td style="width:95%; padding-top:10px; padding-left:8px;">
+                                                        is known to the Employee prior to the date of this Agreement and with respect to which the Employee does not have any obligation of confidentiality; or
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:right; width:5%; padding-top:10px; padding-left:20px; vertical-align:top;">(iii)</td>
+                                                    <td style="width:95%; padding-top:10px; padding-left:8px;">
+                                                        is required to be disclosed by law, whether under an order of a court or government tribunal or other legal process, provided that Employee informs the
+                                                        Company of such requirement in sufficient time to allow the Company to avoid such disclosure by the Employee.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:right; width:5%; padding-top:10px; padding-left:20px; vertical-align:top;">(iv)</td>
+                                                    <td style="width:95%; padding-top:10px; padding-left:8px;">
+                                                        The Employee shall return or destroy, as directed by the Company, Confidential Information and Proprietary Property to the Company upon request by the
+                                                        Company at any time. The Employee shall certify, by way of affidavit or statutory declaration, that all such
+                                                        Confidential Information and Proprietary Property has been returned or destroyed, as applicable.
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">5.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee covenants and agrees not to make any unauthorized use whatsoever of or to bring onto the Company’s/Society’s premises for the purpose of
+                                            making any unauthorized use whatsoever of any trade secrets, confidential information or proprietary property of any third party, including without
+                                            limitation any trade-marks or copyrighted materials, during the course of the Engagement. The Employee agrees and represents that the Engagement and the
+                                            execution of this Agreement do not and will not breach any agreement to which the Employee is currently a party or which currently applies to the Employee.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">6.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee shall not Accept/Receive any presents, gifts, commissions, loans, advances or any sort of gratification or benefit in cash or kind from any
+                                            person, party, firm or company having dealings with the company/Society. If such things are offered by any person, party, firm or company the employee
+                                            shall immediately report the same to the management in writing. The employee shall not also borrow anything from the customers, clients other
+                                            employees of the of the company, agencies, stockiest and trade, suppliers, contractors etc.,
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">7.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            At the reasonable request and at the sole expense of the Company, the Employee shall do all reasonable acts necessary and sign all reasonable documentation
+                                            necessary in order to ensure the Company’s ownership of the Proprietary Property and all intellectual and industrial property rights and other rights in the
+                                            same, including but not limited to providing to the Company written assignments of all rights to the Company and any other documents required to enable the Company to
+                                            document rights to and/or register patents, copyrights, trade-marks, industrial designs and such other protections as the Company considers advisable anywhere in the world.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">8.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee hereby irrevocably and unconditionally waives all moral rights the Employee may now or in the future have in any Proprietary Property.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">9.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee agrees that the Employee will, if requested from time to time by the Company, execute such further reasonable agreements as to confidentiality and
+                                            proprietary rights as the Company’s customers or suppliers reasonably required to protect Confidential Information or Proprietary Property.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">10.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Regardless of any changes in position, salary or otherwise, including, without limitation, termination of the Engagement, unless otherwise stipulated pursuant to the terms hereof,
+                                            the Employee will continue to be subject to each of the terms and conditions of this Agreement and any other(s) executed pursuant to the preceding paragraph.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">11.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee agrees that the Employee’s sole and exclusive remedy for any breach of this Agreement or any other agreement by the Company will be limited to
+                                            monetary damages and that the Employee will not make any claim in respect of any rights to or interest in any Confidential Information or Proprietary Property.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">12.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            The Employee acknowledges that the services provided by the Employee to the Company are unique. The Employee further agrees that irreparable harm will be
+                                            suffered by the Company in the event of the Employee’s breach or threatened breach of any of his or her obligations under this Agreement, and that the Company
+                                            will be entitled to seek, in addition to any other rights and remedies that it may have at law or equity, a temporary or permanent injunction restraining the
+                                            Employee from engaging in or continuing any such breach hereof. Any claims asserted by the Employee against the Company shall not constitute a defense in any
+                                            injunction action, application or motion brought against the Employee by the Company.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">13.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            This Agreement is governed by the laws of India and the Employee agrees to the non-exclusive jurisdiction of the courts of the Hyderabad in relation to this Agreement.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">14.</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            If any provision of this Agreement is held by a court of competent jurisdiction to be invalid or unenforceable, that provision shall be deleted and the other provisions shall remain in effect.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:15px; padding-left:20px;">
+                                            <b>IN WITNESS WHEREOF</b> the Company has caused this Agreement to be executed as of the <br/>___ day of _______________, 20__.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:25px; padding-left:20px;">
+                                            <b>Signed in the presence of:</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                                <tr>
+                                                    <td style="width:50%; padding-top:50px; padding-left:20px;"><b>Employee Name</b></td>
+                                                    <td style="width:50%; padding-top:50px;"><b>Witness to Employee Name</b></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                 </table>
+
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+			id="nspira_appointment_letter_report_pappaya_hr"
+			model="hr.employee"
+			string="Nspira Appointment Letter"
+			report_type="qweb-pdf"
+			name="pappaya_hr.report_nspira_appointment_letter_pappaya_hr"
+			file="pappaya_hr.report_nspira_appointment_letter_pappaya_hr"
+		/>
+
+        <record id="paperformat_nspira_appointment_letter_report_pappaya_hr" model="report.paperformat">
+            <field name="name">European A4 - Nspira Appointment Letter</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="pappaya_hr.nspira_appointment_letter_report_pappaya_hr" model="ir.actions.report">
+            <field name="paperformat_id" ref="pappaya_hr.paperformat_nspira_appointment_letter_report_pappaya_hr"/>
+        </record>
+
+        <template id="pappaya_narayana_report_custom_header_layout_pappaya_hr">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-12" style="text-align:center; padding-top:20px">
+                        <img t-attf-src="/pappaya_hr/static/description/nspira_logo.png" style="max-height: 350px; max-width: 200px;"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="pappaya_narayana_report_custom_footer_layout_pappaya_hr">
+            <div class="footer">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-2 pull-center" style="font-size:12px;text-align:center;">
+                                <strong>10th Floor, Melange Towers, No. 80-84, Patrika Nagar, Hitech City, Madhapur, Hyderabad – 500 081.</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-xs-2 pull-center" style="font-size:12px;text-align:center;">
+								<strong>		Web: www.nspira.in  Phone: 040 - 45009999.</strong>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </template>
+
+        <template id="pappaya_nspira_report_custom_layout_pappaya_hr">
+         <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+            <div class="article">
+                <t t-call="pappaya_hr.pappaya_narayana_report_custom_header_layout_pappaya_hr"/>
+                <t t-raw="0"/>
+                <t t-call="pappaya_hr.pappaya_narayana_report_custom_footer_layout_pappaya_hr"/>
+            </div>
+        </template>
+
+    </data>
+</odoo>

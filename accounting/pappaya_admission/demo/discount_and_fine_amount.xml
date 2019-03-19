@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- For Bulk Pay Discount partner -->
+		<record id="base.fees_discount_fine_config_01" model="pappaya.fees.discount.fine.config">
+            <field name="name">Bulk Payment Discount</field>
+            <field name="bulk_pay_discount_amt">10</field>
+        </record>
+    </data>
+</odoo>

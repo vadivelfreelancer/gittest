@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <record id="pappaya_concession_fees_tree" model="ir.ui.view">
+			<field name="name">pappaya_concession_head_tree</field>
+			<field name="model">pappaya.concession.fees</field>
+			<field name="arch" type="xml">
+				<tree string="Concession Fees">
+                    <field name="school_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pappaya_concession_fees_form" model="ir.ui.view">
+			<field name="name">pappaya_concession_head_form</field>
+			<field name="model">pappaya.concession.fees</field>
+			<field name="arch" type="xml">
+				<form string="Concession Fees">
+                    <header>
+                        <button name="action_request" type="object" string="Request" attrs="{'invisible':[('status','!=','draft')]}"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant"/>
+                        <button name="action_accept" type="object" string="Accept" attrs="{'invisible':[('status','!=','request')]}"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.hr_deans"/>
+                        <button name="action_reject" type="object" string="Reject" attrs="{'invisible':[('status','!=','request')]}"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.hr_deans"/>
+                        <button name="action_reset" type="object" string="Reset to Draft" attrs="{'invisible':[('status','!=','reject')]}"
+                                groups="pappaya_base.group_admission_admin"/>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,request,reject,accept"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]" attrs="{'readonly':[('status','!=','draft')],'required':[('status','=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                <field name="date" readonly="1"/>
+                                <field name="is_update" invisible="1"/>
+                            </group>
+                        </group>
+                        <separator string="Concession"/>
+                        <button name="get_concession" type="object" string="Get Fees" class="oe_highlight" attrs="{'invisible':[('is_update','=',True)]}"/>
+                        <field name="concession_line_ids">
+                            <tree create="0" delete="0" editable="bottom">
+                                <field name="concession_id" readonly="1" invisible="1"/>
+                                <field name="fees_head_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="fee_amount" readonly="1"/>
+                                <field name="fee_cgst" readonly="1"/>
+                                <field name="fee_sgst" readonly="1"/>
+                                <field name="fee_total" readonly="1"/>
+                                <field name="fee_due_amount" readonly="1"/>
+                                <field name="concession_type" required="1" attrs="{'readonly':[('status','in',['accept', 'reject'])],'required':[('status','in',['draft','request'])]}"/>
+                                <field name="concession_amount" required="1" attrs="{'readonly':[('status','in',['accept', 'reject'])],'required':[('status','in',['draft','request'])]}"/>
+                                <field name="fee_concession_percent" invisible="1"/>
+                                <field name="concession_total" invisible="1"/>
+                                <field name="status" invisible="1"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group col="4" colspan="4">
+                                        <field name="fees_head_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="fee_amount" readonly="1"/>
+                                        <field name="fee_cgst" readonly="1"/>
+                                        <field name="fee_sgst" readonly="1"/>
+                                        <field name="fee_total" readonly="1"/>
+                                        <field name="fee_due_amount" readonly="1"/>
+                                        <field name="concession_type" required="1" attrs="{'readonly':[('status','in',['accept', 'reject'])],'required':[('status','in',['draft','request'])]}"/>
+                                        <field name="concession_amount" required="1" attrs="{'readonly':[('status','in',['accept', 'reject'])],'required':[('status','in',['draft','request'])]}"/>
+                                        <field name="status" invisible="1"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_fees_concession">
+			<field name="name">Fee Concession</field>
+			<field name="res_model">pappaya.concession.fees</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Concession Fees.
+				</p>
+			</field>
+		</record>
+
+    </data>
+</odoo>

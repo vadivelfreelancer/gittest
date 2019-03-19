@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+			
+		<record id="view_pappaya_branch_tree" model="ir.ui.view">
+			<field name="name">res.company.tree</field>
+			<field name="model">res.company</field>
+			<field name="arch" type="xml">
+				<tree string="Branch">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name" string="Branch"/>
+					<field name="code"/>
+					<field name="office_type_id" />
+					<field name="student_type" />
+					<field name="gender" />
+					<field name="tem_city_id"/>
+					<field name="tem_state_id" string="State"/>
+					<field name="email"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_branch_form" model="ir.ui.view">
+            <field name="name">res.pappaya.company.form</field>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <form string="Branch">
+                    <sheet>
+	                    <field name="logo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Branch" class="oe_inline"/>
+                                
+                            </h1>
+                            <field name="parent_id" placeholder="Entity" required="1" domain="[('type','=','entity')]" 
+	                            	   style="width: 250px !important" options="{'no_open': True,'no_create':True}" />
+                        </div>
+	                    
+                        <group>
+	                        <group string="Master Details">
+	                        	<!-- Beginning : Master Configuration -->
+	                        	<field name="branch_sequence_id" string='Series' readonly="1" force_save="1"/>
+	                        	<field name="code" required="1"/>
+	                        	<field name="type" widget="radio" string="Type" options="{'horizontal': true}" style="color: red !important;" invisible="1"/>
+    							<field name="office_type_id" options="{'no_open': True,'no_create':True}" required="1"/>
+    							<field name="programme_type_ids" widget="many2many_tags" required="1" options="{'no_open': True,'no_create':True}"/>
+    							<field name="segment_type_ids" widget="many2many_tags" required="1" domain="[('programme_id', 'in', programme_type_ids)]" options="{'no_open': True,'no_create':True}"/>
+    							<field name="stream_ids" widget="many2many_tags" required="1" options="{'no_open': True,'no_create':True}"/>
+    							<!--<field name="legal_entity_id" required="1" options="{'no_open': True,'no_create':True}"/>-->
+	                        	<field name="type" widget="radio" required="1" string="Type" options="{'horizontal': true}" style="color: red !important;" invisible="1"/>
+                                <field name="student_type" required="1"/>
+                                <field name="gender" required="1"/>
+                                <field name="medium_ids" widget="many2many_tags" options="{'no_open':True}" required="1" domain="[('type','=','medium')]" context="{'master_type':'others','individual_master_type':'medium'}"/>
+	                        	<field name="paymode_ids" widget="many2many_tags" required="1" options="{'no_open': True,'no_create':True}"/>
+	                        </group>
+	                        <group string="Branch Hierarchical Level">
+	                        	<field name="zone_id" options="{'no_open': True,'no_create':True}"/>
+	                            <field name="agm_id" options="{'no_open': True,'no_create':True}" domain="[('designation','=','agm')]"/>
+	                            <field name="dgm_id" options="{'no_open': True,'no_create':True}" domain="[('designation','=','dgm')]"/>
+	                            <field name="gm_id" options="{'no_open': True,'no_create':True}" domain="[('designation','=','gm')]"/>
+	                            <field name="ao_id" options="{'no_open': True,'no_create':True}" domain="[('designation','=','ao')]"/>
+	                        	<field name="dean_id" options="{'no_open': True,'no_create':True}" domain="[('designation','=','dean')]"/>
+	                            <field name="principal_id" options="{'no_open': True,'no_create':True}" domain="[('designation','=','principal')]"/>
+	                            <field name="incharge_id" options="{'no_open': True,'no_create':True}" domain="[('designation','=','incharge')]"/>
+                            </group>
+                            <group string="Applicable">
+                                <field name="is_transport"/>
+                                <field name="is_nslate"/>
+                                <field name="is_caution_deposit" attrs="{'invisible': [('student_type','not in',['hostel','both'] )]}"/>
+                                <field name="is_library_fee" />
+                                <field name="library_fee_amount" attrs="{'required': [('is_library_fee','=',True)],'invisible': [('is_library_fee','!=',True)]}"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="General Information">
+                                <group>
+                                    <group>
+                                        <label for="street" string="Address"/>
+                                        <div class="o_address_format">
+                                            <field name="tem_street" placeholder="Address 1..." class="o_address_street"/>
+                                            <field name="tem_street2" placeholder="Address 2..." class="o_address_street"/>
+                                            <field name="tem_city_id" placeholder="City" class="o_address_city" options="{'no_open': True,'no_create':True}"/>
+                                            <field name="tem_state_id" domain="[('country_id','=',tem_country_id)]" class="o_address_state" placeholder="State" options="{'no_open': True,'no_create':True}" />
+                                            <field name="tem_zip" placeholder="ZIP" class="o_address_zip"/>
+                                            <field name="tem_country_id" placeholder="Country" class="o_address_country" options="{'no_open': True,'no_create':True}" />
+                                        </div>
+                                        <field name="website" widget="url"/>
+	                                    <field name="document_followup"/>
+	                                    <field name="last_execution_date" invisible="1"/>
+                                    </group>
+                                    <group>
+                                    	<field name="record_id" invisible="1"/>
+                                    	<field name="emp_no_ref" invisible="1"/>
+                                        <field name="email" string="Email" />
+                                        <field name="mobile" />
+                                        <field name="phone" />                                        
+                                        <field name="fax_id"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Course Configuration">
+                                <field name="course_config_ids">
+									<tree editable="bottom">
+                                        <field name="academic_year_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="reservation_min_percentage"/>
+                                        <field name="course_package_ids" required="1" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="active"/>
+                                    </tree>
+                                    <form>
+										<group>
+                                            <field name="academic_year_id" options="{'no_open': True,'no_create':True}"/>
+                                            <field name="reservation_min_percentage"/>
+                                            <field name="active"/>
+                                             <field name="course_package_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+							<page string="Segment - Course Mapping" name="segment_course">
+								<field name="segment_cource_mapping_ids">
+									<tree editable="bottom">
+                                        <field name="fiscal_year_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="programme_id" required="1" options="{'no_open': True,'no_create':True}" domain="[('id', 'in',parent.programme_type_ids)]"/>
+                                        <field name="segment_id" required="1" options="{'no_open': True,'no_create':True}" domain="[('programme_id', '=',programme_id)]"/>
+                                        <field name="course_package_ids" required="1" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="active"/>
+                                    </tree>
+                                    <form>
+										<group>
+                                            <field name="fiscal_year_id" options="{'no_open': True,'no_create':True}"/>
+                                            <field name="programme_id" options="{'no_open': True,'no_create':True}"/>
+                                        	<field name="segment_id" options="{'no_open': True,'no_create':True}"/>
+                                            <field name="active"/>
+                                            <field name="course_package_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+                                        </group>
+                                    </form>
+                                </field>
+							</page>
+                            <page string="Working Days and Hours" name="working">
+                                <group colspan="2" col="4" name="working_days" string="Working Days">
+                                    <field name="days_monday"/>
+                                    <field name="days_tuesday"/>
+                                    <field name="days_wednesday"/>
+                                    <field name="days_thursday"/>
+                                    <field name="days_friday"/>
+                                    <field name="days_saturday"/>
+                                    <field name="days_sunday"/>
+                                </group>
+                                <group>
+                                	<field name="active_academic_year_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                    <field name="active_next_academic_year_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                </group>
+                            </page>
+                            <page string="UHFID Device Configuration" name="device" attrs="{'invisible': [('type','!=','branch')]}">
+                                <field name="rfid_device_ip"/>
+                            </page>
+                            <page string="Bank Mapping">
+                            	<separator string="Bank Mapping"/>
+                            	<field name="bank_account_mapping_ids">
+                        			<tree>
+                        				<field name="bank_id"/>
+                        				<field name="account_no_id"/>
+                        				<field name="type"/>
+                        				<field name="is_local_bank"/>
+                        				<field name="bank_account_branch_id"/>
+                        			</tree>
+                        			<form>
+                        				<group>
+                       						<group>
+                         						<field name="bank_id" required="1" options="{'no_open': True,'no_create':True}"/>
+	                         					<field name="account_no_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                       						</group>
+                       						<group>
+                       							<field name="type" required="1" />
+	                         					<field name="is_local_bank" required="1" />
+	                         					<field name="bank_account_branch_id" domain="[('','',)]" required="1" options="{'no_open': True,'no_create':True}"/>
+                       						</group>
+                       					</group>
+                       				</form>
+                        		</field>
+                        		<separator string="Paymode Configuration"/>
+                        		<group string="Card">
+                            		<group>
+                            			<field name="bank_machine_id" options="{'no_open': True,'no_create':True}"/>
+                            			<field name="bank_machine_type_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','bank_machine_type')]" context="{'master_type':'others','individual_master_type':'bank_machine_type'}"/>
+                            		</group>
+                            		<group>
+                            			<field name="mid_no"/>
+                            			<field name="tid_no"/>
+                            		</group>
+                            	</group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+		
+		<record id="view_pappaya_branch_search" model="ir.ui.view">
+            <field name="name">res.company.search.pappaya</field>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <search string="Branch">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Organization"/>
+                    <field name="email" />
+					<field name="tem_state_id" string="State"/>
+					<field name="tem_country_id" />
+                    <separator />
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_tem_city_id" string="City" context="{'group_by':'tem_city_id'}"/>
+                        <filter name="group_by_tem_state_id" string="State" context="{'group_by':'tem_state_id'}"/>
+                        <filter name="group_by_tem_country_id" string="Country" context="{'group_by':'tem_country_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+		
+		<record id="action_pappaya_branch_view" model="ir.actions.act_window">
+			<field name="name">Branch</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.company</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('type','=','branch')]</field>
+			<field name="context">{'type':'branch'}</field>
+			<field name="search_view_id" ref="view_pappaya_branch_search"/>
+			<field name="view_ids" eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_branch_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_branch_form')})]" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Admission Branch.
+				</p>
+			</field>
+		</record>
+		
+		<!-- Purpose : Displaying 'Pappaya Modules' by default in 'Apps' menu. -->
+		<record id="view_module_filter_inherit_pappaya" model="ir.ui.view">
+	    	<field name="name">ir.module.module.list.select.inherit.pappaya</field>
+            <field name="model">ir.module.module</field>
+	        <field name="inherit_id" ref="base.view_module_filter"/>
+	        <field name="arch" type="xml">
+	            <xpath expr ="//filter[@name='app']" position="before">
+	            	<filter name="pappaya_apps" string="Pappaya Apps" domain="[('name', 'like','pappaya')]"/>
+                    <separator/>
+                </xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="base.open_module_tree" model="ir.actions.act_window">
+            <field name="context">{'search_default_pappaya_apps':1}</field>
+        </record>
+
+	</data>
+</odoo>

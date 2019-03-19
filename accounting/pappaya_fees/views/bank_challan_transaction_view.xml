@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <record id="bank_challan_transaction_form" model="ir.ui.view">
+			<field name="name">Bank Challan Transaction Form</field>
+			<field name="model">bank.challan.transaction</field>
+			<field name="arch" type="xml">
+				<form string="Bank Challan Transaction" delete="0" duplicate="0" create="false" edit="false">
+	                 <sheet>
+	                     <group>
+	                      <group>
+	                          <field name="ibank_transaction_id" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="urn" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="amount" required="1" attrs="{'readonly':[('clear_flag','=','cleared')],'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="pay_mode" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="instrument_no" attrs="{'required':[('pay_mode','!=','C')], 'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="instrument_date" attrs="{'required':[('pay_mode','!=','C')], 'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="isure_id" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                      </group>
+	                      <group>
+	                      	  <field name="transaction_date" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="micr_code" attrs="{'required':[('pay_mode','!=','C')],'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="bank_name" attrs="{'required':[('pay_mode','!=','C')],'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="branch_name" attrs="{'required':[('pay_mode','!=','C')],'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="client_code" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="user_id" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="paswd" required="1" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="is_excel" attrs="{'readonly':[('clear_flag','=','cleared')]}"/>
+	                          <field name="clear_flag" readonly="1"/>
+	                      </group>
+	                 	</group>
+	                 </sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="bank_challan_transaction_tree" model="ir.ui.view">
+			<field name="name">Bank Challan Transaction Tree</field>
+			<field name="model">bank.challan.transaction</field>
+			<field name="arch" type="xml">
+				<tree string="Bank Challan Transaction" default_order='id desc' delete="0" duplicate="0" create="false" edit="false">
+				    <field name="ibank_transaction_id"/>
+                    <field name="urn"/>
+                    <field name="amount"/>
+                    <field name="instrument_no"/>
+                    <field name="transaction_date"/>
+                </tree>
+			</field>
+		</record>
+
+        <!--<record id="bank_deposit_clearance_search" model="ir.ui.view">-->
+			<!--<field name="name">Bank Challan Transaction Search</field>-->
+			<!--<field name="model">bank.challan.transaction</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<search string="Bank Challan Transaction">-->
+
+                <!--</search>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.actions.act_window" id="action_bank_challan_transaction">
+            <field name="name">Bank Challan Transaction</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bank.challan.transaction</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+             <field name="view_ids"
+				eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('bank_challan_transaction_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('bank_challan_transaction_form')})]" />
+        </record>
+
+    </data>
+</odoo>

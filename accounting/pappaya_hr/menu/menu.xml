@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    
+    	<menuitem
+            id="hr.menu_open_view_employee_list_my"
+            action="pappaya_hr_open_view_employee_action"
+            parent="hr.menu_hr_root"
+            sequence="3"
+			groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_branch_employees"
+		/>
+
+		<record id="pappaya_group_invisible" model="res.groups">
+            <field name="name">Invisible</field>
+		</record>
+
+		<record id="hr_contract.hr_menu_contract" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+    	</record>
+		<!--<record id="pappaya_base.menu_pappaya_gender" model="ir.ui.menu">-->
+    		<!--<field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>-->
+    	<!--</record>-->
+		<record id="pappaya_base.menu_branch_type" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+    	</record>
+		<record id="pappaya_base.menu_action_staff_type_hierarchy" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+    	</record>
+
+		<menuitem id="hr.menu_human_resources_configuration" name="Configuration" parent="hr.menu_hr_root" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo" sequence="100"/>
+    	
+    	<!-- parent="hr.menu_human_resources_configuration" -->
+    	<!-- Master Menus -->
+    	
+    	<menuitem action="hr.open_module_tree_department" id="hr.menu_hr_department_tree" parent="pappaya_base.menu_hr_masters" sequence="1" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo" name="Department"/>
+    	<menuitem action="pappaya_base.action_hr_job_name_form" id="menu_hr_job_position_menu" parent="pappaya_base.menu_hr_masters" sequence="1" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo" name="Designation"/>
+		<menuitem name="Designation Mapping" id="menu_pappaya_action_hr_job" parent="pappaya_base.menu_hr_masters" action="pappaya_action_hr_job" sequence="2" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+    	<menuitem name="Category" id="menu_pappaya_employee_category" parent="pappaya_base.menu_hr_masters" action="action_hr_employee_category_view" sequence="3" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+		<menuitem name="Sub Category" id="menu_pappaya_employee_subcategory" parent="pappaya_base.menu_hr_masters" action="action_hr_employee_subcategory_view" sequence="4" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+		
+    	<!-- End -->
+    	<!-- Configuration -->
+
+		<menuitem name="Religion" id="menu_pappaya_religion" parent="pappaya_base.menu_hr_masters" action="pappaya_base.religion_action" sequence="53" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+    	
+    	<menuitem id="menu_action_pappaya_employee_dynamic_stage" parent="hr.menu_human_resources_configuration" action="action_pappaya_employee_dynamic_stage_form" sequence="5" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+		<menuitem name="Assets" id="menu_assets" parent="hr.menu_human_resources_configuration" action="action_pappaya_assets_form" sequence="6" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+		<menuitem name="Employee Relationships" id="menu_employee_relationships" parent="hr.menu_human_resources_configuration" action="action_pappaya_employee_relationship_form" sequence="48" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+		<menuitem name="Teaching Type" id="menu_teaching_type" parent="hr.menu_human_resources_configuration" action="action_pappaya_teaching_type_form" sequence="50" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+		<!-- <menuitem name="Bank Accounts" id="menu_pappaya_res_partner_bank" parent="hr.menu_human_resources_configuration" action="base.action_res_partner_bank_account_form" sequence="25"/>
+		<menuitem name="Banks" id="menu_pappaya_res_bank" parent="hr.menu_human_resources_configuration" action="base.action_res_bank_form" sequence="30"/>
+ -->
+		<menuitem name="Cluster" id="menu_pappaya_cluster" parent="hr.menu_human_resources_configuration" action="pappaya_base.act_open_pappaya_cluster_view" sequence="10" groups="pappaya_group_invisible"/>
+		<menuitem name="Division" id="menu_pappaya_division" parent="hr.menu_human_resources_configuration" action="pappaya_base.action_pappaya_division_view" sequence="15" groups="pappaya_group_invisible"/>
+		<menuitem name="Employee Type" id="menu_employee_type" parent="hr.menu_human_resources_configuration" action="action_pappaya_employee_type_form" sequence="45" groups="pappaya_group_invisible"/>
+		<menuitem name="Class" id="pappaya_base.menu_pappaya_master_class" parent="pappaya_base.menu_hr_masters" action="pappaya_base.action_pappaya_class_form" sequence="30" groups="pappaya_group_invisible"/>
+		<menuitem name="PF Zone" id="menu_pf_zone" parent="hr.menu_human_resources_configuration" action="action_pappaya_pf_zone_form" sequence="55" groups="pappaya_group_invisible"/>
+		<menuitem name="PT Zone" id="menu_pt_zone" parent="hr.menu_human_resources_configuration" action="action_pappaya_pt_zone_form" sequence="60" groups="pappaya_group_invisible"/>
+
+
+		
+		<!-- Purpose: Displaying 'Setting' menu in debug mode only. -->
+        <menuitem id="hr.hr_menu_configuration" name="Settings" parent="hr.menu_human_resources_configuration" sequence="0" action="hr.hr_config_settings_action" groups="pappaya_group_invisible"/>
+		
+        
+        <!-- Purpose: Changing sequence number of 'Employee Tag' menu. -->
+        <menuitem id="hr.menu_view_employee_category_form" action="hr.open_view_categ_form" parent="hr.menu_human_resources_configuration" groups="base.group_no_one" sequence="4"/>
+        
+    </data>
+</odoo>

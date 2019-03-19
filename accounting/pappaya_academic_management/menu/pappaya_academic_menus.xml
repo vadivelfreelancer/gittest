@@ -1,0 +1,26 @@
+<odoo>
+    <menuitem id="academic_main_menu" name="Academic Details" sequence="1"/>
+    <menuitem id="academic_main_menu_master" name="Academic Master" sequence="1" parent="academic_main_menu"/>
+    <menuitem id="subject_sub_menu" name="Subject" parent="academic_main_menu_master" sequence="5"
+              action="action_pappaya_subject_academic"/>
+    <!--    <menuitem id="subject_sub_menu_1" name="Subject 1" parent="academic_main_menu_master" sequence="10"-->
+    <!--              action="subjects_view_only_action"/>-->
+    <menuitem id="tracks_sub_menu" name="Tracks" parent="academic_main_menu_master" sequence="10"
+              action="tracks_menu_action"/>
+    <!--    <menuitem id="tracks_sub_menu_1" name="Tracks 1" parent="academic_main_menu_master" sequence="15"-->
+    <!--              action="tracks_view_only_action"/>-->
+    <menuitem id="topic_sub_menu" name="Topics" parent="academic_main_menu_master" sequence="12"
+              action="topic_menu_action"/>
+    <!--    <menuitem id="topic_sub_menu_1" name="Topics 1" parent="academic_main_menu_master"-->
+    <!--              action="topics_view_only_action" sequence="30"/>-->
+    <menuitem id="menu_sections" name="Sections" parent="academic_main_menu_master"
+              action="sections_view_only_action" sequence="14"/>
+    <menuitem id="menu_previous_course" name="Previous Courses"
+              parent="academic_main_menu_master" sequence="16" action="previous_course_menu_action"/>
+    <!--    <menuitem id="previous_courses_sub_menu" name="Previous Courses" parent="academic_main_menu"-->
+    <!--              sequence="50" action="previous_course_view_only_action"/>-->
+    <menuitem id="previous_types_sub_menu" name="Previous Types"
+              parent="academic_main_menu_master" sequence="60" action="previous_type_menu_action"/>
+    <menuitem id="subject_order_sub_menu" name="Subject Order" parent="academic_main_menu_master"
+              sequence="70" action="subject_order_menu_action"/>
+</odoo>

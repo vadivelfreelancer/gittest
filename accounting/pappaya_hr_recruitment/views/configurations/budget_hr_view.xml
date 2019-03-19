@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_budget_hr_tree" model="ir.ui.view">
+            <field name="name">pappaya.budget.hr.tree</field>
+            <field name="model">pappaya.budget.hr</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="HR Budget" delete="0" duplicate="0">
+                    <field name="company_id"/>
+                    <field name="branch_id"/>
+                    <field name="fiscal_year_id"/>
+                    <field name="state_id" />
+                    <field name="program_id" />
+                    <field name="segment_id" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_budget_hr_form" model="ir.ui.view">
+            <field name="name">pappaya.budget.hr.form</field>
+            <field name="model">pappaya.budget.hr</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="HR Budget" delete="0" duplicate="0">
+                    <header>
+                        <button name="budget_confirm" string="Confirm" type="object" attrs="{'invisible':[('state','!=','draft')]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <button name="budget_cancel" string="Cancel" type="object" attrs="{'invisible':[('state','=','cancel')]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="branch_id"  options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="state_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                                <field name="fiscal_year_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="program_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="segment_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="active" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <button name="get_subject_details" type="object" string="Get Details" class="oe_highlight" attrs="{'invisible': [('budget_line_ids','!=',[])]}" invisible="1"/>
+                        <label for="details_get_button" class="btn btn-sm btn-primary" attrs="{'invisible': [('budget_line_ids','!=',[])]}"/>
+                        <field name="details_get_button" invisible="1"/>
+                        <field name="budget_line_ids" attrs="{'readonly': [('state','!=','draft')]}">
+                            <tree string="HR Budget" editable="bottom" create="false" delete="false">
+                                <field name="class_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1" invisible="1"/>
+                                <field name="subject_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                                <!--<field name="job_id" options="{'no_open': True,'no_create':True}" required="1" domain="[('company_id', '=',parent.branch_id)]"/>-->
+                                <field name="staff_required_count" sum="Total Staffs Required" readonly="1" force_save="1"/>
+                                <field name="existing_staff_count" sum="No. of Existing Staff"/>
+                                <field name="new_vacancy_count" sum="No. of New Vancancies"/>
+                                <field name="occupied_vacancies" sum="Occupied Vancancies" readonly="1" force_save="1"/>
+                                <field name="avg_salary" sum="Average Salary" attrs="{'readonly': [('new_vacancy_count','=',0)]}"/>
+                                <field name="required_budget" sum="Required Budget" readonly="1" force_save="1"/>
+                                <field name="budget_for_vacancy" sum="Financial Budget" attrs="{'readonly': [('new_vacancy_count','=',0)]}"/>
+                                <field name="budget_taken" sum="Budget Taken" invisible="1"/>
+                                <field name="budget_available" sum="Budget Available"/>
+                                <field name="previous_budget_remain" invisible="1"/>
+                            </tree>
+                            <form string="HR Budget">
+                                <group>
+                                    <group>
+                                        <field name="class_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                        <field name="staff_required_count"/>
+                                        <field name="new_vacancy_count"/>
+                                        <field name="required_budget" invisible="1"/>
+                                        <field name="previous_budget_remain" attrs="{'invisible': [('parent.previous_budget_id','=',False)]}"/>
+                                        <field name="budget_for_vacancy"/>
+                                        <field name="budget_available"/>
+                                    </group>
+                                    <group>
+                                        <field name="subject_id" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="existing_staff_count"/>
+                                        <field name="occupied_vacancies"/>
+                                        <!-- <field name="avg_salary"/> -->
+                                        <field name="budget_taken" invisible="1"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                        <group col="4">
+                            <field name="total_vacancies" force_save="1"></field>
+                            <field name="occupied_vacancies" readonly="1" force_save="1"></field>
+                            <field name="balance_vacancies" force_save="1"></field>
+                            <!-- <field name="avg_salary" force_save="1"></field> -->
+                            <field name="total_budget" force_save="1"></field>
+                            <field name="budget_inhand" force_save="1"></field>
+                            <field name="previous_budget_id" domain="[('active','=',False)]" attrs="{'invisible': [('previous_budget_id','=',False)]}" readonly="1" force_save="1"></field>
+                            <field name="previous_budget_remain" attrs="{'invisible': [('previous_budget_id','=',False)]}" readonly="1" force_save="1"></field>
+                        </group>
+                        <field name="employee_line_ids" readonly="1">
+                            <tree string="Budget - Employee">
+                                <field name="employee_id"/>
+                                <field name="employee_wage"/>
+                                <field name="origin_of_employee"/>
+                            </tree>
+                            <form string="Budget - Employee">
+                                <group>
+                                    <field name="employee_id"/>
+                                    <field name="employee_wage"/>
+                                    <field name="origin_of_employee"/>
+                                </group>
+                            </form>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_budget_hr_search" model="ir.ui.view">
+            <field name="name">pappaya.budget.hr.search</field>
+            <field name="model">pappaya.budget.hr</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="HR Budget">
+                    <field name="name" />
+                    <field name="company_id" />
+                    <field name="branch_id" />
+                    <field name="program_id" />
+                    <field name="segment_id" />
+                    <group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter name="program_id" string="Program" domain="[]" context="{'group_by':'program_id'}" />
+                        <filter name="segment_id" string="Segment" domain="[]" context="{'group_by':'segment_id'}" />
+                        <filter name="state" string="State" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_open_budget_hr_view">
+            <field name="name">HR Budget</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.budget.hr</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_budget_hr_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure HR Budget.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

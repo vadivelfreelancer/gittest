@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_uniform_tree" model="ir.ui.view">
+            <field name="name">pappaya.uniform.tree</field>
+            <field name="model">pappaya.uniform</field>
+            <field name="arch" type="xml">
+                <tree string="Branchwise Uniform" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="course_id"/>
+                    <field name="gender"/>
+                    <field name="academic_year_id"/>
+                    <field name="school_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_uniform_form" model="ir.ui.view">
+            <field name="name">pappaya.uniform.form</field>
+            <field name="model">pappaya.uniform</field>
+            <field name="arch" type="xml">
+                <form string="Branchwise Uniform" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}"
+                                       domain="[('type','=','branch')]" required="1"/>
+                                <field name="course_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}"
+                                       domain="[('is_active','=',True)]" required="1"/>
+                                <field name="gender" required="1" attrs="{'invisible': [('is_co_education','=', False)]}"/>
+                                <field name="is_co_education" invisible="1"/>
+                            </group>
+                        </group>
+                        <group string="Uniform Set(s)">
+                            <field name="uniform_branch_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="uniform_set_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="amount" required="1"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="uniform_set_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="amount" required="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2">
+                                <field name="total_amount" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_uniform_search" model="ir.ui.view">
+            <field name="name">pappaya.uniform.search</field>
+            <field name="model">pappaya.uniform</field>
+            <field name="arch" type="xml">
+                <search string="Branchwise Uniform">
+                    <separator />
+                    <group expand="0" string="Group By...">
+                        <filter name="school_id" string="Branch" domain="[]" context="{'group_by':'school_id'}"/>
+                        <filter name="academic_year_id" string="Academic Year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+                        <filter name="course_id" string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+                        <filter name="gender" string="Gender" domain="[]" context="{'group_by':'gender'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_uniform_form" model="ir.actions.act_window">
+            <field name="name">Branchwise Uniform</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.uniform</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_uniform_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Uniform.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

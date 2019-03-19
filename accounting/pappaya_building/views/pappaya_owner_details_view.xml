@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_pappaya_owner_detail_tree" model="ir.ui.view">
+			<field name="name">pappaya.owner.detail.tree</field>
+			<field name="model">pappaya.owner.detail</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Owners Details">
+					<field name="branch_id"/>
+				    <field name="building_id"/>
+					<field name="owner_id"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_owner_detail_form" model="ir.ui.view">
+			<field name="name">pappaya.owner.detail.form</field>
+			<field name="model">pappaya.owner.detail</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Owners Creation">
+					<sheet>
+						<group colspan="2" col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="owner_id"/>
+							<field name="building_rent"/>
+							<field name="building_maitanance_amt"/>
+							<field name="cheque_in_favour_of"/>
+							<field name="rent"/>
+							<field name="maintanance_amt"/>
+							<field name="inclusive_exclusive" widget="radio" options="{'horizontal':true}"/>
+							<field name="owner_per"/>
+							<field name="tenant_per"/>
+							<field name="is_tds_applicable" widget="radio" options="{'horizontal':true}"/>
+							<field name="tds_percentage"/>
+							<field name="owner_status"/>
+							<field name="country_id"/>
+							<field name="state_id"/>
+							<field name="district"/>
+							<field name="mandal"/>
+							<field name="area"/>
+							<field name="street_vill"/>
+							<field name="hno"/>
+							<field name="pin_code"/>
+							<field name="phone_no"/>
+							<field name="mobile_no"/>
+							<field name="email"/>
+							<field name="maintanance_tds_per"/>
+							<field name="tpa"/>
+							<field name="tpa_name"/>
+							<field name="month"/>
+							<field name="is_st_applicable" widget="radio" options="{'horizontal':true}"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_owner_details_search" model="ir.ui.view">
+			<field name="name">pappaya.owner.details.search</field>
+			<field name="model">pappaya.owner.detail</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Owner Details">
+					<field name="branch_id"/>
+				    <field name="building_id"/>
+					<field name="owner_id"/>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_owner_detail_view">
+			<field name="name">Owner Details</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.owner.detail</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_owner_details_search"/>
+		</record>
+
+	</data>
+</odoo>

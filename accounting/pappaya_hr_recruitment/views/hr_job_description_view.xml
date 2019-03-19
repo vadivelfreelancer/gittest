@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <record id="view_pappaya_job_description_tree" model="ir.ui.view">
+			<field name="name">pappaya.job.description.tree</field>
+			<field name="model">pappaya.job.description</field>
+			<field name="arch" type="xml">
+				<tree string="Job Description" duplicate="0" create="0">
+					<field name="company_id"/>
+					<field name="branch_id"/>
+					<field name="name" string="Designation"/>
+					<field name="department_id"/>
+                    <field name="no_of_recruitment"/>
+                    <field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="view_pappaya_job_description_form">
+            <field name="name">pappaya.job.description.form</field>
+            <field name="model">pappaya.job.description</field>
+            <field name="arch" type="xml">
+                <form string="Job Description" create="0" duplicate="0">
+                    <header>
+                        <!--<button name="set_recruit" string="Launch Recruitment" states="open" type="object" class="oe_highlight"/>-->
+                        <!--<button name="set_open" string="Stop Recruitment" states="recruit" type="object"/>-->
+                        <button name="to_request" string="Request" attrs="{'invisible':[('state','!=','draft')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <button name="to_confirm" string="Confirm" attrs="{'invisible':[('state','!=','request')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <button name="to_cancel" string="Cancel" states="draft,request" type="object" class="oe_highlight" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,request,confirm"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Manager" readonly="1" force_save="1" required="1"/></h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="company_id" force_save="1" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="branch_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="job_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="subject_ids" readonly="1" force_save="1" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+                                <field name="department_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="no_of_recruitment" readonly="1" force_save="1"/>
+                                <field name="year_of_experience" readonly="1" force_save="1" required="1"/>
+                            </group>
+                            <group>
+                                <field name="initial_date" readonly="1" force_save="1"/>
+                                <field name="last_date" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+
+                        <div>
+                            <label for="description"/>
+                            <field name="description" readonly="1" force_save="1"/>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="educational_qualification_ids" readonly="1" force_save="1" widget="many2many_tags" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="expected_date_of_joining" readonly="1" force_save="1"/>
+                                <field name="budgeted_salary" readonly="1" force_save="1" required="1"/>
+                            </group>
+                            <group>
+                                <field name="preferred_skills" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="desired_skills" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                            <field name="requisition_form_id" invisible="1"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_job_description_search" model="ir.ui.view">
+			<field name="name">pappaya.job.description.search</field>
+			<field name="model">pappaya.job.description</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Job Description">
+					<field name="company_id" />
+					<field name="branch_id" />
+					<field name="job_id" />
+					<field name="department_id" />
+					<field name="name" />
+					<field name="description" />
+					<field name="budgeted_salary" />
+					<field name="year_of_experience" />
+					<group expand="0" string="Group By...">
+                        <filter name="name" string="Name" domain="[]" context="{'group_by':'name'}" />
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter name="department_id" string="Department" domain="[]" context="{'group_by':'department_id'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+        
+        <record id="pappaya_hr_job_description_action_view" model="ir.actions.act_window">
+            <field name="name">Job Description</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.job.description</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_job_description_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new Job Description.
+                </p>
+            </field>
+        </record>
+
+        
+
+    </data>
+</odoo>

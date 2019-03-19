@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="get_branches_form" model="ir.ui.view">
+        <field name="name">Get Branches by Sub Leder</field>
+        <field name="model">get.branches.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Get Branches">
+                <sheet>
+                    <group >
+                        <group>
+                            <field name="sub_ledger_id"/>
+                        </group>
+                    </group>
+                    <field name="branch_ids" string="Branches">
+                        <tree editable="bottom">
+                            <field name="branch" string="Branch"/>
+                            <field name="check_bool"/>
+                        </tree>
+                    </field>
+                </sheet>
+                 <footer class="oe_edit_only">
+                    <button special="save" type="object" string="Save" class="oe_highlight"/>
+                    <button string="Discard" special="cancel"/>
+                </footer>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="get_branches_from_ledger_wizard" model="ir.actions.act_window">
+        <field name="name">Get Branches</field>
+        <field name="res_model">get.branches.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

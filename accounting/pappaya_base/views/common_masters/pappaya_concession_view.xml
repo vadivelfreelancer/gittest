@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_concession_tree" model="ir.ui.view">
+            <field name="name">pappaya.concession.tree</field>
+            <field name="model">pappaya.concession</field>
+            <field name="arch" type="xml">
+                <tree string="Concession" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="name" />
+                    <field name="is_active" />
+                    <field name="academic_year_id" />
+                    <field name="school_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_concession_form" model="ir.ui.view">
+            <field name="name">pappaya.concession.form</field>
+            <field name="model">pappaya.concession</field>
+            <field name="arch" type="xml">
+                <form string="Concession" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" required="1"/>
+                                <field name="is_active" />
+                            </group>
+                            <group>
+                                <field name="description"/>
+                                <field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" domain="[('is_active','=',True)]" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_concession_search" model="ir.ui.view">
+            <field name="name">pappaya.concession.search</field>
+            <field name="model">pappaya.concession</field>
+            <field name="arch" type="xml">
+                <search string="Concession">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_concession_form" model="ir.actions.act_window">
+            <field name="name">Concession</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.concession</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_concession_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Concession.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_vehicle_tree" model="ir.ui.view">
+            <field name="name">pappaya.vehicle.tree</field>
+            <field name="model">pappaya.vehicle</field>
+            <field name="arch" type="xml">
+                <tree string="Vehicle" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="name" />
+                     <field name="registration_no"/>
+                     <field name="transport_type_id"/>
+                    <field name="is_active" invisible="1"/>
+                    <field name="school_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_vehicle_form" model="ir.ui.view">
+            <field name="name">pappaya.vehicle.form</field>
+            <field name="model">pappaya.vehicle</field>
+            <field name="arch" type="xml">
+                <form string="Vehicle" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" required="1"/>
+                                <field name="registration_no" required="1"/>
+                                <field name="seating_capacity" required="1"/>
+                                <!--<field name="per_month_amount" required="1"/>-->
+                                <field name="is_active"/>
+                            </group>
+                            <group>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]"  required="1"/>
+                                <field name="transport_incharge_ids" domain="[('branch_id','=', school_id)]" options="{'no_open': True,'no_create':True}" widget="many2many_tags"  required="1"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" domain="[('is_active','=',True)]" invisible="1"/>
+                                <field name="transport_type_id" domain="[('type','=','transport_type')]" context="{'master_type':'others','individual_master_type':'transport_type'}" options="{'no_open': True,'no_create':True}"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_vehicle_search" model="ir.ui.view">
+            <field name="name">pappaya.vehicle.search</field>
+            <field name="model">pappaya.vehicle</field>
+            <field name="arch" type="xml">
+                <search string="Vehicle">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <filter string="Archived" name="inactive" domain="[('is_active','=',False)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_vehicle_form" model="ir.actions.act_window">
+            <field name="name">Vehicle</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.vehicle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_vehicle_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Vehicle.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

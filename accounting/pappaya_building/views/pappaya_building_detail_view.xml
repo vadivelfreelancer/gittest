@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		<record id="view_pappaya_building_detail_tree" model="ir.ui.view">
+			<field name="name">pappaya.building.detail.tree</field>
+			<field name="model">pappaya.building.detail</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Building Master Details">
+					<field name="branch_id"/>
+					<field name="building_id"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_building_detail_form" model="ir.ui.view">
+			<field name="name">pappaya.building.detail.form</field>
+			<field name="model">pappaya.building.detail</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Building Master Details">
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}"/>
+					        <field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" options="{'no_open': True, 'no_create': True}"/>
+						</group>
+						<notebook>
+							<page string="Building Address Details">
+								<group colspan="4" col="4">
+									<field name="district"/>
+									<field name="mandal"/>
+									<field name="area"/>
+									<field name="street_vill"/>
+									<field name="house_no"/>
+									<field name="pin_code"/>
+								</group>
+							</page>
+							<page string ="Building Details">
+								<group colspan="4" col="4">
+									<field name="is_rented"/>
+									<field name="area_type" widget="radio" options="{'horizontal':true}"/>
+									<field name="building_total_area"/>
+									<field name="common_area"/>
+									<field name="cellar_area"/>
+									<field name="no_of_floors"/>
+									<field name="others_floors_area"/>
+									<field name="rent_increase_percentage"/>
+									<field name="rent_increase_interval"/>
+									<field name="occupancy_date"/>
+									<field name="municipal_tax_owner"/>
+									<field name="municipal_tax_tenant"/>
+									<field name="lease_commencement_date"/>
+									<field name="rental_duration"/>
+									<field name="tpa"/>
+									<field name="is_electricity_commercial"/>
+									<field name="is_commercial_building"/>
+									<field name="aminities_cost"/>
+									<field name="is_aminities_provided"/>
+									<field name="lock_period"/>
+									<field name="electricity_category"/>
+									<field name="student_capacity"/>
+									<field name="student_occupied"/>
+									<field name="rent_agrm_expiry_date"/>
+									<field name="sms_no1"/>
+									<field name="sms_no2"/>
+									<field name="sms_no3"/>
+									<field name="sms_no4"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_building_detail_search" model="ir.ui.view">
+			<field name="name">pappaya.building.detail.search</field>
+			<field name="model">pappaya.building.detail</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Building Master Details">
+					<field name="branch_id"/>
+					<field name="building_id"/>
+				</search>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_open_pappaya_building_detail_view">
+			<field name="name">Building Master Details</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.building.detail</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_building_detail_search"/>
+		</record>
+
+	</data>
+</odoo>

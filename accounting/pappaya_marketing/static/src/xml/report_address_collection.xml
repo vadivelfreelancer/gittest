@@ -1,0 +1,93 @@
+<!-- <template id="assets_address_collection" name="Address Collection Assets">
+    <link rel="stylesheet" type="text/css" href="cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+    <script type="text/javascript" src="cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+</template> -->
+
+<template>
+
+    <t t-name="ReportAddressCollection">  
+    	<div class="container jumbotron">
+    		<p>
+	            <a class="btn btn-primary" data-toggle="collapse" href="#userInputBlock" aria-expanded="true" 
+	            aria-controls="userInputBlock">Toggle</a>
+	        </p>
+	        <div class="collapse in" id="userInputBlock">
+	        
+				<form id="ReportAddressCollection" action="">
+
+					<div class="form-group">
+						<div class="form-group col-md-12">
+							<label for="report_type">Report Type: </label>
+							<select class="form-control" type="text" name="report_type">
+								<option name="branch" value="branch">Branch wise</option>
+								<option name="branch_and_employee" value="branch_and_employee">Branch &amp; Employee wise</option>
+								<option name="employee" value="employee">Employee wise</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="form-group col-md-6">
+							<label for="state_ids">State: </label>
+							<select class="form-control" type="text" name="state_ids" multiple="multiple"></select>
+						</div>
+						
+						<div class="form-group col-md-6">
+							<label for="payroll_branch_ids">Payroll Branch: </label>
+							<select class="form-control" type="text" name="payroll_branch_ids" multiple="multiple">
+								
+							</select>				      
+						</div>
+					</div>
+					
+				  <div class="form-group">
+				    <div class="form-group col-md-6">
+	                    <label for="district_ids">District: </label>
+	                    <select class="form-control" type="text" name="district_ids" multiple="multiple">
+	                        
+	                    </select>
+				    </div>
+				    <div class="form-group col-md-6">
+	                    <label for="employee_ids">Employee: </label>
+	                    <select class="form-control" type="text" name="employee_ids" multiple="multiple">
+
+						</select>
+				    </div>
+				  </div>				  				  
+				  <div class="form-group">
+				    <div class="form-group col-md-6">
+	                    <label for="branch_ids">Branch: </label>
+	                    <select class="form-control" type="text" name="branch_ids" multiple="multiple">
+	                        
+	                    </select>
+				    </div>
+				    <div class="form-group col-md-6">
+	                    <label for="course_ids">Course: </label>
+	                    <select class="form-control" type="text" name="course_ids" multiple="multiple">
+						
+						</select>				      
+				    </div>
+				  </div>				  
+				  
+				  <div class="form-group">
+				    <div class="form-group col-md-6">
+	                    <label for="is_class_wise">Is Class-wise: </label>
+	                    <input type="checkbox" name="is_class_wise"/>
+				    </div>
+				  </div>
+				  
+				</form>
+	        </div>
+
+			<div class="form-group">
+				<div class="form-group text-right">
+					<button type="button" id="loadData" class="btn btn-primary">Load Data</button>
+				</div>
+				<table class="table table-hovered" id="o2m_report">
+
+				</table>
+			</div>
+    	</div>
+
+    </t>
+</template>

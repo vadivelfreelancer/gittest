@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_screening_process_tree" model="ir.ui.view">
+			<field name="name">pappaya.screening.tree</field>
+			<field name="model">pappaya.screening</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Screening Process">
+					<field name="company_id"/>
+					<field name="branch_id"/>
+					<field name="department_id"/>
+					<field name="designation_id" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_screening_process_form" model="ir.ui.view">
+			<field name="name">pappaya.screening.form</field>
+			<field name="model">pappaya.screening</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Screening Process" duplicate="0">
+                    <header>
+                        <button string="Confirm" name="action_confirm_screening" type="object" states="draft" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+					<sheet>
+						<group>
+							<group>
+								<field name="company_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="branch_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="department_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+
+							</group>
+                            <group>
+                                <field name="designation_id" domain="[('department_id','=',department_id)]" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="edu_qualification_ids" options="{'no_open': True,'no_create':True}" widget="many2many_tags" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+						</group>
+                        <field name="application_ids" attrs="{'readonly':[('state','!=','draft')]}" >
+                            <tree string="Applications" editable="bottom" create="false" delete="0">
+                            	<field name="screening_list"/>
+                                <field name="name" readonly="1" />
+                                <field name="partner_name" readonly="1"/>
+                                <field name="company_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="department_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="job_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="type_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="short_list" invisible="1" readonly="1"/>
+                            </tree>
+                            <form string="Applications">
+								<group col="4">
+									<field name="screening_list"/>
+									<field name="name"/>
+									<field name="partner_name"/>
+									<field name="company_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="department_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="job_id" options="{'no_open': True,'no_create':True}"/>
+									<field name="type_id" options="{'no_open': True,'no_create':True}"/>
+								</group>
+                            </form>
+                        </field>
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_screening_process_search" model="ir.ui.view">
+			<field name="name">pappaya.screening.search</field>
+			<field name="model">pappaya.screening</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Screening Process">
+					<field name="company_id" />
+					<field name="branch_id" />
+					<field name="department_id" />
+					<field name="designation_id" />
+					<group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" /> 
+                        <filter name="department_id" string="Department" domain="[]" context="{'group_by':'department_id'}" />
+                        <filter name="designation_id" string="Designation" domain="[]" context="{'group_by':'designation_id'}" />
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_screening_process_view">
+			<field name="name">Screening Process</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.screening</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_screening_process_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Screening Process.
+                </p>
+            </field>
+		</record>
+
+    </data>
+</odoo>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+        <record id="view_pappaya_payroll_branch_tree" model="ir.ui.view">
+            <field name="name">view.pappaya.payroll.branch.tree</field>
+            <field name="model">pappaya.payroll.branch</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Payroll Branch">
+                    <field name="name" string="Payroll Branch Name"/>
+					<field name="office_type_id"/>
+					<field name="state_id"/>
+                </tree>
+            </field>
+        </record>	
+	
+		<record id="view_pappaya_payroll_branch_form" model="ir.ui.view">
+			<field name="name">pappaya.payroll.branch.form</field>
+			<field name="model">pappaya.payroll.branch</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1" string="Payroll Branch Name"/>
+								<field name="state_id" required="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="emp_no_ref" invisible="1"/>
+							</group>
+							<group>
+								<field name="office_type_id" required="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="branch_type" invisible="1"/>
+								<field name="record_id" invisible="1"/>
+							</group>
+						</group>
+						<separator string="Description"/>
+						<field name="description" placeholder="Add a description.." nolabel="1" style="height:100px !important"/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	
+        <record id="view_pappaya_payroll_branch_search" model="ir.ui.view">
+            <field name="name">view.pappaya.payroll.branch.search</field>
+            <field name="model">pappaya.payroll.branch</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Payroll Branch">
+                    <field name="name" string="Payroll Branch"/>
+                    <field name="branch_type" invisible="1"/>
+                    <field name="state_id"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_state" string="State" context="{'group_by':'state_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>	
+	
+        <record model="ir.actions.act_window" id="action_pappaya_payroll_branch">
+            <field name="name">Payroll Branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.payroll.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_pappaya_payroll_branch_tree"/>
+            <field name="search_view_id" ref="view_pappaya_payroll_branch_search"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Payroll Branch.
+				</p>
+			</field>
+        </record>	
+
+        <!--Employees -> Configuration --> 
+
+		<record id="view_residential_type_tree" model="ir.ui.view">
+			<field name="name">view.residential.type.tree</field>
+			<field name="model">residential.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Residential Type">
+					<field name="name" />
+					<field name="code"/>
+				</tree>
+			</field>
+		</record>        
+        
+		<record id="view_residential_type_form" model="ir.ui.view">
+			<field name="name">view.residential.type.form</field>
+			<field name="model">residential.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Residential Type">
+	                <group>
+	                	<group>
+	                		<field name="name" required="1"/>
+	                	</group>
+	                	<group>
+	                		<field name="code" required="1"/>
+	                	</group>
+	                </group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_action_residential_type">
+			<field name="name">Residential Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">residential.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Residential Type.
+                </p>
+            </field>
+		</record> 
+
+        <!-- Pappaya Gender --> 
+
+		<record id="view_pappaya_gender_tree" model="ir.ui.view">
+			<field name="name">view.pappaya.gender.tree</field>
+			<field name="model">pappaya.gender</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Gender" duplicate="0">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>        
+        
+		<record id="view_pappaya_gender_form" model="ir.ui.view">
+			<field name="name">view.pappaya.gender.form</field>
+			<field name="model">pappaya.gender</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Gender" duplicate="0">
+	                <group>
+						<group>
+							<field name="name" required="1"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_action_pappaya_gender">
+			<field name="name">Gender</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.gender</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Gender.
+                </p>
+            </field>
+		</record> 
+		
+        <!-- School or College (Branch Type) --> 
+
+		<record id="view_branch_type_tree" model="ir.ui.view">
+			<field name="name">view.branch.type.tree</field>
+			<field name="model">branch.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Branch Type">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>        
+        
+		<record id="view_branch_type_form" model="ir.ui.view">
+			<field name="name">view.branch.type.form</field>
+			<field name="model">branch.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Branch Type">
+	                <group>
+	                	<field name="name" required="1"/>
+	                </group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_action_view_branch_type_tree">
+			<field name="name">School/College</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">branch.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Branch Type.
+                </p>
+            </field>
+		</record>
+
+		<!-- Statutory Requirement -->
+
+		<record id="view_statutory_requirment_tree" model="ir.ui.view">
+			<field name="name">view.statutory.requirment.tree</field>
+			<field name="model">statutory.requirment</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Statutory Requirements">
+					<field name="name" />
+					<field name="description"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_statutory_requirment_form" model="ir.ui.view">
+			<field name="name">view.statutory.requirment.form</field>
+			<field name="model">statutory.requirment</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Statutory Requirements">
+					<group>
+						<group>
+							<field name="name" required="1"/>
+						</group>
+						<group>
+							<field name="description" required="1"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_action_view_statutory_requirment">
+			<field name="name">Statutory Requirement</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">statutory.requirment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Statutory Requirements.
+                </p>
+            </field>
+		</record>
+		
+
+	</data>
+</odoo>

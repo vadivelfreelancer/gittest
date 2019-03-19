@@ -1,0 +1,656 @@
+<!--<?xml version="1.0" encoding="utf-8" ?>-->
+
+
+<odoo>
+
+
+    <!--account group master-->
+
+    <menuitem id="accounting_main_menu" name="Accounting" sequence="1"/>
+    <menuitem id="accounting_main_sub_menu" parent="accounting_main_menu" name="Accounting Management" sequence="2"/>
+
+
+<!--    <record id="accounting_group_master_form" model="ir.ui.view">-->
+<!--        <field name="name"> Group </field>-->
+<!--        <field name="model">accounting.group</field>-->
+<!--        <field name="type">form</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <sheet>-->
+<!--                    <group string="Group">-->
+<!--                        <group>-->
+<!--                            <field name="name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="group_name"/>-->
+<!--                            <field name="description"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--     <record id="accounting_group_master_tree" model="ir.ui.view">-->
+<!--        <field name="name">Group </field>-->
+<!--        <field name="model">accounting.group</field>-->
+<!--        <field name="type">tree</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                 <field name="name_id"/>-->
+<!--                <field name="group_name"/>-->
+<!--                <field name="description"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--     </record>-->
+<!--     <record id="accounting_group_master_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Group</field>-->
+<!--            <field name="res_model">accounting.group</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--     </record>-->
+
+<!--	<menuitem id="menu_pappaya_main_group" parent="accounting_main_sub_menu"-->
+<!--		name="Main Group" sequence="4" action="act_open_pappaya_main_group_view" />-->
+
+<!--    <menuitem id="accounting_group_menu_account" parent="accounting_main_sub_menu"-->
+<!--              action="account_group_menu.act_open_pappaya_main_group_view" name="Main Group" sequence="4"/>-->
+
+    <menuitem id="menu_pappaya_group_account" parent="accounting_main_sub_menu"
+        sequence="4" action="account_group_menu.act_open_pappaya_group_view" />
+
+
+    <!--account sub group master-->
+<!--    <record id="accounting_sub_group_master_form" model="ir.ui.view">-->
+<!--        <field name="name"> Sub Group </field>-->
+<!--        <field name="model">accounting.group.sub</field>-->
+<!--        <field name="type">form</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <sheet>-->
+<!--                    <group string="Sub Group">-->
+<!--                        <group>-->
+<!--                            <field name="name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="group_name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="sub_group_name"/>-->
+<!--                            <field name="description"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--     <record id="accounting_sub_group_master_tree" model="ir.ui.view">-->
+<!--        <field name="name">Sub Group </field>-->
+<!--        <field name="model">accounting.group.sub</field>-->
+<!--        <field name="type">tree</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                 <field name="name_id"/>-->
+<!--                <field name="group_name_id"/>-->
+<!--                <field name="sub_group_name"/>-->
+<!--                <field name="description"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--     </record>-->
+<!--     <record id="accounting_sub_group_master_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Group</field>-->
+<!--            <field name="res_model">accounting.group.sub</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--     </record>-->
+
+
+<!--    <menuitem id="accounting_sub_group_menu" parent="accounting_main_sub_menu"-->
+<!--              action="accounting_sub_group_master_action" name="Sub Group" sequence="5"/>-->
+
+    <menuitem id="menu_pappaya_sub_group1" parent="accounting_main_sub_menu"
+        sequence="5" action="account_group_menu.act_open_pappaya_sub_group_view" />
+
+    <!--account single ledger master-->
+<!--    <record id="accounting_single_ledger_master_form" model="ir.ui.view">-->
+<!--        <field name="name">Ledger </field>-->
+<!--        <field name="model">single.ledger</field>-->
+<!--        <field name="type">form</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <sheet>-->
+<!--                    <group string="Ledger">-->
+<!--                        <group>-->
+<!--                            <field name="name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="group_name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="sub_group_name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                        </group>-->
+<!--                         <group>-->
+<!--                            <field name="ledger_type"/>-->
+
+<!--                            <field name="ledger_name"/>-->
+<!--                             <field name="description"/>-->
+<!--                        </group>-->
+<!--                         <group>-->
+<!--                            <field name="is_cash" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>-->
+<!--                            <field name="is_bank" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>-->
+<!--                            <field name="is_loan" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>-->
+<!--                             <field name="is_fdr" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="is_unsecured_loan" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>-->
+<!--                            <field name="is_sundry_debtor" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>-->
+<!--                            <field name="is_sub_ledger" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--     <record id="accounting_single_ledger_master_tree" model="ir.ui.view">-->
+<!--        <field name="name">Ledger </field>-->
+<!--        <field name="model">single.ledger</field>-->
+<!--        <field name="type">tree</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                 <field name="name_id"/>-->
+<!--                <field name="group_name_id"/>-->
+<!--                <field name="sub_group_name_id"/>-->
+<!--                <field name="ledger_type"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--     </record>-->
+<!--     <record id="accounting_single_ledger_master_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Ledger</field>-->
+<!--            <field name="res_model">single.ledger</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--     </record>-->
+
+        <record id="account.view_account_group_form" model="ir.ui.view">
+            <field name="name">account.group.form</field>
+            <field name="model">account.group</field>
+            <field name="arch" type="xml">
+            <form string="Ledger">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="sub_group_id" required="1" options="{'no_open': True,'no_create':True}" />
+                        <field name="color" />
+                        <field name="description" />
+                        <field name="code_prefix" invisible="1" />
+                        <field name="parent_id" invisible="1" />
+                    </group>
+                    <group>
+                        <group>
+                            <field name="is_cash" required="1" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                            <field name="is_bank" required="1" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                            <field name="is_loan" required="1" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                            <field name="is_fdr" required="1" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                        </group>
+                        <group>
+                            <field name="is_unsecured_loan" required="1" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                            <field name="is_sundry_debtor" required="1" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                            <field name="is_sub_ledger" required="1" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+        <menuitem name="Ledger" id="account_group_menu1" action="account.action_account_group_tree"
+            sequence="6" parent="accounting_main_sub_menu" />
+
+<!--        <menuitem id="accounting_single_ledger_menu" parent="accounting_main_sub_menu"-->
+<!--              action="accounting_single_ledger_master_action" name="Ledger" sequence="6"/>-->
+
+        <menuitem action="account.action_account_form" name="Sub Ledgers" id="account.menu_action_account_form" parent="accounting_main_sub_menu" groups="account.group_account_user" sequence="7"/>
+
+    <!--account sub ledger master-->
+<!--    <record id="accounting_sub_ledger_master_form" model="ir.ui.view">-->
+<!--        <field name="name"> Sub Ledger </field>-->
+<!--        <field name="model">sub.ledger</field>-->
+<!--        <field name="type">form</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <sheet>-->
+<!--                    <group string="Sub Ledger">-->
+<!--                        <group>-->
+<!--                            <field name="name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="group_name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="sub_group_name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="ledger_name_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                        </group>-->
+<!--                         <group>-->
+<!--                            <field name="ledger_type"/>-->
+<!--                            <field name="sub_ledger_name"/>-->
+
+<!--                             <field name="description"/>-->
+
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--     <record id="accounting_sub_ledger_master_tree" model="ir.ui.view">-->
+<!--        <field name="name">Sub Ledger </field>-->
+<!--        <field name="model">sub.ledger</field>-->
+<!--        <field name="type">tree</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                 <field name="name_id"/>-->
+<!--                <field name="group_name_id"/>-->
+<!--                <field name="sub_group_name_id"/>-->
+<!--                <field name="ledger_type"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--     </record>-->
+<!--     <record id="accounting_sub_ledger_master_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Sub Ledger</field>-->
+<!--            <field name="res_model">sub.ledger</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--     </record>-->
+<!--    <menuitem id="accounting_sub_ledger_menu" parent="accounting_main_sub_menu"-->
+<!--              action="accounting_sub_ledger_master_action" name="Sub Ledger" sequence="7"/>-->
+
+
+	<record model="ir.ui.view"
+		id="view_operating_unit_form_inherit_pappaya">
+		<field name="name">operating.unit.form.inherit.pappaya</field>
+		<field name="model">operating.unit</field>
+		<field name="inherit_id" ref="pappaya_base.view_operating_unit_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//notebook" position="inside">
+				<page string="Sub Ledger Mapping">
+					<field name="fy_subledgers" />
+				</page>
+			</xpath>
+		</field>
+	</record>
+
+    <!--account subledger financialyear mapping master-->
+    <record id="accounting_ledger_financial_mapping_master_form" model="ir.ui.view">
+        <field name="name"> Sub Ledger Financial Year Mapping </field>
+        <field name="model">financial.year</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Sub Ledger" invisible="context.get('branch_financial', True)">
+                            <field name="ledger_financial">
+                                <tree editable="bottom">
+                                    <field name="name" options='{"no_open": True, "no_create": True}'/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Branch Details" invisible="context.get('subledger', True)">
+                            <field name="branch_financial">
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="accounting_ledger_financial_mapping_master_tree" model="ir.ui.view">
+        <field name="name"> Sub Ledger Financial Year Mapping</field>
+        <field name="model">financial.year</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="name"/>
+            </tree>
+        </field>
+     </record>
+     <record id="accounting_ledger_financial_mapping_master_action" model="ir.actions.act_window">
+            <field name="name"> Sub Ledger Financial Year Mapping</field>
+            <field name="res_model">financial.year</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+             <field name="context">{
+                    'subledger': True,
+                    'branch_financial': False,
+                }
+              </field>
+     </record>
+    <menuitem id="accounting_ledger_financial_mapping_menu" parent="accounting_main_sub_menu"
+              action="accounting_ledger_financial_mapping_master_action" name=" Sub Ledger Financial Year Mapping" sequence="9"/>
+
+         <record id="accounting_branch_financial_mapping_master_action" model="ir.actions.act_window">
+            <field name="name"> Branch Financial Year Mapping</field>
+            <field name="res_model">financial.year</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+              <field name="context">{
+                    'branch_financial': True,
+                    'subledger': False
+                }
+              </field>
+     </record>
+
+    <menuitem id="accounting_branch_financial_mapping_menu" parent="accounting_main_sub_menu"
+              action="accounting_branch_financial_mapping_master_action" name=" Branch Financial Year Mapping" sequence="10"/>
+
+
+    <!--account branch subledger mapping master-->
+    <record id="accounting_branch_ledger_mapping_master_form" model="ir.ui.view">
+        <field name="name">Branch Sub Ledger Mapping </field>
+        <field name="model">branch.ledger</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Branch Sub Ledger Mapping">
+                        <group>
+                            <field name="financial_year" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                         <group  invisible="context.get('subledger', True)">
+                            <field name="branch" options='{"no_open": True, "no_create": True}'
+                             invisible="context.get('subledger', True)"/>
+                        </group>
+                         <group invisible="context.get('branch', True)">
+                           <field name="sub_ledger" options='{"no_open": True, "no_create": True}'
+                                  invisible="context.get('branch', True)"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Branch" invisible="context.get('branch', True)">
+                            <field name="branch_ledger">
+                                <tree editable="bottom">
+                                    <field name="branch" options='{"no_open": True, "no_create": True}'
+                                   invisible="context.get('branch', True)"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Sub Ledger" invisible="context.get('subledger', True)">
+                            <field name="ledger_branches">
+                                <tree editable="bottom">
+                                     <field name="ledger" options='{"no_open": True, "no_create": True}'
+                                      invisible="context.get('subledger', True)"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="accounting_branch_ledger_mapping_master_tree" model="ir.ui.view">
+        <field name="name"> Branch Sub Ledger Mapping</field>
+        <field name="model">branch.ledger</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="financial_year"/>
+            </tree>
+        </field>
+     </record>
+     <record id="accounting_branch_ledger_mapping_master_action" model="ir.actions.act_window">
+            <field name="name"> Branch Sub Ledger Mapping</field>
+            <field name="res_model">branch.ledger</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+             <field name="context">{
+                    'branch': True,
+                    'subledger': False
+                }
+              </field>
+
+     </record>
+
+    <menuitem id="accounting_branch_ledger_mapping_menu" parent="accounting_main_sub_menu"
+              action="accounting_branch_ledger_mapping_master_action" name=" Branch Sub Ledger Mapping" sequence="11"/>
+
+
+         <record id="accounting_ledger_branch_mapping_master_action" model="ir.actions.act_window">
+            <field name="name">  Sub Ledger Branch Mapping</field>
+            <field name="res_model">branch.ledger</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+              <field name="context">{
+                    'branch': False,
+                    'subledger': True
+                }
+              </field>
+     </record>
+    <menuitem id="accounting_ledger_branch_mapping_menu" parent="accounting_main_sub_menu"
+              action="accounting_ledger_branch_mapping_master_action" name=" Sub Ledger Branch Mapping" sequence="12"/>
+
+    <!--account bank branch mapping master-->
+    <record id="accounting_bank_branch_mapping_master_form" model="ir.ui.view">
+        <field name="name">Bank Branch Mapping </field>
+        <field name="model">bank.branch</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Bank Branch Mapping">
+                         <group>
+                            <field name="bank" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                             <field name="financial_year" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Branch">
+                            <field name="branches">
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="accounting_bank_branch_mapping_master_tree" model="ir.ui.view">
+        <field name="name"> Bank Branch Mapping</field>
+        <field name="model">bank.branch</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="bank"/>
+            </tree>
+        </field>
+     </record>
+
+     <record id="accounting_bank_branch_mapping_master_action" model="ir.actions.act_window">
+            <field name="name"> Bank Branch Mapping</field>
+            <field name="res_model">bank.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="accounting_bank_branch_mapping_menu" parent="accounting_main_sub_menu"
+              action="accounting_bank_branch_mapping_master_action" name=" Bank Branch Mapping" sequence="13"/>
+
+
+    <!--Cheque Lot master-->
+    <record id="subledger_cheque_book_form" model="ir.ui.view">
+        <field name="name">SubLedger Cheque Book </field>
+        <field name="model">subledger.cheque.book</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate" string="Generate" type="object" attrs="{'invisible': [('is_created', '=', True)]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="ledger_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="sub_ledger_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="dept_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="is_created" invisible="1"/>
+                            <newline/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="from_cheque_no"/>
+                            <field name="type" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="to_cheque_no"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="subledger_cheque_book_tree" model="ir.ui.view">
+        <field name="name">Subledger Cheque Book</field>
+        <field name="model">subledger.cheque.book</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+<!--                <field name="ledger_id"/>-->
+                <field name="sub_ledger_id"/>
+                <field name="dept_id"/>
+                <field name="from_cheque_no"/>
+                <field name="to_cheque_no"/>
+                <field name="type"/>
+            </tree>
+        </field>
+     </record>
+
+     <record id="action_subledger_cheque_book" model="ir.actions.act_window">
+            <field name="name">Subledger Cheque Book</field>
+            <field name="res_model">subledger.cheque.book</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+
+    <menuitem id="subledger_cheque_book_menu" parent="accounting_main_sub_menu"
+              action="action_subledger_cheque_book" sequence="14"/>
+
+
+    <!--Cheque book-->
+    <record id="cheque_book_form" model="ir.ui.view">
+        <field name="name">Cheque Book </field>
+        <field name="model">cheque.book</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Cheque Book">
+                <sheet>
+                    <group>
+                         <group>
+                            <field name="name" readonly="1"/>
+                            <field name="ledger_id" readonly="1"/>
+                            <field name="sub_ledger_id" readonly="1"/>
+                            <field name="subledger_cheque_book_id" readonly="1"/>
+                            <field name="is_cheque_used"/>
+                         </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="cheque_book_tree" model="ir.ui.view">
+        <field name="name">Cheque Book</field>
+        <field name="model">cheque.book</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="ledger_id"/>
+                <field name="sub_ledger_id"/>
+                <field name="subledger_cheque_book_id"/>
+                <field name="is_cheque_used"/>
+            </tree>
+        </field>
+     </record>
+
+     <record id="action_cheque_book" model="ir.actions.act_window">
+            <field name="name">Cheque Book</field>
+            <field name="res_model">cheque.book</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+
+    <menuitem id="cheque_book_menu" parent="accounting_main_sub_menu"
+              action="action_cheque_book" sequence="15"/>
+
+        <!-- Purpose Master -->
+    <record id="purpose_master_form" model="ir.ui.view">
+        <field name="name">Purpose Master</field>
+        <field name="model">purpose.list</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Purpose Master">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="purpose_list_tree" model="ir.ui.view">
+        <field name="name">Purpose List</field>
+        <field name="model">purpose.list</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+
+     <record id="action_purpose_master" model="ir.actions.act_window">
+            <field name="name">Purpose List</field>
+            <field name="res_model">purpose.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+
+    <menuitem id="purpose_master_menu" parent="accounting_main_sub_menu"
+              action="action_purpose_master" sequence="16"/>
+
+
+    <!-- Transaction Types -->
+    <record id="transaction_type_form" model="ir.ui.view">
+        <field name="name">Transaction Type Form</field>
+        <field name="model">transaction.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Transaction Types">
+                <sheet>
+                    <group>
+                         <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="transaction_type_tree" model="ir.ui.view">
+        <field name="name">Transaction Types</field>
+        <field name="model">transaction.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+
+     <record id="action_transaction_type" model="ir.actions.act_window">
+            <field name="name">Transaction Types</field>
+            <field name="res_model">transaction.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+
+    <menuitem id="transaction_type_menu" parent="accounting_main_sub_menu"
+              action="action_transaction_type" sequence="17"/>
+
+</odoo>

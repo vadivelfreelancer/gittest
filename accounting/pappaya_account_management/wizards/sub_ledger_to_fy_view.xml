@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="subvledger_to_fy_form_view" model="ir.ui.view">
+        <field name="name">Sub Ledger Linking to FY Form</field>
+        <field name="model">subledger.fy.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group >
+                        <group>
+                            <field name="financial_year"/>
+                        </group>
+                    </group>
+                    <field name="sub_ledgers" string="Sub Ledgers">
+                        <tree>
+                            <field name="name" string="Sub Ledgers"/>
+                        </tree>
+                    </field>
+                </sheet>
+                 <footer class="oe_edit_only">
+                    <button special="save" type="object" string="Save" class="oe_highlight"/>
+                    <button string="Discard" special="cancel"/>
+                </footer>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="accounting_ledger_financial_mapping_wizard_action" model="ir.actions.act_window">
+        <field name="name"> Sub Ledger Financial Year Mapping</field>
+        <field name="res_model">subledger.fy.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+     </record>
+    <menuitem id="accounting_ledger_financial_wizard_menu" parent="accounting_main_sub_menu"
+              action="accounting_ledger_financial_mapping_wizard_action" name=" Sub Ledger Financial Year Mapping" sequence="9"/>
+
+
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_item_class_tree" model="ir.ui.view">
+			<field name="name">pappaya.item.class.tree</field>
+			<field name="model">pappaya.item.class</field>
+			<field name="arch" type="xml">
+				<tree string="Item Class">
+					<field name="store_type"/>
+					<field name="item_class"/>
+					<field name="item_class_code"/>
+					<field name="description"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_item_class_form" model="ir.ui.view">
+			<field name="name">pappaya.item.class.form</field>
+			<field name="model">pappaya.item.class</field>
+			<field name="arch" type="xml">
+				<form string="Item Class">
+                    <sheet>
+                    	<group>
+                            <group>
+                                <field name="store_type" required="1"/>
+                                <field name="item_class" required="1"/>
+                            </group>
+							<group>
+								<field name="item_class_code" required="1"/>
+								<field name="description"/>
+							</group>
+                        </group>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_item_class_search" model="ir.ui.view">
+			<field name="name">pappaya.item.class.search</field>
+			<field name="model">pappaya.item.class</field>
+			<field name="arch" type="xml">
+				<search string="Item Class">
+					<field name="store_type"/>
+					<field name="item_class"/>
+					<field name="item_class_code"/>
+					<field name="description"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_pappaya_item_class_view" model="ir.actions.act_window">
+			<field name="name">Item Class</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.item.class</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_item_class_search" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Item class.
+				</p>
+			</field>
+		</record>
+	</data>
+</odoo>

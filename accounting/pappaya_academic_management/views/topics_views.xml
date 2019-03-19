@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="topic_form_view" model="ir.ui.view">
+        <field name="name">topic.form.view</field>
+        <field name="model">pappaya.topics</field>
+        <field name="arch" type="xml">
+            <form string="Topics">
+                <!--                <header>-->
+                <!--                    <button name="%(pappaya_academic_management.batch_course_topic_addition_action)d"-->
+                <!--                            context="{'default_tracks_id': active_id,-->
+                <!--                            'default_course_id': course, 'default_subject_id': subject}"-->
+                <!--                            string="Batch Mode" class="oe_highlight" type="action"/>-->
+                <!--                </header>-->
+                <sheet>
+                    <group>
+                        <field name="course" required="1"/>
+                        <field name="subject" required="1"/>
+                        <field name="topic" required="1"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="topic_tree_view" model="ir.ui.view">
+        <field name="name">topic.tree.view</field>
+        <field name="model">pappaya.topics</field>
+        <field name="arch" type="xml">
+            <tree string="Topics">
+                <field name="topic"/>
+                <field name="subject"/>
+                <field name="course"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="topic_menu_action" model="ir.actions.act_window">
+        <field name="name">Topics</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pappaya.topics</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

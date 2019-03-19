@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+	<menuitem id="menu_electricity_root" name="Electricity" sequence="90"/>
+	<menuitem id="menu_masters" name="Masters" parent="menu_electricity_root" sequence="90"/>
+	
+        <menuitem id="menu_electricity_master"
+	    parent="menu_masters"
+	    sequence="10"
+	    name="Electricity Master"
+	    action="act_open_electricity_master_view"/>
+        
+     <menuitem id="communication_main_menu" name="Communication" sequence="1"/>
+         <menuitem id="material_master_main_sub_menu" parent="communication_main_menu" name="Communication Details" sequence="1"/>
+         <menuitem id="communication_transaction_menu" parent="communication_main_menu" name="Transaction" sequence="1"/>
+         <menuitem id="communication_security_deposit_sub_menu" parent="communication_transaction_menu" action="communication_security_deposit_master_action" name="Security Deposit " sequence="2"/>
+         <menuitem id="communication_detail_master_sub_menu" parent="material_master_main_sub_menu" action="communication_detail_master_action" name="Communication Bill Details" sequence="4"/>
+         <menuitem id="zonal_approval_communication_main_menu" parent="communication_main_menu" name="Approvals" sequence="1"/>
+         <menuitem id="zonal_approval_communication_main_sub_menu" parent="zonal_approval_communication_main_menu" action="communication_zonal_master_action" name="Zonal Approval" sequence="1"/>
+         <menuitem id="rfo_approval_main_communication_sub_menu" parent="zonal_approval_communication_main_menu" action="communication_rfo_master_action" name=" Rfo Approval" sequence="1"/>
+         <menuitem id="communication_co_approval_main_sub_menu" parent="communication_transaction_menu" action="communication_co_approval_action" name=" CO Approval" sequence="2"/>
+
+        
+    </data>
+</odoo>

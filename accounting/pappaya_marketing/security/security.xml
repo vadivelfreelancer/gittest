@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+	<data>
+	
+        <record model="ir.rule" id="base.res_users_rule">
+       	   <field name="active" eval="0"/>
+        </record>
+        <record model="ir.rule" id="base.res_partner_bank_rule">
+        	<field name="active" eval="0"/>
+        </record>
+	
+	<!-- Student Address Rule - Pro User -->
+	
+    <record id="student_address_rule_prouser" model="ir.rule">
+        <field name="name">Student Address Rule - PRO User</field>
+        <field name="model_id" ref="model_pappaya_lead_stud_address"/>
+        <field name="groups" eval="[(4, ref('pappaya_base.marketing_pro_user'))]"/>
+        <field name="domain_force">['|',('employee_id','=',False),('employee_id','=',user.employee_id.id)]</field>
+    </record>
+	
+	<!-- Student Address Rule - Pro Admin -->
+	
+    <record id="student_address_rule_proadmin" model="ir.rule">
+        <field name="name">Student Address Rule - PRO Admin</field>
+        <field name="model_id" ref="model_pappaya_lead_stud_address"/>
+        <field name="groups" eval="[(4, ref('pappaya_base.marketing_pro_admin'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>	
+    
+    <record id="hr_employee_rule_proadmin" model="ir.rule">
+        <field name="name">Hr Employee Rule - PRO Admin</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="groups" eval="[(4, ref('pappaya_base.marketing_pro_admin'))]"/>
+        <field name="domain_force">[('staff_type','in',['pro','proadmin'])]</field>
+    </record>
+    
+    <!-- Res Users Rule for PRO ADMIN -->
+    
+    <record id="res_users_pro_admin_rule" model="ir.rule">
+        <field name="name">Res Users - PRO Admin</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="groups" eval="[(4, ref('pappaya_base.marketing_pro_admin'))]"/>
+        <field name="domain_force">[('employee_id.staff_type','in',['pro','proadmin'])]</field>
+    </record>
+
+	</data>
+</odoo>

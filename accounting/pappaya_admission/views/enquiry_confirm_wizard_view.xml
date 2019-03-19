@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <odoo>
+        <record model="ir.ui.view" id="pappaya_enquiry_confirm_wizard">
+            <field name="name">Confirming Enquiry to Proceed</field>
+            <field name="model">pappaya.enquiry.confirm.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                    </header>
+
+                    <group>
+                        <field name="stage"/>
+                    </group>
+                    <group attrs="{'invisible': [('fees','!=',True)]}">
+                        <span>The following outstanding fees will be mandatory</span>
+                    </group>
+                    <group>
+                      <field name="remarks_1" attrs="{'invisible': [('fees','!=',True)]}"/>
+                        <field name="fees" invisible="1" />
+                    </group>
+                    <footer>
+                        <button name="action_confirm_msg" string="Yes" type="object"
+                                class="oe_highlight" />
+                        <button string="No" special="cancel"/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="pappaya_enquiry_cancel_stage_wizard">
+            <field name="name">Stage Cancellation</field>
+            <field name="model">pappaya.enquiry.confirm.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                      <field name="remarks_2" required="1" />
+                    </group>
+                    <footer>
+                        <button name="action_stage_cancel" string="Ok" type="object"
+                                class="oe_highlight" />
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+</odoo>

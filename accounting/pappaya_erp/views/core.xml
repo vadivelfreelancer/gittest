@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="core_tree_view" model="ir.ui.view">
+			<field name="name">pappaya.core.tree</field>
+			<field name="model">pappaya.core</field>
+			<field name="arch" type="xml">
+				<tree string="core">
+					<field name="model_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="core_form_view" model="ir.ui.view">
+			<field name="name">pappaya.core.form</field>
+			<field name="model">pappaya.core</field>
+			<field name="arch" type="xml">
+				<form string="core">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="model_id" options="{'no_create': True, 'no_open': True}"/>
+                        		<field name="field_ids" widget="many2many_tags" domain="[('model_id','=',model_id),('copy','=','t'),('ttype','=','char')]" options="{'no_create': True, 'no_open': True}"/> <!--  -->
+                        	</group>
+                        	<group>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="core_form_kanban_view" model="ir.ui.view">
+            <field name="name">pappaya.core.kanban</field>
+            <field name="model">pappaya.core</field>
+            <field name="arch" type="xml">
+				<kanban>
+                  <field name="model_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+								<div class="oe_kanban_details">
+                                    <div class="o_kanban_record_title">
+                                        <strong><field name="model_id"/> </strong>
+                                    </div>
+                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                    <ul>
+										<!--<li t-if="record.is_active.raw_value" class="o_text_overflow"> <field name="is_active"/></li><br/>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+		<record id="pappaya_core_search" model="ir.ui.view">
+            <field name="name">pappaya.core search</field>
+            <field name="model">pappaya.core</field>
+            <field name="arch" type="xml">
+                <search string="core">
+                    <field name="model_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                    	<filter string="core" domain="[]" context="{'group_by':'model_id'}"/>
+					</group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_model_core_view" model="ir.actions.act_window">
+			<field name="name">Pappaya Model Configurations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.core</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,kanban</field>
+			<field name="search_view_id" ref="pappaya_core_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new core.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

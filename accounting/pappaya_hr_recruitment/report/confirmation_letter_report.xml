@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <template id="report_confirmation_letter">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pappaya_hr_recruitment.pappaya_nspira_report_custom_layout">
+                        <div class="page">
+
+                            <style>
+                                th,td,tr {border-collapse:collapse; font-family:Liberation Serif;}
+                                th,td {vertical-align:middle; font-size:14px;}
+                            </style>
+
+                            <div class="row">
+
+                                <div style="text-align:center; width:100%; padding-top:20px; font-size:16px;">
+                                    <u><strong>Confirmation Letter</strong></u>
+                                </div>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px">
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">Dear <b><span t-field ="o.partner_name"/></b>,</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">We are pleased to inform you that your services with the company
+                                            have been confirmed with effect from <b><span t-field ="o.availability" t-field-options='{"format": "dd-MMM-Y"}'/></b>.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">All other terms and conditions of your employment remain unchanged.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px; padding-left:3px;">Nspira congratulates you on your confirmation and wishes you well in your position.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:30px; padding-left:3px;">With best wishes,</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:5px; padding-left:3px;">Human Resources</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:5px; padding-left:3px;">Nspira Management Services (P) Ltd.</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+			id="confirmation_letter_report"
+			model="hr.applicant"
+			string="Confirmation Letter"
+			report_type="qweb-pdf"
+			name="pappaya_hr_recruitment.report_confirmation_letter"
+			file="pappaya_hr_recruitment.report_confirmation_letter"
+            print_report_name="'Confirmation Letter - %s' % (object.partner_name)"
+		/>
+
+        <record id="paperformat_confirmation_letter_report" model="report.paperformat">
+            <field name="name">European A4 - Confirmation Letter</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="pappaya_hr_recruitment.confirmation_letter_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="pappaya_hr_recruitment.paperformat_confirmation_letter_report"/>
+        </record>
+
+    </data>
+</odoo>

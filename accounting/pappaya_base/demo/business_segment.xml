@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+		
+		<record id="pappaya_business_segment_1" model="pappaya.business.segment">
+			<field name="name">School</field>
+		</record>
+		
+		<record id="pappaya_business_segment_2" model="pappaya.business.segment">
+			<field name="name">Degree College</field>
+		</record>
+		
+		<record id="pappaya_business_segment_3" model="pappaya.business.segment">
+			<field name="name">Junior College</field>
+		</record>
+		
+		<record id="pappaya_business_segment_4" model="pappaya.business.segment">
+			<field name="name">Coaching Center</field>
+		</record>
+
+		<record id="pappaya_gender_male" model="pappaya.gender">
+            <field name="name">Male</field>
+        </record>
+
+		<record id="pappaya_gender_female" model="pappaya.gender">
+            <field name="name">Female</field>
+        </record>
+		
+	</data>
+</openerp>

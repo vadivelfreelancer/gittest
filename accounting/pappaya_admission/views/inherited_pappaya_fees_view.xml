@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--Fees Collection-->
+
+        <record id="view_fees_collection_inherit_form" model="ir.ui.view">
+            <field name="name">fee_collection_inherit_form</field>
+            <field name="model">pappaya.fees.collection</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_collection_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="enquiry_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="school_id" position="after">
+                    <field name="application_no" readonly="1"/>
+                    <field name="admission_number" string="Reservation No" readonly="1"
+                           attrs="{'invisible': ['|',('is_res_stage','!=',True)]}"/>
+                    <field name="admission_number" string="Admission No" readonly="1"
+                           attrs="{'invisible': ['|',('is_adm_stage','!=',True)]}"/>
+                    <field name="residential_type_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                    <field name="is_adm_stage" invisible="1"/>
+                    <field name="is_res_stage" invisible="1"/>
+                    <field name="old_new" invisible="1"/>
+                </field>
+                <field name="collection_date" position="after">
+                    <field name="course_package_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                    <field name="medium_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                    <field name="caution_deposit_amt" readonly="1" attrs="{'invisible': [('old_new','=','new')]}"/>
+                    <field name="student_wallet_amt" readonly="1" attrs="{'invisible': [('old_new','=','new')]}"/>
+                    <field name="sponsor_amount" invisible="1"/>
+                    <field name="pocket_money_id" invisible="1"/>
+                </field>
+                <xpath expr="//form/sheet/field[@name='fees_collection_line']/tree/field[@name='other_payment_id']"
+                       position="after">
+                    <field name="pocket_money_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//form/sheet/field[@name='fees_collection_line']/form/sheet/group/field[@name='is_update']"
+                       position="after">
+                    <field name="pocket_money_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//form/sheet/table/tr/td[10]" position="after">
+                    <td class="o_list_number">
+                        <field name="adj_amt_total" nolabel="1" style="margin-left:35px;text-align:right"/>
+                    </td>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fees_collection_inherit_tree" model="ir.ui.view">
+            <field name="name">fee_collection_inherit_tree</field>
+            <field name="model">pappaya.fees.collection</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_collection_tree"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="admission_number" readonly="1"/>
+                    <field name="enquiry_id" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_fees_collection_inherit_search" model="ir.ui.view">
+            <field name="name">fee_collection_inherit_search</field>
+            <field name="model">pappaya.fees.collection</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_collection_search"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="admission_number"/>
+                    <field name="enquiry_id"/>
+                </field>
+                <group expand="0" string="Group By...">
+                    <filter string="Admission No" domain="[]" context="{'group_by':'admission_number'}"/>
+                    <filter string="Student Name" domain="[]" context="{'group_by':'enquiry_id'}"/>
+                </group>
+            </field>
+        </record>
+
+        <!--Fees Receipt-->
+
+        <record id="view_fees_receipt_inherit_form" model="ir.ui.view">
+            <field name="name">fee_receipt_inherit_form</field>
+            <field name="model">pappaya.fees.receipt</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_receipt_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="name" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="school_id" position="after">
+                    <field name="application_no" readonly="1"/>
+                    <field name="admission_number" string="Reservation No" readonly="1"
+                           attrs="{'invisible': ['|',('is_res_stage','!=',True)]}"/>
+                    <field name="admission_number" string="Admission No" readonly="1"
+                           attrs="{'invisible': ['|',('is_adm_stage','!=',True)]}"/>
+                    <field name="is_adm_stage" invisible="1"/>
+                    <field name="is_res_stage" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_fees_creceipt_inherit_tree" model="ir.ui.view">
+            <field name="name">fee_receipt_inherit_tree</field>
+            <field name="model">pappaya.fees.receipt</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_receipt_tree"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="admission_number"/>
+                    <field name="name"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_fees_receipt_inherit_search" model="ir.ui.view">
+            <field name="name">fee_receipt_inherit_search</field>
+            <field name="model">pappaya.fees.receipt</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_receipt_search"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="admission_number"/>
+                    <field name="name"/>
+                </field>
+            </field>
+        </record>
+
+        <!--Fees Ledger-->
+
+        <record id="view_pappaya_fees_ledger_form_inherit" model="ir.ui.view">
+            <field name="name">fees.ledger.form.inherit</field>
+            <field name="model">pappaya.fees.ledger</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_ledger_form"/>
+            <field name="arch" type="xml">
+                <field name="academic_year_id" position="after">
+                    <field name="enquiry_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                    <field name="admission_number" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_pappaya_fees_ledger_tree_inherit" model="ir.ui.view">
+            <field name="name">fees.ledger.tree.inherit</field>
+            <field name="model">pappaya.fees.ledger</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_ledger_tree"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="admission_number"/>
+                    <field name="enquiry_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_fees_ledger_inherit_search" model="ir.ui.view">
+            <field name="name">fees.ledger.tree.inherit</field>
+            <field name="model">pappaya.fees.ledger</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_ledger_search"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="admission_number"/>
+                    <field name="enquiry_id"/>
+                </field>
+            </field>
+        </record>
+
+        <!--Fees Concession-->
+
+        <record id="view_concession_fees_form_inherit" model="ir.ui.view">
+            <field name="name">concession.fees.inherit</field>
+            <field name="model">pappaya.concession.fees</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_concession_fees_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group/field[@name='school_id']" position="after">
+                    <field name="admission_id" options="{'no_open': True,'no_create':True}"
+                           attrs="{'readonly':[('status','!=','draft')],'required':[('status','=','draft')]}"
+                           domain="[('branch_id','=',school_id), ('academic_year', '=', academic_year_id),('cancel','=', False)]"/>
+                    <field name="course_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                    <field name="batch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                    <field name="course_package_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='date']" position="after">
+                    <field name="group_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                    <field name="package_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_concession_fees_tree_inherit" model="ir.ui.view">
+            <field name="name">concession.fees.inherit</field>
+            <field name="model">pappaya.concession.fees</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_concession_fees_tree"/>
+            <field name="arch" type="xml">
+                <field name="school_id" position="before">
+                    <field name="admission_id"/>
+                    <field name="course_package_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="pappaya_fees_receipt_form_inherit" model="ir.ui.view">
+            <field name="name">pappaya.fees.receipt.form</field>
+            <field name="model">pappaya.fees.receipt</field>
+            <field name="inherit_id" ref="pappaya_fees.pappaya_fees_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/field[@name='fees_receipt_line']/tree/field[@name='other_payment_id']"
+                       position="after">
+                    <field name="pocket_money_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_pappaya_fees_refund_inherit" model="ir.ui.view">
+            <field name="name">pappaya.fees.refund.form.inherit</field>
+            <field name="model">pappaya.fees.refund</field>
+            <field name="inherit_id" ref="pappaya_fees.view_pappaya_fees_refund"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group/field[@name='student_id']" position="before">
+                    <field name="admission_id" required="1" options="{'no_open': True,'no_create':True}"
+                           attrs="{'readonly':[('state' ,'!=' ,'draft')]}"
+                           domain="[('academic_year', '=', academic_year_id),('cancel','=', False)]"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='student_id']" position="after">
+                    <field name="course_package_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_pappaya_fees_refund_tree_inherit" model="ir.ui.view">
+            <field name="name">pappaya.fees.refund.tree.inherit</field>
+            <field name="model">pappaya.fees.refund</field>
+            <field name="inherit_id" ref="pappaya_fees.view_pappaya_fees_refund_tree"/>
+            <field name="arch" type="xml">
+                <field name="branch_id" position="before">
+                    <field name="course_package_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_pappaya_refund_fee_search_inherit" model="ir.ui.view">
+            <field name="name">fees.ledger.search.inherit</field>
+            <field name="model">pappaya.fees.refund</field>
+            <field name="inherit_id" ref="pappaya_fees.view_pappaya_refund_fee_search"/>
+            <field name="arch" type="xml">
+                <group expand="0" string="Group By...">
+                    <filter string="Course Package" name="course_package_id" domain="[]"
+                            context="{'group_by':'course_package_id'}"/>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</odoo>

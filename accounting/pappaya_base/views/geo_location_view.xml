@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		<!-- Import file template -->
+		<record id="view_import_address_template_tree" model="ir.ui.view">
+            <field name="name">view.import.address.template.tree</field>
+            <field name="model">address.import.template</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Template">
+                    <field name="name"/>
+                    <field name="file_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_import_address_template_form" model="ir.ui.view">
+            <field name="name">view.import.address.template.tree</field>
+            <field name="model">address.import.template</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Template">
+                    <sheet>
+                    	<group>
+	                        <group>
+	                            <field name="name" required="1"/>
+	                            <field name="file" filename="file_name"/>
+	                            <field name="file_name"/>
+	                        </group>
+	                        <group/>	
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_address_import_template">
+            <field name="name">Address Import Template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">address.import.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_import_address_template_tree"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Address Import Template.
+				</p>
+			</field>
+        </record>		
+		
+				<!-- Begin : region -->
+		<record id="view_pappaya_region_tree" model="ir.ui.view">
+            <field name="name">pappaya.region.tree</field>
+            <field name="model">pappaya.region</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="region">
+                    <field name="name"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_region_form" model="ir.ui.view">
+            <field name="name">pappaya.region.form</field>
+            <field name="model">pappaya.region</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="region">
+                    <sheet>
+                    	<group>
+	                        <group>
+	                            <field name="name" required="1"/>
+	                            <field name="state_id" widget="many2many_tags" options="{'no_open': True,'no_create':True}" required="1"/>
+	                        </group>
+	                        <group/>	
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_region_search" model="ir.ui.view">
+            <field name="name">pappaya.region.search</field>
+            <field name="model">pappaya.region</field>
+            <field name="arch" type="xml">
+                <search string="region">
+                    <field name="name" />
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_region_view">
+            <field name="name">Region</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.region</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_region_search"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new region.
+				</p>
+			</field>
+        </record>
+        <!-- End : region -->
+	
+	
+		<!-- Begin : City -->
+		<record id="view_pappaya_city_tree" model="ir.ui.view">
+            <field name="name">pappaya.city.tree</field>
+            <field name="model">pappaya.city</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="City">
+                   	<field name="record_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="district_id"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_city_form" model="ir.ui.view">
+            <field name="name">pappaya.city.form</field>
+            <field name="model">pappaya.city</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="City">
+                    <sheet>
+                    	<group>
+	                        <group>
+	                        	<field name="state_id" options="{'no_open': True,'no_create':True}" required="1"/>
+	                        	<field name="district_id" domain="[('state_id','=',state_id)]" options="{'no_open': True,'no_create':True}" required="1"/>
+	                            <field name="name" required="1"/>
+	                            <field name="record_id" invisible="1"/>
+	                        </group>
+	                        <group/>	
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_city_search" model="ir.ui.view">
+            <field name="name">pappaya.city.search</field>
+            <field name="model">pappaya.city</field>
+            <field name="arch" type="xml">
+                <search string="City">
+                    <field name="name" />
+                    <field name="district_id"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	<filter name="group_by_state_id" string="State" context="{'group_by':'state_id'}"/>
+                        <filter name="group_by_district_id" string="District" context="{'group_by':'district_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_city_view">
+            <field name="name">City</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.city</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_city_search"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new City.
+				</p>
+			</field>
+        </record>
+        <!-- End : City -->
+        
+        <!-- Begin : Mandal -->
+        <record id="view_pappaya_mandal_marketing_tree" model="ir.ui.view">
+            <field name="name">pappaya.mandal.marketing.tree</field>
+            <field name="model">pappaya.mandal.marketing</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Mandal">
+                	<field name="record_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="district_id"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_mandal_marketing_form" model="ir.ui.view">
+            <field name="name">pappaya.mandal.marketing.form</field>
+            <field name="model">pappaya.mandal.marketing</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Mandal">
+                    <sheet>
+                    	<group>
+	                        <group>
+	                        	<field name="state_id" options="{'no_open': True,'no_create':True}" required="1"/>
+	                        	<field name="district_id" options="{'no_open': True,'no_create':True}" required="1"
+	                        			domain="[('state_id','=',state_id)]" />
+	                            <field name="name" required="1"/>
+	                            <field name="record_id" invisible="1"/>
+                                <field name="taluka_slno"/>
+                                <field name="disthead_slno"/>
+                                <field name="user_slno"/>
+	                        </group>
+                            <group>
+                                <field name="description"/>
+                                <field name="status"/>
+                                <field name="strength"/>
+                                <field name="population"/>
+                                <field name="city_slno"/>
+                                <field name="is_update"/>
+                            </group>
+	                        <group/>	
+                        </group>
+                        <notebook>
+                        	<page string="Population">
+                        		<field name="population_ids">
+                        			<tree editable="bottom">
+										<field name="mandal_id" invisible="1"/>
+		                        		<field name="year"/>
+		                        		<field name="population"/>
+		                        		<field name="is_active" invisible="1"/>
+                        			</tree>
+                        		</field>
+                        	</page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_mandal_marketing_search" model="ir.ui.view">
+            <field name="name">pappaya.mandal.marketing.search</field>
+            <field name="model">pappaya.mandal.marketing</field>
+            <field name="arch" type="xml">
+                <search string="Mandal">
+                    <field name="name" />
+                    <field name="district_id"/>
+                    <field name="state_id"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	<filter name="group_by_state_id" string="State" context="{'group_by':'state_id'}"/>
+                        <filter name="group_by_district_id" string="District" context="{'group_by':'district_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_mandal_marketing_view">
+            <field name="name">Mandal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.mandal.marketing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_mandal_marketing_search"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Mandal.
+				</p>
+			</field>
+        </record>
+        <!-- End : Mandal -->
+        
+        <!-- Begin : Ward -->
+        <record id="view_pappaya_ward_tree" model="ir.ui.view">
+            <field name="name">pappaya.ward.tree</field>
+            <field name="model">pappaya.ward</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Ward">
+                	<field name="record_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="city_id"/>
+                    <field name="district_id"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_ward_form" model="ir.ui.view">
+            <field name="name">pappaya.ward.form</field>
+            <field name="model">pappaya.ward</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Ward">
+                    <sheet>
+                    	<group>
+	                        <group>
+	                        	<field name="state_id" options="{'no_open': True,'no_create':True}" required="1"/>
+	                        	<field name="district_id" options="{'no_open': True,'no_create':True}" 
+	                        			domain="[('state_id','=',state_id)]" required="1"/>
+	                        	<field name="city_id" options="{'no_open': True,'no_create':True}" required="1"
+	                        			domain="[('district_id','=',district_id)]"/>
+	                            <field name="name" required="1"/>
+	                            <field name="record_id" invisible="1"/>
+	                        </group>
+	                        <group/>	
+                        </group>
+                        <notebook>
+                        	<page string="Population">
+                        		<field name="population_ids">
+                        			<tree editable="bottom">
+										<field name="ward_id" invisible="1"/>
+		                        		<field name="year"/>
+		                        		<field name="population"/>
+		                        		<field name="is_active"/>
+                        			</tree>
+                        		</field>
+                        	</page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_ward_search" model="ir.ui.view">
+            <field name="name">pappaya.ward.search</field>
+            <field name="model">pappaya.ward</field>
+            <field name="arch" type="xml">
+                <search string="Ward">
+                    <field name="name" />
+                    <field name="city_id"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	<filter name="group_by_city_id" string="State" context="{'group_by':'state_id'}"/>
+                    	<filter name="group_by_city_id" string="District" context="{'group_by':'district_id'}"/>
+                        <filter name="group_by_city_id" string="City" context="{'group_by':'city_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_ward_view">
+            <field name="name">Ward</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.ward</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_ward_search"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Ward.
+				</p>
+			</field>
+        </record>
+        <!-- End : Ward -->
+        
+        <!-- Begin : Area -->
+        <record id="view_pappaya_area_tree" model="ir.ui.view">
+            <field name="name">pappaya.area.tree</field>
+            <field name="model">pappaya.area</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Area">
+                	<field name="record_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="ward_id"/>
+                    <field name="city_id"/>
+                    <field name="district_id"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_area_form" model="ir.ui.view">
+            <field name="name">pappaya.area.form</field>
+            <field name="model">pappaya.area</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Area">
+                    <sheet>
+                    	<group>
+	                        <group>
+	                        	<field name="state_id" options="{'no_open': True,'no_create':True}" required="1"/>
+	                        	<field name="district_id" options="{'no_open': True,'no_create':True}" required="1"
+	                        			domain="[('state_id','=',state_id)]"/>
+	                        	<field name="city_id" options="{'no_open': True,'no_create':True}" required="1"
+	                        			domain="[('district_id','=',district_id)]"/>
+	                        	<field name="ward_id" options="{'no_open': True,'no_create':True}" required="1"
+	                        			domain="[('city_id','=',city_id)]"/>
+	                            <field name="name" required="1"/>
+	                            <field name="record_id" invisible="1"/>
+	                        </group>
+	                        <group/>	
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_area_search" model="ir.ui.view">
+            <field name="name">pappaya.area.search</field>
+            <field name="model">pappaya.area</field>
+            <field name="arch" type="xml">
+                <search string="Area">
+                    <field name="name" />
+                    <field name="ward_id"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	 <filter name="group_by_city_id" string="State" context="{'group_by':'state_id'}"/>
+                    	  <filter name="group_by_district_id" string="District" context="{'group_by':'district_id'}"/>
+                    	   <filter name="group_by_city_id" string="City" context="{'group_by':'city_id'}"/>
+                        <filter name="group_by_ward_id" string="Ward" context="{'group_by':'ward_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_area_view">
+            <field name="name">Area</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_area_search"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Area.
+				</p>
+			</field>
+        </record>
+        <!-- End : Area -->
+        
+        <!-- Begin : Village -->
+        <record id="view_pappaya_village_tree" model="ir.ui.view">
+            <field name="name">pappaya.village.tree</field>
+            <field name="model">pappaya.village</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Village">
+                	<field name="record_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="mandal_id"/>
+                    <field name="district_id"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_village_form" model="ir.ui.view">
+            <field name="name">pappaya.village.form</field>
+            <field name="model">pappaya.village</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Village">
+                    <sheet>
+                    	<group>
+	                        <group>
+                                <field name="name" required="1"/>
+	                        	<field name="state_id" options="{'no_open': True,'no_create':True}" required="1"/>
+	                        	<field name="district_id" options="{'no_open': True,'no_create':True}" required="1" domain="[('state_id','=',state_id)]"/>
+	                        	<field name="mandal_id" options="{'no_open': True,'no_create':True}" required="1" domain="[('district_id','=',district_id)]"/>
+	                            <field name="record_id" invisible="1"/>
+	                        </group>
+                            <group>
+                                <field name="user_slno"/>
+                                <field name="is_update"/>
+                                <field name="description"/>
+                            </group>
+	                        <group/>	
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_village_search" model="ir.ui.view">
+            <field name="name">pappaya.village.search</field>
+            <field name="model">pappaya.village</field>
+            <field name="arch" type="xml">
+                <search string="Village">
+                    <field name="name" />
+                    <field name="mandal_id"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	<filter name="group_by_state_id" string="State" context="{'group_by':'state_id'}"/>
+                    	<filter name="group_by_district_id" string="District" context="{'group_by':'district_id'}"/>
+                       <filter name="group_by_mandal_id" string="Mandal" context="{'group_by':'mandal_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_village_view">
+            <field name="name">Village</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.village</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_village_search"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Village.
+				</p>
+			</field>
+        </record>
+        <!-- End : Village -->
+
+        <!-- Begin : Lead School -->
+        <record id="view_pappaya_lead_school_tree" model="ir.ui.view">
+            <field name="name">pappaya.lead.school.tree</field>
+            <field name="model">pappaya.lead.school</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Lead School">
+                	<field name="record_id"/>
+                    <field name="name"/>
+                    <field name="state_id"/>
+                    <field name="district_id"/>
+                    <field name="mandal_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_lead_school_form" model="ir.ui.view">
+            <field name="name">pappaya.lead.school.form</field>
+            <field name="model">pappaya.lead.school</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Lead School">
+                    <sheet>
+                    	<group>
+	                        <group string="School Name">
+	                            <field name="name" required="1"/>
+	                        </group>
+	                        <group string="Address">
+		                        <field name="state_id" required="1" options="{'no_open':True, 'no_create':True}" />
+		                        <field name="district_id" required="1" options="{'no_open':True, 'no_create':True}" domain="[('state_id','=',state_id)]" />
+		                        <field name="mandal_id" required="1" options="{'no_open':True, 'no_create':True}" domain="[('district_id','=',district_id)]" />
+		                        <field name="record_id" invisible="1"/>
+	                        </group>
+	                        <group/>	
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pappaya_lead_school">
+            <field name="name">Lead School</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.lead.school</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_lead_school_tree"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Lead School.
+				</p>
+			</field>
+        </record>
+        
+        <!-- Res country Update -->
+        
+		<record id="view_pappaya_branch_form_inherit" model="ir.ui.view">
+            <field name="name">res.pappaya.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="view_pappaya_branch_form"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//form/sheet/group/group[2]" position="after">
+	                 <group string="Geo Location">
+	                 	<field name="state_id" options="{'no_open': True,'no_create':True}"/>
+	                 	<field name="state_district_id" domain="[('state_id','=',state_id)]" options="{'no_open': True,'no_create':True}"/>
+	                 	<field name="pappaya_division_id" attrs="{'invisible':[('state_district_id','=',False)]}" options="{'no_open': True,'no_create':True}"/>
+	              	<!-- Note : There is not relation in division and mandal.I don't know what is the use of mandal_ids_m2m field in division model.
+	              				We need to map the relation of division and mandal by adding any field in maldal or division model. -->
+	              	<field name="pappaya_mandal_id" 
+	              			domain="[('state_id','=',state_id),('district_id','=',state_district_id)]" 
+	              			attrs="{'invisible':[('pappaya_division_id','=',False)]}" options="{'no_open': True,'no_create':True}"/>
+	              	<!-- ('division_id','=',pappaya_division_id) Need to discuss and add this field. 
+	              			Need to confirm whethe we use pappaya.mandal or pappaya.mandal.marketing model-->
+	              </group>
+	            </xpath>
+                <xpath expr="//form/sheet/notebook/page[@name='device']" position="after">
+                    <page string="Dhobi Provider" attrs="{'invisible': [('student_type','=','day')],'required': [('student_type','!=','day')]}">
+                        <field name="dhobi_provider_ids" domain="[('state_id','=',state_id),('district_id','=',state_district_id)]">
+                            <tree>
+                                <field name="name" options="{'no_open': True,'no_create':True}" string="Dhobi Provider Name"/>
+                                <field name="pickup_date"/>
+                                <field name="delivery_date"/>
+                                <field name="head_count"/>
+                                <field name="used_count"/>
+                                <field name="opinion"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+        	</field>
+        </record>
+        
+	</data>
+</odoo>

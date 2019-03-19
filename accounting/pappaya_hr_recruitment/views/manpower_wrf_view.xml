@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_manpower_wrf_tree" model="ir.ui.view">
+			<field name="name">manpower.wrf.tree</field>
+			<field name="model">manpower.wrf</field>
+			<field name="arch" type="xml">
+				<tree string="Manpower WRF">
+					<field name="name"/>
+					<field name="academic_year_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_manpower_wrf_form" model="ir.ui.view">
+			<field name="name">manpower.wrf.form</field>
+			<field name="model">manpower.wrf</field>
+			<field name="arch" type="xml">
+				<form string="Manpower WRF">
+					<header>
+						<button name="to_open" string="Request" states="draft" type="object"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<field name="academic_year_id" required="1" options="{'no_open': True,'no_create':True}"/>
+							</group>
+							<group>
+								<label for="april_first_deadline" string="Time Frame"
+							               style="font-weight: bold !important;margin-right:1px;margin-left: 0px;min-width: 200px;"/>
+							    <div>
+							        <!--<field name="april_first_deadline" force_save="1" style="width:70px"/>        to-->
+							        <!--<field name="april_last_deadline" force_save="1" style="width:62px"/>-->
+                                    <field name="april_first_deadline" force_save="1" style="width:90px"/>        to
+							        <field name="april_last_deadline" force_save="1" style="width:90px"/>
+							    </div>
+							    <field name="select_all"/>
+							</group>
+						</group>
+						<field name="line_ids" >
+							<tree editable="bottom" create="false" delete="0">
+								<field name="to_open" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="department_id" readonly="1" force_save="1"/>
+								<field name="state" readonly="1" force_save="1"/>
+								<field name="organization_id" invisible="1"/>
+								<field name="entities_id" invisible="1"/>
+								<field name="branch_id" invisible="1"/>
+								<field name="state_id" invisible="1"/>
+								<field name="office_type" invisible="1"/>
+								<field name="programme_ids" invisible="1"/>
+								<field name="segment_ids" invisible="1"/>
+							</tree>
+						</field>
+
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_manpower_wrf_search" model="ir.ui.view">
+			<field name="name">manpower.wrf.search</field>
+			<field name="model">manpower.wrf</field>
+			<field name="arch" type="xml">
+				<search string="Manpower WRF">
+					<field name="name" />
+					<field name="academic_year_id" />
+					<field name="april_first_deadline"/>
+					<field name="april_last_deadline"/>
+
+					<!-- <group expand="0" string="Group By...">
+                        <filter name="department_id" string="Department" domain="[]" context="{'group_by':'department_id'}" /> 
+                        <filter name="designation_id" string="Designation" domain="[]" context="{'group_by':'designation_id'}" /> 
+                        <filter name="location_id" string="Location" domain="[]" context="{'group_by':'location_id'}" /> 
+                    </group> -->
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_manpower_wrf_view">
+			<field name="name">Manpower WRF</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">manpower.wrf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_manpower_wrf_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Manpower WRF.
+                </p>
+            </field>
+		</record>
+
+		<!-- Department WRF -->
+
+		<record id="view_department_wrf_tree" model="ir.ui.view">
+			<field name="name">department.wrf.line.tree</field>
+			<field name="model">department.wrf.line</field>
+			<field name="arch" type="xml">
+				<tree string="Department WRF">
+
+					<field name="department_id"/>
+					<field name="organization_id"/>
+					<field name="entities_id"/>
+					<field name="branch_id"/>
+					<field name="state_id"/>
+					<field name="office_type"/>
+					<field name="programme_ids"/>
+					<field name="segment_ids"/>
+					<field name="april_first_deadline" force_save="1"/>
+					<field name="april_last_deadline" force_save="1"/>
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_department_wrf_form" model="ir.ui.view">
+			<field name="name">department.wrf.line.form</field>
+			<field name="model">department.wrf.line</field>
+			<field name="arch" type="xml">
+				<form string="Department WRF">
+					<header>
+						<button name="to_confirm" string="Confirm" states="open" type="object"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="department_id" required="1" readonly="1" force_save="1"/>
+								<field name="organization_id" options="{'no_open': True,'no_create':True}"/>
+								<field name="entities_id" options="{'no_open': True,'no_create':True}"/>
+								<field name="branch_id" options="{'no_open': True,'no_create':True}"/>
+								<label for="april_first_deadline" string="Time Frame"
+							               style="font-weight: bold !important;margin-right:1px;margin-left: 0px;min-width: 200px;"/>
+							    <div>
+							        <!--<field name="april_first_deadline" force_save="1" style="width:70px"/>        to-->
+							        <!--<field name="april_last_deadline" force_save="1" style="width:62px"/>-->
+                                    <field name="april_first_deadline" force_save="1" style="width:90px"/>        to
+							        <field name="april_last_deadline" force_save="1" style="width:90px"/>
+							    </div>
+
+							</group>
+							<group>
+								<field name="state_id" options="{'no_open': True,'no_create':True}"/>
+								<field name="office_type" options="{'no_open': True,'no_create':True}"/>
+								<field name="programme_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+								<field name="segment_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+								<field name="to_open" invisible="1"/>
+							</group>
+						</group>
+						<group>
+							<group>
+
+							</group>
+							<group>
+
+							</group>
+						</group>
+						<field name="line_ids">
+							<tree editable="bottom">
+								<field name="designation_id" readonly="1" force_save="1"/>
+								<field name="exist_count" readonly="1" force_save="1"/>
+								<field name="new_count"/>
+								<field name="already_no_of_recruitment" readonly="1" force_save="1"/>
+							</tree>
+						</field>
+
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_department_wrf_search" model="ir.ui.view">
+			<field name="name">department.wrf.line.search</field>
+			<field name="model">department.wrf.line</field>
+			<field name="arch" type="xml">
+				<search string="department WRF">
+					<field name="department_id"/>
+					<field name="organization_id"/>
+					<field name="entities_id"/>
+					<field name="branch_id"/>
+					<field name="state_id"/>
+					<field name="office_type"/>
+					<field name="programme_ids"/>
+					<field name="segment_ids"/>
+					<field name="april_first_deadline" />
+					<field name="april_last_deadline" />
+					<field name="state" />
+					<group expand="0" string="Group By...">
+                        <filter name="group_organization" string="Organization" icon="terp-personal+" domain="[]" context="{'group_by':'organization_id'}"/>
+                        <filter name="group_entities" string="Entities" icon="terp-personal+" domain="[]" context="{'group_by':'entities_id'}"/>
+                        <filter name="group_branch" string="Branch" icon="terp-personal+" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter name="group_state" string="State" icon="terp-personal+" domain="[]" context="{'group_by':'state_id'}"/>
+                        <filter name="group_office_type" string="Office Type" icon="terp-personal+" domain="[]" context="{'group_by':'office_type'}"/>
+                        <filter name="group_department" string="Department" icon="terp-personal+" domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter name="group_state" string="Status" icon="terp-personal+" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_department_wrf_view">
+			<field name="name">Department WRF</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">department.wrf.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_department_wrf_search" />
+			<field name="context">{"search_default_group_organization":1, "search_default_group_entities":1, "search_default_group_branch":1,
+									"search_default_group_state":1,
+									"search_default_group_office_type":1,
+									"search_default_group_department":1}</field>
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new department WRF.
+                </p>
+            </field>
+		</record>
+
+
+
+    </data>
+</odoo>

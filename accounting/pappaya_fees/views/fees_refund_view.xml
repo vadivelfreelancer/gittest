@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_fees_refund" model="ir.ui.view">
+            <field name="name">view.pappaya.fees.refund.form</field>
+            <field name="model">pappaya.fees.refund</field>
+            <field name="arch" type="xml">
+                <form string="Fees Refund" delete="0">
+                    <header>
+                        <button string="Refund Request" states="draft" type="object" name="refund_request"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.hr_deans,pappaya_base.hr_branch_accountants"/>
+
+                        <button string="Confirm" states="request" type="object" name="refund_confirm"
+                            groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+                                    pappaya_base.group_admission_revenue_operation_assistant"/>
+
+                        <button string="Approve" states="confirm" type="object" name="refund_approve"
+                            groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+                                    pappaya_base.hr_deans"/>
+
+                        <button string="Reject" states="request" type="object" name="refund_reject"
+                            groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+                                    pappaya_base.group_admission_revenue_operation_assistant"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,request,confirm,approve"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" required="1" options="{'no_open': True,'no_create':True}"
+                                       attrs="{'readonly':[('state','!=','draft')]}" domain="[('cancel','=', False)]"/>
+                                <field name="bank_name" required="1" options="{'no_open': True,'no_create':True}"
+                                       attrs="{'readonly':[('state','=','freeze')]}"/>
+                                <field name="refund_cancel_form" filename="file_name"
+                                       attrs="{'readonly':[('state','!=','draft')],'required':[('state', '=', 'draft')]}"/>
+                                <field name="file_name" invisible="1"/>
+                                <field name="admission_no" invisible="1"/>
+                                <field name="is_update" invisible="1"/>
+                                <field name="refund_type" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="branch_id" options="{'no_open':True,'no_create':True}"
+                                       attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="academic_year_id" options="{'no_open':True,'no_create':True}" readonly="1"
+                                       attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="father_name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="account_number" required="1"
+                                       attrs="{'readonly':[('state','=','freeze')]}"/>
+                                <field name="ifsc_no" required="1" attrs="{'readonly':[('state','=','freeze')]}"/>
+                                <field name="fees_collection_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <label for="attachment_ids"/>
+                                <div>
+                                    <field name="attachment_ids" widget="many2many_binary" string="Attach a file"
+                                           class="oe_inline" attrs="{'readonly':[('state','=','freeze')], 'required':[('state','=','draft')]}"/>
+                                </div>
+                            </group>
+                            <group/>
+                        </group>
+                        <separator/>
+                        <button name="get_refund_fees" type="object" string="Get Fees" class="oe_highlight"
+                                attrs="{'invisible':[('is_update','=',True)]}" groups="pappaya_base.group_admission_admin"/>
+                        <group>
+                            <field name="refund_line_ids" nolabel="1" create="false" delete="false">
+                                <tree string="Refund Fees" editable="bottom" create="false" delete="false">
+                                    <field name="is_select" attrs="{'readonly':[('parent.state','!=','draft')]}"/>
+                                    <field name="fees_head_id" options="{'no_open':True,'no_create':True}"
+                                           readonly="1"/>
+                                    <field name="gst_total" string="Amount" readonly="1"/>
+                                    <field name="cgst" readonly="1"/>
+                                    <field name="sgst" readonly="1"/>
+                                    <field name="amount" string="Total" readonly="1"/>
+                                    <field name="res_adj_amt" readonly="1"/>
+                                    <field name="due_amount" readonly="1"/>
+                                    <field name="total_paid" readonly="1"/>
+                                    <field name="term_state" readonly="1"/>
+                                </tree>
+                                <form>
+                                    <group colspan="4" col="4">
+                                        <field name="fees_head_id" options="{'no_open':True,'no_create':True}"
+                                               readonly="1"/>
+                                        <field name="gst_total" string="Amount" readonly="1"/>
+                                        <field name="cgst" readonly="1"/>
+                                        <field name="sgst" readonly="1"/>
+                                        <field name="amount" string="Total" readonly="1"/>
+                                        <field name="res_adj_amt" readonly="1"/>
+                                        <field name="due_amount" readonly="1"/>
+                                        <field name="total_paid" readonly="1"/>
+                                        <field name="term_state" readonly="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="total_paid"/>
+                                <field name="deducted_amount"
+                                       attrs="{'readonly':[('state','in',['freeze','reject'])]}"/>
+                            </group>
+                            <group>
+                                <field name="refund_amount" required="1"
+                                       attrs="{'readonly':[('state','in',['freeze','reject'])]}"/>
+                            </group>
+                        </group>
+                        <group string="Reason for Refund">
+                            <field name="refund_reason" required="1" nolabel="1"
+                                   attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_fees_refund_tree" model="ir.ui.view">
+            <field name="name">view.pappaya.fees.refund.view</field>
+            <field name="model">pappaya.fees.refund</field>
+            <field name="arch" type="xml">
+                <tree string="Fees Refund" delete="false">
+                    <field name="admission_no"/>
+                    <field name="student_id"/>
+                    <field name="branch_id"/>
+                    <field name="academic_year_id" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_refund_fee_search" model="ir.ui.view">
+            <field name="name">Pappaya Refund Search</field>
+            <field name="model">pappaya.fees.refund</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Refund">
+                    <field name="admission_no" string="Reservation/Admission No"/>
+                    <field name="student_id"/>
+                    <field name="branch_id"/>
+                    <field name="academic_year_id"/>
+                    <separator/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Branch" name="branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Academic Year" name="academic_year_id" domain="[]"
+                                context="{'group_by':'academic_year_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_pappaya_fees_refunt_tree">
+            <field name="name">Fees Refund</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.fees.refund</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

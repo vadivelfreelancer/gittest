@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="view_pappaya_medium_tree" model="ir.ui.view">
+			<field name="name">pappaya.medium.tree</field>
+			<field name="model">pappaya.medium</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Medium">
+					<field name="name" />
+					<field name="code" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_medium_form" model="ir.ui.view">
+			<field name="name">pappaya.medium.form</field>
+			<field name="model">pappaya.medium</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Medium">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<field name="code" required="1"/>
+								<field name="description"/>
+							</group>
+							<group/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_medium_search" model="ir.ui.view">
+			<field name="name">pappaya.medium.search</field>
+			<field name="model">pappaya.medium</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Medium">
+					<field name="name" />
+					<field name="code" />
+					<field name="description" />
+					<newline />
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_medium_view">
+			<field name="name">Medium</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.medium</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_medium_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Medium.
+                </p>
+            </field>
+		</record>
+
+
+	</data>
+</openerp>

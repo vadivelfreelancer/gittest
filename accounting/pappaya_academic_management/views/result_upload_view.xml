@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="result_upload_view_form" model="ir.ui.view">
+        <field name="name">result.upload.view.form</field>
+        <field name="model">result.upload</field>
+        <field name="arch" type="xml">
+            <form string="Lock">
+<!--                <sheet>-->
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Result Upload"/>
+                    <group>
+                        <group>
+                            <field name="pre_course"/>
+                        </group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                    </group>
+                    <div style="text-align:center">
+                        <button special="save" class="oe_highlight" string="Upload File"/>
+                    </div>
+<!--                </sheet>-->
+            </form>
+        </field>
+    </record>
+
+    <record id="result_upload_view_tree" model="ir.ui.view">
+        <field name="name">result.upload.view.tree</field>
+        <field name="model">result.upload</field>
+        <field name="arch" type="xml">
+            <tree string="Subject Order">
+                <field name="academic_year"/>
+                <field name="pre_course"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="result_upload_menu_action" model="ir.actions.act_window">
+        <field name="name">Result Upload</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">result.upload</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="result_upload_sub_menu"
+      name="Result Upload"
+      parent="academic_main_menu"
+      sequence="200"
+      action="result_upload_menu_action"/>
+
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="vc_parent_phoneview_form" model="ir.ui.view">
+        <field name="name">vc.parent.phone.view.form</field>
+        <field name="model">vc.parent.phone</field>
+        <field name="arch" type="xml">
+            <form string="Lock">
+<!--                <sheet>-->
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="VC Parent Phone Enquiry"/>
+                    <group>
+                        <group>
+                            <field name="exam_branch"/>
+                            <field name="admission_no"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <button string="Search" class="oe_highlight" type="action" name="sub_batch_section_batch_go"/>
+                        </group>
+                    </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="phone_number"/>
+                            <field name="remarks"/>
+                        </group>
+                    <div style="text-align:center">
+                        <button special="save" class="oe_highlight" string="Save"/>
+                    </div>
+<!--                </sheet>-->
+            </form>
+        </field>
+    </record>
+
+    <record id="vc_parent_phoneview_tree" model="ir.ui.view">
+        <field name="name">vc.parent.phone.view.tree</field>
+        <field name="model">vc.parent.phone</field>
+        <field name="arch" type="xml">
+            <tree string="VC Parent Phone Enquiry">
+                <field name="exam_branch"/>
+                <field name="admission_no"/>
+                <field name="date"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="phone_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="vc_parent_phonemenu_action" model="ir.actions.act_window">
+        <field name="name">VC Parent Phone Enquiry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vc.parent.phone</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="vc_parent_phone_sub_menu"
+      name="VC Parent Phone Enquiry"
+      parent="academic_main_menu"
+      sequence="202"
+      action="vc_parent_phonemenu_action"/>
+
+</odoo>

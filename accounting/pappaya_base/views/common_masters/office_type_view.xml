@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_office_type_tree" model="ir.ui.view">
+			<field name="name">pappaya.office.type.tree</field>
+			<field name="model">pappaya.office.type</field>
+			<field name="arch" type="xml">
+				<tree string="Office Type">
+					<field name="record_id" invisible="1"/>
+					<field name="name" string="Office Type Name"/>
+					<field name="code" string="Office Type Code"/>
+					<field name="entity_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_office_type_form" model="ir.ui.view">
+			<field name="name">pappaya.office.type.form</field>
+			<field name="model">pappaya.office.type</field>
+			<field name="arch" type="xml">
+				<form string="Office Type" duplicate="0">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1" string="Office Type Name"/>
+								<field name="type" />
+								<field name="description"/>
+                        		<field name="record_id" invisible="1"/>
+                        	</group>
+                        	<group>
+								<field name="code" required="1" string="Office Type Code"/>
+                        		<field name="entity_id" domain="[('type','=','entity')]" options="{'no_open': True,'no_create':True}" required="1" />
+                        		<field name="is_student_details_applied"/>
+                        		<field name="emp_no_ref" invisible="1"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_office_type_search" model="ir.ui.view">
+            <field name="name">pappaya.office.type.search</field>
+            <field name="model">pappaya.office.type</field>
+            <field name="arch" type="xml">
+                <search string="Office Type">
+                    <field name="name"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_office_type_form" model="ir.actions.act_window">
+			<field name="name">Office Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.office.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_office_type_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Office Type.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

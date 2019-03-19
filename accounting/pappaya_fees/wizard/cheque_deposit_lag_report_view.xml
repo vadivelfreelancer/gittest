@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+
+        <record id="view_pappaya_cheque_deposit_lag_report" model="ir.ui.view">
+            <field name="name">Cheque/DD Deposit Lag Form</field>
+            <field name="model">pappaya.cheque.deposit.lag</field>
+            <field name="arch" type="xml">
+                <form string="Cheque/DD Deposit Lag">
+                     <group>
+                        <group col="4" colspan="4">
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]" required="1"/>
+                            <field name="academic_year_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <field name="from_date" required="1"/>
+                            <field name="to_date" required="1"/>
+                        </group>
+                         <group/>
+                         <separator/>
+                         <field name="cheque_deposit_lag_line_ids" nolabel="1">
+                             <tree editable="bottom" create="false" edit="false" delete="false">
+                                 <field name="receipt_date" readonly="1" />
+                                 <field name="admission_no" readonly="1"/>
+                                 <field name="student_name" readonly="1"/>
+                                 <field name="cheque_dd" readonly="1"/>
+                                 <field name="cheque_date" readonly="1"/>
+                                 <field name="amount" readonly="1"/>
+                                 <field name="reason" readonly="1"/>
+                                 <field name="clearance_date" readonly="1"/>
+                                 <field name="reject_reason" readonly="1"/>
+                                 <field name="status" readonly="1"/>
+                             </tree>
+                         </field>
+                    </group>
+                    <footer>
+                        <button string="Excel Report"  name="generate_excel_report" class="oe_highlight" type="object"/>
+						<button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_pappaya_cheque_deposit_lag_report" model="ir.actions.act_window">
+            <field name="name">Cheque/DD Deposit Lag</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.cheque.deposit.lag</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

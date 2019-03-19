@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_admission_target_allocation_form" model="ir.ui.view">
+			<field name="name">view.admission.target.allocation.form</field>
+			<field name="model">admission.target.allocation</field>
+			<field name="arch" type="xml">
+				<form string="Admission Target Allocation">
+					<group string="Target Allocation">
+						<group>
+							<field name="academic_year_id" readonly="1" options="{'no_open':True, 'no_create':True}"/>
+							<field name="course_package_id" required="1" options="{'no_open':True, 'no_create':True}" />
+						</group>
+						<group>
+							<field name="branch_id" required="1" options="{'no_open':True, 'no_create':True}"
+								domain="[('type','=','branch')]"/>
+							<field name="target_count" required="1"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+			
+		<record id="view_admission_target_allocation_tree" model="ir.ui.view">
+			<field name="name">view.admission.target.allocation.tree</field>
+			<field name="model">admission.target.allocation</field>
+			<field name="arch" type="xml">
+				<tree string="Admission Target Allocation">
+					<field name="academic_year_id" />
+					<field name="branch_id" />
+					<field name="course_package_id" />
+					<field name="target_count"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_admission_target_allocation">
+			<field name="name">Admission Targets</field>
+			<field name="res_model">admission.target.allocation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_admission_target_allocation_tree"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Admission Target Allocation.
+				</p>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_fees_structure_tree" model="ir.ui.view">
+			<field name="name">pappaya_fees_structure_tree</field>
+			<field name="model">pappaya.fees.structure</field>
+			<field name="arch" type="xml">
+				<tree string="Fee Structure">
+					<field name="name"/>
+					<field name="academic_year_id"/>
+					<field name="school_id"/>
+					<field name="course_id" />
+					<field name="group_id" />
+					<field name="batch_id" />
+					<field name="package_id"/>
+					<field name="residential_type_id" />
+					<field name="state" />
+					<field name="is_lock_fee_structure" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_fees_structure_form" model="ir.ui.view">
+			<field name="name">pappaya.fees.structure.form</field>
+			<field name="model">pappaya.fees.structure</field>
+			<field name="arch" type="xml">
+				<form string="Fee Structure">
+					<header>
+						<button name="action_confirm" type="object" string="Confirm" attrs="{'invisible':[('state','!=','draft')]}"
+								groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.hr_deans,pappaya_base.hr_branch_accountants"/>
+
+						<button name="action_review" type="object" string="Review" attrs="{'invisible':[('state','!=','confirm')]}"
+								groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.hr_deans"/>
+
+						<button name="action_approve" type="object" string="Approve"  attrs="{'invisible':[('state','!=','review')]}"
+								groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.hr_deans"/>
+
+						<button name="action_validate" type="object" string="Validate" attrs="{'invisible':[('state','!=','approve')]}"
+								groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head"/>
+
+						<button name="action_reset" type="object" string="Reset" attrs="{'invisible':[('state','=','draft')]}"
+								groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head"/>
+						
+						<field name="state" widget="statusbar" statusbar_visible="draft,confirm,approve,validate" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="academic_year_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="school_id" domain="[('type','=', 'branch')]" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="course_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="group_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}" required="1"/>
+								<field name="batch_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}" required="1"/>
+								<field name="package_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}" required="1"/>
+							</group>
+							<group>
+								<field name="name" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="residential_type_id" required="1" options="{'no_open':True, 'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="entity_id" readonly="1" options="{'no_open':True, 'no_create':True}"/>
+								<field name="type" readonly="1"/>
+								<field name="is_tax_applicable"/>
+								<field name="is_lock_fee_structure" invisible="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Fees Heads">
+								<!-- <script type="text/javascript">
+									alert("This alert box was called with the onload event");
+								</script> -->
+								<field name="structure_line_ids" class="structure_line_ids">
+									<tree editable="bottom">
+										<field name="sequence_no" required="1" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="less_sequence" required="1" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="fees_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>	
+										<field name="total" required="1" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										
+										<!-- For Old Student -->
+										
+										<field name="concession_percent_old" invisible="1" force_save="1"/>
+										<field name="tax_ids" widget="many2many_tags" options="{'no_open':True, 'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="sgst" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="cgst" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="igst" invisible="1" force_save="1"/>
+										<field name="total_tax" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="amount" readonly="1" force_save="1"/>
+										<field name="min_amount" invisible="1"/>
+										
+										<!-- For New Student -->
+										<field name="concession_percent_new" invisible="1"/>
+										<field name="new_stud_amount" required="1" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<!-- <field name="new_tax_ids" widget="many_many_tags" options="{'no_open':True,'no_create':True}" /> -->
+										<field name="new_sgst" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="new_cgst" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="new_igst" invisible="1" force_save="1"/>
+										<field name="new_total_tax" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="new_total" readonly="1" force_save="1"/>
+										<field name="new_stud_min_amount" invisible="1" force_save="1"/>
+										<field name="description" attrs="{'readonly':[('state','!=','draft')]}" force_save="1"/>
+										<field name="state" readonly="1" force_save="1"/>
+										
+										<field name="percentage" invisible="1" attrs="{'readonly':[('readonly','=',False)]}" force_save="1"/>
+										<field name="locked_amount" invisible="1" force_save="1"/> 
+										<field name="course_id" invisible="1" force_save="1"/>
+										<field name="readonly" invisible="1" force_save="1"/>
+									</tree>
+									<form>
+										<group>
+											<field name="fees_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
+											<field name="amount" readonly="1"/>
+											<field name="min_amount" readonly="1"/>
+											<field name="percentage" invisible="1" readonly="1"/> 
+											<field name="locked_amount" invisible="1" readonly="1"/>
+											<field name="description" readonly="1"/> 
+											<field name="readonly" invisible="1"/> 
+										</group>
+									</form>
+								</field>
+								<table class="fixed_table oe_list_content">
+									<tr>
+										<td></td>
+										<td></td>
+										<td class="o_list_number"><field name="amt_old_student" nolabel="1" style="margin-left:50px"/></td>
+										<td></td>
+										<td class="o_list_number"><field name="amt_old_student" nolabel="1" style="margin-left:60px"/></td>
+										<td class="o_list_number"><field name="amt_new_student" nolabel="1" style="margin-left:30px"/></td>
+										<td></td>
+										<td class="o_list_number"><field name="amt_new_student" nolabel="1" style="margin-left:25px"/></td>
+										<td></td>
+									</tr>
+								</table>
+								<group string="Lock in amount Slabs">
+									<field name="lock_in_fee_slab_ids" nolabel="1">
+										<tree editable="bottom">
+											<field name="fee_structure_id" invisible="1"/>
+											<field name="percentage_from" attrs="{'readonly':[('state','!=','draft')]}"/>
+											<field name="percentage_to" attrs="{'readonly':[('state','!=','draft')]}"/>
+											<field name="locked_amount_new" attrs="{'readonly':[('state','!=','draft')]}"/>
+											<field name="locked_amount_old" attrs="{'readonly':[('state','!=','draft')]}"/>
+											<field name="state" readonly="1"/>
+											<field name="is_active"/>
+										</tree>
+										<form>
+											<group colspan="4" col="4">
+												<field name="percentage_from" attrs="{'readonly':[('state','!=','draft')]}"/>
+												<field name="percentage_to" attrs="{'readonly':[('state','!=','draft')]}"/>
+												<field name="locked_amount_old" attrs="{'readonly':[('state','!=','draft')]}"/>
+												<field name="locked_amount_new" attrs="{'readonly':[('state','!=','draft')]}"/>
+												<field name="state" readonly="1"/>
+												<field name="is_active"/>
+											</group>
+										</form>
+									</field>
+								</group>
+							</page>
+						</notebook>
+                        <group>
+                            <field name="total_amount" readonly="1" invisible="1"/>
+                        </group>
+					</sheet>
+<!-- 					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div> -->
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_fee_structure_search" model="ir.ui.view">
+			<field name="name">pappaya_fees_structure_search</field>
+			<field name="model">pappaya.fees.structure</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Fee Structure">
+					<field name="name"/>
+					<field name="academic_year_id"/>
+					<field name="school_id"/>
+					<field name="course_id" />
+					<field name="group_id" />
+					<field name="batch_id" />
+					<field name="package_id"/>
+					<newline/>
+					<group expand="0" string="Group By...">
+                        <filter string="Branch" name="school_id" domain="[]" context="{'group_by':'school_id'}"/>
+                        <filter string="Academic Year" name="academic_year_id" domain="[]" context="{'group_by':'academic_year_id'}"/>
+						<filter string="Course" name="course_id" domain="[]" context="{'group_by':'course_id'}"/>
+						<filter string="Group" name="group_id" domain="[]" context="{'group_by':'group_id'}"/>
+						<filter string="Batch" name="batch_id" domain="[]" context="{'group_by':'batch_id'}"/>
+						<filter string="Package" name="package_id" domain="[]" context="{'group_by':'package_id'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_pappaya_fees_structure_id">
+			<field name="name">Fee Structure</field>
+			<field name="res_model">pappaya.fees.structure</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_pappaya_fee_structure_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Fee Head.
+				</p>
+			</field>
+		</record>
+		
+	</data>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_pappaya_canteen_mgmt_parent_id" name="Canteen Management"
+                  sequence="20"/>
+
+       <menuitem id="menu_pappaya_canteen_mgmt"
+                  parent="menu_pappaya_canteen_mgmt_parent_id"
+                  sequence="20"
+                  action="act_open_pappaya_canteen_mgmt_view"/>
+
+    </data>
+</odoo>

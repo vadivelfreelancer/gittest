@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+        
+    	<record id="view_yearly_holidays_form" model="ir.ui.view">
+            <field name="name">yearly.holidays.form</field>
+            <field name="model">yearly.holidays</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Holidays" duplicate="0">
+                	<header>
+						<button name="case_confirm" string="Confirm" states="draft" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_cpo,pappaya_base.hr_operations_head"/>
+                    	<button name="case_reset" string="Reset" states="done" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_cpo,pappaya_base.hr_operations_head"/>
+                		<field name="state" widget="statusbar" />
+                	</header>
+					<group>
+						<group>
+							<field name="company_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="branch_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+						<group>
+							<field name="year" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+					</group>
+                    <newline></newline>
+                   	<notebook>
+                   		<page string="Holidays Reason">
+                   			<field name="holidays_list_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                   				<form>
+                   					<group>
+                   						<field name="date"/>
+                   						<field name="reason"/>
+                   					</group>
+                   				</form>
+                   				<tree editable="bottom">
+                   					<field name ="date"/>
+                   					<field name ="reason"/>
+                   				</tree>
+                   			</field>
+                   		</page>
+                   		<page string="Change Log">
+			                	<field name="change_log" nolabel="1" readonly="1">
+			                		<tree string="Yearly Holidays Log">
+                						<field name="from_state"/>
+                						<field name="to_state"/>
+                						<field name="user_id"/>
+                						<field name="activity_time"/>
+                					</tree>
+									<form string="Yearly Holidays Log">
+										<group col="4">
+											<field name="from_state"/>
+											<field name="to_state"/>
+											<field name="user_id" options="{'no_open': True,'no_create':True}"/>
+											<field name="activity_time"/>
+										</group>
+                					</form>
+			                	</field>
+			                </page>
+                   	</notebook>
+                </form>
+            </field>
+       </record>
+
+       <record id="view_yearly_holidays_tree" model="ir.ui.view">
+            <field name="name">yearly.holidays.tree</field>
+            <field name="model">yearly.holidays</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Holidays">
+					<field name="company_id"/>
+					<field name="branch_id"/>
+                    <field name="year" />
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+       </record>
+
+		<record id="view_yearly_holidays_search" model="ir.ui.view">
+			<field name="name">yearly.holidays.search</field>
+			<field name="model">yearly.holidays</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Holidays">
+					<field name="company_id" />
+					<field name="branch_id" />
+					<field name="year" />
+					<field name="state" />
+					<group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter name="year" string="Year" domain="[]" context="{'group_by':'year'}" />
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+       <record id="open_view_yearly_holidays_form" model="ir.actions.act_window">
+            <field name="name">Holidays</field>
+            <field name="res_model">yearly.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+		    <field name="search_view_id" ref="view_yearly_holidays_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define Holidays.
+                </p>
+            </field>
+       </record>
+
+       <menuitem action="open_view_yearly_holidays_form" id="menu_view_yearly_holidays_form" parent="hr_payroll.menu_hr_payroll_configuration"
+				 sequence="60" groups="pappaya_base.hr_executives,pappaya_base.hr_cpo,pappaya_base.hr_operations_head"/>
+
+	</data>
+</odoo>

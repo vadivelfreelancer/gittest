@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+    	<!--Purpose: Rule changed based on Allowed Companies for Users  -->
+        <!-- <record model="ir.rule" id="base.res_users_rule">
+       	   <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record> -->
+        
+        <!--Purpose: Rule changed based on Allowed Companies for Companay  -->
+        <!-- <record model="ir.rule" id="base.res_company_rule">
+       	   <field name="domain_force">[('id','in',user.company_ids.ids)]</field>
+        </record> -->
+
+        <record model="ir.rule" id="pappaya_academic_year_own_rule">
+           <field name="name">Academic Year</field>
+           <field name="model_id" ref="model_academic_year" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+        
+        <record model="ir.rule" id="pappaya_school_own_rule">
+           <field name="name">School</field>
+           <field name="model_id" ref="model_res_partner"/>
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+<!--
+        <record model="ir.rule" id="pappaya_subject_own_rule">
+           <field name="name">Subject</field>
+           <field name="model_id" ref="model_pappaya_subject"/>
+           <field name="global" eval="True"/>
+           <field name="domain_force">[('school_id','in',user.company_ids.ids)]</field>
+        </record>
+-->
+
+        <record model="ir.rule" id="pappaya_grade_own_rule">
+           <field name="name">Grade</field>
+           <field name="model_id" ref="model_pappaya_grade" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_section_own_rule">
+           <field name="name">Section</field>
+           <field name="model_id" ref="model_pappaya_section" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_batch_own_rule">
+           <field name="name">Batch</field>
+           <field name="model_id" ref="model_pappaya_batch" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_lesson_own_rule">
+           <field name="name">Lesson</field>
+           <field name="model_id" ref="model_pappaya_lesson" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_lesson_own_rule">
+           <field name="name">Lesson Line</field>
+           <field name="model_id" ref="model_pappaya_lesson_line" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_syllabus_own_rule">
+           <field name="name">Syllabus</field>
+           <field name="model_id" ref="model_pappaya_syllabus" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_school_house_own_rule">
+           <field name="name">House</field>
+           <field name="model_id" ref="model_pappaya_school_house" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+        
+        <record model="ir.rule" id="pappaya_gems_circular_rule">
+           <field name="name">Circular</field>
+           <field name="model_id" ref="model_gems_circular" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_email_template_rule">
+           <field name="name">Email Template</field>
+           <field name="model_id" ref="model_pappaya_email_template" />
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pappaya_parent_rule">
+           <field name="name">Parents</field>
+           <field name="model_id" ref="model_pappaya_parent" />
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+           <field name="groups" eval="[(4, ref('pappaya_core.group_pc_erp_admin')),
+           								(4, ref('pappaya_core.group_pc_finance_manager')),
+           								(4, ref('pappaya_core.group_pc_education_manager')),
+           								(4, ref('pappaya_core.group_pc_hr_manager')),
+           								(4, ref('pappaya_core.group_pc_business_head')),
+           								(4, ref('pappaya_core.group_pc_operational_head')),
+           								(4, ref('pappaya_core.group_pc_student_lifecycle')),
+           								(4, ref('pappaya_core.group_pc_student_management')),
+           								(4, ref('pappaya_core.group_pc_service_management')),
+           								(4, ref('pappaya_core.group_pc_curriculum')),
+           								(4, ref('pappaya_core.group_pc_fee_management')),
+           								(4, ref('pappaya_core.group_pc_incident_management')),
+           								(4, ref('pappaya_core.group_pc_hr')),
+           								(4, ref('pappaya_core.group_ps_erp_admin')),
+           								(4, ref('pappaya_core.group_ps_pre')),
+           								(4, ref('pappaya_core.group_ps_registrar')),
+           								(4, ref('pappaya_core.group_ps_accountant')),
+           								(4, ref('pappaya_core.group_ps_cashier')),
+           								(4, ref('pappaya_core.group_ps_principal')),
+           								(4, ref('pappaya_core.group_ps_transport_incharge')),
+           								(4, ref('pappaya_core.group_ps_teacher')),
+           								(4, ref('pappaya_core.group_ps_operation_manager')),
+           								(4, ref('pappaya_core.group_ps_librarian')),
+           								(4, ref('pappaya_core.group_ps_lesson_plan_manager')),
+           								(4, ref('pappaya_core.group_ps_department_hod')),
+                                        (4, ref('pappaya_core.group_ps_student_lifecycle')),
+           								(4, ref('pappaya_core.group_ps_student_management')),
+           								(4, ref('pappaya_core.group_ps_service_management')),
+           								(4, ref('pappaya_core.group_ps_curriculum')),
+           								(4, ref('pappaya_core.group_ps_fee_management')),
+           								(4, ref('pappaya_core.group_ps_incident_management')),
+           								(4, ref('pappaya_core.group_ps_hr'))]"/>
+        </record>
+		
+		<record model="ir.rule" id="pappaya_student_own_rule">
+           <field name="name">Student</field>
+           <field name="model_id" ref="model_pappaya_student"/>
+           <field name="global" eval="True"/>
+           <field name="domain_force">['|',('school_id','=',False),('school_id','in',user.company_ids.ids)]</field>
+           <field name="groups" eval="[(4, ref('pappaya_core.group_pc_erp_admin')),
+           								(4, ref('pappaya_core.group_pc_finance_manager')),
+           								(4, ref('pappaya_core.group_pc_education_manager')),
+           								(4, ref('pappaya_core.group_pc_hr_manager')),
+           								(4, ref('pappaya_core.group_pc_business_head')),
+           								(4, ref('pappaya_core.group_pc_operational_head')),
+                                        (4, ref('pappaya_core.group_pc_student_lifecycle')),
+           								(4, ref('pappaya_core.group_pc_student_management')),
+           								(4, ref('pappaya_core.group_pc_service_management')),
+           								(4, ref('pappaya_core.group_pc_curriculum')),
+           								(4, ref('pappaya_core.group_pc_fee_management')),
+           								(4, ref('pappaya_core.group_pc_incident_management')),
+           								(4, ref('pappaya_core.group_pc_hr')),
+           								(4, ref('pappaya_core.group_ps_erp_admin')),
+           								(4, ref('pappaya_core.group_ps_pre')),
+           								(4, ref('pappaya_core.group_ps_registrar')),
+           								(4, ref('pappaya_core.group_ps_accountant')),
+           								(4, ref('pappaya_core.group_ps_cashier')),
+           								(4, ref('pappaya_core.group_ps_principal')),
+           								(4, ref('pappaya_core.group_ps_transport_incharge')),
+           								(4, ref('pappaya_core.group_ps_teacher')),
+           								(4, ref('pappaya_core.group_ps_operation_manager')),
+           								(4, ref('pappaya_core.group_ps_librarian')),
+           								(4, ref('pappaya_core.group_ps_lesson_plan_manager')),
+           								(4, ref('pappaya_core.group_ps_department_hod')),
+                                        (4, ref('pappaya_core.group_ps_student_lifecycle')),
+           								(4, ref('pappaya_core.group_ps_student_management')),
+           								(4, ref('pappaya_core.group_ps_service_management')),
+           								(4, ref('pappaya_core.group_ps_curriculum')),
+           								(4, ref('pappaya_core.group_ps_fee_management')),
+           								(4, ref('pappaya_core.group_ps_incident_management')),
+           								(4, ref('pappaya_core.group_ps_hr'))]"  />
+        </record>
+        
+		<!-- For parent groups alone -->
+		<record model="ir.rule" id="pappaya_parent_alone_rule">
+           <field name="name">Parents Profile</field>
+           <field name="model_id" ref="model_pappaya_parent" />
+           <field name="domain_force">[('user_id','=',user.id)]</field>
+           <field name="groups" eval="[(4, ref('pappaya_core.group_pappaya_parent'))]"  />
+        </record>
+        
+        <record model="ir.rule" id="pappaya_parent_student_rule">
+        	<field name="name">Parent's Student Profile</field>
+           <field name="model_id" ref="model_pappaya_student"/>
+           <field name="domain_force">[('parent_id.user_id','=',user.id)]</field>
+           <field name="groups" eval="[(4, ref('pappaya_core.group_pappaya_parent'))]"  />
+        </record>
+		<!-- End -->
+    </data>
+</openerp>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="pappaya_all_student_form">
+            <field name="name">pappaya.all.student.form</field>
+            <field name="model">pappaya.all.student</field>
+            <field name="arch" type="xml">
+                <form string="Add Student(s)">
+                    <header>
+                        <button name="confirm_student" string="Confirm Student Selection"
+                            type="object" class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="course_id" options="{'no_open': True,'no_create':True}"/>
+                            <field name="batch_id" options="{'no_open': True,'no_create':True}"/>
+                        </group>
+                        <group colspan="4" string="Add Absent Student(s)">
+                            <field name="student_ids" string="Add Absent Student(s)"
+                                nolabel="1"
+                                domain="[('course_id','=',course_id),('batch_id','=',batch_id)]" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+<!--
+        <act_window id="pappaya_all_student_act" name="Attandance Sheet Import"
+            res_model="pappaya.all.student" src_model="pappaya.attendance.sheet"
+            view_mode="form" target="new" view_type="form" />
+-->
+            
+        <record model="ir.actions.act_window" id="pappaya_all_student_act">
+            <field name="name">Attandance Sheet Import</field>
+            <field name="res_model">pappaya.all.student</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="pappaya_all_student_form" />
+            <field name="target">new</field>
+        </record>    
+        
+    </data>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_programme_tree" model="ir.ui.view">
+			<field name="name">pappaya.programme.tree</field>
+			<field name="model">pappaya.programme</field>
+			<field name="arch" type="xml">
+				<tree string="Programme">
+					<field name="name" string="Programme Name" />
+					<!--<field name="branch_id" />-->
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_programme_form" model="ir.ui.view">
+			<field name="name">pappaya.programme.form</field>
+			<field name="model">pappaya.programme</field>
+			<field name="arch" type="xml">
+				<form string="Programme" duplicate="0">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1" string="Programme Name"/>
+                        		<field name="description"/>
+                        	</group>
+                        	<group>
+                        		<!--<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1" />-->
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_programme_search" model="ir.ui.view">
+            <field name="name">pappaya.programme.search</field>
+            <field name="model">pappaya.programme</field>
+            <field name="arch" type="xml">
+                <search string="Programme">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_programme_form" model="ir.actions.act_window">
+			<field name="name">Programme</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.programme</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_programme_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Programme.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

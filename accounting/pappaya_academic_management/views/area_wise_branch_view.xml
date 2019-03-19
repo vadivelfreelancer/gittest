@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="area_wise_branch_view_form" model="ir.ui.view">
+        <field name="name">area.wise.branch.view.form</field>
+        <field name="model">area.wise.branch</field>
+        <field name="arch" type="xml">
+            <form string="Area Wise Branch">
+                <sheet>
+                    <group>
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Area Wise Exam Branch Mapping"/>
+                    <group>
+                        <field name="area"/>
+                    </group>
+                    <div style="text-align:center">
+                        <label for="select_all"/>
+                        <field name="select_all"/>
+                    </div>
+                    <group>
+                        <field name="branches" widget="many2many_checkboxes" class="oe_inline"/>
+                    </group>
+
+                    <div style="text-align:center">
+                        <button special="cancel" class="oe_highlight" string="Save"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="area_wise_branch_action" model="ir.actions.act_window">
+        <field name="name">Area Wise Branch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">area.wise.branch</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="area_wise_branch_sub_menu" name="Area Wise Branch Map" parent="academic_main_menu"
+              action="area_wise_branch_action" sequence="417"/>
+</odoo>

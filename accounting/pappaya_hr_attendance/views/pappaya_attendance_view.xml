@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="pappaya_view_attendance_tree" model="ir.ui.view">
+            <field name="name">pappaya.hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Employee attendances">
+                        <field name="company_id"/>
+                        <field name="branch_id"/>
+                        <field name="department_id"/>
+                        <field name="designation_id"/>
+                        <field name="biometric_id"/>
+                        <field name="emp_id"/>
+                        <field name="employee_id"/>
+                        <field name="attendance_date"/>
+                        <field name="attendance_status"/>
+                        <field name="check_in"/>
+                        <field name="check_out"/>
+                        <field name="worked_hours"/>
+                    </tree>
+                </xpath>
+			</field>
+		</record>
+
+		<record id="pappayahr_attendance_view_form" model="ir.ui.view">
+            <field name="name">pappaya.hr.attendance.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Employee attendances">
+                        <header>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                        </header>
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="employee_id" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="emp_id" readonly="1"/>
+                                    <field name="company_id" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                                    <field name="attendance_date" required="1"/>
+                                    <field name="check_in"/>
+                                    <field name="check_out"/>
+                                </group>
+                                <group>
+                                    <field name="biometric_id" readonly="1" force_save="1"/>
+                                    <field name="department_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                                    <field name="designation_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                                    <field name="attendance_status"/>
+                                    <field name="worked_hours"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+                </xpath>
+			</field>
+		</record>
+
+        <!--Attendance Search View-->
+
+        <record id="hr_attendance_view_filter_inherit" model="ir.ui.view">
+            <field name="name">view.hr.attendance.filter.inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="before">
+                    <field name="emp_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode">
+            <field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_employees_kanban">
+            <field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_report">
+            <field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_settings">
+            <field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances">
+            <field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+        </record>
+
+		<menuitem id="hr_attendance.menu_hr_attendance_root" name="Attendances"
+                  sequence="90" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+		
+		<menuitem id="hr_attendance.menu_hr_attendance_manage_attendances" name="Manage Attendances" parent="hr_attendance.menu_hr_attendance_root"
+                  sequence="20" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+	
+	    <menuitem id="hr_attendance.menu_hr_attendance_view_attendances" name="Attendances" parent="hr_attendance.menu_hr_attendance_manage_attendances"
+                  sequence="10" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+		
+		
+    </data>
+</odoo>

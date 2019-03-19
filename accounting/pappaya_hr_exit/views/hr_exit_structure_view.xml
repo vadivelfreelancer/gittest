@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>	
+		<record id="view_hr_exit_structure_tree" model="ir.ui.view">
+			<field name="name">hr.exit.structure.tree</field>
+			<field name="model">hr.exit.structure</field>
+			<field name="arch" type="xml">
+				<tree string="Exit Structure">
+					<field name="name"/>
+					<field name="code"/>
+					<field name="company_id"/>
+				</tree>
+			</field>
+		</record>
+		
+		
+		<record id="hr_exit_structure_form_view" model="ir.ui.view">
+			<field name="name">hr.exit.structure.form.view</field>
+			<field name="model">hr.exit.structure</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="code"/>
+								<field name="company_id"/>
+								<field name="note"/>
+							</group>
+						</group>
+						<group string="Exit Structure">
+							<field name="rule_ids" nolabel="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="hr_exit_structure_search_view" model="ir.ui.view">
+				<field name="name">hr.exit.structure.search.view</field>
+				<field name="model">hr.exit.structure</field>
+				<field name="arch" type="xml">
+					<search string="Hr exit Structure">
+						<field name="name"/>
+						<field name="code"/>
+						<field name="company_id"/>
+						<group expand="0" string="Group By">
+							<filter string="Name" context="{'group_by':'name'}"/>
+							<filter string="Code" context="{'group_by':'code'}"/>
+							<filter string="Company" context="{'group_by':'company_id'}"/>
+						</group>
+					</search>
+				</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_hr_exit_structure">
+				<field name="name">Exit Structure</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">hr.exit.structure</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="search_view_id" ref="hr_exit_structure_search_view"/>
+		</record>
+	
+	<!-- <menuitem id="menu_exit_structure" action="action_hr_exit_structure" parent="hr.menu_human_resources_configuration"/> -->
+  </data>
+</odoo>

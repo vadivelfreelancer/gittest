@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_store_type_tree" model="ir.ui.view">
+			<field name="name">store.type.tree</field>
+			<field name="model">store.type</field>
+			<field name="arch" type="xml">
+				<tree string="Store Type">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_store_type_form" model="ir.ui.view">
+			<field name="name">store.type.form</field>
+			<field name="model">store.type</field>
+			<field name="arch" type="xml">
+				<form string="Store Type">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_store_type_search" model="ir.ui.view">
+			<field name="name">store.type.search</field>
+			<field name="model">store.type</field>
+			<field name="arch" type="xml">
+				<search string="Store Type">
+					<field name="name"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_pappaya_store_type_view" model="ir.actions.act_window">
+			<field name="name">Store Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">store.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_store_type_search" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Store Type.
+				</p>
+			</field>
+		</record>
+	</data>
+</odoo>

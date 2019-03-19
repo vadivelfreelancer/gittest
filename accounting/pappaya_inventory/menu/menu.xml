@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+			<menuitem name="Item Mapping Masters" id="menu_inventory_masters" parent="stock.menu_stock_inventory_control" sequence="10"/>
+				<menuitem name="Branch Wise Item Mapping" id="menu_branch_wise_item_mapping" parent="menu_inventory_masters" action="action_branch_wise_item_mapping_view" sequence="10"/>
+			    <menuitem name="Branch Wise Item Category Mapping" id="menu_branch_wise_item_category_mapping" parent="menu_inventory_masters" action="action_branch_wise_item_category_mapping_view" sequence="15"/>
+				<menuitem name="Item-Head Master" id="menu_pappaya_item_head_master" parent="menu_inventory_masters" action="action_item_head_master_view" sequence="20"/>
+				<menuitem name="Item Head Mapping To User" id="menu_pappaya_itemhead_with_usermapping" parent="menu_inventory_masters" action="action__itemhead_with_usermapping_view" sequence="21"/>
+			   	<menuitem name="Sub Category + Sub Ledger" id="menu_subcategory_subledger" parent="menu_inventory_masters" action="action_subcategory_with_subledger_mapping_view" sequence="22"/>
+
+
+			<menuitem name="Mess Menu" id="menu_parent_masters" parent="stock.menu_stock_root" sequence="3"/>
+				<menuitem name="Menu" id="menu_menu_masters" parent="menu_parent_masters" action="action_menu_view" sequence="5"/>
+				<menuitem name="Menu Items" id="menu_menu_items_masters" parent="menu_parent_masters" action="action_menu_items_view" sequence="10"/>
+				<menuitem name="Menu + Menu Items Mapping" id="menu_menu_items_mapping" parent="menu_parent_masters" action="action_menu_items_mapping_view" sequence="15"/>
+				<menuitem name="Menu Item + Ingredients Mapping" id="menu_menu_ingredients_mapping" parent="menu_parent_masters" action="action_menu_ingredients_mapping_view" sequence="20"/>
+				<menuitem name="Branch + Menu Items Mapping" id="menu_branch_mi_mapping" parent="menu_parent_masters" action="action_branch_mi_mapping_view" sequence="25"/>
+				<menuitem name="Daily Menu Consumption" id="menu_daily_menu_consumption" parent="menu_parent_masters" action="action_daily_menu_consumption_view" sequence="30"/>
+
+			<menuitem name="Item Master Creation" id="menu_item_type" parent="pappaya_base.menu_pappaya_configurations_root" sequence="88"/>
+				<menuitem name="Store Type" id="menu_store_type_masters" parent="menu_item_type" action="action_pappaya_store_type_view" sequence="-11"/>
+				<menuitem name="Item Class" id="menu_pappaya_item_class_masters" parent="menu_item_type" action="action_pappaya_item_class_view" sequence="-10"/>
+
+			 <menuitem name="Vendors" id="menu_pappaya_vendor_root" parent="pappaya_base.menu_pappaya_configurations_root"  sequence="89" />
+
+            	<menuitem id="menu_pappaya_vendor_type"
+                          parent="menu_pappaya_vendor_root"
+                          name="Vendor Type"
+                          sequence="5"
+                          action="action_partner_type_contact"/>
+
+            	<menuitem id="menu_pappaya_vendor_category"
+                          parent="menu_pappaya_vendor_root"
+                          name="Vendor Category"
+                          sequence="6"
+                          action="action_partner_category_contact"/>
+
+    </data>
+</odoo>

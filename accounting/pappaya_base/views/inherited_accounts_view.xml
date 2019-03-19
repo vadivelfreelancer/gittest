@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_journal_inherit" model="ir.ui.view">
+            <field name="name">account.journal.form.inherit</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="is_cheque"/>
+                    <field name="is_card"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_payment_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">payment.invoice.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <!--<field name="journal_id" position="attributes">-->
+                    <!--<attribute name="domain">[('company_id','=',company_id)]</attribute>-->
+                <!--</field>-->
+                <field name="journal_id" position="after">
+                    <field name="cheque_dd"/>
+                    <field name="bank_name" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="communication" position="after">
+                     <field name="remarks"/>
+                </field>
+                <xpath expr="//form/sheet/group/group/field[@name='payment_method_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='payment_date']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='communication']" position="attributes">
+                    <attribute name="string">Memo/Reference</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_tax_inherit_form" model="ir.ui.view">
+            <field name="name">account.tax.inherit.form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="type_tax_use" position="after">
+                    <field name="gst_type" required="1" />
+                    <field name="tax_on_price" required="1"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

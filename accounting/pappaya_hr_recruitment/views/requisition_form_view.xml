@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_requisition_form_tree" model="ir.ui.view">
+			<field name="name">requisition.form.tree</field>
+			<field name="model">requisition.form</field>
+			<field name="arch" type="xml">
+				<tree string="Requisition Form" duplicate="0">
+					<field name="organization_id" invisible="1"/>
+					<field name="location_id" />
+					<field name="department_id" />
+					<field name="designation_id" />
+					<field name="request_date" />
+					<field name="number_of_vacancies" />
+					<field name="type_of_vacancy" />
+					<field name="expected_joining_time" />
+					<field name="state" />
+					<field name="is_budget_applicable" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_requisition_form_form" model="ir.ui.view">
+			<field name="name">requisition.form.form</field>
+			<field name="model">requisition.form</field>
+			<field name="arch" type="xml">
+				<form string="Requisition Form" duplicate="0">
+					<header>
+						<button name="to_request" string="Request" states="draft" type="object" groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+						<button name="to_approved" string="Approve" states="request" type="object" groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+						<button name="to_cancel" string="Cancel" states="request" type="object" groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="request_date" readonly="1"/>
+								<field name="organization_id" invisible="1"/>
+								<field name="is_budget_applicable" invisible="1"/>
+								<field name="location_id" domain="[('type','=','branch')]" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="category_id" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="subcategory_id" domain="[('parent_category_id','=',category_id)]" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="department_id" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="designation_id" domain="[('department_id','=',department_id)]" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="subject_ids" widget="many2many_tags" attrs="{'readonly':[('state','!=','draft')],'required':[('is_budget_applicable','=',True)]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="number_of_vacancies" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="educational_qualification" widget="many2many_tags" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+							</group>
+							<group>
+								<field name="year_of_experience" attrs="{'readonly':[('state','!=','draft')]}"/>
+								
+								<field name="salary_range" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="expected_joining_time" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="type_of_vacancy" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="replace_employee_ids" attrs="{'invisible':[('type_of_vacancy','!=','replacement')],'readonly':[('state','!=','draft')]}">
+									<tree editable="bottom" delete="false">
+										<field name="employee_id" required="1" options="{'no_open': True,'no_create':True}" domain ="[('active','=',False),('emp_replaced_by', '=', False),
+											('branch_id', '=', parent.location_id),('department_id', '=', parent.department_id),('job_id', '=', parent.designation_id)]"/>
+										<field name="emp_id" force_save="1" readonly="1" />
+									</tree>
+								</field>
+								<field name="new_hiring_description" attrs="{'invisible':[('type_of_vacancy','=','replacement')],'readonly':[('state','!=','draft')]}"/>
+							</group>
+							<label for="job_description" string="Job Description" style="font-weight: bold !important;min-width: 200px;font-color:#d74930;"/>
+							<field name="job_description" placeholder="Job Description" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+						<group string='Requested'>
+							<group>
+								<field name="requested_by" readonly="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+							</group>
+							<group>
+								<field name="requested_employee_id" readonly="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+						</group>
+						<group string='Approved'>
+							<group>
+								<field name="approved_by" readonly="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>
+							</group>
+							<group>
+								<field name="approved_designation" attrs="{'readonly':[('state','!=','draft')]}" readonly="1"/>
+							</group>
+							<field name="remarks" placeholder="Remarks"/>
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_requisition_form_search" model="ir.ui.view">
+			<field name="name">requisition.form.search</field>
+			<field name="model">requisition.form</field>
+			<field name="arch" type="xml">
+				<search string="Requisition Form">
+					<field name="request_date" />
+					<field name="department_id" />
+					<field name="designation_id" />
+					<field name="location_id" />
+					<field name="educational_qualification" />
+					<field name="year_of_experience" />
+					<field name="job_description" />
+					<field name="salary_range" />
+					<field name="type_of_vacancy" />
+					<field name="expected_joining_time" />
+					<field name="remarks" />
+					<group expand="0" string="Group By...">
+                        <filter name="department_id" string="Department" domain="[]" context="{'group_by':'department_id'}" /> 
+                        <filter name="designation_id" string="Designation" domain="[]" context="{'group_by':'designation_id'}" /> 
+                        <filter name="location_id" string="Branch" domain="[]" context="{'group_by':'location_id'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_requisition_form_view">
+			<field name="name">Requisition Form</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">requisition.form</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_requisition_form_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Requisition Form.
+                </p>
+            </field>
+		</record>
+
+		
+
+    </data>
+</odoo>

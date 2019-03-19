@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Challan Report-->
+        <template id="bank_challan_reports_print">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.internal_layout">
+                        <div class="page">
+                            <div style="float:left; width:50%;border-right:dotted 1px;padding-right:20px;">
+                                <strong> BANK's COPY</strong>
+                                <div class="row">
+                                    <div class="col-xs-3" style="text-align:center;padding-top:10px;">
+                                        <img t-attf-src="/pappaya_base/static/src/img/logo.png" style="max-height:200px; max-width:200px;"/>
+                                    </div>
+                                    <br/>
+                                    <div style="padding-top:40px;">
+                                        <strong> <span> A/c Holder:<span t-field="o.branch_id.parent_id.name"/></span></strong><br/>
+                                        <table style="width:90%;padding-top:10px;font-size:10px; text-align:center;">
+                                            <tr style="border:solid 1px;">
+                                                <td style="border:solid 1px;padding-bottom:10px;padding-top:10px;">Tick Bank</td>
+                                                <td style="border:solid 1px;padding-bottom:10px;padding-top:10px;">Bank Name</td>
+                                            </tr>
+                                            <tr style="border:solid 1px;">
+                                                <td style="border:solid 1px;margin-bottom:5px;width:30%;height:100%;"> <input type="checkbox" id="oe_import_tracking" /> </td>
+                                                <td style="border:solid 1px;text-align:left;padding-bottom:10px;padding-left:10px;"><b>ICICI Bank (To be accepted through <br/>I-Sure Pay using HCOREFEE option)</b></td>
+                                            </tr>
+                                            <tr style="border:solid 1px;height:100%;">
+                                                <td style="border:solid 1px;padding-bottom:10px;width:30%;text-align:center;height:100%;"> <input type="checkbox" id="oe_import_tracking" />  </td>
+                                                <td style="border:solid 1px;text-align:left;padding-bottom:10px;padding-left:10px;"><b>AXIS</b> (AXIS Bank Ltd.)</td>
+                                            </tr>
+                                        </table>
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:90%;">Bank's Branch :</td>
+                                            <td style="font-size:10px;text-align:left;width:90%;">&#160;&#160;  <span t-field="o.branch_id.name"/></td>
+                                        </tr>
+                                        <br/>
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:90%;">Date    :</td>
+                                            <td style="font-size:10px;text-align:right;width:90%;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>   </td>
+                                        </tr>
+                                    </div>
+                                    <div style="width:90%;border:solid 1px;">
+                                        <table class="table-condensed" style="width:90%;height:100%;margin-bottom:10px;font-size:10px">
+                                            <tr>
+                                                <t t-if="o.get_challan_report_reservation()">
+                                                    <td style="font-size:10px;text-align:left;width:30%;"><strong>Reservation No </strong></td>
+                                                </t>
+                                                <t t-if="not o.get_challan_report_reservation()">
+                                                    <td style="font-size:10px;text-align:left;width:30%;"><strong>Admission No </strong></td>
+                                                </t>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;"><span t-field="o.application_no"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Student's Name </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <t t-foreach="o.get_challan_report_data()" t-as="rec">
+                                                        <span t-esc="rec.name"/></t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Parent's Name </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <t t-foreach="o.get_challan_report_data()" t-as="rec">
+                                                        <span t-esc="rec.father_name"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Class / Section</strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <!--<span t-esc="rec.course_package_id.name"/>-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Academic Year </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <t t-foreach="o.get_challan_report_data()" t-as="rec">
+                                                        <span t-esc="rec.joining_academic_year_id.name"/></t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Fee Rs. </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;"></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Service Charges </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div style="width:100%;">
+                                        <table class="table-condensed" style=" width:90%;margin-bottom:10px;margin-top:10px;">
+                                            <tr style="border:solid 1px;">
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;">
+                                                    <strong>DENOMINATIONS :</strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;">
+                                                    AMOUNT Rs.</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 2000   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"> </td>
+                                            </tr>
+                                            <tr>  <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 500   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 200   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 100   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 50   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 10   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 5   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px; width:50%;"><strong>COINS</strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px; width:50%;"><strong>GRAND TOTAL</strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px; width:50%;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <span style="font-size:12px"> Rupees(in words) :  __________________________________<br/>______________________________________Only</span>
+                                    <br/>
+                                    <br/>
+                                    <span style="font-size:12px">  <b>Cheque Number: _________________________________ </b></span>
+
+                                </div>
+                                <br/>
+                                <div style="float:left;font-size:12px;width:90%;padding-left:5px;">
+                                    <h5 style="text-align:center;font-size:14;"> <b>FOR BANK'S USE ONLY </b></h5>
+                                    <table class="table-condensed" style="width:90%;height:100%;margin-bottom:10px;">
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:50%;"><strong>Rs. ....................</strong></td>
+                                            <td style="width:15%"></td>
+                                            <td style="font-size:10px;text-align:right;width:35%;"><strong>Date ................. </strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td> </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:50%;"> <strong>Cashier .................... </strong></td>
+                                            <td style="width:15%"></td>
+                                            <td style="font-size:10px;text-align:left;width:35%;"><strong>Officer/Manager </strong></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;font-size:10px;width:90%;padding-left:5px;">
+                                    <h6 style="text-align:left;font-size:14;"> <b>Instructions for ICICI Bank Branches </b></h6>
+                                    <p style="text-align:left;width:100%;font-size:11;">
+                                        1.  Type “HCOREFEE” in I-Core-> Select respective institution of
+                                            Narayana Group -> Enter “Admission No:” -> Click Submit -> Verify
+                                            details -> Accept cash -> Click Submit -> Generate Receipt ->
+                                            Handover to Depositor
+                                        <br/>
+                                        2. For queries, refer Circular 9634.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:50%;padding-left:25px;">
+                                <strong> STUDENT's COPY</strong>
+                                <div class="row">
+                                    <div class="col-xs-3" style="text-align:cemter;padding-top:10px">
+                                        <img t-attf-src="/pappaya_base/static/src/img/logo.png" style="max-height:200px; max-width:200px;"/>
+                                    </div>
+                                    <br/>
+                                    <div style="padding-top:40px;">
+                                        <strong> <span> A/c Holder: <span t-field="o.branch_id.parent_id.name"/></span></strong>
+                                        <br/>
+                                        <table style="width:90%;padding-top:10px;font-size:10px; text-align:center;">
+                                            <tr style="border:solid 1px;">
+                                                <td style="border:solid 1px;padding-bottom:10px;padding-top:10px;">Tick Bank</td>
+                                                <td style="border:solid 1px;padding-bottom:10px;padding-top:10px;">Bank Name</td>
+                                            </tr>
+                                            <tr style="border:solid 1px;">
+                                                <td style="border:solid 1px;margin-bottom:5px;width:30%;height:100%;"> <input type="checkbox" id="oe_import_tracking" /> </td>
+                                                <td style="border:solid 1px;text-align:left;padding-bottom:10px;padding-left:10px;"><b>ICICI Bank (To be accepted through <br/>I-Sure Pay using HCOREFEE option)</b></td>
+                                            </tr>
+                                            <tr style="border:solid 1px;height:100%;">
+                                                <td style="border:solid 1px;padding-bottom:10px;width:30%;text-align:center;height:100%;"> <input type="checkbox" id="oe_import_tracking" />  </td>
+                                                <td style="border:solid 1px;text-align:left;padding-bottom:10px;padding-left:10px;"><b>AXIS</b> (AXIS Bank Ltd.)</td>
+                                            </tr>
+                                        </table>
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:50%;">Bank's Branch  :</td>
+                                            <td style="font-size:10px;text-align:left;width:50%;">&#160;&#160;  <span t-field="o.branch_id.name"/></td>
+                                        </tr>
+                                        <br/>
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:50%;">Date    :</td>
+                                            <td style="font-size:10px;text-align:right;width:50%;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;   <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>   </td>
+                                        </tr>
+                                    </div>
+                                    <div style="width:90%;border:solid 1px;">
+                                        <table class="table-condensed" style="width:90%;height:100%;margin-bottom:10px;font-size:10px">
+                                            <tr>
+                                                <t t-if="o.get_challan_report_reservation()">
+                                                    <td style="font-size:10px;text-align:left;width:30%;"><strong>Reservation No </strong></td>
+                                                </t>
+                                                <t t-if="not o.get_challan_report_reservation()">
+                                                    <td style="font-size:10px;text-align:left;width:30%;"><strong>Admission No </strong></td>
+                                                </t>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;"><span t-field="o.application_no"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Student's Name </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <t t-foreach="o.get_challan_report_data()" t-as="rec">
+                                                        <span t-esc="rec.name"/></t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Parent's Name </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <t t-foreach="o.get_challan_report_data()" t-as="rec">
+                                                        <span t-esc="rec.father_name"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Class / Section</strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <!--<span t-esc="rec.course_package_id.name"/>-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Academic Year </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;">
+                                                    <t t-foreach="o.get_challan_report_data()" t-as="rec">
+                                                        <span t-esc="rec.joining_academic_year_id.name"/></t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Fee Rs. </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;"></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;width:30%;"><strong>Service Charges </strong></td>
+                                                <td style="width:1%">:</td>
+                                                <td style="font-size:10px;text-align:left;width:68%;border-bottom:solid 1px;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div style="width:100%;">
+                                        <table class="table-condensed" style=" width:90%;margin-bottom:10px;margin-top:10px;">
+                                            <tr style="border:solid 1px;">
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;">
+                                                    <strong>DENOMINATIONS :</strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;">
+                                                    AMOUNT Rs.</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 2000   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"> </td>
+                                            </tr>
+                                            <tr>  <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 500   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 200   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 100   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 50   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 10   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"><strong>Rs. 5   x </strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px; width:50%;"><strong>COINS</strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px;width:50%;"></td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="font-size:10px;text-align:left;border:solid 1px; width:50%;"><strong>GRAND TOTAL</strong></td>
+                                                <td style="font-size:10px;text-align:left;border:solid 1px; width:50%;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <span style="font-size:12px"> Rupees(in words) :  __________________________________<br/>______________________________________Only</span>
+                                    <br/>
+                                    <br/>
+                                    <span style="font-size:12px"> <b>Cheque Number: _________________________________ </b></span>
+                                </div>
+                                <br/>
+                                <div style="float:left;font-size:12px;width:90%;">
+                                    <h5 style="text-align:center;font-size:14px;"> <strong>FOR BANK'S USE ONLY </strong></h5>
+                                    <table class="table-condensed" style="width:90%;height:100%;margin-bottom:10px;">
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:50%;"><strong>Rs. ....................</strong></td>
+                                            <td style="width:15%"></td>
+                                            <td style="font-size:10px;text-align:right;width:35%;"><strong>Date ................. </strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td> </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size:10px;text-align:left;width:50%;"> <strong>Cashier .................... </strong></td>
+                                            <td style="width:15%"></td>
+                                            <td style="font-size:10px;text-align:left;width:35%;"><strong>Officer/Manager </strong></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;font-size:10px;width:90%;padding-left:5px;">
+                                    <h6 style="text-align:center;font-size:14;"> <b>INSTRUCTIONS </b></h6>
+                                    <p style="text-align:justify;font-size:11px;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Dear Parent, We have provided bank challans to your ward
+                                        in their respective campuses. Now you can pay your course fee
+                                        at any bank branchs mentioned above across the country.
+                                        Pocket
+                                        Money should be paid in cash at college/school
+                                        counters only.
+                                    </p>
+                                    <span style="padding-left:20px;padding-top:3px;font-size:11px;">
+                                        <b style="text-align:center;padding-left:20px;font-size:11px;"> Query Regarding Narayana Fee Payment Contact:</b>
+                                        <p style="text-align:center;padding-left:20px;font-size:11px;">
+                                            9553306111,9553306555, 040-65906590<br/>
+                                            Visit us@ www.narayanagroup.com For More Details
+                                        </p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report	id="bank_challan_reports_id"
+                   model="bank.challan"
+                   string="Challan"
+                   report_type="qweb-pdf"
+                   name="pappaya_admission.bank_challan_reports_print"
+                   file="pappaya_admission.bank_challan_reports_print"/>
+
+
+        <record id="paperformat_report_bank_challan_reports" model="report.paperformat">
+            <field name="name">European A4 - Challan</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">8</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="pappaya_admission.bank_challan_reports_id" model="ir.actions.report">
+            <field name="paperformat_id" ref="pappaya_admission.paperformat_report_bank_challan_reports"/>
+        </record>
+
+    </data>
+</odoo>

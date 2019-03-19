@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_master_tree" model="ir.ui.view">
+            <field name="name">pappaya.master.tree</field>
+            <field name="model">pappaya.master</field>
+            <field name="arch" type="xml">
+                <tree string="Masters" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type"/>
+                    <field name="is_active"/>
+                    <field name="academic_year_id" invisible="1"/>
+                    <field name="school_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_master_form" model="ir.ui.view">
+            <field name="name">pappaya.master.form</field>
+            <field name="model">pappaya.master</field>
+            <field name="arch" type="xml">
+                <form string="Masters" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                            	<field name="type" default_focus="1" required="1"/>
+                                <field name="name" required="1"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                            	<field name="is_active"/>
+                                <field name="code" required="1"/>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" domain="[('is_active','=',True)]" invisible="1"/>
+                            	<field name="master_type" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_master_search" model="ir.ui.view">
+            <field name="name">pappaya.master.search</field>
+            <field name="model">pappaya.master</field>
+            <field name="arch" type="xml">
+                <search string="Masters">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <filter string="Active" name="inactive" domain="[('is_active','=',True)]"/>
+                    <filter string="In Active" name="inactive" domain="[('is_active','=',False)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	<filter name="group_by_type" string="Type" context="{'group_by':'type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_master_form" model="ir.actions.act_window">
+            <field name="name">Masters</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('master_type','=','module_master')]</field>
+            <field name="context">{'master_type':'module_master'}</field>
+            <field name="search_view_id" ref="view_pappaya_master_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Master.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Begin Global Master -->
+        <record id="view_pappaya_global_master_tree" model="ir.ui.view">
+            <field name="name">pappaya.global.master.tree</field>
+            <field name="model">pappaya.master</field>
+            <field name="arch" type="xml">
+                <tree string="Masters" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type"/>
+                    <field name="is_active"/>
+                    <field name="academic_year_id" invisible="1"/>
+                    <field name="school_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_global_master_form" model="ir.ui.view">
+            <field name="name">pappaya.global.master.form</field>
+            <field name="model">pappaya.master</field>
+            <field name="arch" type="xml">
+                <form string="Masters" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                            	<field name="type" default_focus="1" required="1"/>
+                                <field name="name" required="1"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="is_active"/>
+                                <field name="code" required="1"/>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" domain="[('is_active','=',True)]" invisible="1"/>
+                            	<field name="master_type" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_global_master_search" model="ir.ui.view">
+            <field name="name">pappaya.global.master.search</field>
+            <field name="model">pappaya.master</field>
+            <field name="arch" type="xml">
+                <search string="Masters">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <filter string="Active" name="inactive" domain="[('is_active','=',True)]"/>
+                    <filter string="In Active" name="inactive" domain="[('is_active','=',False)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	<filter name="group_by_type" string="Type" context="{'group_by':'type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_global_master_form" model="ir.actions.act_window">
+            <field name="name">Masters</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('master_type','=','global_master')]</field>
+            <field name="context">{'master_type':'global_master'}</field>
+            <field name="search_view_id" ref="view_pappaya_global_master_search"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_global_master_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_global_master_form')})]" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Masters.
+                </p>
+            </field>
+        </record>
+        <!-- End Global Master -->
+
+    </data>
+</odoo>

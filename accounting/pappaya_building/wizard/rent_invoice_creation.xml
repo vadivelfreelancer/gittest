@@ -1,0 +1,29 @@
+<odoo>
+
+    <record id="view_rent_invoice_creation" model="ir.ui.view">
+        <field name="name">rent.invoice.creation.form</field>
+        <field name="model">rent.invoice.creation</field>
+        <field name="arch" type="xml">
+            <form string="Create Invoice">
+                <group>
+                    <field name="rent_ids" widget="many2many_tags" invisible="1"/>
+                    <p>Click here to generate invoice.</p>
+                </group>
+                <footer>
+                    <button string="Generate Invoice" name="action_create_invoice" type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_view_rent_creation" model="ir.actions.act_window">
+        <field name="name">Create Invoice</field>
+        <field name="res_model">rent.invoice.creation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_rent_invoice_creation"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

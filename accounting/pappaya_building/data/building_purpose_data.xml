@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="building_purpose_0" model="building.purpose">
+            <field name="name">CLASS ROOM COL</field>
+        </record>
+        <record id="building_purpose_1" model="building.purpose">
+            <field name="name">CLASS ROOM SCH</field>
+        </record>
+        <record id="building_purpose_2" model="building.purpose">
+            <field name="name">CLASS ROOM OLY</field>
+        </record>
+        <record id="building_purpose_3" model="building.purpose">
+            <field name="name">CLASS ROOM CC</field>
+        </record>
+        <record id="building_purpose_4" model="building.purpose">
+            <field name="name">ADMIN</field>
+        </record>
+        <record id="building_purpose_5" model="building.purpose">
+            <field name="name">KITCHEN</field>
+        </record>
+        <record id="building_purpose_6" model="building.purpose">
+            <field name="name">DINING</field>
+        </record>
+        <record id="building_purpose_7" model="building.purpose">
+            <field name="name">HOSTEL</field>
+        </record>
+        <record id="building_purpose_8" model="building.purpose">
+            <field name="name">PLAYGROUND</field>
+        </record>
+        <record id="building_purpose_9" model="building.purpose">
+            <field name="name">Ware House</field>
+        </record>
+        <record id="building_purpose_10" model="building.purpose">
+            <field name="name">GCF Lab</field>
+        </record>
+        <record id="building_purpose_11" model="building.purpose">
+            <field name="name">ALL</field>
+        </record>
+        
+        <record id="sequence_security_deposit" model="ir.sequence">
+            <field name="name">Security Deposit sequence</field>
+            <field name="code">security.deposit</field>
+            <field name="prefix">BSD</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+
+ 	<record id="sequence_security_deposit_transfer" model="ir.sequence">
+            <field name="name">Security Deposit sequence Transfer</field>
+            <field name="code">security.deposit.transfer</field>
+            <field name="prefix">BSDT</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+
+ 	<record id="sequence_security_deposit_transfer_repayment" model="ir.sequence">
+            <field name="name">Security Deposit sequence Transfer Repayment</field>
+            <field name="code">security.deposit.transfer.repayment</field>
+            <field name="prefix">BSDTR</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_security_deposit_rental_arrears" model="ir.sequence">
+            <field name="name">Security Deposit sequence Rental Arrears</field>
+            <field name="code">security.deposit.rental.arrears</field>
+            <field name="prefix">BSDRA</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_building_advance" model="ir.sequence">
+            <field name="name">Sequence Building Advance</field>
+            <field name="code">building.advance</field>
+            <field name="prefix">BA</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_building_advance_transfer" model="ir.sequence">
+            <field name="name">Sequence Building Advance Transfer</field>
+            <field name="code">building.advance.transfer</field>
+            <field name="prefix">BAT</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_building_advance_repayment" model="ir.sequence">
+            <field name="name">Sequence Building Advance Repayment</field>
+            <field name="code">building.advance.repayment</field>
+            <field name="prefix">BAR</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_building_advance_rental_arrears" model="ir.sequence">
+            <field name="name">Sequence Building Advance Rental Arrears</field>
+            <field name="code">building.advance.rental.arrears</field>
+            <field name="prefix">BARA</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_building_advance_converted" model="ir.sequence">
+            <field name="name">Sequence Building Advance Converted</field>
+            <field name="code">building.advance.converted</field>
+            <field name="prefix">BAC</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_rent_creation" model="ir.sequence">
+            <field name="name">Rent Creation</field>
+            <field name="code">rent.creation</field>
+            <field name="prefix">RENT</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+
+ 	<record id="sequence_rent_generation" model="ir.sequence">
+            <field name="name">Rent Generation</field>
+            <field name="code">rent.generation</field>
+            <field name="prefix">RTGEN</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+         
+  	<record id="sequence_building_close" model="ir.sequence">
+            <field name="name">Building Shutdown</field>
+            <field name="code">building.shutdown</field>
+            <field name="prefix">BSHUT</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+ 	<record id="sequence_building_advance_security_deposit" model="ir.sequence">
+            <field name="name">Building Advance Security Deposit</field>
+            <field name="code">building.advance.security.deposit</field>
+            <field name="prefix">BASD</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+ 
+  	<record id="sequence_rental_arrears" model="ir.sequence">
+            <field name="name">Sequence Rental Arrears</field>
+            <field name="code">rental.arrears</field>
+            <field name="prefix">RA</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+       
+  	<record id="sequence_maintenance_arrears" model="ir.sequence">
+            <field name="name">Sequence Maintenance Arrears</field>
+            <field name="code">maintenance.arrears</field>
+            <field name="prefix">MA</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+        
+    </data>
+</odoo>

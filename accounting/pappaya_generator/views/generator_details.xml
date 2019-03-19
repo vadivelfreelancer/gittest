@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--generator company details master-->
+    <record id="generator_company_details_master_form" model="ir.ui.view">
+        <field name="name">Generator Company Details </field>
+        <field name="model">generator.company.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Generator Company Details">
+                        <group>
+                            <field name="name"/>
+                            <field name="address1"/>
+                            <field name="address2"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_company_details_master_tree" model="ir.ui.view">
+        <field name="name">Generator Company Details </field>
+        <field name="model">generator.company.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="address1"/>
+                <field name="address2"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_company_details_master_action" model="ir.actions.act_window">
+            <field name="name">Generator Company Details</field>
+            <field name="res_model">generator.company.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     
+     <record id="generator_bill_approval_action" model="ir.actions.act_window">
+            <field name="name">Generator Bill Approval</field>
+            <field name="res_model">generator.bill.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', 'in', ['approval'])]</field>
+            <field name="context">{'create': False,'edit': False}</field>
+     </record>
+    
+    <record id="generator_fuel_bill_approval_action" model="ir.actions.act_window">
+            <field name="name">Generator Fuel Bill Approval</field>
+            <field name="res_model">fuel.bill.transaction</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', 'in', ['approval'])]</field>
+            <field name="context">{'create': False,'edit': False}</field>
+     </record>
+     
+    <menuitem id="generator_main_menu" name="Generator" sequence="1"/>
+    <menuitem id="generator_main_sub_menu" parent="generator_main_menu" name="Generator Details" sequence="2"/>
+    <menuitem id="generator_main_sub2_menu" parent="generator_main_menu" name='Transactions' sequence="2"/>
+     <menuitem id="generator_company_details_menu" parent="generator_main_sub_menu" action="generator_company_details_master_action" name="Generator Company Details" sequence="3"/>
+    <menuitem id="approval_main_menu" parent="generator_main_menu" name="Approvals" sequence="1"/>
+    <menuitem id="generator_bill_approval_main_sub_menu" parent="approval_main_menu" action="generator_bill_approval_action" name="Generator Bill Approval" sequence="1"/>
+    <menuitem id="generator_fuel_bill_approval_main_sub_menu" parent="approval_main_menu" action="generator_fuel_bill_approval_action" name="Generator Fuel Bill Approval" sequence="2"/>
+
+
+    <!--generator capacity details master-->
+    <record id="generator_capacity_details_master_form" model="ir.ui.view">
+        <field name="name">Generator Capacity Details </field>
+        <field name="model">generator.capacity.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Generator Capacity Details">
+                        <group>
+                            <field name="name" options='{"no_open": True, "no_create": True}'/>
+                            <field name="capacity"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_capacity_details_master_tree" model="ir.ui.view">
+        <field name="name">Generator Capacity Details </field>
+        <field name="model">generator.capacity.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="capacity"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_capacity_details_master_action" model="ir.actions.act_window">
+            <field name="name">Generator Capacity Details</field>
+            <field name="res_model">generator.capacity.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_capacity_details_menu" parent="generator_main_sub_menu" action="generator_capacity_details_master_action" name="Generator Capacity Details" sequence="4"/>
+
+
+       <!--generator model details master-->
+    <record id="generator_model_details_master_form" model="ir.ui.view">
+        <field name="name">Generator Model Details </field>
+        <field name="model">generator.model.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Generator Model Details">
+                        <group>
+                            <field name="generator_name"/>
+                            <field name="capacity" widget="se;lection"/>
+                        </group>
+                        <group>
+                            <field name="fuel_capacity"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_model_details_master_tree" model="ir.ui.view">
+        <field name="name">Generator Model Details </field>
+        <field name="model">generator.model.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="generator_name"/>
+                <field name="capacity"/>
+                <field name="fuel_capacity"/>
+                <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_model_details_master_action" model="ir.actions.act_window">
+            <field name="name">Generator Model Details</field>
+            <field name="res_model">generator.model.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_model_details_menu" parent="generator_main_sub_menu" action="generator_model_details_master_action" name="Generator Model Details" sequence="5"/>
+
+
+         <!--generator petro card master-->
+    <record id="generator_petro_card_master_form" model="ir.ui.view">
+        <field name="name">Petro cards </field>
+        <field name="model">petro.cards</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Petro cards">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="vendor_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="generator_name_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="card_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_petro_cards_master_tree" model="ir.ui.view">
+        <field name="name">Petro Cards </field>
+        <field name="model">petro.cards</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="generator_name_id"/>
+                <field name="vendor_id"/>
+                <field name="card_id"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_petro_cards_master_action" model="ir.actions.act_window">
+            <field name="name">Petro Cards</field>
+            <field name="res_model">petro.cards</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_petro_cards_menu" parent="generator_main_sub_menu" action="generator_petro_cards_master_action" name="Petro Cards" sequence="6"/>
+
+     <!--generator bill entry details master-->
+    <record id="generator_bill_entry_details_master_form" model="ir.ui.view">
+        <field name="name">Generator Bill Entry Details </field>
+        <field name="model">generator.bill.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+               <header>
+                   <button name="button_submit" string="Submit"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+                   <button name="approval" string="Approval" groups="pappaya_generator.group_generator_approval"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'approval')]}"/>
+                   <field name="state" widget="statusbar" statusbar_visible="draft,approval,approved"/>
+                </header>
+                <sheet>
+                    <group string="Generator Bill Entry Details">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="company" options='{"no_open": True, "no_create": True}'/>
+                            <field name="capacity_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="fuel_capacity"/>
+                        </group>
+                         <group>
+                            <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="model_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="fuel_type"/>
+                        </group>
+                        <group>
+                            <field name="year_purchase"/>
+                            <field name="consumption"/>
+                            <field name="is_rent"/>
+                            <field name="rent_base" attrs="{'invisible': [('is_rent','=', False)], 'required': [('is_rent','=', True)]}" />
+                            <field name="rent" attrs="{'invisible': [('is_rent','=', False)], 'required': [('is_rent','=', True)]}" />
+                        </group>
+                         <group>
+                            <field name="engine_no"/>
+                            <field name="alternative_no"/>
+                             <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_bill_entry_details_master_tree" model="ir.ui.view">
+        <field name="name">Generator Bill Entry Details </field>
+        <field name="model">generator.bill.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="branch_id"/>
+                <field name="company"/>
+                 <field name="fuel_capacity"/>
+                 <field name="building_id"/>
+                <field name="model_id"/>
+                <field name="capacity_id"/>
+                 <field name="fuel_type"/>
+                <field name="engine_no"/>
+                <field name="alternative_no"/>
+                 <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_bill_entry_details_master_action" model="ir.actions.act_window">
+            <field name="name">Generator Bill Entry Details</field>
+            <field name="res_model">generator.bill.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_bill_entry_details_menu" parent="generator_main_sub2_menu" action="generator_bill_entry_details_master_action" name="Generator Bill Entry Details" sequence="7"/>
+
+
+     <!--generator fuel bill transaction master-->
+    <record id="generator_fuel_bill_master_form" model="ir.ui.view">
+        <field name="name">Generator Fuel Bill Transaction </field>
+        <field name="model">fuel.bill.transaction</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                   <button name="button_submit" string="Submit"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+                   <button name="approval" string="Approval" groups="pappaya_generator.group_generator_approval"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'approval')]}"/>
+                   <field name="state" widget="statusbar" statusbar_visible="draft,approval,approved"/>
+                </header>
+                <sheet>
+                    <group string="Generator Fuel Bill Transaction">
+                        <group>
+                            <field name="date"/>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="vendor" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                         <group>
+                            <field name="generator_name_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="fuel_type"/>
+                        </group>
+                        <group>
+                            <field name="bill_amount"/>
+                            <field name="bill_date"/>
+                            <field name="cash_credit"/>
+                        </group>
+                         <group>
+                            <field name="no_litters"/>
+                            <field name="bill_no"/>
+                             <field name="bill_due_date"/>
+                             <field name="narration"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_fuel_bill_master_tree" model="ir.ui.view">
+        <field name="name">Generator Fuel Bill Transaction</field>
+        <field name="model">fuel.bill.transaction</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="vendor"/>
+                <field name="generator_name_id"/>
+                <field name="fuel_type"/>
+                <field name="bill_amount"/>
+                <field name="bill_date"/>
+                <field name="cash_credit"/>
+                <field name="no_litters"/>
+                <field name="bill_no"/>
+                <field name="bill_due_date"/>
+                <field name="narration"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_fuel_bill_master_action" model="ir.actions.act_window">
+            <field name="name">Generator Fuel Bill Transaction</field>
+            <field name="res_model">fuel.bill.transaction</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_fuel_bill_menu" parent="generator_main_sub2_menu" action="generator_fuel_bill_master_action" name="Generator Fuel Bill Transaction" sequence="8"/>
+
+
+     <!--generator bill advance proposal master-->
+    <record id="generator_bill_advance_proposal_form" model="ir.ui.view">
+        <field name="name">Generator Bill Advance Proposal  </field>
+        <field name="model">advance.bill.proposal</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Generator Bill Advance Proposal ">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="category" widget="radio"/>
+                        </group>
+                         <group>
+                             <field name="amount_redeem"  widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                            <field name="vendor" options='{"no_open": True, "no_create": True}'/>
+                            <field name="pvs_advance_amt"/>
+                         </group>
+                        <group>
+                            <field name="po_number" options='{"no_open": True, "no_create": True}'/>
+                            <field name="amount"/>
+                             <field name="date" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_bill_advance_proposal_tree" model="ir.ui.view">
+        <field name="name">Generator Bill Advance Proposal</field>
+        <field name="model">advance.bill.proposal</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="category"/>
+                <field name="vendor"/>
+                <field name="pvs_advance_amt"/>
+                <field name="po_number"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_bill_advance_proposal_action" model="ir.actions.act_window">
+            <field name="name">Generator Bill Advance Proposal</field>
+            <field name="res_model">advance.bill.proposal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_bill_advance_proposal_menu" parent="generator_main_sub2_menu" action="generator_bill_advance_proposal_action" name="Generator Bill Advance Proposal" sequence="9"/>
+
+    <!--generator consumption master-->
+    <record id="generator_consumption_form" model="ir.ui.view">
+        <field name="name">Generator Consumption  </field>
+        <field name="model">generator.consumption</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Generator Consumption">
+                        <group>
+                            <field name="date"/>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="generator_name_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                         <group>
+                             <field name="running_date"/>
+                            <field name="starting_time" widget="float_time" class="oe_inline" required="1"/>
+                            <field name="ending_time" widget="float_time" class="oe_inline" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_consumption_tree" model="ir.ui.view">
+        <field name="name">Generator Consumption</field>
+        <field name="model">generator.consumption</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="date"/>
+                <field name="generator_name_id"/>
+                <field name="running_date"/>
+                <field name="starting_time"/>
+                <field name="ending_time"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_consumption_action" model="ir.actions.act_window">
+            <field name="name">Generator Consumption</field>
+            <field name="res_model">generator.consumption</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_consumption__menu" parent="generator_main_sub2_menu" action="generator_consumption_action" name="Generator Consumption" sequence="10"/>
+
+
+    <!--generator payment details master-->
+    <record id="generator_payment_details_form" model="ir.ui.view">
+        <field name="name">Payment Details  </field>
+        <field name="model">payment.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                   <header>
+                      <button name="account_verification_button" string="Account Verification" attrs="{'invisible': [('state','not in', 'account_verification')]}"
+                                 type="object"  class="oe_highlight"/>
+                    <button name="rfo_verification_button" string="RFO Verification" attrs="{'invisible': [('state','not in', 'rfo_verification')]}"
+                                 type="object" groups="pappaya_electricity.group_co_approval" class="oe_highlight"/>
+                    <button name="advance_adjustment_button" string="Advance Adjustment"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','not in', 'advance_adjustment')]}"/>
+                        <button name="forward_to_treasury_button" string="Forward To Treasury" attrs="{'invisible': [('state','not in', 'forward_treasury')]}"
+                                 type="object"  class="oe_highlight"/>
+                        <button name="button_cancel" string="Cancel" type="object"  class="oe_highlight" attrs="{'invisible': [('state','in', 'done')]}"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="account_verification,rfo_verification,advance_adjustment,forward_treasury"/>
+                </header>
+                <sheet>
+                   <group col="4"  string="Payment Details ">
+                            <field name="vendor" options='{"no_open": True, "no_create": True}'/>
+	                        <field name="is_service" invisible="1" />
+	                </group>
+                        <group col="4">
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="bill_amount"/>
+                            <field name="advance_amount"/>
+                        </group>
+                    <notebook>
+                        <page string="Bill Details">
+                            <field name="bill_details">
+                               <tree editable="bottom">
+                                    <field name="sno" />
+                                    <field name="branch_id"/>
+                                    <field name="invoice_number"/>
+                                   <field name="bill_no"/>
+                                    <field name="bill_date"/>
+                                   <field name="bill_due_date"/>
+                                    <field name="bill_amount"/>
+                                   <field name="voucher_no"/>
+                               </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="generator_payment_details_tree" model="ir.ui.view">
+        <field name="name">Payment Details </field>
+        <field name="model">payment.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="vendor"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="bill_amount"/>
+                <field name="advance_amount"/>
+            </tree>
+        </field>
+     </record>
+     <record id="generator_payment_details_action" model="ir.actions.act_window">
+            <field name="name">Payment Details </field>
+            <field name="res_model">payment.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="generator_payment_details__menu" parent="generator_main_sub2_menu" action="generator_payment_details_action" name="Payment Details " sequence="11"/>
+</odoo>

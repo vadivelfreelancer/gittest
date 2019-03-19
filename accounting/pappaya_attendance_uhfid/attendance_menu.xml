@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_pappaya_attendance_root" name=" Attendances" sequence="50"
+            web_icon="pappayaed_attendance,static/description/icon.png" />
+
+        <!--<menuitem id="menu_pappaya_attendance_line_sub" name="Attendance lines"-->
+            <!--parent="menu_pappaya_attendance_root" sequence="30"-->
+            <!--action="act_open_pappaya_attendance_line_view"-->
+            <!--/>-->
+        
+        <menuitem id="menu_pappaya_rfid_data_menu_id" name="RFID Card Data"
+            parent="menu_pappaya_attendance_root" sequence="40"
+            action="act_open_pappaya_rfid_data_view"
+             />
+            
+    </data>
+</odoo>

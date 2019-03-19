@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="HrDashboardMain">
+        <div class="o_dashboards">
+            <div class="container-fluid o_hr_dashboard">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="LoginEmployeeDetails">
+        <div class="col-md-10">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="dash-box dash-box-color-4">
+                            <div class="dash-box-icon">
+                                <i class="fa fa-fw fa-users"/>
+                            </div>
+                            <div class="dash-box-body">
+                                <span class="dash-box-count"><t t-esc="widget.login_employee['employee_count']"/></span>
+                                <span class="dash-box-title">Total Employees</span>
+                            </div>
+                            <div class="dash-box-action hr_employee">
+                                <button>More Info</button>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="col-md-3">
+                        <div class="dash-box dash-box-color-6">
+                            <div class="dash-box-icon">
+                                <i class="fa fa-fw fa-inr"/>
+                            </div>
+                            <div class="dash-box-body">
+                                <span class="dash-box-count"><t t-esc="widget.login_employee['payslip_count']"/></span>
+                                <span class="dash-box-title">Payslips (INR)</span>
+                            </div>
+
+                            <div class="dash-box-action hr_payslip">
+                                <button>More Info</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="dash-box dash-box-color-5">
+                            <div class="dash-box-icon">
+                                <i class="fa fa-fw fa-list-ul"/>
+                            </div>
+                            <div class="dash-box-body">
+                                <span class="dash-box-count"><t t-esc="widget.login_employee['recruitment_count']"/></span>
+                                <span class="dash-box-title">Total Opening Positions</span>
+                            </div>
+                            <div class="dash-box-action hr_job">
+                                <button>More Info</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ManagerDashboard">
+        <div class="col-md-11">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="dash-box dash-box-color-3">
+                            <div class="dash-box-icon">
+                                <i class="fa fa-fw fa-dropbox"/>
+                            </div>
+                            <div class="dash-box-body">
+                                <span class="dash-box-count"><t t-esc="widget.login_employee.job_applications"/></span>
+                                <span class="dash-box-title">Job Applications</span>
+                            </div>
+                            <div class="dash-box-action hr_job_application_approve">
+                                <button>More Info</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dash-box dash-box-color-1">
+                            <div class="dash-box-icon">
+                                <i class="fa fa-fw fa-calendar-times-o"/>
+                            </div>
+                            <div class="dash-box-body">
+                                <span class="dash-box-count"><t t-esc="widget.login_employee.leaves_today"/></span>
+                                <span class="dash-box-title">Employees Off Today</span>
+                            </div>
+                            <div class="dash-box-action leaves_request_today">
+                                <button>More Info</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dash-box dash-box-color-2">
+                            <div class="dash-box-icon">
+                                <i class="fa fa-fw fa-calendar"/>
+                            </div>
+                            <div class="dash-box-body">
+                                <span class="dash-box-count"><t t-esc="widget.login_employee.leaves_this_month"/></span>
+                                <span class="dash-box-title">This Month Leave</span>
+                            </div>
+
+                            <div class="dash-box-action leaves_request_month">
+                                <button>More Info</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <div class="container">
+                <div class="row">
+                <div class="row main-section">
+                    <div class="graph_view" style="padding:0">
+                        <div class="text-color hr-chart-1">
+                            <div class="card-body pb-0">
+                                <h4 class="mb-0"></h4>
+                                <p class="stat-head" style="padding : 0px;">Department Employees</p>
+                            </div>
+                            <div class="emp_graph"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+        <div class="col-md-10">
+            <div class="container">
+                <div class="row">
+
+                    <div class="graph_view" style="padding:0">
+                        <div class="text-color hr-chart-1">
+                            <div class="card-body pb-0">
+                                <h4 class="mb-0"></h4>
+                                <p class="stat-head" style="padding : 0px;">Branch Students</p>
+                            </div>
+                            <div class="student_graph"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="EmployeeDashboard">
+        <div class="row main-section">
+            <div class="col-md-2 col-sm-2 dummy"></div>
+            <div class="col-md-12">
+                <div class="hr_notification" >
+                    <div class="hr_notification_head">
+                        Upcoming Birthdays
+                    </div>
+
+                    <div class="col-xs-12">
+                        <t t-foreach="widget.employee_birthday" t-as="employee">
+                            <div class="col-sm-12 col-lg-12" style="padding:0;">
+                                <div class="text-color">
+                                    <div class="">
+                                        <div class="media">
+<!--                                             <a href="#" style="float: left;padding-right: 6%;">
+                                                <img class="align-self-center rounded-circle mr-3" alt=""
+                                                    t-att-src="widget.get_emp_image_url(employee[0])"/>
+                                            </a> -->
+                                            <div class="media-body">
+                                                <h2 class="text-color display-6" style="font-size: 15px;"><t t-esc="employee[1]"/> </h2>
+                                                <p><t t-esc="employee[3]"/></p>
+                                                <p class="text-light"><t t-esc="employee[2]"/></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+
+                 </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="EmployeeWarning">
+        <div>
+            <p>Error : Could not find employee linked to user</p>
+            <p>Please contact system admin for the setup</p>
+        </div>
+    </t>
+
+</templates>

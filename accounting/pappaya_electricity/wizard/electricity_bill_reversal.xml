@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="electricity_bill_reversal_form" model="ir.ui.view">
+        <field name="name">Electricity Bill Reversal</field>
+        <field name="model">bill.reversal</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <button name="button_reversed" string="Reverse Bill"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,reversed"/>
+                </header>
+                <sheet>
+                    <field name="electricity_communication" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                    <group>
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                              <div>
+                                <label for="month" string="Month"
+                                       style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                <field name="month" style="width:110px" required="1"/>
+                                <field name="year" style="width:110px;margin-left: 34px;" required="1"/>
+                            </div>
+                        </group>
+                        <group>
+                             <field name="financial_year"/>
+                             <field name="service_number" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        </group>
+                    <group string="Electricity/Communication Bill Details">
+                        <group>
+                                 <field name="bill_no"/>
+                                 <field name="bill_amount"/>
+                                <field name="bill_total_amt"/>
+                                 <field name="paid_amount"/>
+                        </group>
+                         <group>
+                                 <field name="bill_date"/>
+                                <field name="bill_due_date"/>
+                                 <field name="miss_amt"/>
+                                 <field name="balance_amount"/>
+                        </group>
+                         <group>
+                                 <field name="discount_amt"/>
+                                 <field name="st_amt"/>
+                                 <field name="approve_date"/>
+                                 <field name="narration"/>
+                        </group>
+                         <group>
+                                 <field name="sd_amt"/>
+                                 <field name="tds_amt"/>
+                                 <field name="net_due_amount"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                      <field name="module_ledger" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="electricity_bill_reversal_tree_view" model="ir.ui.view">
+        <field name="name">Electricity Bill Reversal</field>
+        <field name="model">bill.reversal</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                 <field name="month"/>
+                 <field name="year"/>
+                 <field name="financial_year"/>
+                 <field name="service_number"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="electricity_bill_reversal_action" model="ir.actions.act_window">
+            <field name="name">Electricity/Communication Bill Reverse Entry</field>
+            <field name="res_model">bill.reversal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+     </record>
+
+     <menuitem id="electricity_bill_reversal_menu" action="electricity_bill_reversal_action" parent="transaction_menu" name="Electricity Bill Reversal" sequence="18"/>
+
+</odoo>

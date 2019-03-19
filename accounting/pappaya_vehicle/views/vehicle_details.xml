@@ -1,0 +1,1423 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--vehicle type entry master-->
+    <record id="vehicle_type_entry_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Type Entry </field>
+        <field name="model">vehicle.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Type Entry">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_type_entry_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Type Entry </field>
+        <field name="model">vehicle.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_type_entry_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Type Entry</field>
+            <field name="res_model">vehicle.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_main_menu" name="Vehicle Mangement" sequence="1"/>
+    <menuitem id="vehicle_main_sub_menu" parent="vehicle_main_menu" name="Vehicle Management" sequence="2"/>
+    <menuitem id="vehicle_type_entry_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_type_entry_master_action" name="Vehicle Type" sequence="3"/>
+
+    <!--vehicle fuel type master-->
+    <record id="vehicle_fuel_type_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Fuel Type  </field>
+        <field name="model">fuel.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Fuel Type">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_fuel_type_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Fuel Type </field>
+        <field name="model">fuel.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_fuel_type_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Fuel Type</field>
+            <field name="res_model">fuel.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_fuel_type_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_fuel_type_master_action" name="Fuel Type" sequence="4"/>
+
+    <!--vehicle make master-->
+    <record id="vehicle_make_master_form" model="ir.ui.view">
+        <field name="name">Vehicle make </field>
+        <field name="model">vehicle.make</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Make">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_make_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Make</field>
+        <field name="model">vehicle.make</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_make_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Make</field>
+            <field name="res_model">vehicle.make</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_make_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_make_master_action" name="Vehicle Make" sequence="5"/>
+
+    <!--vehicle color master-->
+    <record id="vehicle_color_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Color </field>
+        <field name="model">vehicle.color</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Color">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_color_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Color</field>
+        <field name="model">vehicle.color</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_color_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Color</field>
+            <field name="res_model">vehicle.color</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_color_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_color_master_action" name="Vehicle Color" sequence="6"/>
+
+    <!--insurance company master-->
+    <record id="vehicle_insurance_company_master_form" model="ir.ui.view">
+        <field name="name">Insurance Company </field>
+        <field name="model">insurance.company</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Insurance Company">
+                        <group>
+                            <field name="name"/>
+                            <field name="address1"/>
+                             <field name="address2"/>
+                        </group>
+
+                        <group>
+                             <field name="phone"/>
+                             <field name="mobile"/>
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_insurance_company_master_tree" model="ir.ui.view">
+        <field name="name">Insurance Company </field>
+        <field name="model">insurance.company</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="address1"/>
+                 <field name="address2"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_insurance_company_master_action" model="ir.actions.act_window">
+            <field name="name">Insurance Company </field>
+            <field name="res_model">insurance.company</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_insurance_company_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_insurance_company_master_action" name="Insurance Company " sequence="7"/>
+
+        <!--vehicle usage purpose master-->
+    <record id="vehicle_usage_purpose_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Usage Purpose Entry</field>
+        <field name="model">vehicle.usage</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Usage Purpose Entry">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_usage_purpose_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Usage Purpose Entry</field>
+        <field name="model">vehicle.usage</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_usage_purpose_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Usage Purpose Entry</field>
+            <field name="res_model">vehicle.usage</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_usage_purpose_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_usage_purpose_master_action" name="Vehicle Usage Purpose" sequence="8"/>
+
+     <!--vehicle details entry master-->
+    <record id="vehicle_entry_details_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Entry Details </field>
+        <field name="model">vehicle.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                   <header>
+                      <button name="approval_button" string="Approve" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object" class="oe_highlight"/>
+                    <button name="cancel_button" string="Cancel" attrs="{'invisible': [('state','in', 'cancel')]}"
+                                 type="object" groups="pappaya_electricity.group_co_approval" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                </header>
+                <sheet>
+                      <div class="oe_button_box" name="button_box">
+            				<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check" >
+                				<field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+           					 </button>
+         				</div>
+                    <group string="Vehicle Entry Details" attrs="{'readonly': [('state','=', 'approved')]}">
+                        <group>
+                             <field name="branch_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="old_new" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="fuel_type_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="usage_type_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'approved')]}"/>
+                        </group>
+                         <group>
+                            <field name="vehicle_type_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="maker_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'approved')]}"/>
+                             <field name="color_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'approved')]}"/>
+                             <field name="type" widget="radio" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                        </group>
+                        <group>
+                            <field name="vehicle_owner" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="seating_capacity" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="engine_number" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                        </group>
+                         <group>
+                            <field name="registration_no" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="chassis_no" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                             <field name="vehicle_model" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                        </group>
+                          <group>
+                            <field name="year_made" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="warranty" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="cubic_capacity" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                        </group>
+                         <group>
+                            <field name="date_made" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                            <field name="registration_date" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                             <field name="horse_power" attrs="{'readonly': [('state','=', 'approved')]}"/>
+                        </group>
+                    </group>
+                    <separator string="Lease Details" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                        <group col="4">
+                            <field name="vendor" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="emi_start_month" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="rent_amt" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                             <field name="tuner" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="loan_amt" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="tds_amount" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="emi_amt" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="hfd_by" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="pay_amt" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                            <field name="hfd_year" attrs="{'readonly': [('state','=', 'approved')],'invisible': [('type','!=', 'lease')]}"/>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_entry_details_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Entry Details </field>
+        <field name="model">vehicle.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="old_new"/>
+                <field name="fuel_type_id"/>
+                <field name="usage_type_id"/>
+                 <field name="maker_id"/>
+                 <field name="state" />
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_entry_details_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Entry Details</field>
+            <field name="res_model">vehicle.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="vehicle_entry_details_menu" parent="vehicle_main_sub_menu"
+               action="vehicle_entry_details_master_action" name="Vehicle Entry Details" sequence="9"/>
+
+		<record id="view_vehicle_details_search" model="ir.ui.view">
+			<field name="name">vehicle.details.search</field>
+			<field name="model">vehicle.details</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Vehicle Details">
+					<field name="registration_no"/>
+					<field name="branch_id"/>
+					<group>
+						<filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+					</group>
+				</search>
+			</field>
+		</record>
+		
+     <!--vehicle driver mapping master-->
+    <record id="vehicle_driver_mapping_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Driver Mapping </field>
+        <field name="model">driver.mapping</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Driver Mapping">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="driver_assistant" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                             <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                         <group>
+                            <field name="driver_helper_emp_no"/>
+                             <field name="name"/>
+                              <field name="salary"/>
+                        </group>
+                        <group>
+                            <field name="dob"/>
+                            <field name="designation"/>
+                            <field name="driving_licence" attrs="{'invisible': [('driver_assistant', '!=', 'driver')],'required':[('driver_assistant','=','driver')]}"/> 
+                            <field name="expiry_date" attrs="{'invisible': [('driver_assistant', '!=', 'driver')],'required':[('driver_assistant','=','driver')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_driver_mapping_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Driver Mapping</field>
+        <field name="model">driver.mapping</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="vehicle_reg_no_id"/>
+                <field name="driver_helper_emp_no"/>
+                <field name="name"/>
+                <field name="salary"/>
+                <field name="dob"/>
+                <field name="designation"/>
+                <field name="driving_licence"/>
+                <field name="expiry_date"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_driver_mapping_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Driver Mapping</field>
+            <field name="res_model">driver.mapping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="vehicle_driver_mapping_menu" parent="vehicle_main_sub_menu"
+               action="vehicle_driver_mapping_master_action" name="Vehicle Driver Mapping" sequence="10"/>
+
+       <!--vehicle registration number edit purpose master-->
+    <record id="vehicle_registration_number_edit_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Registration Number Edit</field>
+        <field name="model">edit.registration.number</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,updated"/>
+                </header>
+                <sheet>
+                    <group string="Vehicle Registration Number Edit">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="old_registration"/>
+                            <field name="new_registration"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="vehicle_number_uodate" string="Update" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object" class="oe_highlight"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_registration_number_edit_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Registration Number Edit</field>
+        <field name="model">edit.registration.number</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="vehicle_reg_no_id"/>
+                <field name="old_registration"/>
+                <field name="new_registration"/>
+                <field name="state" />
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_registration_number_edit_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Registration Number Edit</field>
+            <field name="res_model">edit.registration.number</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_registration_number_edit_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_registration_number_edit_master_action" name="Vehicle Registration Number Edit" sequence="11"/>
+
+       <!--vehicle deactivation master-->
+    <record id="vehicle_deactivation_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Deactivation</field>
+        <field name="model">vehicle.deactivation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                 <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,deactivate"/>
+                </header>
+                <sheet>
+                    <group string="Vehicle Deactivation">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}'/>
+                            <footer>
+                                <button name="vehicle_deactivation" string="Deactivate" type="object"  class="oe_highlight" attrs="{'invisible': [('state','=', 'deactivate')]}"/>
+                            </footer>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_deactivation_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Deactivation</field>
+        <field name="model">vehicle.deactivation</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="vehicle_reg_no_id"/>
+                <field name="state" />
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_deactivation_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Deactivation</field>
+            <field name="res_model">vehicle.deactivation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_deactivation_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_deactivation_master_action" name="Vehicle Deactivation" sequence="12"/>
+
+    <!--vehicle petro card mapping master-->
+    <record id="vehicle_petro_card_mapping_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Petro Card Mapping</field>
+        <field name="model">petro.mapping</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Petro Card Mapping ">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="petro_vendor"/>
+                            <field name="card_no"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_petro_card_mapping_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Petro Card Mapping</field>
+        <field name="model">petro.mapping</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="vehicle_reg_no_id"/>
+                <field name="petro_vendor"/>
+                <field name="card_no"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_petro_card_mapping_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Petro Card Mapping</field>
+            <field name="res_model">petro.mapping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_petro_card_mapping_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_petro_card_mapping_master_action" name="Vehicle Petro Card Mapping" sequence="13"/>
+
+    <!--vehicle branch update master-->
+    <record id="vehicle_branch_update_master_form" model="ir.ui.view">
+        <field name="name">Own Vehicle Branch Update</field>
+        <field name="model">vehicle.branch.update</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                 <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,updated"/>
+                </header>
+                <sheet>
+                    <group string="Own Vehicle Branch Update">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="new_branch"/>
+                        </group>
+                        <footer>
+                                <button name="branch_update" string="Update" type="object"  class="oe_highlight" attrs="{'invisible': [('state','=', 'updated')]}"/>
+                        </footer>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_branch_update_master_tree" model="ir.ui.view">
+        <field name="name">Own Vehicle Branch Update</field>
+        <field name="model">vehicle.branch.update</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="vehicle_reg_no_id"/>
+                <field name="new_branch"/>
+                <field name="state" />
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_branch_update_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Branch Update</field>
+            <field name="res_model">vehicle.branch.update</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="vehicle_branch_update_menu" parent="vehicle_main_sub_menu"
+              action="vehicle_branch_update_master_action" name="Own Vehicle Branch Update" sequence="14"/>
+
+     <!--vehicle fuel details master-->
+    <record id="vehicle_fuel_details_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Fuel Details</field>
+        <field name="model">fuel.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                 <header>
+                      <button name="fuel_approval_button" string="Approve" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object" class="oe_highlight"/>
+                    <button name="un_approve_button" string="Un Approve" attrs="{'invisible': [('state','in', 'approved')]}"
+                                 type="object" groups="pappaya_electricity.group_co_approval" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved,unapproved"/>
+                </header>
+                <sheet>
+                    <group string="Vehicle Fuel Details">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                         <group>
+                            <field name="maker_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="fuel_type_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="vehicle_type_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="fuel_vendor" widget="selection"/>
+                            <field name="bill_amount"/>
+                            <field name="bill_date"/>
+                            <field name="cash_credit"/>
+                        </group>
+                         <group>
+                            <field name="no_litters"/>
+                            <field name="bill_no"/>
+                             <field name="bill_due_date"/>
+                             <field name="narration"/>
+                        </group>
+                    </group>
+                    <notebook>
+                            <page string="last Fuel Details">
+                                <field name="last_fuel_details" readonly="1">
+                                    <tree editable="bottom" >
+                                         <field name="sl_no" readonly="1"/>
+                                         <field name="vehicle_reg_no_id" readonly="1" />
+                                         <field name="bill_date" readonly="1"/>
+                                         <field name="fuel_type_id" readonly="1"/>
+                                         <field name="no_of_liters" readonly="1" />
+                                         <field name="total_amount" readonly="1" />
+                                         <field name="state" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_fuel_details_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Fuel Details</field>
+        <field name="model">fuel.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+                <field name="vehicle_reg_no_id"/>
+                <field name="fuel_type_id"/>
+                <field name="bill_amount"/>
+                <field name="bill_date"/>
+                <field name="cash_credit"/>
+                <field name="no_litters"/>
+                <field name="bill_no"/>
+                <field name="bill_date"/>
+                <field name="narration"/>
+                <field name="state" />
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_fuel_details_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Fuel Details</field>
+            <field name="res_model">fuel.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="vehicle_fuel_details_menu" parent="vehicle_main_sub_menu"
+               action="vehicle_fuel_details_master_action" name="Vehicle Fuel Details" sequence="15"/>
+
+     <!--vehicle meter reading entry master-->
+    <record id="vehicle_meter_reading_master_form" model="ir.ui.view">
+        <field name="name">Vehicle Meter Reading Entry</field>
+        <field name="model">meter.reading.entry</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit"/>
+                </header>
+                <sheet>
+				<button class="oe_stat_button"
+								name="submit_reading" type="object" icon="fa-files-o" string="Submit" attrs="{'invisible': [('state','=', 'submit')]}"/>
+                    <group string="Vehicle Fuel Details">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'submit')]}"/>
+                             <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'submit')]}"/>
+                        </group>
+                         <group>
+                            <field name="maker_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'submit')]}"/>
+                            <field name="vehicle_type_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state','=', 'submit')]}"/>
+                        </group>
+                        <group>
+                            <field name="date" attrs="{'readonly': [('state','=', 'submit')]}"/>
+                            <field name="present_reading" attrs="{'readonly': [('state','=', 'submit')]}"/>
+                            <field name="initial_reading" invisible="1"/>
+                            <field name="corrected_reading" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                            <page string="last Meter Details">
+                                <field name="last_meter_details" readonly="1">
+                                    <tree editable="bottom" >
+                                         <field name="sl_no" readonly="1"/>
+                                         <field name="vehicle_reg_no_id" readonly="1" />
+                                         <field name="reading_date" readonly="1"/>
+                                         <field name="old_reading" readonly="1"/>
+                                         <field name="corrected_reading" readonly="1" />
+                                         <field name="no_of_km" readonly="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_meter_reading_master_tree" model="ir.ui.view">
+        <field name="name">Vehicle Meter Reading Entry</field>
+        <field name="model">meter.reading.entry</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="vehicle_reg_no_id"/>
+                 <field name="present_reading"/>
+                 <field name="state" />
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_meter_reading_master_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Meter Reading Entry</field>
+            <field name="res_model">meter.reading.entry</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="vehicle_meter_reading_menu" parent="vehicle_main_sub_menu"
+               action="vehicle_meter_reading_master_action" name="Vehicle Meter Reading Entry" sequence="16"/>
+               
+     <!--vehicle meter reading update-->
+    <record id="vehicle_meter_reading_update_form" model="ir.ui.view">
+        <field name="name">Vehicle Meter Reading Update</field>
+        <field name="model">meter.reading.update</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Fuel Details">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}' />
+                             <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}' />
+                        </group>
+                         <group>
+                            <field name="maker_id" options='{"no_open": True, "no_create": True}' />
+                            <field name="vehicle_type_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+						<group>
+							<field name="date" />
+							<button class="oe_stat_button" name="search_reading" type="object" string="Search" />
+							<field name="present_reading" />
+							<button class="oe_stat_button" name="submit_reading" type="object" string="Update" />
+						</group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_meter_reading_update_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Meter Reading Update</field>
+            <field name="res_model">meter.reading.update</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+     </record>
+     <menuitem id="vehicle_meter_reading_update_menu" parent="vehicle_main_sub_menu"
+               action="vehicle_meter_reading_update_action" name="Vehicle Meter Reading Update" sequence="17"/>
+
+    <!--Repair Details  master-->
+    <record id="repair_details_form" model="ir.ui.view">
+        <field name="name">Repair Maintenance Details  </field>
+        <field name="model">repair.maintenance</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Repair Details" col="4">
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="is_repair"  invisible="1"/>
+                            <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="date"/>
+                            <field name="invoice_bill_no"/>
+                            <field name="invoice_date"/>
+                            <field name="vendor" options='{"no_open": True, "no_create": True}'/>
+                            <field name="vendor_supply_state" options='{"no_open": True, "no_create": True}'/>
+                            <field name="gst_in"/>
+                            <field name="bill_due_date"/>
+                            <field name="service_category"/>
+                            <field name="month"/>
+                            <field name="vehicle_type_id" options='{"no_open": True, "no_create": True}'/>
+                    </group>
+					<notebook>
+						<page string="Service Item Details ">
+							<field name="service_item">
+								<tree editable="bottom">
+									<field name="item" />
+									<field name="hs_code" />
+									<field name="price" />
+									<field name="discount_type" widget="radio"
+										options="{'horizontal': true}" class="col-md-8 oe_inline" />
+									<field name="sub_ledger" />
+									<field name="qty" />
+									<field name="hs_rates" />
+									<field name="discount_amount" />
+									<field name="amount" />
+								</tree>
+							</field>
+						</page>
+						<page string="Service Details ">
+							<field name="service_details">
+								<tree editable="bottom">
+									<field name="service" />
+									<field name="sub_ledger" />
+									<field name="sas_code" />
+									<field name="sas_rates" />
+									<field name="discount_type" widget="radio"
+										options="{'horizontal': true}" class="col-md-8 oe_inline" />
+									<field name="discount_amount" />
+									<field name="amount" />
+								</tree>
+							</field>
+						</page>
+						<page string="Service Amount Details">
+							<group>
+								<group>
+									<field name="bill_amount" />
+									<field name="discount_amount" />
+								</group>
+								<group>
+									<field name="bill_amount_after_discount" />
+									<field name="igst_amount" />
+									<field name="cgst_amount" />
+									<field name="sgst_amount" />
+								</group>
+								<group>
+									<field name="total_bill_amount" />
+									<field name="tds" />
+								</group>
+								<group>
+									<field name="net_due_amount" />
+									<field name="igst_pay" />
+									<field name="cgst_pay" />
+									<field name="sgst_pay" />
+									<field name="invoice_raised" />
+								</group>
+							</group>
+						</page>
+					</notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="repair_details_tree" model="ir.ui.view">
+        <field name="name">Repair Maintenance Details </field>
+        <field name="model">repair.maintenance</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="building_id"/>
+                <field name="invoice_bill_no"/>
+                <field name="vendor"/>
+            </tree>
+        </field>
+     </record>
+     <record id="repair_details_action" model="ir.actions.act_window">
+            <field name="name">Repair Maintenance Details</field>
+            <field name="res_model">repair.maintenance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="repair_details_menu" parent="vehicle_main_sub_menu" action="repair_details_action" name="Repair Maintenance Details" sequence="18"/>
+
+    <!--insurance payment Details  master-->
+    <record id="insurance_payment_details_form" model="ir.ui.view">
+        <field name="name">Insurance Payment Details  </field>
+        <field name="model">insurance.payment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Insurance Payment Details" col="4">
+                           <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                           <field name="is_repair"  invisible="1"/>
+                           <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+                           <field name="date"/>
+                           <field name="invoice_bill_no"/>
+                           <field name="invoice_date"/>
+                           <field name="vendor" options='{"no_open": True, "no_create": True}'/>
+                           <field name="vendor_supply_state" options='{"no_open": True, "no_create": True}'/>
+                           <field name="gst_in"/>
+                           <field name="bill_due_date"/>
+                           <field name="service_category"/>
+                           <field name="month"/>
+                           <field name="vehicle_type_id" options='{"no_open": True, "no_create": True}'/>
+                    </group>
+                       <notebook>
+                            <page string="Service Item Details ">
+                                <field name="service_item">
+                                    <tree editable="bottom">
+										<field name="item" />
+										<field name="hs_code" />
+										<field name="price" />
+										<field name="discount_type" widget="radio"
+											options="{'horizontal': true}" class="col-md-8 oe_inline" />
+										<field name="sub_ledger" />
+										<field name="qty" />
+										<field name="hs_rates" />
+										<field name="discount_amount" />
+										<field name="amount" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Service Details ">
+                                <field name="service_details">
+                                    <tree editable="bottom">
+										<field name="service" />
+										<field name="sub_ledger" />
+										<field name="sas_code" />
+										<field name="sas_rates" />
+										<field name="discount_type" widget="radio"
+											options="{'horizontal': true}" class="col-md-8 oe_inline" />
+										<field name="discount_amount" />
+										<field name="amount" />
+                                    </tree>
+                                </field>
+                            </page>
+                        <page string="Service Amount Details">
+                                <group>
+                                    <group>
+                                        <field name="bill_amount"/>
+                                        <field name="discount_amount"/>
+                                    </group>
+                                    <group>
+                                        <field name="bill_amount_after_discount"/>
+                                        <field name="igst_amount"/>
+                                        <field name="cgst_amount"/>
+                                        <field name="sgst_amount"/>
+                                    </group>
+                                    <group>
+
+                                        <field name="total_bill_amount"/>
+                                        <field name="tds"/>
+                                    </group>
+                                    <group>
+                                        <field name="net_due_amount"/>
+                                        <field name="igst_pay"/>
+                                         <field name="cgst_pay"/>
+                                         <field name="sgst_pay"/>
+                                        <field name="invoice_raised"/>
+                                    </group>
+                            </group>
+                            </page>
+                       </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="insurance_payment_details_tree" model="ir.ui.view">
+        <field name="name">Insurance Payment Details </field>
+        <field name="model">insurance.payment</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="building_id"/>
+                <field name="invoice_bill_no"/>
+                <field name="vendor"/>
+            </tree>
+        </field>
+     </record>
+     <record id="insurance_payment_details_action" model="ir.actions.act_window">
+            <field name="name">Insurance Payment Details</field>
+            <field name="res_model">insurance.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="insurance_payment_details_menu" parent="vehicle_main_sub_menu" action="insurance_payment_details_action" name="Insurance Payment Details" sequence="19"/>
+
+    <!--leased vehicle Details  master-->
+    <record id="leased_vehicle_details_form" model="ir.ui.view">
+        <field name="name">Leased Vehicle Details  </field>
+        <field name="model">leased.vehicle</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Leased Vehicle Details">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="invoice_bill_no"/>
+                            <field name="vendor"/>
+                        </group>
+                          <group>
+                            <field name="date"/>
+                            <field name="invoice_date"/>
+                            <field name="invoice_bill_no"/>
+                            <field name="vendor_supply_state" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="gst_in"/>
+                            <field name="service_category"/>
+                        </group>
+                         <group>
+                             <field name="bill_due_date"/>
+                            <field name="month"/>
+                        </group>
+                    </group>
+
+                       <notebook>
+                            <page string="Service Item Details ">
+                                <field name="service_item">
+                                    <tree editable="bottom">
+                                            <field name="item"/>
+                                            <field name="hs_code"/>
+                                            <field name="price"/>
+                                             <field name="discount_type" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                                            <field name="sub_ledger"/>
+                                            <field name="hs_rates"/>
+                                            <field name="qty"/>
+                                             <field name="discount_amount"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+
+
+                            <page string="Service Details ">
+                                <field name="service_details">
+                                    <tree editable="bottom">
+                                            <field name="service"/>
+                                            <field name="sub_ledger"/>
+                                            <field name="sas_code"/>
+                                            <field name="sas_rates"/>
+                                             <field name="discount_type" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                                             <field name="discount_amount"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                      <page string="Service Amount Details">
+                                <group>
+                                    <group>
+                                        <field name="bill_amount"/>
+                                        <field name="discount_amount"/>
+                                    </group>
+                                    <group>
+                                        <field name="bill_amount_after_discount"/>
+                                        <field name="igst_amount"/>
+                                        <field name="cgst_amount"/>
+                                        <field name="sgst_amount"/>
+                                    </group>
+                                    <group>
+
+                                        <field name="total_bill_amount"/>
+                                        <field name="tds"/>
+                                    </group>
+                                    <group>
+                                        <field name="net_due_amount"/>
+                                        <field name="igst_pay"/>
+                                         <field name="cgst_pay"/>
+                                         <field name="sgst_pay"/>
+                                        <field name="invoice_raised"/>
+                                    </group>
+                            </group>
+                            </page>
+                       </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="leased_vehicle_details_tree" model="ir.ui.view">
+        <field name="name">Leased Vehicle Details </field>
+        <field name="model">leased.vehicle</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="building_id"/>
+                <field name="invoice_bill_no"/>
+                <field name="vendor"/>
+            </tree>
+        </field>
+     </record>
+     <record id="leased_vehicle_details_action" model="ir.actions.act_window">
+            <field name="name">Leased Vehicle Details</field>
+            <field name="res_model">leased.vehicle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="leased_vehicle_details_menu" parent="vehicle_main_sub_menu" action="leased_vehicle_details_action" name="Leased Vehicle Details" sequence="20"/>
+
+        <!-- vehicle tax cheque preparation Details  master-->
+    <record id="vehicle_tax_cheque_preparation_details_form" model="ir.ui.view">
+        <field name="name">Vehicle Tax Cheque Preparation  </field>
+        <field name="model">tax.cheque.preparation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="cash_cheque" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                    <group string="Vehicle Tax Cheque Preparation" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}">
+                        <group attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}">
+                            <field name="bank" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}' attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                            <field name="cheque_lot" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                        </group>
+                          <group attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}">
+                            <field name="trans_date" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                            <field name="bank_balance" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                            <field name="cheque_date" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}">
+                            <field name="bank_dd" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                            <field name="payee_name" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                            <field name="amount" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                        </group>
+                         <group attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}">
+                             <field name="branch" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                             <field name="tax_type" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                        </group>
+                         <group attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}">
+                             <field name="vehicle" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                             <field name="tax_amount" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                              <field name="narration" attrs="{'invisible': [('cash_cheque','!=', 'cheque')]}"/>
+                        </group>
+                    </group>
+                    <group string="Vehicle Tax Cash Preparation" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}">
+                        <group attrs="{'invisible': [('cash_cheque','!=', 'cash')]}">
+                            <field name="trans_date1" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}"/>
+                            <field name="branch_id1" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}"/>
+                            <field name="bank_balance1" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}"/>
+                        </group>
+                         <group attrs="{'invisible': [('cash_cheque','!=', 'cash')]}">
+                             <field name="vehicle1" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}"/>
+                             <field name="tax_type1" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}"/>
+                        </group>
+                         <group attrs="{'invisible': [('cash_cheque','!=', 'cash')]}">
+                             <field name="tax_amount1" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}"/>
+                              <field name="narration1" attrs="{'invisible': [('cash_cheque','!=', 'cash')]}"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_tax_cheque_preparation_tree" model="ir.ui.view">
+        <field name="name">Vehicle Tax Cheque Preparation</field>
+        <field name="model">tax.cheque.preparation</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="trans_date"/>
+                <field name="bank_balance"/>
+                <field name="cash_cheque"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_tax_cheque_preparation_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Tax Cheque Preparation</field>
+            <field name="res_model">tax.cheque.preparation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="vehicle_tax_cheque_preparation_menu" parent="vehicle_main_sub_menu"
+               action="vehicle_tax_cheque_preparation_action" name="Vehicle Tax Cheque Preparation" sequence="21"/>
+
+     <!--leased vehicle branch update Details  master-->
+    <record id="leased_vehicle_branch_update_details_form" model="ir.ui.view">
+        <field name="name">Leased Vehicle Branch Update Details  </field>
+        <field name="model">leased.branch.update</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                      <button name="update_branch" string="Update" attrs="{'invisible': [('state','!=', 'draft')]}"
+                                 type="object" class="oe_highlight"/>
+                      <field name="state" widget="statusbar" statusbar_visible="draft,updated"/>
+                </header>
+                <sheet>
+                    <group string="Leased Vehicle Branch Update Details">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="vehicle_reg_no_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                          <group>
+                            <field name="new_branch_id" required="1"/>
+                            <field name="vendor"/>
+                            <field name="reg_no" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="emi_start_month" readonly="1"/>
+                            <field name="rent_amt" readonly="1"/>
+                            <field name="tuner" readonly="1"/>
+                        </group>
+                         <group>
+                             <field name="loan_amt" readonly="1"/>
+                            <field name="tds_amount" readonly="1"/>
+                             <field name="emi_amt" readonly="1"/>
+                        </group>
+                         <group>
+                             <field name="hfd_by" readonly="1"/>
+                            <field name="seating_capacity" readonly="1"/>
+                        </group>
+                         <group>
+                             <field name="pay_amt" readonly="1"/>
+                            <field name="hfd_year" readonly="1"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="leased_vehicle_branch_update_details_tree" model="ir.ui.view">
+        <field name="name">Leased Vehicle Branch Update Details </field>
+        <field name="model">leased.branch.update</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="tds_amount"/>
+                <field name="vehicle_reg_no_id"/>
+                <field name="vendor"/>
+            </tree>
+        </field>
+     </record>
+     <record id="leased_vehicle_branch_update_details_action" model="ir.actions.act_window">
+            <field name="name">Leased Vehicle Branch Update Details</field>
+            <field name="res_model">leased.branch.update</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="leased_vehicle_branch_update_details_menu" parent="vehicle_main_sub_menu" action="leased_vehicle_branch_update_details_action" name="Leased Vehicle Branch Update Details" sequence="22"/>
+
+     <!-- vehicle fuel bill upload Details  master-->
+    <record id="vehicle_fuel_bill_upload_details_form" model="ir.ui.view">
+        <field name="name">Vehicle Fuel Bill Upload Details  </field>
+        <field name="model">bill.upload</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Vehicle Fuel Bill Upload Details">
+                        <group>
+                            <field name="description"/>
+                            <field name="bill_upload"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="vehicle_fuel_bill_upload_details_tree" model="ir.ui.view">
+        <field name="name">Vehicle Fuel Bill Upload Details</field>
+        <field name="model">bill.upload</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="description"/>
+            </tree>
+        </field>
+     </record>
+     <record id="vehicle_fuel_bill_upload_details_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Fuel Bill Upload Details</field>
+            <field name="res_model">bill.upload</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <!--  <menuitem id="vehicle_fuel_bill_upload_details_menu" parent="vehicle_main_sub_menu"
+               action="vehicle_fuel_bill_upload_details_action" name="Vehicle Fuel Bill Upload Details" sequence="23"/>
+ -->
+        <!--leased vehicle invoice Details  master-->
+    <record id="leased_vehicle_invoice_details_form" model="ir.ui.view">
+        <field name="name">Leased Vehicle invoice Details  </field>
+        <field name="model">leased.vehicle.invoice</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Leased Vehicle invoice Details" col="4">
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="is_repair"  invisible="1"/>
+                            <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="date"/>
+                            <field name="invoice_bill_no"/>
+                            <field name="invoice_date"/>
+                            <field name="vendor" options='{"no_open": True, "no_create": True}'/>
+                            <field name="vendor_supply_state" options='{"no_open": True, "no_create": True}'/>
+                            <field name="gst_in"/>
+                            <field name="bill_due_date"/>
+                            <field name="service_category"/>
+                            <field name="month"/>
+                    </group>
+                       <notebook>
+                           <page string="Service Details ">
+                                <field name="service_details">
+                                    <tree editable="bottom">
+									<field name="service" />
+									<field name="sub_ledger" />
+									<field name="sas_code" />
+									<field name="sas_rates" />
+									<field name="discount_type" widget="radio"
+										options="{'horizontal': true}" class="col-md-8 oe_inline" />
+									<field name="discount_amount" />
+									<field name="amount" />
+                                    </tree>
+                                </field>
+                            </page>
+                      <page string="Service Amount Details">
+                                <group>
+                                    <group>
+                                        <field name="bill_amount"/>
+                                        <field name="discount_amount"/>
+                                    </group>
+                                    <group>
+                                        <field name="bill_amount_after_discount"/>
+                                        <field name="igst_amount"/>
+                                        <field name="cgst_amount"/>
+                                        <field name="sgst_amount"/>
+                                    </group>
+                                    <group>
+                                        <field name="total_bill_amount"/>
+                                        <field name="tds"/>
+                                    </group>
+                                    <group>
+                                        <field name="net_due_amount"/>
+                                        <field name="igst_pay"/>
+                                         <field name="cgst_pay"/>
+                                         <field name="sgst_pay"/>
+                                        <field name="invoice_raised"/>
+                                    </group>
+                            </group>
+                            </page>
+                       </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="leased_vehicle_invoice_details_tree" model="ir.ui.view">
+        <field name="name">Leased Vehicle invoice Details </field>
+        <field name="model">leased.vehicle.invoice</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="building_id"/>
+                <field name="invoice_bill_no"/>
+                <field name="vendor"/>
+            </tree>
+        </field>
+     </record>
+     <record id="leased_vehicle_invoice_details_action" model="ir.actions.act_window">
+            <field name="name">Leased Vehicle invoice Details</field>
+            <field name="res_model">leased.vehicle.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="leased_vehicle_invoice_details_menu" parent="vehicle_main_sub_menu"
+               action="leased_vehicle_invoice_details_action" name="Leased Vehicle invoice Details" sequence="24"/>
+
+            <!--cheque lot  master-->
+    <record id="cheque_lot_master_form" model="ir.ui.view">
+        <field name="name">Cheque Lot  </field>
+        <field name="model">cheque.lot</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Cheque Lot">
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="cheque_lot_master_tree" model="ir.ui.view">
+        <field name="name">Cheque Lot </field>
+        <field name="model">cheque.lot</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="name"/>
+            </tree>
+        </field>
+     </record>
+     <record id="cheque_lot_master_action" model="ir.actions.act_window">
+            <field name="name">Cheque Lot</field>
+            <field name="res_model">cheque.lot</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="cheque_lot_master_menu" parent="vehicle_main_sub_menu"
+               action="cheque_lot_master_action" name="Cheque Lot" sequence="25"/>
+</odoo>

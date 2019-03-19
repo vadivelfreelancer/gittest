@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+        <record model="ir.ui.view" id="product_normal_form_view_inherit_pappaya">
+            <field name="name">product.product.form.inherit.pappaya</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="type" position="before">
+                    <field name="store_type"/>
+                    <field name="item_class"/>
+                </field>
+                <group>
+                    <group col="6" colspan="6">
+                        <field name="is_special_track"/>
+                        <field name="is_expire"/>
+                        <field name="is_return_to_vendor"/>
+
+                        <field name="is_asset"/>
+                        <field name="is_consumable"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+	</data>
+</odoo>

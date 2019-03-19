@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_pappaya_promotion_form" model="ir.ui.view">
+			<field name="name">view.pappaya.promotion.form</field>
+			<field name="model">pappaya.promotion</field>
+			<field name="arch" type="xml">
+				<form string="Promotion Request">
+					<header>
+						<button name="button_request" string="Request" states="draft" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+						<button name="button_approve" string="Approve" states="requested" type="object" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo" class="oe_highlight"/>
+						<button name="button_reject" string="Reject" states="requested" type="object" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo" class="oe_highlight" />
+						<field name="state" widget="statusbar" statusbar_visible="draft,requested,approved" readonly="1" />
+						<button name="button_reset" string="Reset" states="cancelled" type="object" class="oe_highlight" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+						<button name="button_cancel" string="Cancel" states="requested" type="object" class="oe_highlight" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<h3>
+								<field name="name" readonly="1" force_save="1"/>
+							</h3>
+						</div>
+						<group>
+							<group string="Current Details">
+								<field name="emp_id" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="requested_by" options="{'no_create':True, 'no_create_and_edit':True, 'no_open':True}" readonly="1" force_save="1"/>
+								<field name="employee_id" invisible="1" readonly="1" force_save="1"/>
+								<field name="source_dept" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="source_des" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="source_wage" readonly="1" force_save="1"/>
+								<field name="office_type_id" invisible="1"/>
+								<field name="category_id" invisible="1"/>
+								<field name="sub_category_id" invisible="1"/>
+							</group>
+							<group string="Promotion Details">
+								<field name="requested_date" />
+								<field name="contract_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+								<field name="destination_dept" required="1" options="{'no_create':True, 'no_create_and_edit':True, 'no_open':True}" attrs="{'readonly': [('state','!=','draft')]}" readonly="1" force_save="1"/>
+								<field name="destination_des" required="1" domain="[('id','!=',source_des),('department_id','=',destination_dept),('office_type_id','=',)]" options="{'no_create':True, 'no_create_and_edit':True, 'no_open':True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="is_budget_applied" invisible="1"/>
+                            	<field name="subject_id" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_budget_applied','=',False)],'required':[('is_budget_applied','=',True)]}" force_save="1"/>
+								<field name="promote_wage" attrs="{'readonly': [('state','!=','draft')]}"/>
+							</group>
+						</group>
+						
+						<group string="Comments">
+							<group>
+								<field name="requester_comments" placeholder="Add comment here.." />
+							</group>
+							<group>
+								<field name="approver_comments" placeholder="Add comment here.."
+									groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo" attrs="{'readonly': [('state','!=','draft')]}" />
+							</group>
+						</group>
+						
+						<notebook groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo">
+							<page string="Change log">
+								<field name="pappaya_promotion_log">
+									<tree>
+										<field name="pappaya_promotion_id" invisible="1" />
+										<field name="state_from" />
+										<field name="state_to" />
+										<field name="user_id" />
+										<field name="activity_time" />
+									</tree>
+									<form>
+										<group col="4">
+											<field name="state_from" />
+											<field name="state_to" />
+											<field name="user_id" options="{'no_open': True,'no_create':True}"/>
+											<field name="activity_time" />
+										</group>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+    
+        <record id="view_pappaya_promotion_tree" model="ir.ui.view">
+            <field name="name">view.pappaya.promotion.tree</field>
+            <field name="model">pappaya.promotion</field>
+            <field name="arch" type="xml">
+				<tree string="Promotion Request">
+					<field name="emp_id"/>
+                    <field name="requested_by"/>
+                    <field name="employee_id" invisible="1"/>
+                    <field name="requested_date"/>
+                    <field name="state" string="Status"/>
+                    <field name="is_budget_applied" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+		<record id="view_pappaya_promotion_search" model="ir.ui.view">
+			<field name="name">view.pappaya.promotion.search</field>
+			<field name="model">pappaya.promotion</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Promotion">
+					<field name="requested_by" />
+					<field name="employee_id" string="Employee ID Full" invisible="1"/>
+					<field name="state" />
+					<group expand="0" string="Group By...">
+						<filter name="requested_by" string="Requested By" domain="[]" context="{'group_by':'requested_by'}" />
+						<filter name="state" string="State" domain="[]" context="{'group_by':'state'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+    
+        <record id="action_pappaya_promotion" model="ir.actions.act_window">
+            <field name="name">Employee Promotion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.promotion</field>
+            <field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_promotion_search" />
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a new Promotion.
+				</p>
+			</field>
+        </record>    
+    
+        <menuitem id="menu_action_pappaya_promotion"  parent="hr.menu_hr_root" action="action_pappaya_promotion" name="Promotion"
+				  sequence="5" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+
+
+		<!-- Shortcuts in Employee -->
+		<record id="act_hr_employee_promotion_request" model="ir.actions.act_window">
+			<field name="name">Employee Promotions</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.promotion</field>
+			<field name="src_model">hr.employee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_requested_by': [active_id], 'default_requested_by': active_id}</field>
+			<field name="domain">[('requested_by','=',active_id)]</field>
+			<field name="view_id" eval="view_pappaya_promotion_tree"/>
+		</record>
+
+
+		<!-- HR employee inherit Promotion -->
+		<record id="view_employee_form_promotion_inherit" model="ir.ui.view">
+			<field name="name">hr.employee.promotion.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//div[@name='button_box']" position="inside">
+					<button name="%(act_hr_employee_promotion_request)d"
+						type="action"
+						class="oe_stat_button"
+						icon="fa-arrows-v"
+						groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo">
+						<field name="promotions_count" widget="statinfo" string="Promotions"/>
+					</button>
+				</xpath>
+			</field>
+		</record>
+    
+
+    </data>
+</odoo>

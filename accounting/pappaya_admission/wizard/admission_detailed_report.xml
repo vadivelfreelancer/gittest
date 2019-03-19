@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_admission_detailed_report_form" model="ir.ui.view">
+            <field name="name">admission.detailed.report.form</field>
+            <field name="model">admission.detailed.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="branch_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]" required="1"/>
+                            <field name="academic_year_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <field name="course_package_ids" options="{'no_open': True,'no_create':True}" widget="many2many_tags"/>
+                            <field name="stage_ids" options="{'no_open': True,'no_create':True}"  widget="many2many_tags" domain="[('school_id','=',branch_id)]"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <footer>
+                        <button name="generate_excel" string="Print" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_admission_detailed_report" model="ir.actions.act_window">
+            <field name="name">Admission Detailed Report</field>
+            <field name="res_model">admission.detailed.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_admission_detailed_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

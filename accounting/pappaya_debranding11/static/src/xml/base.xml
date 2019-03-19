@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-extend="UserMenu">
+
+		<t t-jquery="li.o_user_menu" t-operation="replace">
+			<li class="o_user_menu">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
+            <img class="img-circle oe_topbar_avatar custom_avatar" t-att-src="_s + '/pappaya_debranding11/static/src/img/user_avatar.jpeg'"/>
+            <span class="oe_topbar_name pl5"/>
+        </a>
+			<ul class="dropdown-menu">
+				<li><a href="#" data-menu="settings">Preferences</a></li>
+			</ul>
+			</li>
+			<a class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-out" href="/web/session/logout?redirect=/web">Logout</a>
+		</t>
+
+	</t>
+
+	<t t-extend="Dialog">
+		<t t-jquery="h4" t-operation="replace">
+			<h4 class="modal-title">
+				<t t-raw="title"/>  <!-- <span>Notification</span> -->
+				<span class="o_subtitle text-muted small"><t t-esc="subtitle"/></span>
+			</h4>
+		</t>
+	</t>
+
+	<div t-name="CrashManager.error" class="o_dialog_error">
+		<div class="alert alert-warning clearfix" role="alert">
+			<button class="btn btn-sm btn-primary pull-right ml8 o_clipboard_button">
+				<!-- <i class="fa fa-clipboard mr8"/>Copy the full error to clipboard -->
+			</button>
+			<p><b>An error occurred.Please contact Pappaya Admin.</b></p>
+			<!-- <p>Please use the copy button to report the error to your support service.</p> -->
+		</div>
+
+		<t t-set="errUID" t-value="_.uniqueId()"/>
+		<!-- <button class="btn btn-sm btn-link" t-att-data-target="'#o_error_detail' + errUID" data-toggle="collapse">See details</button> -->
+		<!-- <div t-att-id="'o_error_detail' + errUID" class="collapse alert alert-danger o_error_detail">
+			<pre><t t-esc="error.message"/></pre>
+			<pre><t t-esc="error.data.debug"/></pre>
+		</div> -->
+	</div>
+
+	<t t-extend="mail.client_action">
+		<t t-jquery=".o_mail_request_permission" t-operation="inner">
+			Your permission is required to <a href="#"> enable desktop notifications</a>.
+		</t>
+	</t>
+
+	<div t-name="SearchView.GroupByMenu" class="btn-group hidden-xs o_dropdown">
+		<button class="o_dropdown_toggler_btn btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			<span class="fa fa-bars"/> Group By <span class="caret"/>
+		</button>
+		<ul class="dropdown-menu o_group_by_menu" role="menu">
+			<li class="divider"/>
+			<li class="o_add_custom_group o_closed_menu">
+				<a href="#">Add Custom Group</a>
+			</li>
+		</ul>
+	</div>
+
+	<t t-extend="DashboardMain">
+		<t t-jquery=".o_web_settings_dashboard" t-operation="replace">
+			<div class="container-fluid o_web_settings_dashboard">
+				<div class="row">
+					<div class="o_web_settings_dashboard_enterprise"/>
+					<div class="col-md-3 col-sm-6 col-xs-12 o_web_settings_dashboard_col">
+						<div class="text-center o_web_settings_dashboard_invitations"></div>
+					<div class="col-md-12">
+						<a t-if="debug != true" class="oe_activate_debug_mode pull-right" href="?debug" >Activate the developer mode</a>
+						<br t-if="debug != true"/>
+						<a t-if="debug != 'assets'" class="oe_activate_debug_mode pull-right" href="?debug=assets" >Activate the developer mode (with assets)</a>
+						<br t-if="debug != 'assets'"/>
+						<a t-if="debug != false" class="oe_activate_debug_mode pull-right" href="/web" >Deactivate the developer mode</a>
+					</div>
+				</div>
+				</div>
+			</div>
+		</t>
+	</t>
+
+	<!-- Purpose: Hiding chat and actvitiy button in top right corner. -->
+	<t t-name="mail.chat.ActivityMenu">
+		<t t-jquery="li.o_mail_navbar_item" t-operation="replace"/>
+	</t>
+	<t t-name="mail.chat.MessagingMenu">
+		<t t-jquery="li.o_mail_navbar_item" t-operation="replace"/>
+	</t>
+
+	<!-- Purpose: Hiding 'Help' option in while clicking on Import buttion. -->
+	<!-- <t t-name="ImportView">
+		<t t-jquery="div.col-sm-12" t-operation="replace">
+			<div class="col-sm-12">
+				<p>Select a CSV or Excel file to import. <a href="https://www.odoo.com" target="new" class="pull-right">Help</a></p>
+			</div>
+		</t>
+	</t> -->
+	<t t-extend="ImportView">
+		<t t-jquery="a[href='https://www.odoo.com/documentation/user/11.0/general/base_import/import_faq.html']" t-operation="replace">
+		</t>
+	</t>
+
+	<!--Purpose: Removed the title:Open Developer Tools -->
+	<t t-extend="WebClient.DebugManager">
+		<t t-jquery="a[title='Open Developer Tools']" t-operation="replace">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				<span class="fa fa-bug"/>
+			</a>
+		</t>
+	</t>
+
+	<t t-extend="Sidebar">
+		<t t-jquery="t[t-as='section']" t-operation="replace">
+			<t t-foreach="widget.sections" t-as="section">
+				<div class="btn-group o_dropdown">
+					<button t-if="section.name != 'buttons'" class="o_dropdown_toggler_btn btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						<t t-if="section.name == 'files'" t-raw="widget.items[section.name].length || ''"/>
+						<t t-esc="section.label"/> <span class="caret"/>
+					</button>
+					<t t-if="section.name == 'buttons'" t-foreach="widget.items[section.name]" t-as="item" t-att-class="item.classname">
+						<a t-att-title="item.title or None" t-att-data-section="section.name" t-att-data-index="item_index" t-att-href="item.url or '#'" target="_blank">
+							<t t-raw="item.label"/>
+						</a>
+					</t>
+					<ul class="dropdown-menu" role="menu">
+						<li t-foreach="widget.items[section.name]" t-as="item" t-att-class="item.classname">
+							<a t-att-title="item.title or None" t-att-data-section="section.name" t-att-data-index="item_index" t-att-href="item.url or '#'">
+								<t t-raw="item.label"/>
+								<span t-if="section.name == 'files' and widget.options.editable and !item.callback" class="fa fa-trash-o o_sidebar_delete_attachment" t-att-data-id="item.id" title="Delete this attachment"/>
+							</a>
+						</li>
+						<li t-if="section.name == 'files' and widget.options.editable" class="o_sidebar_add_attachment">
+							<t t-call="HiddenInputFile">
+								<t t-set="fileupload_id" t-value="widget.fileuploadId"/>
+								<t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
+								<t t-set="multi_upload" t-value="true"/>
+								<input type="hidden" name="model" t-att-value="widget.env and widget.env.model"/>
+								<input type="hidden" name="id" t-att-value="widget.env.activeIds[0]"/>
+								<input type="hidden" name="session_id" t-att-value="widget.getSession().session_id" t-if="widget.getSession().override_session"/>
+								<span>Add...</span>
+							</t>
+						</li>
+					</ul>
+				</div>
+			</t>
+		</t>
+	</t>
+
+	<!--Purpose: Removing the placeholder odoo link-->
+	<t t-extend="web_editor.dialog.image">
+		<t t-jquery="input[placeholder='https://www.odoo.com/logo.png']" t-operation="replace">
+			<input class="form-control url pull-left" id="iamgeurl" name="url" style="width: 320px;" type="text"/>
+		</t>
+	</t>
+
+</templates>

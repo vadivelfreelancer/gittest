@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_branch_mi_mapping_tree" model="ir.ui.view">
+			<field name="name">branch.menuitems.mapping.tree</field>
+			<field name="model">branch.menuitems.mapping</field>
+			<field name="arch" type="xml">
+				<tree string="Branch + Menu Items Mapping">
+                    <field name="branch"/>
+					<field name="menu"/>
+                    <field name="menu_items"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_branch_mi_mapping_form" model="ir.ui.view">
+			<field name="name">branch.menuitems.mapping.form</field>
+			<field name="model">branch.menuitems.mapping</field>
+			<field name="arch" type="xml">
+				<form string="Branch + Menu Items Mapping">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="branch" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="menu" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="menu_items" required="1" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+				</form>
+			</field>
+		</record>
+
+         <record id="view_branch_mi_mapping_search" model="ir.ui.view">
+			<field name="name">branch.menuitems.mapping.search</field>
+			<field name="model">branch.menuitems.mapping</field>
+			<field name="arch" type="xml">
+				<search string="Branch + Menu Items Mapping">
+                    <field name="branch"/>
+                    <field name="menu"/>
+					<field name="menu_items"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_branch_mi_mapping_view" model="ir.actions.act_window">
+			<field name="name">Branch + Menu Items Mapping</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">branch.menuitems.mapping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_branch_mi_mapping_search"/>
+		</record>
+	</data>
+</odoo>

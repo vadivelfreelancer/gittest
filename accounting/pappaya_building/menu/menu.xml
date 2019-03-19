@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_pappaya_building_root" name="Building" sequence="20" groups="base.group_system" />
+
+            <menuitem id="menu_pappaya_building_masters" parent="menu_pappaya_building_root" name="Building Masters" sequence="5" />
+
+                <menuitem id="menu_pappaya_building_creation"
+                          parent="menu_pappaya_building_masters"
+                          name="Building"
+                          sequence="5"
+                          action="act_open_pappaya_building_view"/>
+
+                <menuitem id="menu_pappaya_building_updation"
+                          parent="menu_pappaya_building_masters"
+                          name="Building Master Update"
+                          sequence="7"
+                          action="act_open_pappaya_building_view_update"/>
+
+                <menuitem id="menu_pappaya_block_creation"
+                          parent="menu_pappaya_building_masters"
+                          name="Block"
+                          sequence="10"
+                          action="act_open_pappaya_block_view"/>
+
+                <menuitem id="menu_pappaya_floor_creation"
+                          parent="menu_pappaya_building_masters"
+                          name="Floor"
+                          sequence="15"
+                          action="act_open_pappaya_floor_view"/>
+
+                <menuitem id="menu_pappaya_building_room_creation"
+                          parent="menu_pappaya_building_masters"
+                          name="Room"
+                          sequence="20"
+                          action="act_open_pappaya_building_room_view"/>
+               <menuitem id="menu_pappaya_building_class_creation"
+                          parent="menu_pappaya_building_masters"
+                          name="Class"
+                          sequence="20"
+                          action="act_open_pappaya_building_class_view"/> 
+                <menuitem id="menu_pappaya_room_usage"
+                          parent="menu_pappaya_building_masters"
+                          name="Room Usage"
+                          sequence="21"
+                          action="act_open_pappaya_room_usage_view"/>
+               <menuitem id="menu_building_group_update"
+                          parent="menu_pappaya_building_masters"
+                          name="Building Group Update"
+                          sequence="22"
+                          action="act_pappaya_building_group_view"/> 
+                <menuitem id="menu_pappaya_building_zonal_approval"
+                          parent="menu_pappaya_building_masters"
+                          name="Building Zonal Approval"
+                          sequence="23"
+                          action="act_open_pappaya_building_zonal_view"/>
+                          
+                <menuitem id="menu_pappaya_building_dfe_approval"
+                          parent="menu_pappaya_building_masters"
+                          name="Building DFE Approval"
+                          sequence="24"
+                          action="act_open_pappaya_building_dfe_view"/>
+
+                <menuitem id="menu_pappaya_building_enhancement"
+                          parent="menu_pappaya_building_masters"
+                          name="Building Enhancement"
+                          sequence="25"
+                          action="act_open_pappaya_building_enhancement_view"/>
+
+                <!--<menuitem id="menu_main_building_mapping"-->
+                          <!--parent="menu_pappaya_building_masters"-->
+                          <!--name="Main Building Mapping"-->
+                          <!--sequence="30"-->
+                          <!--action="act_open_main_building_mapping_view"/>-->
+
+                <menuitem id="menu_pappaya_building_agreement"
+                          parent="menu_pappaya_building_masters"
+                          name="Building Agreement Expiry Date and Capacity"
+                          sequence="35"
+                          action="act_open_building_agreement_view"/>
+
+            
+                          
+            <menuitem id="menu_pappaya_owner_creation"
+                          parent="menu_pappaya_building_masters"
+                          name="Owner Master"
+                          sequence="5"
+                          action="act_open_pappaya_owners_view"/>
+        
+            
+        <menuitem id="menu_pappaya_transactions_root" parent="menu_pappaya_building_root" name="Transactions" sequence="10" />
+            
+            <menuitem id="menu_pappaya_security_deposit"
+                          parent="menu_pappaya_transactions_root"
+                          name="Security Deposit (SD)"
+                          sequence="10"
+                          action="act_open_security_deposits_view"/>
+                          
+            <menuitem id="menu_pappaya_security_deposit_transfer"
+                          parent="menu_pappaya_transactions_root"
+                          name="Security Deposit Transfer"
+                          sequence="20"
+                          action="act_open_security_deposits_transfer_view"/>
+                          
+            <menuitem id="menu_pappaya_security_deposit_repayment"
+                          parent="menu_pappaya_transactions_root"
+                          name="Security Deposit Transfer Repayment"
+                          sequence="30"
+                          action="act_open_security_deposit_repayments_view"/>
+                          
+            <menuitem id="menu_pappaya_security_deposit_rental_arrears"
+                          parent="menu_pappaya_transactions_root"
+                          name="Security Deposit Rental Arrears"
+                          sequence="40"
+                          action="act_open_security_deposits_rental_arrears_view"/>
+                          
+            <menuitem id="menu_pappaya_building_advance"
+                          parent="menu_pappaya_transactions_root"
+                          name="Building Advance"
+                          sequence="50"
+                          action="act_open_building_advances_view"/>
+                          
+            <menuitem id="menu_pappaya_building_advance_transfer"
+                          parent="menu_pappaya_transactions_root"
+                          name="Advance Transfers"
+                          sequence="50"
+                          action="act_open_building_advances_transfer_view"/>
+                          
+            <menuitem id="menu_pappaya_building_advance_repayment"
+                          parent="menu_pappaya_transactions_root"
+                          name="Advance Repayment"
+                          sequence="50"
+                          action="act_open_building_advance_repayments_view"/>
+                          
+            <menuitem id="menu_pappaya_building_advance_rental_arrears"
+                          parent="menu_pappaya_transactions_root"
+                          name="Advance Rental Arrears"
+                          sequence="50"
+                          action="act_open_building_advances_rental_arrears_view"/>
+                          
+            <menuitem id="menu_pappaya_building_advance_security_deposit"
+                          parent="menu_pappaya_transactions_root"
+                          name="Advance Converted To SD"
+                          sequence="50"
+                          action="act_open_building_advances_security_deposit_view"/>
+                          
+<!--             <menuitem id="menu_pappaya_rent_creation"
+                          parent="menu_pappaya_transactions_root"
+                          name="Rent Creation"
+                          sequence="90"
+                          action="act_open_rent_creation_view"/> -->
+
+            <menuitem id="menu_pappaya_rent_generation"
+                          parent="menu_pappaya_transactions_root"
+                          name="Rent Generation"
+                          sequence="100"
+                          action="act_open_rent_generation_view"/>
+                          
+            <menuitem id="menu_pappaya_building_vacation"
+                          parent="menu_pappaya_transactions_root"
+                          name="Building Vacation/Shutdown"
+                          sequence="100"
+                          action="act_open_building_vacation_view"/>
+                          
+            <menuitem id="menu_pappaya_rental_arrears"
+                          parent="menu_pappaya_transactions_root"
+                          name="Retal Arrears"
+                          sequence="100"
+                          action="act_open_rental_arrears_view"/>
+                          
+            <menuitem id="menu_pappaya_maintenance_arrears"
+                          parent="menu_pappaya_transactions_root"
+                          name="Maintenance Arrears"
+                          sequence="100"
+                          action="act_open_maintenance_arrears_view"/>
+    </data>
+</odoo>
+

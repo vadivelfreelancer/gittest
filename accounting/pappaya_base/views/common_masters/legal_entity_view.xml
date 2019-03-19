@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_legal_entity_tree" model="ir.ui.view">
+			<field name="name">pappaya.legal.entity.tree</field>
+			<field name="model">pappaya.legal.entity</field>
+			<field name="arch" type="xml">
+				<tree string="Legal Entity">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name" string="Legal Entity Name" />
+					<field name="code" string="Legal Entity Code"/>
+					<field name="description" />
+					<field name="school_id" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_legal_entity_form" model="ir.ui.view">
+			<field name="name">pappaya.legal.entity.form</field>
+			<field name="model">pappaya.legal.entity</field>
+			<field name="arch" type="xml">
+				<form string="Legal Entity" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" string="Legal Entity Name"/>
+                        		<field name="legal_entity_squence" readonly="1" force_save="1"/>
+								<field name="description"/>
+                        	</group>
+                        	<group>
+                        		<field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1" invisible="1" />
+								<field name="code" required="1" string="Legal Entity Code"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_legal_entity_search" model="ir.ui.view">
+            <field name="name">pappaya.legal.entity.search</field>
+            <field name="model">pappaya.legal.entity</field>
+            <field name="arch" type="xml">
+                <search string="Legal Entity">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_legal_entity_form" model="ir.actions.act_window">
+			<field name="name">Legal Entity</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.legal.entity</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_legal_entity_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Legal Entity.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

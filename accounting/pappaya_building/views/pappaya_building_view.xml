@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_building_tree" model="ir.ui.view">
+			<field name="name">pappaya.building.tree</field>
+			<field name="model">pappaya.building</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Building">
+					<field name="branch_id"/>
+					<field name="name"/>
+					<field name="area_type"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_building_form" model="ir.ui.view">
+			<field name="name">pappaya.building.form</field>
+			<field name="model">pappaya.building</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Building Creation">
+				   <header>
+				        <button name="act_zonal_approval" states="draft" type="object" string="Zonal Approval" />
+				        <button name="act_dfe_approval" states="zonal_approval" type="object" string="DFE Approval" />
+				        <button name="reset_to_draft"  type="object" string="Reset To Draft" attrs="{'invisible':['|',('is_update','=',False),('state','=','draft')]}"/>
+				        <field name="state" widget="statusbar" statusbar_visible="draft,zonal_approval,rfo_approval"/>
+				    </header>
+					<sheet>
+						 <div class="oe_button_box" name="button_box">
+            				<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check" >
+                				<field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+           					 </button>
+         				</div>
+						<group col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="name" string="Building Name" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="building_type" required="1" widget="radio" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="area_type" widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="country_id" options="{'no_open': True, 'no_create': True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="state_id" options="{'no_open': True, 'no_create': True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="district_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="mandal_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="area" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="pin_code" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="street_vill" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="house_no" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+						<notebook>
+							<page string="Building Details" name="building_details">
+								<group col="4">
+									<field name="building_total_area" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="common_area" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="no_of_blocks" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="cellar_area" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="others_floors_area" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="maintenance_amount" attrs="{'readonly':[('state','!=','draft')],'required':[('building_type','in',['rent','lease'])]}"/>
+									<field name="eviction_notice_time" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="occupancy_date" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="municipal_tax_owner" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="municipal_tax_tenant" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="tpa" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="is_electricity_commercial" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="is_commercial_building" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="aminities_cost" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="is_aminities_provided" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="building_purpose" required="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="lock_period" attrs="{'readonly':[('state','!=','draft')],'required':[('building_type','in',['rent','lease'])]}"/>
+									<field name="electricity_category" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="student_capacity" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="student_occupied" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="sms_no1" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="sms_no2" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="sms_no3" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="sms_no4" attrs="{'readonly':[('state','!=','draft')]}"/>
+								</group> 
+								<separator string="Rental Details" attrs="{'invisible':[('building_type','!=','rent')]}"/>
+								   <group name="rent" col="4" attrs="{'invisible':[('building_type','!=','rent')]}">
+									<field name="rent_per_sft" attrs="{'required':[('building_type','=','rent')],'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+									<field name="rent" attrs="{'required':[('building_type','=','rent')],'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+									<field name="rent_increase_percentage" attrs="{'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+									<field name="rent_increase_interval" attrs="{'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+									<field name="rental_duration" attrs="{'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+									<field name="rent_increase_on" attrs="{'required':[('building_type','=','rent')],'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+									<field name="rent_agrm_expiry_date" attrs="{'required':[('building_type','=','rent')],'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+								</group>
+								<separator string="Lease Details" attrs="{'invisible':[('building_type','!=','lease')]}"/>
+								<group name="lease" col="4" attrs="{'invisible':[('building_type','!=','lease')],'readonly':[('state','!=','draft')]}">
+									<field name="lease_period" attrs="{'required':[('building_type','=','lease')],'readonly':['|',('building_type','=','own'),('state','!=','draft')]}"/>
+                                    <field name="lease_commencement_date" attrs="{'required':[('building_type','=','lease')],'readonly':[('state','!=','draft')]}"/>
+								</group>
+							</page>
+							<page string="Main Building" name="main_building">
+								<group col="4">
+									<field name="is_main_building" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="main_building" options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>								
+									<field name="is_update" invisible="1"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_building_search" model="ir.ui.view">
+			<field name="name">pappaya.building.search</field>
+			<field name="model">pappaya.building</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Building">
+					<field name="name"/>
+					<field name="branch_id"/>
+					<field name="area_type"/>
+					<field name="building_purpose"/>
+					<group>
+					   <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+						<filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="Area Type" domain="[]" context="{'group_by':'area_type'}"/>
+						<filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                	</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_building_view">
+			<field name="name">Building</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.building</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_building_search"/>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_open_pappaya_building_view_update">
+			<field name="name">Building</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.building</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'update_building': True}</field>
+			<field name="search_view_id" ref="view_pappaya_building_search"/>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_open_pappaya_building_zonal_view">
+			<field name="name">Building Zonal Approval</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.building</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','=','draft')]</field>
+			<field name="search_view_id" ref="view_pappaya_building_search"/>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_open_pappaya_building_dfe_view">
+			<field name="name">Building DFE Approval</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.building</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','=','zonal_approval')]</field>
+			<field name="search_view_id" ref="view_pappaya_building_search"/>
+		</record>
+
+	</data>
+</odoo>

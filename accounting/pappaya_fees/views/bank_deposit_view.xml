@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <record id="bank_deposit_form" model="ir.ui.view">
+			<field name="name">Bank Deposit Form</field>
+			<field name="model">pappaya.bulk.bank.deposit</field>
+			<field name="arch" type="xml">
+				<form string="Bank Deposit" duplicate="0">
+                    <header>
+                        <button name="action_draft_request" class="oe_highlight" string="Request" type='object' attrs="{'invisible': ['|',('state','not in',['draft'])]}"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.hr_branch_accountants"/>
+
+                        <button name="action_request_approve" class="oe_highlight" string="Approve" type='object' attrs="{'invisible': [('state','not in',['requested'])]}"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_operation_head"/>
+
+                        <button name="action_request_reject" class="oe_highlight" string="Reject" type='object' attrs="{'invisible': [('state','not in',['requested'])]}"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,requested,approved,rejected"/>
+                    </header>
+					<sheet>
+                        <group col="4">
+                            <field name="deposit_slip_no" readonly="1"/>
+                            <field name="deposit_school_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                        </group>
+                            <group col="4">
+                                <field name="school_id" attrs="{'readonly': [('state','in',['approved','requested','rejected'])]}" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]"  required="1" class="asterik"
+                                                widget="many2many_tags"/>
+                                <field name="academic_year_id" domain="[('is_active','=', True )]" attrs="{'readonly': [('state','in',['approved','requested','rejected'])]}" options="{'no_open': True,'no_create':True}" required="1" class="asterik"/>
+                                <field name="collection_date" attrs="{'readonly': [('state','in',['approved','requested','rejected'])]}" required="1" class="asterik"/>
+                                <field name="deposit_date" attrs="{'readonly': [('state','in',['approved','requested','rejected'])]}" required="1" class="asterik"/>
+                                <field name="approve_date" attrs="{'readonly': [('state','in',['approved'])],'invisible': [('state','not in',['approved'])]}"/>
+                                <field name="bank_id" attrs="{'readonly': [('state','in',['approved','requested','rejected'])]}" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                            </group>
+                        <group col="4">
+                            <button string="Load Data"  type="object" name="get_payment_data" class="oe_highlight" attrs="{'invisible':[('state', 'in', ['approved','requested','rejected'])]}"/>
+                            <field name="is_req_bttn" invisible="1"/>
+                        </group>
+                        <!--<separator string="Transactions"/>-->
+                        <!--<field name="cash_receipt_ids" open="false" >-->
+                            <!--<tree create="false" editable="bottom" delete="false">-->
+                            	<!--<field name="id" string="Receipt No" readonly="1"/>-->
+                                <!--<field name="receipt_date" readonly="1"/>-->
+                                <!--<field name="total" string="Paid Amount"/>-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                        <group>
+                            <field nolabel="1" name="bank_deposit_o2m" options="{'no_open': True,'no_create':True}">
+                            <tree create="0" delete="0" editable="bottom">
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                <field name="collection_date" invisible="1"/>
+                                <field name="deposit_date" invisible="1"/>
+                                <field name="opening_bal" sum="Opening Bal" readonly="1"/>
+                                <field name="total_cash_amt" sum="Total Cash" readonly="1"/>
+                                <field name="grand_total" sum="Grand Tot" readonly="1"/>
+                                <field name="c_amt_deposit" sum="Deposit Amt"/>
+                                <field name="closing_bal" sum="Closing Bal" readonly="1"/>
+                                <field name="cash_receipt_ids" options="{'no_open': True,'no_create':True}" invisible="1">
+                                    <tree string="Receipts">
+                                        <field name="receipt_no"/>
+                                        <field name="school_id"/>
+                                        <field name="academic_year_id"/>
+                                        <field name="receipt_date"/>
+                                        <field name="payment_mode_id"/>
+                                        <field name="total" sum="Total"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </tree>
+                                <form>
+                                    <group colspan="4" col="4">
+                                        <field name="school_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                        <field name="collection_date" invisible="1"/>
+                                        <field name="deposit_date" invisible="1"/>
+                                        <field name="opening_bal" readonly="1"/>
+                                        <field name="total_cash_amt" readonly="1"/>
+                                        <field name="grand_total" sum="Grand Tot" readonly="1"/>
+                                        <field name="c_amt_deposit"/>
+                                        <field name="closing_bal"  readonly="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <!--<group >-->
+                        	<!--<group>-->
+                        		<!--<field name="is_fiscal_year" attrs="{'invisible': [('is_updated','=',True)]}" />-->
+                        	<!--</group>-->
+                        	<!--<group/>-->
+                        <!--</group>-->
+						<!--<group>-->
+							<!--<group >-->
+                                <!--<label for="fiscal_ob" attrs="{'invisible': ['|',('is_updated','=',True),('is_fiscal_year','=',False)]}"/>-->
+								<!--<div class="btn-inline">-->
+									<!--<field name="fiscal_ob" attrs="{'invisible': ['|',('is_updated','=',True),('is_fiscal_year','=',False)]}"/>-->
+									<!--<button name="update_ob" string="Update" type="object" class="btn-primary ml" -->
+										<!--confirm="Are you sure to update ? Once it is updated cannot be changed" attrs="{'invisible': ['|',('is_updated','=',True),('is_fiscal_year','=',False)]}"-->
+                                        <!--/>-->
+								<!--</div>-->
+                            <!--</group>-->
+                            <!--<group>-->
+
+                            	<!--<field name="is_updated" invisible="1"/>-->
+
+                            <!--</group>-->
+						<!--</group>-->
+                        <group>
+                            <!--<group>-->
+                                <!--<field name="opening_bal" class="asterik" readonly="1"/>-->
+                                <!--<field name="total_cash_amt" readonly="1"/>-->
+                                <!--<field name="closing_bal" readonly="1"/>-->
+                                <!--<field name="previous_deposit_id" invisible="1"/>-->
+                            <!--</group>-->
+                            <group>
+                                <field name="c_amt_deposit" readonly="1" class="asterik"/>
+                                <field name="c_bank_id" attrs="{'readonly': [('state','in',['requested','approved','rejected'])],'required':[('is_req_bttn','=', True)]}" options="{'no_open': True,'no_create':True}" class="asterik"/>
+                                <field name="c_pay_slip" class="asterik" filename="file_name" attrs="{'readonly': [('state','in',['requested','approved','rejected'])],'required':[('is_req_bttn','=', True)]}"/>
+                                <field name="file_name" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <field name="remarks" attrs="{'required':[('state','in',['rejected'])]}"/>
+                            <field name="rec_created" invisible="1"/>
+			            </group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="bank_deposit_tree" model="ir.ui.view">
+			<field name="name">Bank Deposit Tree</field>
+			<field name="model">pappaya.bulk.bank.deposit</field>
+			<field name="arch" type="xml">
+				<tree string="Bank Deposit" default_order='deposit_date desc,id desc'>
+                    <field name="deposit_slip_no"/>
+					<field name="collection_date"/>
+					<field name="deposit_date"/>
+                    <field name="academic_year_id" />
+                    <field name="c_amt_deposit"/>
+                    <field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="bank_deposit_search" model="ir.ui.view">
+			<field name="name">Bank Deposit Search</field>
+			<field name="model">pappaya.bulk.bank.deposit</field>
+            <field name="arch" type="xml">
+                <search string="Bank Deposit">
+                    <field name="school_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="bank_id"/>
+                    <field name="c_bank_id"/>
+					<group expand="0" string="Group By...">
+					<filter string="Deposit Branch" domain="[]" context="{'group_by':'deposit_school_id'}"/>
+						<filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+						<filter string="Academic Year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+						<filter string="Deposited Bank" domain="[]" context="{'group_by':'c_bank_id'}"/>
+						<filter string="Deposit Date" domain="[]" context="{'group_by':'deposit_date'}"/>
+						
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_bank_deposits">
+            <field name="name">Cash Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.bulk.bank.deposit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+				eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('bank_deposit_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('bank_deposit_form')})]" />
+        </record>
+        
+
+    </data>
+</odoo>

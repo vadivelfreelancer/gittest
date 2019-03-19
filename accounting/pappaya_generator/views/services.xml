@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<!--Service Details  master-->
+    <record id="service_details_form" model="ir.ui.view">
+        <field name="name">Service Details  </field>
+        <field name="model">service.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+	                        <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+	                        <field name="is_service" invisible="1" />
+	                </group>
+                    <group string="Service Details" col="4">
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="is_repair"  invisible="1"/>
+                            <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="date"/>
+                            <field name="invoice_bill_no"/>
+                            <field name="invoice_date"/>
+                            <field name="vendor" options='{"no_open": True, "no_create": True}'/>
+                            <field name="vendor_supply_state" options='{"no_open": True, "no_create": True}'/>
+                            <field name="gst_in"/>
+                            <field name="bill_due_date"/>
+                            <field name="service_category"/>
+                            <field name="month"/>
+                            <field name="generator_name_id" options='{"no_open": True, "no_create": True}'/>
+                    </group>
+                       <notebook>
+                            <page string="Service Item Details ">
+                                <field name="service_item">
+                                    <tree editable="bottom">
+										<field name="item" />
+										<field name="hs_code" />
+										<field name="price" />
+										<field name="discount_type" widget="radio"
+											options="{'horizontal': true}" class="col-md-8 oe_inline" />
+										<field name="sub_ledger" />
+										<field name="qty" />
+										<field name="hs_rates" />
+										<field name="discount_amount" />
+										<field name="amount" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Service Details ">
+                                <field name="service_details">
+                                    <tree editable="bottom">
+										<field name="service" />
+										<field name="sub_ledger" />
+										<field name="sas_code" />
+										<field name="sas_rates" />
+										<field name="discount_type" widget="radio"
+											options="{'horizontal': true}" class="col-md-8 oe_inline" />
+										<field name="discount_amount" />
+										<field name="amount" />
+                                    </tree>
+                                </field>
+                            </page>
+                           <page string="Service Amount Details">
+                                <group>
+                                    <group>
+                                        <field name="bill_amount"/>
+                                        <field name="discount_amount"/>
+                                    </group>
+                                    <group>
+                                        <field name="bill_amount_after_discount" class="oe_subtotal_footer_separator"/>
+                                        <field name="igst_amount"/>
+                                        <field name="cgst_amount"/>
+                                        <field name="sgst_amount"/>
+                                    </group>
+                                    <group>
+                                        <field name="total_bill_amount" class="oe_subtotal_footer_separator"/>
+                                        <field name="tds"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="net_due_amount"/>
+                                        <field name="igst_pay"/>
+                                         <field name="cgst_pay"/>
+                                         <field name="sgst_pay"/>
+                                        <field name="invoice_raised" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </group>
+
+                           </page>
+                     </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="service_details_tree" model="ir.ui.view">
+        <field name="name">Service Details </field>
+        <field name="model">service.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+                <field name="building_id"/>
+                <field name="invoice_bill_no"/>
+                <field name="vendor"/>
+            </tree>
+        </field>
+     </record>
+     <record id="service_details_action" model="ir.actions.act_window">
+            <field name="name">Service Details </field>
+            <field name="res_model">service.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="service_details_menu" parent="generator_main_sub2_menu" action="service_details_action" name="Service Details" sequence="11"/>
+</odoo>

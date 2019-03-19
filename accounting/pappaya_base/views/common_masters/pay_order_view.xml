@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_pay_order_tree" model="ir.ui.view">
+			<field name="name">pappaya.pay.order.tree</field>
+			<field name="model">pappaya.pay.order</field>
+			<field name="arch" type="xml">
+				<tree string="Pay Order">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name" />
+					<field name="school_id" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_pay_order_form" model="ir.ui.view">
+			<field name="name">pappaya.pay.order.form</field>
+			<field name="model">pappaya.pay.order</field>
+			<field name="arch" type="xml">
+				<form string="Pay Order" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+								<field name="name" default_focus="1" required="1"/>
+								<field name="is_dependent"/>
+								<field name="description"/>
+                        	</group>
+                        	<group>
+								<field name="academic_year_id" options="{'no_open': True,'no_create':True}" domain="[('is_active','=',True)]" required="1"/>
+								<field name="is_cheque"/>
+                        		<field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1" invisible="1" />
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_pay_order_search" model="ir.ui.view">
+            <field name="name">pappaya.pay.order.search</field>
+            <field name="model">pappaya.pay.order</field>
+            <field name="arch" type="xml">
+                <search string="Pay Order">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_pay_order_form" model="ir.actions.act_window">
+			<field name="name">Pay Order</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.pay.order</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_pay_order_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Pay Order.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

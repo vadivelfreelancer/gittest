@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="material_set_add_form_view" model="ir.ui.view">
+            <field name="name">material.set.add.form.view</field>
+            <field name="model">material.set.add</field>
+            <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="product_set_id" required="1" options="{'no_open': True,'no_create':True}" style="width:50%"/>
+                    <field name="quantity" style="width:50%" invisible="1"/>
+                </group>
+                <separator string="Material"/>
+                <field name="set_line_ids" widget="one2many">
+                    <tree create="false" delete="false">
+                        <field name="product_template_id" options="{'no_open': True,'no_create':True}" domain="[('select_type','=','product')]"/>
+                        <field name="product_variant_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}"/>
+                        <field name="quantity"/>
+                        <field name="price"/>
+                        <field name="total_price"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="add_set" string="Add Material set" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_material_set_add" model="ir.actions.act_window">
+            <field name="name">Add Material Set</field>
+            <field name="res_model">material.set.add</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="material_set_add_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

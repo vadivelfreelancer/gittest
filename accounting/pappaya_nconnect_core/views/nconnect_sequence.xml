@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_fa_student" model="ir.sequence">
+            <field name="name">Student ID - Sequence</field>
+            <field name="code">pappaya.student</field>
+            <field name="prefix">STU</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_fa_teacher" model="ir.sequence">
+            <field name="name">Teacher ID - Sequence</field>
+            <field name="code">pappaya.teacher</field>
+            <field name="prefix">TEA</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

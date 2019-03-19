@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_batch_division_tree" model="ir.ui.view">
+			<field name="name">pappaya.batch.division.tree</field>
+			<field name="model">pappaya.batch.division</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Group">
+					<field name="name"/>
+					<field name="description"/>
+					<!-- <field name="academic_year" />
+					<field name="zone_id" />
+					<field name="branch_id" /> -->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_batch_division_form_id" model="ir.ui.view">
+			<field name="name">pappaya.batch.division.curriculam.form</field>
+			<field name="model">pappaya.batch.division</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Group">
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="name" required="1"/>
+							<field name="batch_id" required="1" options="{'no_open': True,'no_create':True}"/>
+							<field name="description"/>
+							<!-- <field name="academic_year" required="1" options="{'no_open': True,'no_create':True}"/>
+							<field name="branch_id" domain="[('type','=', 'school')]" required="1" options="{'no_open': True,'no_create':True}"/>
+							<field name="zone_id" invisible="1"/> -->
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_batch_division_search" model="ir.ui.view">
+			<field name="name">pappaya.batch.division.curriculam.search</field>
+			<field name="model">pappaya.batch.division</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Group">
+					<field name="name" />
+					<field name="batch_id"/>
+					<field name="description"/>
+					
+					<!-- <field name="academic_year" />
+					<field name="zone_id" />
+					<field name="branch_id" />
+					<newline />
+					<group expand="0" string="Group By...">
+                        <filter name="academic_year" string="Academic Year" domain="[]" context="{'group_by':'academic_year'}" />
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter name="zone_id" string="Zone" domain="[]" context="{'group_by':'zone_id'}" />
+                    </group> -->
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_batch_division_group_view">
+			<field name="name">Batch Division</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.batch.division</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_batch_division_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Batch Division.
+                </p>
+            </field>
+		</record>
+
+
+	</data>
+</odoo>

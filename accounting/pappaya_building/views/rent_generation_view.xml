@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_rent_generation_tree" model="ir.ui.view">
+			<field name="name">Rent Generation Tree</field>
+			<field name="model">rent.generation</field>
+			<field name="arch" type="xml">
+				<tree string="Rent Generation">
+				    <field name="name" />
+					<field name="branch_id"/>
+                    <field name="building_id"/>
+					<field name="building_rent"/>
+					<field name="building_maintenance_amt"/>
+					<field name="date"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_rent_generation_form" model="ir.ui.view">
+			<field name="name">Rent Generation Form</field>
+			<field name="model">rent.generation</field>
+			<field name="arch" type="xml">
+				<form string="Rent Generation">
+					<sheet>
+					 <div class="oe_title">
+                        		<h1>
+                            		<strong><field name="name" readonly="1"/></strong>
+                        		</h1>
+                        		</div>
+						<group colspan="4" col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+							<field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+							<field name="building_rent"/>
+							<field name="building_maintenance_amt"/>
+						</group>
+						<group colspan="2" col="8">
+						<field name="month" required="1"/>
+						<field name="year" required="1" nolabel="1"/>
+						<field name="is_rent" invisible="1" />
+						<field name="date" required="1"/>
+						<field name="is_rent" invisible="1" />
+						</group>
+						<div align="center">
+						<button name="search_rent" type="object" string="Search" class="oe_highlight"/>
+						</div>
+						<separator string="" />
+						<field name="rent_ids" />
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_rent_generation_line_tree" model="ir.ui.view">
+			<field name="name">Rent Generation Line Tree</field>
+			<field name="model">rent.generation.line</field>
+			<field name="arch" type="xml">
+				<tree editable="bottom">
+				    <field name="sno" />
+					<field name="owner_name"/>
+                    <field name="rent_amt"/>
+					<field name="gst_amt"/>
+					<field name="maintenence_amt"/>
+					<field name="gst_maintenance_amt"/>
+				    <field name="outstanding_advance" />
+					<field name="advance_amt"/>
+                    <field name="rent_tds"/>
+					<field name="maintenence_tds"/>
+					<field name="gstin"/>
+					<field name="invoice_no"/>
+				    <field name="date" />
+					<field name="rent_generation_id" invisible="1"/>
+					<field name="owner_id" invisible="1" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_open_rent_generation_view">
+			<field name="name">Rent Generation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">rent.generation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+      <record model="ir.actions.act_window" id="act_open_rent_generation_line_view">
+			<field name="name">Rent Generation Line</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">rent.generation.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>
+    </data>
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_transport_route_tree" model="ir.ui.view">
+            <field name="name">pappaya.transport.route.tree</field>
+            <field name="model">pappaya.transport.route</field>
+            <field name="arch" type="xml">
+                <tree string="Transport Route" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="name" />
+                    <field name="service_id"/>
+                    <field name="school_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_transport_route_form" model="ir.ui.view">
+            <field name="name">pappaya.transport.route.form</field>
+            <field name="model">pappaya.transport.route</field>
+            <field name="arch" type="xml">
+                <form string="Transport Route" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" required="1"/>
+                                <field name="service_id" domain="[('school_id','=', school_id )]" options="{'no_open': True,'no_create':True}" required="1"/>
+                            </group>
+                            <group>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="is_active"/>
+                            </group>
+                        </group>
+                        <field name="transport_stop_ids">
+                            <tree editable="bottom">
+                                <field name="name" required="1"/>
+                                <field name="distance_slab_id" required="1" domain="[('school_id','=',parent.school_id)]" options="{'no_open': True,'no_create':True}"/>
+                                <field name="pickup_time" widget="float_time"/>
+                                <field name="drop_time" widget="float_time"/>
+                                <field name="sr_pickup_time" widget="float_time"/>
+                                <field name="sr_drop_time" widget="float_time"/>
+                                <field name="amount" required="1" />
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                            </tree>
+                            <form>
+                                <group colspan="4" col="4">
+                                    <field name="name" required="1"/>
+                                    <field name="distance_slab_id" required="1" domain="[('school_id','=',parent.school_id)]"
+                                           options="{'no_open': True,'no_create':True}"/>
+                                    <field name="pickup_time" widget="float_time"/>
+                                    <field name="drop_time" widget="float_time"/>
+                                    <field name="sr_pickup_time" widget="float_time"/>
+                                    <field name="sr_drop_time" widget="float_time"/>
+                                    <field name="amount" required="1" />
+                                     <field name="school_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                </group>
+                            </form>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_transport_route_search" model="ir.ui.view">
+            <field name="name">pappaya.transport.route.search</field>
+            <field name="model">pappaya.transport.route</field>
+            <field name="arch" type="xml">
+                <search string="Transport Route">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_transport_route_form" model="ir.actions.act_window">
+            <field name="name">Transport Route</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.transport.route</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_transport_route_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Transport route.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="single_subject_form_view" model="ir.ui.view">
+        <field name="name">single.subject.view.form</field>
+        <field name="model">single.subject</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="academic_year" invisible="1"/>
+                    <field name="institution_type" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="create_subjects" class="oe_highlight" type="object" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="single_subject_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">single.subject</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="single_track_form_view" model="ir.ui.view">
+        <field name="name">single.track.view.form</field>
+        <field name="model">single.track</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="academic_year" invisible="1"/>
+                    <field name="institution_type" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="create_tracks" class="oe_highlight" type="object" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="single_track_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">single.track</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="single_topic_form_view" model="ir.ui.view">
+        <field name="name">single.topic.view.form</field>
+        <field name="model">single.topic</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="course"/>
+                    <field name="subject"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="academic_year" invisible="1"/>
+                    <field name="institution_type" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="create_topics" class="oe_highlight" type="object" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="single_topic_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">single.topic</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="single_section_form_view" model="ir.ui.view">
+        <field name="name">single.section.view.form</field>
+        <field name="model">single.section</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <group>
+                        <field name="course"/>
+                        <field name="from_no"/>
+                        <field name="to_no"/>
+                        </group>
+                    <group>
+                        <field name="group"/>
+                        <field name="batch"/>
+                        <field name="description"/>
+                        <field name="academic_year" invisible="1"/>
+                        <field name="institution_type" invisible="1"/>
+                    </group>
+
+                </group>
+                <footer>
+                    <button name="create_sections" class="oe_highlight" type="object" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="single_section_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">single.section</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="single_previous_course_form_view" model="ir.ui.view">
+        <field name="name">single.subject.view.form</field>
+        <field name="model">single.previous.course</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="is_external"/>
+                    <field name="description"/>
+                    <field name="result_entry"/>
+                    <field name="academic_year" invisible="1"/>
+                    <field name="institution_type" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="create_subjects" class="oe_highlight" type="object" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="single_previous_course_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">single.previous.course</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="single_previous_type_form_view" model="ir.ui.view">
+        <field name="name">single.subject.view.form</field>
+        <field name="model">previous.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_previous_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="single_previous_type_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">previous.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="single_combination_line_form_view" model="ir.ui.view">
+        <field name="name">single.subject.view.form</field>
+        <field name="model">combination.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="exam_type"/>
+                    <field name="course"/>
+                    <field name="group"/>
+                </group>
+                <footer>
+                    <button name="action_create_combination_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="combination_line_type_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">combination.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="singl_subbatch_line_line_form_view" model="ir.ui.view">
+        <field name="name">single.subject.view.form</field>
+        <field name="model">subbatch.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_subbatch_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="subbatch_line_line_type_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">subbatch.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="special_batch_line_line_line_form_view" model="ir.ui.view">
+        <field name="name">single.subject.view.form</field>
+        <field name="model">special.batch.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_special_batch" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="special_batch_line_line_type_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">special.batch.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="university_single_mode_form_view" model="ir.ui.view">
+        <field name="name">university.single.mode.view.form</field>
+        <field name="model">university.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="university_single_mode_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">university.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="exam_course_single_mode_form_view" model="ir.ui.view">
+        <field name="name">exam.course.single.mode.view.form</field>
+        <field name="model">exam.course.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="exam_type"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="exam_course_single_mode_action" model="ir.actions.act_window">
+        <field name="name">Single Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.course.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="sub_section_single_mode_form_view" model="ir.ui.view">
+        <field name="name">sub.section.single.mode.view.form</field>
+        <field name="model">sub.section.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="character_type"/>
+                    <field name="from_number"/>
+                    <field name="to_number"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sub_section_single_mode_action" model="ir.actions.act_window">
+        <field name="name">Sub Section (Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.section.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="exam_target_single_mode_form_view" model="ir.ui.view">
+        <field name="name">sub.section.single.mode.view.form</field>
+        <field name="model">exam.target.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="status"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="exam_target_single_mode_action" model="ir.actions.act_window">
+        <field name="name">Exam Target (Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.target.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="area_single_mode_form_view" model="ir.ui.view">
+        <field name="name">area.single.mode.view.form</field>
+        <field name="model">area.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="area_single_mode_action" model="ir.actions.act_window">
+        <field name="name">Area</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">area.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="program_incharge_single_mode_form_view" model="ir.ui.view">
+        <field name="name">program.incharge.single.mode.view.form</field>
+        <field name="model">program.incharge.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="exam_region"/>
+                    <field name="division_name"/>
+                    <field name="employee_number"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="status"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="program_incharge_single_mode_action" model="ir.actions.act_window">
+        <field name="name">Program Incharge</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">program.incharge.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="sub_topic_single_mode_form_view" model="ir.ui.view">
+        <field name="name">sub.topic.single.mode.view.form</field>
+        <field name="model">sub.topic.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="course"/>
+                    <field name="subject"/>
+                    <field name="topic"/>
+                    <field name="name"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sub_topic_single_mode_action" model="ir.actions.act_window">
+        <field name="name">Sub Topic</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.topic.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="exam_type_type_single_mode_form_view" model="ir.ui.view">
+        <field name="name">exam.type.line.mode.view.form</field>
+        <field name="model">exam.type.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="exam_type"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="single_exam_type_type_action" model="ir.actions.act_window">
+        <field name="name">Exam Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.type.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="new_subbatch_single_mode_form_view" model="ir.ui.view">
+        <field name="name">new.subbatch.single.mode.view.form</field>
+        <field name="model">new.subbatch.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="sub_batch"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="new_subbtach_single_type_action" model="ir.actions.act_window">
+        <field name="name">New Sub Batch (Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">new.subbatch.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="division_single_mode_form_view" model="ir.ui.view">
+        <field name="name">division.single.mode.view.form</field>
+        <field name="model">division.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <group>
+                        <field name="employee_number"/>
+                        <field name="short_name"/>
+                        <field name="ic_name"/>
+                    </group>
+                    <group>
+                        <field name="name"/>
+                        <field name="mobile_number"/>
+                        <field name="email"/>
+                    </group>
+                </group>
+                <footer>
+                    <button special="save" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="division_single_type_action" model="ir.actions.act_window">
+        <field name="name">Division Entry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">division.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="sub_sub_batch_single_mode_form_view" model="ir.ui.view">
+        <field name="name">sub.sub.batch.line.view.form</field>
+        <field name="model">sub.sub.batch.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_sub_sub_batch_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sub_sub_batch_single_action" model="ir.actions.act_window">
+        <field name="name">Sub Sub Batch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.sub.batch.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="exam_name_single_mode_form_view" model="ir.ui.view">
+        <field name="name">exam_name.line.view.form</field>
+        <field name="model">exam.name.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="course"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="status"/>
+                </group>
+                <footer>
+                    <button name="action_create_exam_name_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="exam_name_single_action" model="ir.actions.act_window">
+        <field name="name">Exam Name</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.name.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="course_group_subjects_single_mode_form_view" model="ir.ui.view">
+        <field name="name">course.group.subjects.view.form</field>
+        <field name="model">course.group.subject.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="name"/>
+                    <field name="course"/>
+                    <field name="group"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_course_group" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="course_group_subjects_single_action" model="ir.actions.act_window">
+        <field name="name">Class Group Wise Subjects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.group.subject.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="previous_course_type_single_mode_form_view" model="ir.ui.view">
+        <field name="name">previous.course.type.view.form</field>
+        <field name="model">previous.course.type.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="course"/>
+                    <field name="previous_course"/>
+                    <field name="pre_type"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_previous_course_previous_type" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="previous_course_type_single_action" model="ir.actions.act_window">
+        <field name="name">Previous Course and Present Course Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">previous.course.type.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="pc_subject_single_mode_form_view" model="ir.ui.view">
+        <field name="name">pc.subject.line.view.form</field>
+        <field name="model">pc.subject.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="previous_course"/>
+                    <field name="subject"/>
+                    <field name="marks"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_pc_subject_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="previous_course_single_action" model="ir.actions.act_window">
+        <field name="name">Previous Course</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pc.subject.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="language_mapping_single_mode_form_view" model="ir.ui.view">
+        <field name="name">language.mapping.line.view.form</field>
+        <field name="model">language.mapping.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="sub" string="Subject"/>
+                    <field name="subject"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_mapping_language_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="language_mapping_single_action" model="ir.actions.act_window">
+        <field name="name">Subject Mapping</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">language.mapping.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="course_group_batch_mode_form_view" model="ir.ui.view">
+        <field name="name">course.group.batch.view.form</field>
+        <field name="model">cg.batch.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="course"/>
+                    <field name="group"/>
+                    <field name="batch"/>
+                    <field name="sub_batch"/>
+                </group>
+                <footer>
+                    <button name="action_create_course_group_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="course_group_batch_single_action" model="ir.actions.act_window">
+        <field name="name">Course Group Batch Sub Batch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cg.batch.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="combination_sub_batch_mode_form_view" model="ir.ui.view">
+        <field name="name">combination.batch.batch.view.form</field>
+        <field name="model">combination.sub.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="combination"/>
+                    <field name="sub_batch"/>
+                    <field name="status"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_combination_line" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="combination_sub_batch_single_action" model="ir.actions.act_window">
+        <field name="name">Combination Wise SubBatch(Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">combination.sub.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="combination_faculty_mode_form_view" model="ir.ui.view">
+        <field name="name">combination.faculty.batch.view.form</field>
+        <field name="model">combination.faculty.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="combination"/>
+                    <field name="branch"/>
+                    <field name="course"/>
+                    <field name="employee_name"/>
+                    <field name="subject"/>
+                    <field name="sub_batch"/>
+                    <field name="status"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_combination_faculty" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="combination_faculty_single_action" model="ir.actions.act_window">
+        <field name="name">Combination Wise Faculty(Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">combination.faculty.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="holiday_entry_mode_form_view" model="ir.ui.view">
+        <field name="name">holiday.entry.line.view.form</field>
+        <field name="model">holiday.entry.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="holiday_name"/>
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button name="action_create_holiday_entry" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="holiday_entry_single_action" model="ir.actions.act_window">
+        <field name="name">Holiday Entry(Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">holiday.entry.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="attendance_type_mode_form_view" model="ir.ui.view">
+        <field name="name">attendance.type.line.view.form</field>
+        <field name="model">attendance.type.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="attendance_type"/>
+                    <field name="description"/>
+                    <field name="period_from"/>
+                    <field name="period_to"/>
+                </group>
+                <footer>
+                    <button name="action_create_attendance_type" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_type_single_action" model="ir.actions.act_window">
+        <field name="name">Attendance Type(Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.type.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="attendance_remark_mode_form_view" model="ir.ui.view">
+        <field name="name">attendance.remark.line.view.form</field>
+        <field name="model">attendance.remark.line</field>
+        <field name="arch" type="xml">
+            <form string="Single Mode">
+                <group>
+                    <field name="attendance_remark"/>
+                    <field name="remark_code"/>
+                </group>
+                <footer>
+                    <button name="action_create_attendance_remark" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_remark_single_action" model="ir.actions.act_window">
+        <field name="name">Attendance Remark(Single Mode)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.remark.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <!-- Form Views -->
+        <record id="view_nconnect_story_form" model="ir.ui.view">
+            <field name="name">view.nconnect.story.form</field>
+            <field name="model">pappaya.story</field>
+            <field name="arch" type="xml">
+                <form string="Story">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="image" widget="image" class="oe_avatar"
+                            options="{'preview_image': 'image_small', 'size': [3000, 3000]}"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                            <field name="grade_id"/>
+                            <field name="section_id"/>
+                        </group>
+                        <group>
+                            <field name="images" widget="many2many_binary"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_nconnect_student_form" model="ir.ui.view">
+            <field name="name">view.nconnect.student.form</field>
+            <field name="model">pappaya.student</field>
+            <field name="arch" type="xml">
+                <form string="Student">
+
+                    <group string="Basic Details">
+                        <group>
+                            <field name="student_id" readonly="1"/>
+                            <field name="gender" widget="radio"/>
+                            <field name="blood_group"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="dob"/>
+                            <field name="image"/>
+                            <field name="school_id"/>
+                        </group>
+                    </group>
+
+                    <group string="Parent Details">
+                        <group>
+                            <field name="father"/>
+                            <field name="father_mobile"/>
+                            <field name="father_mail"/>
+                            <field name="father_id"/>
+                            <field name="address1"/>
+                        </group>
+                        <group>
+                            <field name="mother"/>
+                            <field name="mother_mobile"/>
+                            <field name="mother_mail"/>
+                            <field name="mother_id"/>
+                            <field name="address2"/>
+                        </group>
+                    </group>
+
+                    <group string="Education Details">
+                        <group>
+                            <field name="grade_id"/>
+                            <field name="document"/>
+                        </group>
+                        <group>
+                            <field name="section_id"/>
+                            <field name="class_teacher_id"/>
+                        </group>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_teacher_form" model="ir.ui.view">
+            <field name="name">view.nconnect.teacher.form</field>
+            <field name="model">pappaya.teacher</field>
+            <field name="arch" type="xml">
+                <form string="Teacher">
+
+                    <group string="Basic Details">
+                        <group>
+                            <field name="teacher_id" readonly="1"/>
+                            <field name="gender" widget="radio"/>
+                            <field name="blood_group"/>
+                            <field name="is_principal"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="dob"/>
+                            <field name="image"/>
+                            <field name="school_id"/>
+                        </group>
+                    </group>
+
+                    <group string="Contact Details">
+                        <group>
+                            <field name="mobile"/>
+                            <field name="address1"/>
+                            <field name="mobile_emergency"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="address2"/>
+                        </group>
+                    </group>
+
+                    <group string="Education Details">
+                        <group>
+                            <field name="qualification"/>
+                            <field name="document"/>
+                        </group>
+                        <group>
+                            <field name="specialization"/>
+                        </group>
+                    </group>
+
+                    <group string="Assign Class">
+                        <group>
+                            <field name="subject_assign_ids"/>
+                        </group>
+                        <group>
+                            <field name="class_assign_ids">
+                                <tree>
+                                    <field name="grade_id"/>
+                                    <field name="section_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+
+                    <group string="Class Teacher to">
+                        <group>
+                            <field name="grade_id"/>
+                        </group>
+                        <group>
+                            <field name="section_id"/>
+                        </group>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_teacher_class_form" model="ir.ui.view">
+            <field name="name">view.nconnect.teacher.class.form</field>
+            <field name="model">pappaya.teacher.class</field>
+            <field name="arch" type="xml">
+                <form string="Assigned Class">
+                    <group>
+                        <group>
+                            <field name="grade_id"/>
+                        </group>
+                        <group>
+                            <field name="section_id"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_parent_form" model="ir.ui.view">
+            <field name="name">view.nconnect.parent.form</field>
+            <field name="model">pappaya.parent</field>
+            <field name="arch" type="xml">
+                <form string="Parent">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="mobile"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="parent_type" readonly="1"/>
+                            <field name="children_ids" widget="many2many_tags" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="address"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_announcement_form" model="ir.ui.view">
+            <field name="name">view.nconnect.announcement.form</field>
+            <field name="model">pappaya.announcement</field>
+            <field name="arch" type="xml">
+                <form string="Announcement">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="post_to"/>
+                        </group>
+                        <group>
+                            <field name="grade_id"/>
+                            <field name="section_id"/>
+                            <field name="school_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_event_form" model="ir.ui.view">
+            <field name="name">view.nconnect.event.form</field>
+            <field name="model">pappaya.event</field>
+            <field name="arch" type="xml">
+                <form string="Event">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="image"/>
+                            <field name="date_from"/>
+                            <field name="location"/>
+                            <field name="school_id"/>
+                        </group>
+                        <group>
+                            <field name="date_to"/>
+                            <field name="post_to"/>
+                            <field name="grade_id"/>
+                            <field name="section_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_issue_form" model="ir.ui.view">
+            <field name="name">view.nconnect.issue.form</field>
+            <field name="model">pappaya.issue</field>
+            <field name="arch" type="xml">
+                <form string="Issues">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="raised_by"/>
+                            <field name="assign_to"/>
+                            <field name="state" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="grade_id"/>
+                            <field name="section_id"/>
+                            <field name="escalate_to"/>
+                            <field name="school_id"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_attendance_form" model="ir.ui.view">
+            <field name="name">view.nconnect.attendance.form</field>
+            <field name="model">pappaya.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Attendance">
+                    <group>
+                        <group>
+                            <field name="student_id_id"/>
+                            <field name="grade_id"/>
+                            <field name="date"/>
+                            <field name="school_id"/>
+                        </group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="section_id"/>
+                            <field name="is_present"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree Views -->
+        <record id="view_nconnect_story_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.story.tree</field>
+            <field name="model">pappaya.story</field>
+            <field name="arch" type="xml">
+                <tree string="Stories">
+                    <field name="name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_nconnect_student_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.student.tree</field>
+            <field name="model">pappaya.student</field>
+            <field name="arch" type="xml">
+                <tree string="Students">
+                    <field name="student_id"/>
+                    <field name="name"/>
+                    <!-- <field name="class_id"/> -->
+                    <field name="grade_id"/>
+                    <field name="section_id"/>
+                    <field name="class_teacher_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_nconnect_teacher_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.teacher.tree</field>
+            <field name="model">pappaya.teacher</field>
+            <field name="arch" type="xml">
+                <tree string="Teachers">
+                    <field name="teacher_id"/>
+                    <field name="name"/>
+                    <!-- <field name="class_id"/> -->
+                    <field name="grade_id"/>
+                    <field name="section_id"/>
+                    <field name="class_assign_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_nconnect_parent_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.parent.tree</field>
+            <field name="model">pappaya.parent</field>
+            <field name="arch" type="xml">
+                <tree string="Parents" create="false">
+                    <field name="name"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="children_ids"/>
+                    <field name="parent_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_nconnect_announcement_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.announcement.tree</field>
+            <field name="model">pappaya.announcement</field>
+            <field name="arch" type="xml">
+                <tree string="Announcements">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="post_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_nconnect_event_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.event.tree</field>
+            <field name="model">pappaya.event</field>
+            <field name="arch" type="xml">
+                <tree string="Events">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="location"/>
+                    <field name="post_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_nconnect_issue_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.issue.tree</field>
+            <field name="model">pappaya.issue</field>
+            <field name="arch" type="xml">
+                <tree string="Issues">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="assign_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search Views -->
+        <record id="view_nconnect_teacher_search" model="ir.ui.view">
+            <field name="name">view.nconnect.teacher.search</field>
+            <field name="model">pappaya.teacher</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Window Actions -->
+        <record id="action_nconnect_story" model="ir.actions.act_window">
+            <field name="name">Stories</field>
+            <field name="res_model">pappaya.story</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_student" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="res_model">pappaya.student</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_teacher" model="ir.actions.act_window">
+            <field name="name">Teachers</field>
+            <field name="res_model">pappaya.teacher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_nconnect_teacher_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_parent" model="ir.actions.act_window">
+            <field name="name">Parents</field>
+            <field name="res_model">pappaya.parent</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_announcement" model="ir.actions.act_window">
+            <field name="name">Announcements</field>
+            <field name="res_model">pappaya.announcement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_event" model="ir.actions.act_window">
+            <field name="name">Events</field>
+            <field name="res_model">pappaya.event</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_issue" model="ir.actions.act_window">
+            <field name="name">Issues</field>
+            <field name="res_model">pappaya.issue</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_grade" model="ir.actions.act_window">
+            <field name="name">Grades</field>
+            <field name="res_model">pappaya.grade</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_section" model="ir.actions.act_window">
+            <field name="name">Sections</field>
+            <field name="res_model">pappaya.section</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <!-- <record id="action_nconnect_class" model="ir.actions.act_window">
+            <field name="name">Classes</field>
+            <field name="res_model">pappaya.class</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record> -->
+
+        <record id="action_nconnect_subject" model="ir.actions.act_window">
+            <field name="name">Subjects</field>
+            <field name="res_model">pappaya.subject</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_attendance" model="ir.actions.act_window">
+            <field name="name">Attendance</field>
+            <field name="res_model">pappaya.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_account_search"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_view_attendance" model="ir.actions.act_window">
+            <field name="name">View Attendance</field>
+            <field name="res_model">pappaya.attendance.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <!-- Menu Items -->
+        <menuitem id="id_nconnect_base" name="nConnect" web_icon="fa-handshake-o"/>
+
+        <menuitem action="action_nconnect_story" 
+        id="id_nconnect_story" name="Stories"
+        parent="id_nconnect_base" sequence="0"/>
+
+        <menuitem id="id_nconnect_people" name="People"
+        parent="id_nconnect_base" sequence="1"/>
+        
+        <menuitem action="action_nconnect_teacher" 
+        id="id_nconnect_teacher" name="Teachers"
+        parent="id_nconnect_people" sequence="0"/>
+
+        <menuitem action="action_nconnect_student" 
+        id="id_nconnect_student" name="Students"
+        parent="id_nconnect_people" sequence="1"/>
+
+        <menuitem action="action_nconnect_parent" 
+        id="id_nconnect_parent" name="Parents"
+        parent="id_nconnect_people" sequence="2"/>
+
+        <menuitem id="id_nconnect_notification" name="Notifications"
+        parent="id_nconnect_base" sequence="2"/>
+
+        <menuitem action="action_nconnect_announcement" 
+        id="id_nconnect_announcement" name="Announcement"
+        parent="id_nconnect_notification" sequence="0"/>
+
+        <menuitem action="action_nconnect_event" 
+        id="id_nconnect_event" name="Events"
+        parent="id_nconnect_notification" sequence="1"/>
+
+        <menuitem action="action_nconnect_issue" 
+        id="id_nconnect_issue" name="Issues"
+        parent="id_nconnect_notification" sequence="2"/>
+
+        <menuitem id="id_nconnect_configuration" name="Configuration"
+        parent="id_nconnect_base" sequence="3"/>
+
+        <menuitem action="action_nconnect_grade" 
+        id="id_nconnect_grade" name="Grade"
+        parent="id_nconnect_configuration" sequence="2"/>
+
+        <menuitem action="action_nconnect_section" 
+        id="id_nconnect_section" name="Section"
+        parent="id_nconnect_configuration" sequence="3"/>
+
+        <!-- <menuitem action="action_nconnect_class" 
+        id="id_nconnect_class" name="Class"
+        parent="id_nconnect_configuration" sequence="2"/> -->
+
+        <menuitem action="action_nconnect_subject" 
+        id="id_nconnect_subject" name="Subjects"
+        parent="id_nconnect_configuration" sequence="4"/>
+
+        <menuitem id="id_nconnect_report" name="Reports"
+        parent="id_nconnect_base" sequence="4"/>
+
+        <menuitem action="action_nconnect_attendance" 
+        id="id_nconnect_attendance" name="Attendance"
+        parent="id_nconnect_report" sequence="0"/>
+
+        <!-- <menuitem action="action_nconnect_view_attendance" 
+        id="id_nconnect_view_attendance" name="View Attendance"
+        parent="id_nconnect_report" sequence="1"/> -->
+
+
+        
+        
+        
+        <!-- *********************************Temporary********************************* -->
+
+        <record id="view_nconnect_school_form" model="ir.ui.view">
+            <field name="name">view.nconnect.school.form</field>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <form string="Schools">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="country_id" required="1"/>
+                            <field name="city_id" required="1"/>
+                            <field name="zip"/>
+                            <field name="email"/>
+                            <field name="principal_id"/>
+                        </group>
+                        <group>
+                            <field name="type"/>
+                            <field name="state_id" string="State" required="1"/>
+                            <field name="locality"/>
+                            <field name="phone"/>
+                            <field name="website"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_user_form" model="ir.ui.view">
+            <field name="name">view.nconnect.user.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form string="Users">
+                    <group>
+                        <group>
+                            <field name="name" string="Username"/>
+                            <field name="login"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nconnect_school_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.school.tree</field>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <tree string="Schools">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="website"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_nconnect_user_tree" model="ir.ui.view">
+            <field name="name">view.nconnect.user.tree</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <tree string="Schools">
+                    <field name="name"/>
+                    <field name="login"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_nconnect_school" model="ir.actions.act_window">
+            <field name="name">Schools</field>
+            <field name="res_model">res.company</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_nconnect_user" model="ir.actions.act_window">
+            <field name="name">Users</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an entry.
+              </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_nconnect_school_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_nconnect_school_tree"/>
+            <field name="act_window_id" ref="action_nconnect_school"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_nconnect_school_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nconnect_school_form"/>
+            <field name="act_window_id" ref="action_nconnect_school"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_nconnect_user_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_nconnect_user_tree"/>
+            <field name="act_window_id" ref="action_nconnect_user"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_nconnect_user_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nconnect_user_form"/>
+            <field name="act_window_id" ref="action_nconnect_user"/>
+        </record>
+
+        <menuitem action="action_nconnect_school" 
+        id="id_nconnect_school" name="School"
+        parent="id_nconnect_configuration" sequence="0"/>
+
+        <menuitem action="action_nconnect_user" 
+        id="id_nconnect_user" name="Users"
+        parent="id_nconnect_configuration" sequence="1"/>
+
+        <record model="ir.ui.menu" id="base.menu_users">
+            <field name="name">Users and Schools</field>
+        </record>
+        <record model="ir.ui.menu" id="base.menu_action_res_company_form">
+            <field name="name">Schools</field>
+        </record>
+
+        <record model="ir.ui.menu" id="mail.mail_channel_menu_root_chat">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="base.menu_management">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="web_settings_dashboard.web_dashboard_menu">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+        <record model="ir.ui.menu" id="base_setup.menu_config">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+        <record model="ir.ui.menu" id="fetchmail.menu_action_fetchmail_server_tree">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+        <record model="ir.ui.menu" id="base.menu_translation">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+        <record model="ir.ui.menu" id="base.menu_mail_servers">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+
+        <record id="view_users_form_inherit" model="ir.ui.view">
+            <field name="name">view.users.form.inherit</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[2]" position="replace">
+                    
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_company_form_inherit" model="ir.ui.view">
+            <field name="name">view.company.form.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <field name="website" position="replace">
+                    <field name="website"/>
+                </field>
+                <label for="name" position="replace">
+                </label>
+                <field name="report_header" position="replace">
+                    <field name="report_header" string="School Tagline"/>
+                </field>
+                <field name="name" position="replace">
+                    <field name="name" string="School Name" placeholder="School Name"/>
+                </field>
+                <field name="city" position="replace">
+                    <field name="city_id" placeholder="City"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- *********************************Temporary********************************* -->
+
+
+    </data>
+</odoo>

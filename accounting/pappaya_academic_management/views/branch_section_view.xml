@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="branch_section_view_form" model="ir.ui.view">
+        <field name="name">branch.section.view.form</field>
+        <field name="model">branch.section</field>
+        <field name="arch" type="xml">
+            <form string="Subject Order">
+<!--                <sheet>-->
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Section Mapping To Exam Branches"/>
+                    <group>
+                        <group>
+                            <field name="exam_branch"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <field name="branch_section_lines">
+                        <tree editable="bottom">
+                            <field name="course"/>
+                            <field name="group"/>
+                            <field name="batch"/>
+                            <field name="new_sub_batch"/>
+                            <field name="strn"/>
+                            <field name="section"/>
+                            <field name="sec_strn"/>
+                            <field name="new"/>
+                            <button special="save" class="oe_highlight" string="Save"/>
+                            <field name="edit" widget="many2many_checkboxes"/>
+
+                        </tree>
+                    </field>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="branch_section_view_tree" model="ir.ui.view">
+        <field name="name">branch.section.view.tree</field>
+        <field name="model">branch.section</field>
+        <field name="arch" type="xml">
+            <tree string="Section Mapping Exam Branches">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="branch_section_menu_action" model="ir.actions.act_window">
+        <field name="name">Section Mapping To Exam Branches</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">branch.section</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="branch_section_sub_menu"
+      name="Branch Section New"
+      parent="academic_main_menu"
+      sequence="198"
+      action="branch_section_menu_action"/>
+
+</odoo>

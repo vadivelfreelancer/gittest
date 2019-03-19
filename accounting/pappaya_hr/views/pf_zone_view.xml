@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_pf_zone_tree" model="ir.ui.view">
+			<field name="name">pappaya.pf.zone.tree</field>
+			<field name="model">pappaya.pf.zone</field>
+			<field name="arch" type="xml">
+				<tree string="PF Zone">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name" />
+					<field name="school_id" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_pf_zone_form" model="ir.ui.view">
+			<field name="name">pappaya.pf.zone.form</field>
+			<field name="model">pappaya.pf.zone</field>
+			<field name="arch" type="xml">
+				<form string="PF Zone" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1"/>
+                        		<field name="description"/>
+                        	</group>
+                        	<group>
+								<field name="account_number" required="1"/>
+                        		<field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1" invisible="1" />
+                        	</group>
+                        </group>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_pf_zone_search" model="ir.ui.view">
+            <field name="name">pappaya.pf.zone.search</field>
+            <field name="model">pappaya.pf.zone</field>
+            <field name="arch" type="xml">
+                <search string="PF Zone">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_pf_zone_form" model="ir.actions.act_window">
+			<field name="name">PF Zone</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.pf.zone</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_pf_zone_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new PF Zone.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		<!-- Staff Type -->
+		
+		<record id="view_staff_type_hierarchy_form" model="ir.ui.view">
+			<field name="name">view.staff.type.hierarchy.form</field>
+			<field name="model">staff.type.hierarchy</field>
+			<field name="arch" type="xml">
+				<form string="Staff Type">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="academic_type" widget="radio" options="{'horizontal':True}" required="1"/>
+                        		<field name="name" invisible="1"/>
+                    			<field name="job_id" required="1" options="{'no_open':True,'no_create':True}"/>
+                    			<field name="is_head" />
+                        	</group>
+                        	<group>
+                        		<field name="academic_year_id" readonly="1"/>
+                        		<field name="parent_id" attrs="{'required':[('is_head','=',False)]}"
+                        			options="{'no_open':True,'no_create':True}" domain="[('academic_type','=',academic_type),('academic_year_id','=',academic_year_id)]"/>
+                        	</group>
+                        </group>
+                       	<group>
+                       		<field name="description" nolabel="1" placeholder="Add a description .."/>
+                       	</group> 
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_staff_type_hierarchy_tree" model="ir.ui.view">
+			<field name="name">view.staff.type.hierarchy.tree</field>
+			<field name="model">staff.type.hierarchy</field>
+			<field name="arch" type="xml">
+				<tree string="Staff Type Hierarchy">
+					<field name="job_id"/>
+					<field name="parent_id"/>
+					<field name="academic_type"/>
+					<field name="academic_year_id" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="action_staff_type_hierarchy" model="ir.actions.act_window">
+			<field name="name">Staff Type Hierarchy</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">staff.type.hierarchy</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Staff Type Hierarchy.
+				</p>
+			</field>
+		</record>
+
+		<!-- Program Type -->
+		
+		<record id="view_program_type_form" model="ir.ui.view">
+			<field name="name">view.program.type.form</field>
+			<field name="model">program.type</field>
+			<field name="arch" type="xml">
+				<form string="Program Type">
+					<sheet>
+                        <group>
+							<field name="name" required="1"/>
+							<field name="description"/>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_program_type_tree" model="ir.ui.view">
+			<field name="name">view.program.type.tree</field>
+			<field name="model">program.type</field>
+			<field name="arch" type="xml">
+				<tree string="Program Type">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="action_program_type" model="ir.actions.act_window">
+			<field name="name">Program Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">program.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Program Type.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

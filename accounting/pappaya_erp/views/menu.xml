@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+		
+        <menuitem id="menu_pappaya_erp" name="ERP" sequence="0" web_icon="pappaya_erp,static/description/icon.png"/>
+        	<menuitem name="Model Log" id="menu_pappaya_model_base" parent="menu_pappaya_erp" sequence="10"/>
+	            <menuitem name="Model Configuration" id="menu_pappaya_model_core" parent="menu_pappaya_model_base" action="action_model_core_view" sequence="10"/>
+        		<menuitem name="Model Log" id="menu_pappaya_model_log" parent="menu_pappaya_model_base" action="action_model_log_view" sequence="20"/>
+        		
+    </data>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_building_room_tree" model="ir.ui.view">
+			<field name="name">pappaya.building.room.tree</field>
+			<field name="model">pappaya.building.room</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Room">
+					<field name="branch_id"/>
+                    <field name="building_id"/>
+                    <field name="floor_id"/>
+                    <field name="block_id"/>
+					<field name="name"/>
+					<field name="no_of_classes" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_building_room_form" model="ir.ui.view">
+			<field name="name">pappaya.building.room.form</field>
+			<field name="model">pappaya.building.room</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Room">
+					<sheet>
+					 <div class="oe_button_box" name="button_box">
+            				<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check" >
+                				<field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+           					 </button>
+         				</div>
+						<group col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+                            <field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="block_id" domain="[('branch_id','=',branch_id),('building_id','=',building_id)]" required="1" options="{'no_open': True, 'no_create': True}"/>
+                        	<field name="floor_id" domain="[('branch_id','=',branch_id),('building_id','=',building_id),('block_id','=',block_id)]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="name" required="1"/>
+							<field name="no_of_classes" required="1"/>
+                            <field name="building_purpose" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_building_room_search" model="ir.ui.view">
+			<field name="name">pappaya.building.room.search</field>
+			<field name="model">pappaya.building.room</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Room">
+					<field name="name"/>
+					<field name="branch_id"/>
+                    <field name="building_id"/>
+					<field name="block_id"/>
+                    <field name="floor_id"/>
+					<group>
+					   <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+						<filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="Building" domain="[]" context="{'group_by':'building_id'}"/>
+						<filter string="Block" domain="[]" context="{'group_by':' block_id'}"/>
+						<filter string="Floor" domain="[]" context="{'group_by':' floor_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_building_room_view">
+			<field name="name">Room</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.building.room</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_building_room_search"/>
+		</record>
+
+	</data>
+</odoo>

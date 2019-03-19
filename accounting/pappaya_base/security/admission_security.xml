@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Begin : Admission Groups -->
+        <record id="group_admission_admin" model="res.groups">
+            <field name="name">Admission Administrator</field>
+            <field name="category_id" ref="module_pappaya_admission_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_admission_revenue_head" model="res.groups">
+            <field name="name">Revenue Head</field>
+            <field name="category_id" ref="module_pappaya_admission_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_admission_revenue_assistant" model="res.groups">
+            <field name="name">Revenue Assistant</field>
+            <field name="category_id" ref="module_pappaya_admission_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_admission_revenue_operation_head" model="res.groups">
+            <field name="name">Revenue Operation Head</field>
+            <field name="category_id" ref="module_pappaya_admission_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_admission_revenue_operation_assistant" model="res.groups">
+            <field name="name">Revenue Operation Assistant</field>
+            <field name="category_id" ref="module_pappaya_admission_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_admission_chamber" model="res.groups">
+            <field name="name">Chamber</field>
+            <field name="category_id" ref="module_pappaya_admission_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <!-- End : Admission Groups -->
+
+    </data>
+</odoo>

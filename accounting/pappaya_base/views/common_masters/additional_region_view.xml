@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_additional_region_tree" model="ir.ui.view">
+			<field name="name">pappaya.additional.region.tree</field>
+			<field name="model">pappaya.additional.region</field>
+			<field name="arch" type="xml">
+				<tree string="Additional Region">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name" />
+					<field name="description"/>
+					<field name="office_type_id" />
+					<!--<field name="school_id" invisible="1"/>-->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_additional_region_form" model="ir.ui.view">
+			<field name="name">pappaya.additional.region.form</field>
+			<field name="model">pappaya.additional.region</field>
+			<field name="arch" type="xml">
+				<form string="Additional Region" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+								<!--<field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" invisible="1" />-->
+                        		<field name="name" default_focus="1" required="1"/>
+								<field name="office_type_id" required="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="emp_slno"/>
+                        		<field name="unique_no"/>
+                        		<field name="ic_name"/>
+                        		<field name="ip_address"/>
+                        		<field name="description"/>
+                        	</group>
+                        	<group>
+								<field name="day_avg_amt"/>
+								<field name="hos_avg_amt"/>
+								<field name="jr_day_avg_amt"/>
+								<field name="jr_hos_avg_amt"/>
+								<field name="mobile"/>
+								<field name="email"/>
+							</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_additional_region_search" model="ir.ui.view">
+            <field name="name">pappaya.additional.region.search</field>
+            <field name="model">pappaya.additional.region</field>
+            <field name="arch" type="xml">
+                <search string="Additional Region">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="office_type_id" filter_domain="[('office_type_id','ilike',self)]" />
+                    <separator/>
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_additional_region_form" model="ir.actions.act_window">
+			<field name="name">Additional Region</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.additional.region</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_additional_region_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Additional Region.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

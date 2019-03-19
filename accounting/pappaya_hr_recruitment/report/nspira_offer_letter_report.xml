@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <template id="report_nspira_offer_letter">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pappaya_hr_recruitment.pappaya_nspira_report_custom_layout">
+                        <div class="page">
+
+                            <style>
+                                th,td,tr {border-collapse:collapse; font-family:Liberation Serif;}
+                                th,td {vertical-align:middle; font-size:14px;}
+                            </style>
+
+                            <div class="row" style="padding-left:10px; padding-right:10px;">
+
+                                <div style="text-align:center; width:100%; padding-top:20px; font-size:16px;">
+                                    <u><strong>NSPIRA OFFER LETTER</strong></u>
+                                </div>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px;">
+                                    <tr>
+                                        <td style="width:50%; text-align:left;"><strong>Ref: NGS/RO/HYD/xx/18-19/xxx</strong></td>
+                                        <td style="width:50%; text-align:right;"><strong>Date: </strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; padding-top:15px;"><strong>To</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; padding-top:5px;"><b><span t-field ="o.partner_name"/></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:20px;">
+                                            With reference to your application and the subsequent discussion(s) that we had, we are pleased to offer you a
+                                            position with us as a <b><span t-field ='o.job_id'/> – <span t-field ='o.department_id'/></b> and your posting will be at <b><span t-field ="o.company_id"/>.</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top:20px;">
+                                            The following are the terms and conditions:
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td style="width:3%; padding-top:15px; padding-left:20px; vertical-align:top;">1)</td>
+                                        <td style="text-align:left; width:97%; padding-top:15px; padding-left:8px; word-spacing:3px;">
+                                            See Annexure l for Compensation (Confidential)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">2)</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            You will be on probation for a period of <b>six</b> months of your
+                                            joining the Nspira Central Office or any other location with in India.
+                                            Your confirmation is subject to our evaluation of your performance.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">3)</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Your role, duties and responsibilities will be as assigned to you
+                                            from time to time by your assigned supervisor(s) as authorized by the Organization.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">4)</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Under any circumstances if the recipient opts to leave the company, he/she should serve One month as a notice period.
+                                            As per the company norms if the notice is not served, he/she is liable to pay the company towards the same
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:3%; padding-top:10px; padding-left:20px; vertical-align:top;">5)</td>
+                                        <td style="text-align:left; width:97%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            You are required to join the central office on or before <b><span t-field ="o.availability" t-field-options='{"format": "dd-MMM-Y"}'/></b> and report to the duties along with your document such as
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">a)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Joining Report
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">b)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Your Resignation and relieving letter from your previous Employer
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">c)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Indemnity Bond/Bond  as per the requirement
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">d)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Proof of Address
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">e)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            PAN Card
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">f)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Your Qualification certificates
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">g)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Your Experience certificates if any
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right; width:7%; padding-top:10px; padding-left:5px; vertical-align:top;">h)</td>
+                                        <td style="text-align:left; width:93%; padding-top:10px; padding-left:8px; word-spacing:3px;">
+                                            Three Passport size Photograph
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            If these terms are acceptable to you, kindly sign and return the
+                                            duplicate of this letter in acknowledgement thereof.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            <b>For Nspira Management Services Pvt. Ltd.</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:50px;">
+                                            <b>Human Resource</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:20px;">
+                                            I agree &amp; accept employment on the terms and conditions mentioned in the letter.
+                                            I shall be reporting to work on <span style="padding-right:50px; border-bottom:1px solid black;"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:15px;">
+                                            <span>Signature:</span>
+                                            <span style="padding-left:150px; border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px;">Date:</span>
+                                            <span style="border-bottom:1px solid black;"></span>
+                                            <span style="padding-left:30px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-left:40px; border-bottom:1px solid black;">/</span>
+                                            <span style="padding-right:50px; border-bottom:1px solid black;"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <p style="page-break-before:always;"></p>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td colspan="2" style="height:10px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center;">
+                                            <b>Annexure – 1 <br/>(Confidential, not for circulation)</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; padding-top:10px; padding-bottom:15px;">
+                                            <b>(Enclosure to the “Offer Letter” Ref No. NGS/RO/HYD/xx/18-19/xxx Dated: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>)</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:35%; text-align:left; border:1px solid black; padding:5px;"><b>Name</b></td>
+                                        <td style="width:65%; text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.partner_name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>Designation</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.job_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>Gross Salary PM</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><span t-field ="o.finalized_salaries"  t-field-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/>/- PM (<span t-esc="o.company_id.currency_id.amount_to_text(o.finalized_salaries)"/> Only) </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;"><b>Leave</b></td>
+                                        <td style="text-align:left; border:1px solid black; padding:5px;">As per the leave policy</td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" cellpadding="0px" cellspacing="0px" style="padding:0px; padding-left:3px; padding-right:3px;">
+                                    <tr>
+                                        <td colspan="2" style="height:60px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%; padding-top:40px;">
+                                            <b>Human Resource</b>
+                                        </td>
+                                        <td style="width:50%; padding-top:40px;"><b>Employee Signature: </b><span style="padding-left:150px; border-bottom:1px solid black;"></span></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+			id="nspira_offer_letter_report"
+			model="hr.applicant"
+			string="Nspira Offer Letter"
+			report_type="qweb-pdf"
+			name="pappaya_hr_recruitment.report_nspira_offer_letter"
+			file="pappaya_hr_recruitment.report_nspira_offer_letter"
+		/>
+
+        <record id="paperformat_nspira_offer_letter_report" model="report.paperformat">
+            <field name="name">European A4 - Nspira Offer Letter</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+             <field name="margin_top">30</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="pappaya_hr_recruitment.nspira_offer_letter_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="pappaya_hr_recruitment.paperformat_nspira_offer_letter_report"/>
+        </record>
+
+    </data>
+</odoo>

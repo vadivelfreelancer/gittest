@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_segment_tree" model="ir.ui.view">
+			<field name="name">pappaya.segment.tree</field>
+			<field name="model">pappaya.segment</field>
+			<field name="arch" type="xml">
+				<tree string="Segment">
+					<field name="name" string="Segment Name" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_segment_form" model="ir.ui.view">
+			<field name="name">pappaya.segment.form</field>
+			<field name="model">pappaya.segment</field>
+			<field name="arch" type="xml">
+				<form string="Segment" duplicate="0">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1" string="Segment Name"/>
+                        	</group>
+                        	<group>
+								<field name="description"/>
+								<field name="segment_squence" readonly="1" force_save="1"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_segment_search" model="ir.ui.view">
+            <field name="name">pappaya.segment.search</field>
+            <field name="model">pappaya.segment</field>
+            <field name="arch" type="xml">
+                <search string="Segment">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_segment_form" model="ir.actions.act_window">
+			<field name="name">Segment</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.segment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_segment_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Segment.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

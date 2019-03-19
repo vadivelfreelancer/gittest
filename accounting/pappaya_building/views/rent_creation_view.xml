@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!--Rent Creation-->
+
+		<record id="view_rent_creation_tree" model="ir.ui.view">
+			<field name="name">Rent Creation Tree</field>
+			<field name="model">rent.creation</field>
+			<field name="arch" type="xml">
+				<tree string="Rent creation">
+				    <field name="name" />
+					<field name="branch_id"/>
+                    <field name="building_id"/>
+                    <field name="floor_id"/>
+					<field name="block_id"/>
+					<field name="room_id"/> 
+					<field name="total_amt" />
+					<field name="arrear_amount" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_rent_creation_form" model="ir.ui.view">
+			<field name="name">Rent Creation Form</field>
+			<field name="model">rent.creation</field>
+			<field name="arch" type="xml">
+				<form string="Rent creation">
+					<header>
+						<button name="action_confirm" type="object" string="Confirm" class="oe_highlight" attrs="{'invisible':[('is_confirm','=',True)]}"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,invoiced"/>
+					</header>
+					<sheet>
+					<div class="oe_title">
+                        		    <h1>
+                            			<strong><field name="name" readonly="1"/></strong>
+                        		   </h1>
+                     			</div>
+						<group colspan="4" col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1" attrs="{'readonly':[('state','in',['confirmed','invoiced'])]}"/>
+							<field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" options="{'no_open': True, 'no_create': True}" required="1" attrs="{'readonly':[('state','in',['confirmed','invoiced'])]}"/>
+							<field name="block_id" domain="[('branch_id','=',branch_id),('building_id','=',building_id)]" options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('state','in',['confirmed','invoiced'])]}"/>
+							<field name="floor_id" domain="[('branch_id','=',branch_id),('building_id','=',building_id),('block_id','=',block_id)]" options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('state','in',['confirmed','invoiced'])]}"/>
+							<field name="room_id" domain="[('branch_id','=',branch_id),('building_id','=',building_id),('floor_id','=',floor_id),('block_id','=',block_id)]" options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('state','in',['confirmed','invoiced'])]}"/>
+							<field name="owner_id" domain="[('branch_id','=',branch_id),('building_id','=',building_id)]" required="1" options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('state','in',['confirmed','invoiced'])]}"/>
+							<field name="partner_id" invisible="1"/>
+							<field name="building_rent" />
+							<field name="building_maintenance_amt"/>
+							<field name="total_amt" />
+							<field name="arrear_amount" />
+							<field name="date" attrs="{'readonly':[('state','in',['confirmed','invoiced'])]}"/>
+							<field name="is_confirm" invisible="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_rent_creation_view">
+			<field name="name">Rent Creation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">rent.creation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="action_rent_invoice_creation_values" model="ir.actions.server">
+			<field name="name">Create Invoice</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="pappaya_building.model_rent_creation" />
+			<field name="binding_model_id" ref="pappaya_building.model_rent_creation"/>
+			<field name="state">code</field>
+			<field name="code">if records:
+			action = records.create_invoice()</field>
+		</record>
+
+    </data>
+</odoo>

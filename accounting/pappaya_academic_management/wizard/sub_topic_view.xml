@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sub_topic_batch_view_view_form" model="ir.ui.view">
+        <field name="name">sub.topic.batch.view.form</field>
+        <field name="model">subtopic.view</field>
+        <field name="arch" type="xml">
+            <form string="Sub Topic Details">
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+                </group>
+                <group string="Sub Topic Details">
+                    <group>
+                        <field name="course"/>
+                        <field name="topic"/>
+                    </group>
+                    <group>
+                        <field name="subject"/>
+                    </group>
+                </group>
+                <field name="sub_topic_lines">
+                    <tree editable="bottom" create="false">
+                        <field name="name"/>
+                        <field name="topic"/>
+                        <field name="subject"/>
+                        <field name="course"/>
+                    </tree>
+                </field>
+                <div style="text-align:center;">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.sub_topic_single_mode_action)d"
+                            context="{'default_academic_year': academic_year,
+                                  'default_institution_type': institution_type,}"/>
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left:10px"
+                            name="%(pappaya_academic_management.sub_topic_batch_view_addition_action)d"/>
+
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sub_topic_batch_view_only_action" model="ir.actions.act_window">
+        <field name="name">Area</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">subtopic.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="sub_topic_batch_view_sub_menu"
+          name="Topic Wise Sub Topic"
+          parent="academic_main_menu"
+          sequence="170"
+          action="sub_topic_batch_view_only_action"/>
+
+</odoo>

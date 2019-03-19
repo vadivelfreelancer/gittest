@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+    	
+        <record id="view_lead_stud_address_tree" model="ir.ui.view">
+            <field name="name">pappaya.lead.stud.address.tree</field>
+            <field name="model">pappaya.lead.stud.address</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Leads">
+                	<field name="record_id"/>
+                	<field name="sequence"/>
+                    <field name="name"/>
+                    <field name="mobile"/>
+                    <field name="studying_course_id"/>
+                    <field name="branch_id"/>
+                    <field name="employee_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_lead_stud_address_form" model="ir.ui.view">
+            <field name="name">pappaya.lead.stud.address.form</field>
+            <field name="model">pappaya.lead.stud.address</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Leads">
+                	<header>
+                		<field name="status" widget="statusbar"/>
+                		<button string="Validate" type="object" name="validate" class="oe_highlight" attrs="{'invisible':[('status','=','valid')]}"/>
+                		<button string="Reset" type="object" name="reset" class="oe_highlight" attrs="{'invisible':[('status','=','invalid')]}"/> 
+                	</header>
+                    <sheet>
+	            		<div class="oe_title">
+	            			<h1>
+	            				<field name="sequence" readonly="1"/>
+	            			</h1>
+	            		</div>
+                    	<group>
+	                        <group>
+	                        	<field name="payroll_branch_id" options="{'no_open':True, 'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>
+	                        	<field name="branch_id" domain="[('type','=','branch')]" required="1" options="{'no_open':True, 'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>
+	                        	<field name="name" required="1" attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="father_name" attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="mobile" required="1" attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="studying_course_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <!-- <field name="gender" widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('status','=','valid')]}"/> -->
+	                        	<field name="studying_school_name" attrs="{'readonly':[('status','=','valid')]}"/>
+	                        	
+                        		<field name="state_id"  required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>
+                        		<field name="district_id"  required="1" domain="[('state_id','=',state_id)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>    
+	                        </group>
+	                        <group>
+	                            <field name="employee_id" domain="[('user_id.pro_user','=',True),('payroll_branch_id','=',payroll_branch_id)]" options="{'no_open': True,'no_create':True}" required="1"
+	                            		attrs="{'readonly':[('status','=','valid')]}"/>
+	                        	<field name="academic_year_id" invisible="1" attrs="{'readonly':[('status','=','valid')]}"/>
+	                        	<field name="pro_payroll_state" readonly="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>
+	                        
+	                        
+                        		<field name="location_type"  widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('status','=','valid')]}"/>
+                        		<field name="city" attrs="{'invisible':[('location_type','=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="ward" attrs="{'invisible':[('location_type','=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="area" attrs="{'invisible':[('location_type','=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="mandal" attrs="{'invisible':[('location_type','!=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="village" attrs="{'invisible':[('location_type','!=','rural')], 'readonly':[('status','=','valid')]}"/>	                        
+	                        	<field name="pincode" />
+	                        
+	                        
+	                        </group>
+                        </group>
+<!--                         <group>
+                        	<group string="Student Resident Address">
+                        		<field name="location_type"  widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('status','=','valid')]}"/>
+                        		<field name="city" attrs="{'invisible':[('location_type','=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="ward" attrs="{'invisible':[('location_type','=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="area" attrs="{'invisible':[('location_type','=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="mandal" attrs="{'invisible':[('location_type','!=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        		<field name="village" attrs="{'invisible':[('location_type','!=','rural')], 'readonly':[('status','=','valid')]}"/>
+                        	</group>
+                        	<group string="Studying School Address">
+                        		<field name="studying_school_name" attrs="{'readonly':[('status','=','valid')]}"/>
+                        	</group>
+                        	
+                        	<group string="Student Resident Address">
+                        		<field name="location_type"  widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('status','=','valid')]}"/>
+                        		<field name="state_id"  options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="district_id"  domain="[('state_id','=',state_id)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','valid')]}"/>
+								
+								<field name="mandal_id" domain="[('district_id','=',district_id)]" attrs="{'invisible':[('location_type','!=','rural')], 'readonly':[('status','=','valid')]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="village_id" domain="[('mandal_id','=',mandal_id)]" attrs="{'invisible':[('location_type','!=','rural')], 'readonly':[('status','=','valid')]}" options="{'no_open': True,'no_create':True}"/>								
+									                            
+	                            <field name="city_id" domain="[('district_id','=',district_id)]" attrs="{'invisible':[('location_type','!=','urban')], 'readonly':[('status','=','valid')]}" options="{'no_open': True,'no_create':True}"/>
+	                            <field name="ward_id" domain="[('city_id','=',city_id)]" attrs="{'invisible':[('location_type','!=','urban')], 'readonly':[('status','=','valid')]}" options="{'no_open': True,'no_create':True}"/>
+	                            <field name="area_id" domain="[('ward_id','=',ward_id)]" attrs="{'invisible':[('location_type','!=','urban')], 'readonly':[('status','=','valid')]}" options="{'no_open': True,'no_create':True}"/>
+	                            <field name="pincode" attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="file_name" invisible="1"/>
+                        	</group>
+                        	<group string="Studying School Address">
+                        		<field name="school_state_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="school_district_id" domain="[('state_id','=',school_state_id)]" options="{'no_open': True,'no_create':True}" required="1"
+	                            		attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="school_mandal_id" required="1" domain="[('district_id','=',school_district_id)]" options="{'no_open': True,'no_create':True}"
+	                            		attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="lead_school_id" required="1" options="{'no_open':True, 'no_create':True}" domain="[('mandal_id','=',school_mandal_id)]"
+	                            		attrs="{'readonly':[('status','=','valid')]}"/>
+	                            <field name="studying_school_name" invisible="1" attrs="{'readonly':[('status','=','valid')]}"/>
+                        	</group>
+                        	
+                        	
+                        </group> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_lead_stud_address_search" model="ir.ui.view">
+            <field name="name">pappaya.lead.stud.address.search</field>
+            <field name="model">pappaya.lead.stud.address</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Leads">
+                    <field name="name"/>
+                    <field name="father_name"/>
+                    <field name="mobile"/>
+                    <field name="studying_school_name"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    	<filter name="group_by_file_name" string="Imported File Name" context="{'group_by':'file_name'}"/>
+                        <!-- <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/> -->
+                        <filter name="group_by_status" string="Status" context="{'group_by':'status'}"/>
+                        <filter name="group_by_location_type" string="Location Type" context="{'group_by':'location_type'}"/>
+                        <separator />
+                        <filter name="group_by_employee_id" string="PRO Employee" context="{'group_by':'employee_id'}"/>
+                        <separator />
+                        <filter name="group_by_state_id" string="State" context="{'group_by':'state_id'}"/>
+                        <filter name="group_by_district_id" string="District" context="{'group_by':'district_id'}"/>
+                        <filter name="group_by_city" string="City" context="{'group_by':'city'}"/>
+                        <filter name="group_by_ward" string="Ward" context="{'group_by':'ward'}"/>
+                        <filter name="group_by_area" string="Area" context="{'group_by':'area'}"/>
+                        <filter name="group_by_mandal" string="Mandal" context="{'group_by':'mandal'}"/>
+                        <filter name="group_by_village" string="Village" context="{'group_by':'village'}"/>
+                        <separator />
+<!--                         <filter name="group_by_school_state_id" string="School State" context="{'group_by':'school_state_id'}"/>
+                        <filter name="group_by_school_district_id" string="School District" context="{'group_by':'school_district_id'}"/>
+                        <filter name="group_by_school_mandal_id" string="School Mandal" context="{'group_by':'school_mandal_id'}"/> -->
+                    
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_open_lead_stud_address_view">
+            <field name="name">Student Address</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.lead.stud.address</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_lead_stud_address_search"/>
+            <field name="domain">{}</field>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Student Address.
+				</p>
+			</field>
+        </record>
+        
+        <!-- Editable tree view -->
+        
+        <record id="view_student_address_editable_tree" model="ir.ui.view">
+            <field name="name">view.student.address.editable.tree</field>
+            <field name="model">pappaya.lead.stud.address</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Address" editable="top" create="false" class="stud_lead_editable_tree">
+                	<field name="employee_id" options="{'no_open':True,'no_create':True}" required="1"/>
+                	<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open':True,'no_create':True}" required="1"/>
+                    <field name="name" required="1"/>
+                    <field name="mobile" required="1"/>
+                    <field name="studying_course_id" options="{'no_open':True,'no_create':True}" required="1"/>
+
+<!--                <field name="school_state_id" options="{'no_open':True,'no_create':True}" required="1"/>
+                    <field name="school_district_id" options="{'no_open':True,'no_create':True}" required="1"/>
+                    <field name="school_mandal_id" options="{'no_open':True,'no_create':True}" required="1"/>
+                    <field name="lead_school_id" options="{'no_open':True,'no_create':True}" required="1"/> -->
+                    <!-- Non Mandatory -->
+                    
+                    <field name="father_name"/>
+                    <!-- <field name="gender"/> -->
+                    <field name="location_type"/>
+                    <field name="state_id" required="1" options="{'no_open':True,'no_create':True}"/>
+                    <field name="district_id" required="1" options="{'no_open':True,'no_create':True}"/>
+                    <field name="city" attrs="{'readonly':[('location_type','!=','urban')]}"/>
+                    <field name="ward" attrs="{'readonly':[('location_type','!=','urban')]}"/>
+                    <field name="area" attrs="{'readonly':[('location_type','!=','urban')]}"/>
+                    <field name="mandal" attrs="{'readonly':[('location_type','=','urban')]}"/>
+                    <field name="village" attrs="{'readonly':[('location_type','=','urban')]}"/>
+                    
+<!--                <field name="city_id" options="{'no_open':True,'no_create':True}"/>
+                    <field name="ward_id" options="{'no_open':True,'no_create':True}"/>
+                    <field name="area_id" options="{'no_open':True,'no_create':True}"/>
+                    <field name="mandal_id" options="{'no_open':True,'no_create':True}"/>
+                    <field name="village_id" options="{'no_open':True,'no_create':True}"/> -->
+                    
+                    <field name="pincode" />
+                    <field name="file_name" invisible="1"/>
+                    <button string="Validate" name="validate" type="object" class="oe_highlight"/>  
+                </tree>
+            </field>
+        </record>        
+        
+        <record model="ir.actions.act_window" id="act_view_student_address_editable_tree">
+            <field name="name">Invalid Student Address</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.lead.stud.address</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_student_address_editable_tree"/>
+			<field name="domain">[('status','=','invalid')]</field>          
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					No invalid lead student records found.
+				</p>
+			</field>
+        </record>
+        
+        <!-- Action Validate for multi -->
+        
+        <record id="action_multi_validate_stud_address" model="ir.actions.server">
+            <field name="name">Validate</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_pappaya_lead_stud_address"/>
+            <field name="binding_model_id" ref="model_pappaya_lead_stud_address"/>
+            <field name="code">
+					records.validate()
+            </field>
+        </record>        
+        
+    </data>
+</odoo>

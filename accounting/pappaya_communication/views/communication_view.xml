@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>          
+        <record id="view_communication_master_tree" model="ir.ui.view">
+            <field name="name">pappaya.communication.master.tree</field>
+            <field name="model">pappaya.communication.master</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Communication Master">
+		    <field name="branch" />
+		    <field name="building_id" />
+		    <field name="floor_id" />
+		    <field name="name" />
+		    <field name="communication_no" />
+		    <field name="material_user" />
+		    <field name="connection_type" />
+		    <field name="service_provider" />
+		    <field name="billing_duration" />
+		    <field name="billing_due_date_gap" />
+		    <field name="tds_percentage" />
+		    <field name="state" />
+                </tree>
+            </field>
+        </record>
+	
+        <record id="view_communication_master_form" model="ir.ui.view">
+            <field name="name">pappaya.communication.master.form</field>
+            <field name="model">pappaya.communication.master</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Communication Master">
+		    <header groups="base.group_user">
+                        <button name="act_zonal_approval" states="draft" type="object" string="Zonal Approval" />
+                        <button name="act_rfo_approval" states="zonal_approval" type="object" string="RFO Approval" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,zonal_approval,rfo_approval" />
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="branch" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <field name="building_id" options="{'no_open': True,'no_create':True}" required="1"/>
+			    <field name="floor_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <field name="name" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <field name="communication_no" required="1"/>
+                            <field name="material_user" required="1"/>
+                            <field name="connection_type" required="1"/>
+                            <field name="service_provider" required="1"/>
+                            <field name="billing_duration" required="1"/>
+                            <field name="billing_due_date_gap" required="1"/>
+                            <field name="tds_percentage" />
+			    <field name="state_active" widget="radio" options="{'horizontal': true}"/>
+			</group>
+			
+			<notebook>
+			    <page string=" Add account Number And Centrex To Communication Number" autofocus="autofocus">
+				<group col="2">
+				    <field name="appex"/>
+	                        </group>
+			    </page>
+			    
+			    <page string="Communication Group No's Mapping" autofocus="autofocus">
+				<group>
+				    <field name="communication_group" nolable="1">
+					<tree bottom="editable">
+					    <field name="communication"/>
+					    <field name="payroll_branch"/>
+					    <field name="employee_id"/>
+					    <field name="payment_type"/>
+					    <field name="pay_amount"/>
+					</tree>
+				    </field>
+				</group>
+			    </page>
+			    
+			    <page string="Broad Band Details" autofocus="autofocus">
+				<group col="4">
+				    <field name="plan_type"/>
+				    <field name="plan_name"/>
+				    <field name="down_speed"/>	
+				    <field name="down_limit"/>
+				    <field name="beyond_down"/>
+				    <field name="monthly_charges"/>
+				    <field name="additional_charges"/>
+				    <field name="is_night"/>
+				    <field name="static_ip_cost"/>
+	                        </group>
+			    </page>
+			    
+			    <page string="Centrex GST Details" autofocus="autofocus">
+				<group col="4">
+				    <field name="centrex_name" />
+				    <field name="centrex_status" />
+				    <field name="centrex_pan_no" />
+				    <field name="centrex_name_of_pan" />
+				</group>
+			    </page>
+			    
+			    <page string="Communication's GST" autofocus="autofocus">
+				<group col="4">
+				    <field name="communication_status" />
+				    <field name="pan_no" />
+				    <field name="name_of_pan" />
+				</group>
+			    </page>
+			</notebook> 
+                    </sheet>
+                </form>
+            </field>
+        </record>
+	
+	<record id="view_communication_master_search" model="ir.ui.view">
+            <field name="name">pappaya.communication.master.search</field>
+            <field name="model">pappaya.communication.master</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Communication Master">
+		    <field name="branch" />
+		    <field name="building_id" />
+		    <field name="floor_id" />
+		    <field name="name" />
+		    <field name="communication_no" />
+		    <field name="material_user" />
+		    <field name="connection_type" />
+		    <field name="service_provider" />
+		    <field name="billing_duration" />
+		    <field name="billing_due_date_gap" />
+		    <field name="tds_percentage" />
+		    <field name="state" />
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_open_communication_master_view">
+            <field name="name">Communication Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.communication.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_communication_master_search" />
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+	
+    </data>
+
+
+</odoo>

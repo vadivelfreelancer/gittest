@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <!--Material Masters -> Material Set-->
+
+        <record id="view_material_set_tree" model="ir.ui.view">
+            <field name="name">material.set.tree</field>
+            <field name="model">material.set</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Material set">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_material_set_form" model="ir.ui.view">
+            <field name="name">material.set.form</field>
+            <field name="model">material.set</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Material set">
+                <sheet>
+                    <group col="2" colspan="2">
+                        <field name="name" select="1" required="1"/>
+                    </group>
+                    <separator string="Material Item"/>
+                    <group>
+                        <field name="set_line_ids">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="product_set_id" invisible="1"/>
+                                <field name="product_template_id" options="{'no_open': True, 'no_create': True}" required="1" domain="[('select_type','=','product')]"/>
+                                <field name="product_variant_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="product_id" domain="[('select_type','=','product')]" options="{'no_open': True, 'no_create': True}" invisible="1"/>
+                                <field name="quantity" required="1"/>
+                                <field name="price" required="1"/>
+                                <field name="total_price"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="product_template_id" options="{'no_open': True, 'no_create': True}" required="True" domain="[('select_type','=','product')]"/>
+                                    <field name="product_variant_ids"  widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="product_id" domain="[('select_type','=','product')]" options="{'no_open': True, 'no_create': True}" invisible="1"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                    <field name="total_price"/>
+                                </group>
+                            </form>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right" colspan="2">
+                            <field name="total_material_price" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_material_set_search" model="ir.ui.view">
+            <field name="name">material.set.search</field>
+            <field name="model">material.set</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Material set">
+                    <field name="name" select="True"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_material_set_view">
+            <field name="name">Material set</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">material.set</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_material_set_search"/>
+        </record>
+
+        <!--Material-->
+
+        <record id="view_material_template_tree" model="ir.ui.view">
+            <field name="name">product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Material">
+                    <field name="name" string="Material Name"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_material_template_form" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Material">
+                    <sheet>
+                        <field name='product_variant_count' invisible='1'/>
+                        <field name='is_product_variant' invisible='1'/>
+                        <field name="id" invisible="True"/>
+                        <field name="image_medium" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Material Name"/>
+                            <h2><field name="name" placeholder="Material Name"/></h2>
+                            <div name="options" invisible="1">
+                                <div>
+                                    <field name="sale_ok"/>
+                                    <label for="sale_ok"/>
+                                </div>
+                                <div>
+                                    <field name="purchase_ok"/>
+                                    <label for="purchase_ok"/>
+                                </div>
+                            </div>
+                        </div>
+                        <group>
+                            <group invisible="1">
+                                <field name="lst_price" string="Material Price" invisible="1"/>
+                                <field name="company_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                <field name="select_type" invisible="1"/>
+                                <field name="type" invisible="1"/>
+                                <field name="categ_id" string="Category" invisible="1"/>
+                            </group>
+                            <group invisible="1">
+                                <field name="property_account_income_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                <field name="property_account_expense_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                            </group>
+                            <separator string="Variants"/>
+                            <field name="attribute_line_ids" widget="one2many_list" context="{'show_attribute': False}">
+                                <tree string="Variants" editable="bottom">
+                                    <field name="attribute_id" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="value_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" domain="[('attribute_id', '=', attribute_id)]" context="{'default_attribute_id': attribute_id}"/>
+                                </tree>
+                                <form string="Variants">
+                                    <group colspan="4" col="4">
+                                        <field name="attribute_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                        <field name="value_ids" widget="many2many_tags"
+                                               options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <separator string="Description"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_material_template_search" model="ir.ui.view">
+            <field name="name">product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Material">
+                    <field name="name" select="True"/>
+                    <group expand="0" string="Group By">
+                        <filter name="name" string="Material" domain="[]" context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="material_template_action" model="ir.actions.act_window">
+            <field name="name">Material</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('select_type','=','product')]</field>
+            <field name="context">{"default_select_type":'product'}</field>
+            <field name="search_view_id" ref="view_material_template_search"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+                        (0, 0, {'view_mode': 'tree', 'view_id': ref('view_material_template_tree')}),
+                        (0, 0, {'view_mode': 'form', 'view_id': ref('view_material_template_form')})]" />
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new Material.
+              </p>
+            </field>
+        </record>
+
+        <!--Material Variant-->
+
+        <record id="view_material_variant_tree" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+             <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Material Variant" create="0">
+                    <field name="name" string="Material Name"/>
+                    <field name="attribute_value_ids" widget="many2many_tags" string="Variants"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_material_variant_form" model="ir.ui.view">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Material" create="0" edit="0">
+                    <sheet>
+                        <field name='product_variant_count' invisible='1'/>
+                        <field name='is_product_variant' invisible='1'/>
+                        <field name="id" invisible="True"/>
+                        <field name="image_medium" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Material Name"/>
+                            <h2><field name="name" placeholder="Material Name"/></h2>
+                            <field name="attribute_value_ids" widget="many2many_tags" readonly="1" invisible="1"/>
+                            <div name="options" invisible="1">
+                                <div>
+                                    <field name="sale_ok"/>
+                                    <label for="sale_ok"/>
+                                </div>
+                                <div>
+                                    <field name="purchase_ok"/>
+                                    <label for="purchase_ok"/>
+                                </div>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="lst_price" string="Material Price" invisible="1"/>
+                                <field name="attribute_value_ids" widget="many2many_tags" string="Variants"/>
+                                <field name="description"/>
+                                <field name="company_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                <field name="select_type" invisible="1"/>
+                                <field name="type" invisible="1"/>
+                                <field name="categ_id" string="Category" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="property_account_income_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                                <field name="property_account_expense_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_material_variant_search" model="ir.ui.view">
+            <field name="name">product.product.search</field>
+            <field name="model">product.product</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Material Variant">
+                    <field name="name" select="True"/>
+                    <group expand="0" string="Group By">
+                        <filter name="name" string="Material" domain="[]" context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="material_variant_action" model="ir.actions.act_window">
+            <field name="name">Material Variants</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('select_type','=','product')]</field>
+            <field name="context">{"default_select_type":'product'}</field>
+            <field name="search_view_id" ref="view_material_variant_search"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+                            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_material_variant_tree')}),
+                            (0, 0, {'view_mode': 'form', 'view_id': ref('view_material_variant_form')})]"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new Material Variants.
+              </p>
+            </field>
+        </record>
+
+        <!-- Material Master -> Configuration -> Attributes-->
+
+        <record id="pappaya_attribute_tree_view" model="ir.ui.view">
+            <field name="name">product.attribute.tree</field>
+            <field name="model">product.attribute</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="create_variant"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pappaya_attribute_action" model="ir.actions.act_window">
+            <field name="name">Attributes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.attribute</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="pappaya_attribute_tree_view"/>
+        </record>
+
+        <!-- Material Master -> Configuration -> Attribute Values-->
+
+        <record id="pappaya_attribute_values_tree_view" model="ir.ui.view">
+            <field name="name">product.attribute.value.tree</field>
+            <field name="model">product.attribute.value</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="attribute_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pappaya_attribute_values_action" model="ir.actions.act_window">
+            <field name="name">Attribute Values</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.attribute.value</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="pappaya_attribute_values_tree_view"/>
+        </record>
+
+    </data>
+</odoo>

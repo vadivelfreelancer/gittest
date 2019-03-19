@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="attendance_type_form_view" model="ir.ui.view">
+        <field name="name">attendance.type.form.view</field>
+        <field name="model">attendance.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="academic_year"/>
+                    </group>
+                    <group>
+                        <field name="institution_type"/>
+                    </group>
+                </group>
+                <separator string="Attendance Details"/>
+                <field name="attendance_type_line">
+                    <tree editable="bottom">
+                        <field name="attendance_type"/>
+                        <field name="description"/>
+                    </tree>
+                </field>
+
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.attendance_type_single_action)d"
+                            />
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left:10px"
+                            name="%(pappaya_academic_management.attendance_type_batch_mode_action)d"
+                    />
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_type_tree_view" model="ir.ui.view">
+        <field name="name">attendance.type.tree.view</field>
+        <field name="model">attendance.type</field>
+        <field name="arch" type="xml">
+            <tree string="Previous Courses">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="attendance_type_menu_action" model="ir.actions.act_window">
+        <field name="name">Attendance Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.type</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="attendance_type_sub_menu"
+              name="Attendance Type"
+              parent="pappaya_academic_management.attendance_sub_menu"
+              sequence="2"
+              action="attendance_type_menu_action"/>
+
+
+</odoo>

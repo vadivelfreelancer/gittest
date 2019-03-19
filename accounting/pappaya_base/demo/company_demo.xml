@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		
+		<!-- Purpose : Changing company data -->
+		<record model="res.company" id="base.main_company">
+			<field name="name">NARAYANA</field>
+			<field name="phone">099667797970</field>
+			<field name="website">http://www.narayanaschools.in</field>
+			<field name="street">160, 2-56/33/15/160 Survey of India, Madhapur(Post)</field>
+			<field name="street2">Near Chanda Naik Nagar Thanda,</field>
+			<field name="city">Hyderabad</field>
+			<field name="zip">500081</field>
+			<field name="country_id" ref="base.in" />
+			<field name="state_id" ref="base.state_in_ts" />
+			<field name="email">info@narayanagroup.com</field>
+			<field name="partner_id" ref="base.main_partner"/>
+			<field name="rml_header1">Narayana Group</field>
+			<field name="currency_id" ref="base.INR" />
+			<field name="logo" type="base64" file="pappaya_base/static/src/img/company_logo.png" />
+			<!-- Other Details -->
+			<field name="external_report_layout">standard</field>
+			<field name="paperformat_id" ref="base.paperformat_us"/>
+			<field name="social_twitter">https://twitter.com/Narayana</field>
+            <field name="social_facebook">https://www.facebook.com/Narayana</field>
+            <field name="social_googleplus">https://plus.google.com/+Narayana</field>
+            <field name="social_linkedin">https://www.linkedin.com/company/Narayana</field>
+            <!-- <field name="resource_calendar_id" ref="resource_calendar_std"/> --> <!-- Use this based on school -->
+			<!-- Newly added fields -->
+			<field name="parent_company" eval="True" />
+			<field name="type">organization</field>
+			<field name="code">NARAYANA</field>
+		</record>
+		
+		<!-- Purpose : Changing Company partner data -->
+		<record model="res.partner" id="base.main_partner">
+            <field name="company_name">NARAYANA</field>
+            <field name="is_company" eval="True"/>
+			<field name="name">Narayana</field>
+			<field name="street">160, 2-56/33/15/160 Survey of India, Madhapur(Post)</field>
+            <field name="city">Hyderabad</field>
+			<field name="zip">500081</field>
+			<field name="state_id" ref="base.state_in_ts" />
+			<field name="country_id" ref="base.in" />
+            <field name="phone"></field>
+            <field name="email">info@narayanagroup.com</field>
+            <field name="website">http://www.narayanaschools.in</field>
+            <field name="image" type="base64" file="base/res/res_company_logo.png"/>
+		</record>
+
+	</data>
+</odoo>

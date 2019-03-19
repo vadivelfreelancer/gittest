@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_work_hours_officetype_tree" model="ir.ui.view">
+			<field name="name">work.hours.officetype.tree</field>
+			<field name="model">work.hours.officetype</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Work Hours">
+					<field name="entity_id" />
+					<field name="office_type_id"/>
+					<field name="employee_type"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_work_hours_officetype_form" model="ir.ui.view">
+			<field name="name">work.hours.officetype.form</field>
+			<field name="model">work.hours.officetype</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Work Hours">
+					<sheet>
+						<group>
+							<group>
+								<field name="entity_id" domain="[('type','=','entity')]" options="{'no_open': True,'no_create':True}"
+									required="1"/>
+								<field name="office_type_id" options="{'no_open': True,'no_create':True}" domain="[('entity_id','=',entity_id)]"
+								 	required="1"/>
+								<field name="employee_type" options="{'no_open':True,'no_create':True}" 
+									required="1"/>
+							</group>
+						</group>
+						<group string="Working Hours" col="4">
+							<div>
+								<label for="start_time"/>
+								<field name="start_time" widget="float_time" class="oe_inline" required="1"/> -
+								<field name="start_duration" class="oe_inline" required="1"/>
+							</div>
+							<div>
+								<label for="end_time"/>
+								<field name="end_time" widget="float_time" class="oe_inline" required="1"/> -
+								<field name="end_duration" class="oe_inline" required="1"/>
+							</div>
+						</group>
+						<separator string="Work Hours Line" colspan="4"/>
+						<field name="work_hours_line">
+							<tree string="Work Hours Line" delete="0" create="0" editable="0">
+								<field name="status_type" readonly="1" force_save="1"/>
+								<field name="min_work_hours"/>
+								<field name="max_work_hours"/>
+							</tree>
+							<form string="Work Hours Line">
+								<group col="4">
+									<field name="status_type"/>
+									<field name="min_work_hours"/>
+									<field name="max_work_hours"/>
+								</group>
+							</form>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_work_hours_officetype_search" model="ir.ui.view">
+			<field name="name">work.hours.officetype.search</field>
+			<field name="model">work.hours.officetype</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Work Hours">
+					<field name="entity_id" />
+					<field name="office_type_id"/>
+					<group expand="0" string="Group By...">
+                        <filter name="group_entity_id" string="Entity" domain="[]" context="{'group_by':'entity_id'}" />
+                        <filter name="group_office_type_id" string="Office Type" domain="[]" context="{'group_by':'office_type_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_work_hours_officetype_view">
+			<field name="name">Work Hours</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">work.hours.officetype</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_entity_id': 1, 'search_default_group_office_type_id': 1}</field>
+			<field name="search_view_id" ref="view_work_hours_officetype_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Work Hours.
+                </p>
+            </field>
+		</record>
+
+
+
+	</data>
+</odoo>

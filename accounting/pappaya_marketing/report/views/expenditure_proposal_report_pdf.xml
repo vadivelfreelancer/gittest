@@ -1,0 +1,174 @@
+<odoo>
+	<data>
+	
+        <template id="pappaya_rep_layout">
+         <!-- Multicompany -->
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <t t-call="pappaya_layout_rep_header"/>
+            <t t-raw="0" />
+        </template>
+        
+        <template id="pappaya_layout_rep_header">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3" style="text-align:center;">
+                        <img t-att-src="'data:image/png;base64,%s' % o['logo']"
+                            style="height:110px; max-height: 130px; width: 110px; max-width: 130px; magin-top:23px; margin-left:20px;"/>
+                    </div>
+                    <div class="col-xs-9">
+                        <div style="font-weight:700;font-size:20px; text-align:center;">
+                            <strong><span t-esc="o['school_id']"/></strong>
+                        </div>
+                        <div style="font-size:14px; text-align:center;">
+                            <span t-esc="o['street']"/>,
+                            <span t-esc="o['street2']"/>,
+                            <span t-esc="o['city']"/> -
+                            <span t-esc="o['zip']"/>
+                        </div>
+                        <div style="font-size:14px; text-align:center;">
+                            P.O BOX: <span t-esc="o['street2']"/>
+                        </div>
+                        <div style="font-size:14px; text-align:center;">
+                            Tel: <span t-esc="o['phone']"/>,
+                            Fax: <span t-esc="o['fax']"/>,
+                            Email: <span t-esc="o['email']"/>
+                        </div>
+                        <div style="font-size:13px; text-align:center;">
+                            Website: <span t-esc="o['website']"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>        
+        
+        
+        <template id="template_expenditure_proposal_pdf">
+             <t t-call="web.html_container">
+             <t t-call="web.internal_layout">
+            <t t-set="data_report_margin_top" t-value="50"/>
+		    <t t-set="data_report_header_spacing" t-value="38"/>
+		    <t t-set="data_report_dpi" t-value="110"/>
+                <t t-foreach="docs" t-as="d">
+                    <div class="page">
+	                    <style>
+	                        .row1 {
+	                            text-align:center;
+	                            font-size:20px;
+	                            border-top:1px solid black;
+	                            padding-top:7px;
+	                            padding-bottom:10px
+	                            }
+	                        .row2 {
+	                            text-align:left;
+	                            font-size:16px;
+	                            padding-bottom:5px
+	                            }
+	                        .table-condensed {
+	                            width:100%;
+	                            border:1px solid black;
+	                            font-size:16px;
+	                            page-break-inside: avoid;
+	                            page-break-after : always;
+	                            white-space: nowrap;
+	                            }
+	                        .result1 td {
+	                            text-align:center;
+	                            vertical-align:middle;
+	                            border-right:1px solid black;
+	                            border-bottom:1px solid black;
+	                            }
+	                        .result2 td {
+	                            text-align:center;
+	                            vertical-align:middle;
+	                            border-right:1px solid black;
+	                            border-bottom:1px solid black;
+	                            }
+	                    </style>                    
+						
+						<div class="row1">
+                        	<strong>NAP Staff Expenditure Report</strong>
+                        </div>
+						
+                    	<table class="table-condensed">
+                    		<thead>
+		                    	<tr class="result1">
+		                    		<td>Sno</td>
+		                    		<td>Division</td>
+		                    		<td>Staff Name</td>
+		                    		<td>Proposed Amt</td>
+		                    		<td>Approved Amt</td>
+		                    		<td>Bank Name</td>
+		                    		<td>Account Number</td>
+		                    		<td>Cheque No</td>
+		                    		<td>Transaction Id</td>
+		                    		<td>Voucher No</td>
+		                    		<td>NAP Status</td>
+		                    		<td>NERP Status</td>
+		                    	</tr>
+                    		</thead>
+	            			<t t-foreach="d._get_expenditure_data()" t-as="rec">
+	            				<tr class="result2">
+	            					 <td><span t-esc="rec['sno']"/></td>
+	            					 <td><span t-esc="rec['division']"/></td>
+	            					 <td><span t-esc="rec['staff_name']"/></td>
+	            					 <td><span t-esc="rec['proposed_amt']"/></td>
+	            					 <td><span t-esc="rec['approved_amt']"/></td>
+	            					 <td><span t-esc="rec['bank_name']"/></td>
+	            					 <td><span t-esc="rec['account_number']"/></td>
+	            					 <td><span t-esc="rec['cheque_no']"/></td>
+	            					 <td><span t-esc="rec['transaction_id']"/></td>
+	            					 <td><span t-esc="rec['voucher_no']"/></td>
+	            					 <td><span t-esc="rec['nap_status']"/></td>
+	            					 <td><span t-esc="rec['nerp_status']"/></td>
+	            				</tr>
+	            			</t>
+	            		</table>
+                    </div>
+               		</t>
+           		</t>
+            </t>
+         </template>
+              
+        <report 
+            id="report_template_expenditure_proposal_pdf"
+            model="expenditure.proposal.report.wizard"
+            string="Expenditure Proposal Report"
+            report_type="qweb-pdf"
+            name="pappaya_marketing.template_expenditure_proposal_pdf"
+            file="pappaya_marketing.template_expenditure_proposal_pdf"
+            attachment_use="False"
+        />
+    
+    
+	<record id="paper_format_common" model="report.paperformat">
+		<field name="name">European A4 - Common</field>
+		<field name="default" eval="True" />
+		<field name="format">A4</field>
+		<field name="page_height">0</field>
+		<field name="page_width">0</field>
+		<field name="orientation">Portrait</field>
+		<field name="margin_top">10</field>
+		<field name="margin_bottom">10</field>
+		<field name="margin_left">10</field>
+		<field name="margin_right">10</field>
+		<field name="header_line" eval="False"/>
+		<field name="header_spacing">35</field>
+		<field name="dpi">80</field>
+	</record>
+
+	<record id="report_template_expenditure_proposal_pdf" model="ir.actions.report">
+		<field name="paperformat_id" ref="paper_format_common"/>
+	</record>
+    
+    
+    
+	</data>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_company_form_inherit" model="ir.ui.view">
+			<field name="name">res.company.form.inherit</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form" />
+			<field name="arch" type="xml">
+				<field name="website" position="attributes">
+					<attribute name="placeholder">e.g. www.pappaya.com</attribute>
+				</field>
+			</field>
+		</record>
+
+		<!-- Purpose: Hiding 'Setting' and 'Apps' menus and showing it only in debug mode -->
+		<record model="ir.ui.menu" id="base.menu_administration">
+			<field name="groups_id" eval="[(6,0, [ref('base.group_no_one')])]" />
+		</record>
+		<record model="ir.ui.menu" id="base.menu_management">
+			<field name="groups_id" eval="[(6,0, [ref('base.group_no_one')])]" />
+		</record>
+		<!-- End -->
+		
+	</data>
+</odoo>

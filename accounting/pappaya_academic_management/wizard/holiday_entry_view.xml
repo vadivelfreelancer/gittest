@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="holiday_entry_form_view" model="ir.ui.view">
+        <field name="name">holiday.entry.form.view</field>
+        <field name="model">holiday.entry</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="academic_year"/>
+                    </group>
+                    <group>
+                        <field name="institution_type"/>
+                    </group>
+                </group>
+                <separator string="Holiday Details(Home)"/>
+                <field name="holiday_entry_line">
+                    <tree editable="bottom">
+                        <field name="holiday_name"/>
+                        <field name="description"/>
+                    </tree>
+                </field>
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.holiday_entry_single_action)d"
+                            />
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left:10px"
+                            name="%(pappaya_academic_management.holiday_entry_batch_mode_action)d"
+                    />
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="holiday_entry_tree_view" model="ir.ui.view">
+        <field name="name">holiday.entry.tree.view</field>
+        <field name="model">holiday.entry</field>
+        <field name="arch" type="xml">
+            <tree string="Previous Courses">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="holiday_entry_menu_action" model="ir.actions.act_window">
+        <field name="name">Holiday Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">holiday.entry</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="holiday_entry_sub_menu"
+          name="Holiday Entry"
+          parent="pappaya_academic_management.attendance_sub_menu"
+          sequence="2"
+          action="holiday_entry_menu_action"/>
+
+
+</odoo>

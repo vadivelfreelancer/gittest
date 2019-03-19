@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="program_incharge_view_form" model="ir.ui.view">
+        <field name="name">program.incharge.batch.view.form</field>
+        <field name="model">program.view</field>
+        <field name="arch" type="xml">
+            <form string="Program Incharge">
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+                </group>
+                <group string="Program Incharge">
+                    <group>
+                        <field name="division"/>
+                        <field name="branch"/>
+                        <field name="search_select"/>
+                        <field name="employee_search"/>
+                    </group>
+                    <group>
+                        <field name="employees"/>
+                        <field name="program_name"/>
+                        <field name="program_description"/>
+                    </group>
+                </group>
+                <field name="program_incharge_lines">
+                    <tree editable="bottom" create="false">
+                        <field name="exam_region"/>
+                        <field name="division_name"/>
+                        <field name="employee_number"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="status"/>
+                    </tree>
+                </field>
+                <div style="text-align:center;">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.program_incharge_single_mode_action)d"
+                            context="{'default_academic_year': academic_year,
+                                  'default_institution_type': institution_type,}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="program_incharge_batch_view_only_action" model="ir.actions.act_window">
+        <field name="name">Program Incharge</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">program.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="program_incharge_batch_view_sub_menu"
+          name="Program Incharge"
+          parent="academic_main_menu"
+          sequence="160"
+          action="program_incharge_batch_view_only_action"/>
+
+</odoo>

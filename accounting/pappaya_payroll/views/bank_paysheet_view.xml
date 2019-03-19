@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_bank_paysheet_tree" model="ir.ui.view">
+			<field name="name">pappaya.bank.paysheet.tree</field>
+			<field name="model">pappaya.bank.paysheet</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Bank Pay Sheet" duplicate="false" delete="false">
+					<field name="date_start"/>
+					<field name="date_end"/>
+					<field name="region_id"/>
+					<field name="state_id"/>
+					<field name="branch_id"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_bank_paysheet_form" model="ir.ui.view">
+			<field name="name">pappaya.bank.paysheet.form</field>
+			<field name="model">pappaya.bank.paysheet</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Bank Pay Sheet" duplicate="false" delete="false">
+					<header>
+						<button name="action_done" string="Submit" type="object" attrs="{'invisible':[('state','!=','draft')]}" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+                        <button name="action_reset" string="Reset" type="object" attrs="{'invisible':[('state','!=','done')]}" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="bank_id" options="{'no_open': True,'no_create':True}" domain="[('is_payroll_bank','=',True)]" required="1" attrs="{'readonly':[('state','!=','draft')]}" context="{'bankid':'bank_id'}"/>
+							</group>
+                            <group>
+                                <label for="date_start" string="Period"/>
+			                    <div>
+									<field name="date_start" class="oe_inline" required="1" attrs="{'readonly':[('state','!=','draft')]}"/> - <field name="date_end" class="oe_inline" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+			                    </div>
+                            </group>
+						</group>
+						<group string="Generate By">
+							<group>
+								<field name="region_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="state_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="district_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+							<group>
+								<field name="entity_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="branch_id" domain="[('parent_id','=',entity_id)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="department_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="designation_id" domain="[('department_id','=',department_id)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+							<group>
+								<label for="salary_range" string="Salary Range" style="font-weight: bold !important;margin-right:1px;margin-left: 0px;min-width: 200px;"/>
+								<div>
+									<field name="operators" style="width:50px" attrs="{'readonly':[('state','!=','draft')]}"/>
+									<field name="salary_range" style="width:200px" attrs="{'readonly':[('state','!=','draft')]}"/>
+								</div>
+							</group>
+						</group>
+
+						<button name="generate_paysheet" string="Generate Paysheet" type="object" class="oe_highlight" states="draft" groups="pappaya_base.payroll_head,pappaya_base.payroll_operation"/>
+						<field name="paysheet_line" readonly="1">
+							<tree string="Paysheet" editable="top" create="0" delete="0">
+								<field name="sequence_no"/>
+								<field name="dated_on"/>
+								<field name="generated_by"/>
+								<field name="filedata" filename="filename" widget="binary"/>
+								<field name="filename" invisible="1"/>
+							</tree>
+							<form string="Paysheet">
+								<group col="4">
+									<field name="sequence_no"/>
+									<field name="dated_on"/>
+									<field name="generated_by" options="{'no_open': True,'no_create':True}"/>
+									<field name="filedata" filename="filename"/>
+									<field name="filename" invisible="1"/>
+								</group>
+							</form>
+						</field>
+
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" invisible="1"/>
+                        <field name="message_ids" widget="mail_thread" invisible="1"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_bank_paysheet_search" model="ir.ui.view">
+			<field name="name">pappaya.bank.paysheet.search</field>
+			<field name="model">pappaya.bank.paysheet</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Bank Pay Sheet">
+					<field name="state_id" />
+					<field name="region_id" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="state" />
+					<group expand="0" string="Group By...">
+                        <filter name="fiscal_year_id" string="Fiscal Year" domain="[]" context="{'group_by':'fiscal_year_id'}" />
+                        <filter name="state_id" string="State" domain="[]" context="{'group_by':'state_id'}" />
+                        <filter name="region_id" string="Region" domain="[]" context="{'group_by':'region_id'}" />
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_pappaya_bank_paysheet_view">
+			<field name="name">Bank Pay Sheet</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.bank.paysheet</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_bank_paysheet_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_bank_paysheet_tree')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_bank_paysheet_form')})]" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Bank Pay Sheet.
+                </p>
+            </field>
+		</record>
+
+       <menuitem id="menu_action_open_pappaya_bank_paysheet_view" parent="hr_payroll.menu_hr_payroll_root" action="action_open_pappaya_bank_paysheet_view"
+				 sequence="-2" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<!-- Travelling Expenditure Proposal -->
+		
+        <record id="view_travelling_expenditure_proposal_form" model="ir.ui.view">
+            <field name="name">view.travelling.expenditure.proposal.form</field>
+            <field name="model">travelling.expenditure.proposal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Travelling Expenditure Proposal">
+            		<header>
+            			<button name="action_proposal" string="Request proposal" class="oe_highlight" 
+            				type="object" states="draft"/> 
+            			<button name="action_approval" string="Approve" class="oe_highlight" 
+            				type="object" states="proposed"/>
+            			<button name="action_reject" string="Reject" class="oe_highlight" 
+            				type="object" states="proposed"/>            				
+            			<button name="action_cancel" string="Cancel" class="oe_highlight" 
+            				type="object" states="proposed,rejected"/>  
+            			<button name="action_reset" string="Reset" class="oe_highlight" 
+            				type="object" states="approved,rejected"/>
+            			<field name="state" widget="statusbar" statusbar_visible="draft,proposed,approved"/>
+            		</header>
+            		<div class="oe_title">
+            			<h1>
+            				<field name="name" readonly="1"/>
+            			</h1>
+            		</div>
+            		<group>
+            			<group>
+            				<field name="proposal_type" widget="radio" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="branch_id" domain="[('type','=','branch')]" attrs="{'readonly':[('state','not in', ['draft'])]}"
+            							options="{'no_open':True,'no_create':True}"/>
+            				<field name="academic_year_id" attrs="{'readonly':[('state','not in', ['draft'])]}"
+            							options="{'no_open':True,'no_create':True}"/>
+            			</group>
+            			<group>
+            				<field name="proposal_date" required="1" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="employee_id" attrs="{'readonly':[('state','not in', ['draft'])]}"
+            							options="{'no_open':True,'no_create':True}"/>
+            				<field name="state_id" attrs="{'readonly':[('state','not in', ['draft'])]}"
+            							options="{'no_open':True,'no_create':True}"/>
+            				<field name="district_id" domain="[('state_id','=',state_id)]" options="{'no_open':True,'no_create':True}"
+            						attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            			</group>
+            		</group>
+            		<notebook>
+            			<page string="Division">
+            				<field name="travelling_expenditure_proposal_line" attrs="{'readonly':[('state','not in', ['draft'])]}">
+	            				<tree editable="bottom">
+	            					<field name="division_id" required="1" options="{'no_open':True, 'no_create': True}"/>
+	            					<field name="amount" required="1"/>
+	            					<field name="state" invisible="1"/>
+	            				</tree>
+            				</field>
+            			</page>
+            		</notebook>
+            		<group class="oe_subtotal_footer oe_right">
+            			<field name="total_amount"/>
+            		</group>
+					<field name="description" class="oe_inline" placeholder="Add a comment ..."/>
+	                <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="activity_ids" widget="mail_activity"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+            	</form>
+            </field>
+        </record>
+
+        <record id="view_travelling_expenditure_proposal_tree" model="ir.ui.view">
+            <field name="name">view.travelling.expenditure.proposal.tree</field>
+            <field name="model">travelling.expenditure.proposal</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Travelling Expenditure Proposal">
+                	<field name="name"/>
+                    <field name="proposal_date"/>
+                    <field name="academic_year_id"/>
+                    <field name="branch_id"/>
+                    <field name="total_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>	
+        
+        <record id="view_travelling_expenditure_proposal_search" model="ir.ui.view">
+            <field name="name">view.travelling.expenditure.proposal.search</field>
+            <field name="model">travelling.expenditure.proposal</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Travelling Expenditure Proposal">
+                    <field name="proposal_date" select="True"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_travelling_expenditure_proposal">
+            <field name="name">Address and Travelling Expenditure Proposal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">travelling.expenditure.proposal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_travelling_expenditure_proposal_tree"/>
+            <field name="search_view_id" ref="view_travelling_expenditure_proposal_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Address and Travelling Expenditure Proposal.
+				</p>
+			</field>
+        </record>
+	
+	</data>
+</odoo>

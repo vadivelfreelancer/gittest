@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_distance_slab_tree" model="ir.ui.view">
+            <field name="name">pappaya.distance.slab.tree</field>
+            <field name="model">pappaya.distance.slab</field>
+            <field name="arch" type="xml">
+                <tree string="Distance Slab" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="name" />
+                    <field name="school_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_distance_slab_form" model="ir.ui.view">
+            <field name="name">pappaya.distance.slab.form</field>
+            <field name="model">pappaya.distance.slab</field>
+            <field name="arch" type="xml">
+                <form string="Distance Slab" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" required="1"/>
+                            </group>
+                            <group>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" required="1" domain="[('type','=','branch')]"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_distance_slab_search" model="ir.ui.view">
+            <field name="name">pappaya.distance.slab.search</field>
+            <field name="model">pappaya.distance.slab</field>
+            <field name="arch" type="xml">
+                <search string="Distance Slab">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                        <filter string="Branch" domain="[]" context="{'group_by':'school_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_distance_slab_form" model="ir.actions.act_window">
+            <field name="name">Distance Slab</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.distance.slab</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_distance_slab_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Distance Slab.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

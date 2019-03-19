@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="new_sub_batch_view_view_form" model="ir.ui.view">
+        <field name="name">new.sub.batch.view.view.form</field>
+        <field name="model">new.subbatch.view</field>
+        <field name="arch" type="xml">
+            <form string="New Sub Batches Details">
+
+                    <group col="4">
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                <group>
+                    <group><field name="sub_batch"/></group>
+                    <group>
+                        <button string="Search" class="oe_highlight" type="action"
+                            name="batch_search">
+                        </button>
+                    </group>
+                </group>
+                    <separator string="New Sub Batch Details"/>
+                    <field name="new_sub_batch_lines">
+                        <tree editable="bottom" create="false">
+                            <field name="name"/>
+                            <field name="sub_batch"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.new_subbtach_single_type_action)d"
+                            context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"/>
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left:10px"
+                            name="%(pappaya_academic_management.new_sub_batch_batch_mode_action)d"
+                            context="{'default_academic_year': academic_year,
+                                       'default_institution_type': institution_type,
+                                       'default_sub_batch':sub_batch}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="new_sub_batch_view_only_action" model="ir.actions.act_window">
+        <field name="name">New Sub Batch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">new.subbatch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+        <menuitem id="new_sub_batch_view_sub_menu"
+              name="New Sub Batch"
+              parent="academic_main_menu"
+              sequence="181"
+              action="new_sub_batch_view_only_action"/>
+
+</odoo>

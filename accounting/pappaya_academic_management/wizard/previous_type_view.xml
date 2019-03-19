@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="previous_type_view_view_form" model="ir.ui.view">
+        <field name="name">previous.type.view.view.form</field>
+        <field name="model">previous.type.view</field>
+        <field name="arch" type="xml">
+            <form string="Previous Course">
+                <!--                <sheet>-->
+                <group>
+                    <group>
+                        <field name="academic_year"/>
+                    </group>
+                    <group>
+                        <field name="institution_type"/>
+                    </group>
+                </group>
+                <separator string="Previous Type"/>
+                <field name="previous">
+                    <tree editable="bottom" create="false">
+                        <field name="name"/>
+                        <field name="description"/>
+                    </tree>
+                </field>
+                <!--                </sheet>-->
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.single_previous_type_action)d"
+                            context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"/>
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left:10px"
+                            name="%(pappaya_academic_management.batch_preview_type_addition_action)d"
+                            context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"
+                    />
+                    <!--                    <button special="cancel" string="Cancel"/>-->
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="previous_type_view_only_action" model="ir.actions.act_window">
+        <field name="name">Previous Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">previous.type.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+</odoo>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_pappaya_master_base" name="Administration" sequence="0"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+        <menuitem name="Academic Year" id="menu_pappaya_academic_year" parent="menu_pappaya_master_base"
+                  action="academic_year_action" sequence="10"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        
+        <menuitem name="Office Type" id="menu_pappaya_master_office_type" parent="menu_pappaya_master_base"
+                  action="action_pappaya_office_type_form" sequence="0"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        
+        <menuitem name="Organizations" id="menu_pappaya_organization" parent="menu_pappaya_master_base" sequence="20"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <!-- <menuitem name="Organization Hierarchy Chart" id="pappaya_org_chart_organization.menu_org_chart_department" action="pappaya_org_chart_organization.action_org_chart_department" parent="menu_pappaya_organization" sequence="0"/> -->
+        <menuitem name="Organization" id="menu_pappaya_master_organization" parent="menu_pappaya_organization"
+                  action="action_main_organization_view" sequence="1"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Entities" id="menu_action_operating_unit_entity" parent="menu_pappaya_organization"
+                  action="action_operating_unit_entity" sequence="2"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Branch" id="menu_action_operating_unit_branch" parent="menu_pappaya_organization"
+                  action="action_operating_unit_branch" sequence="3"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Building" id="menu_action_operating_unit_building" parent="menu_pappaya_organization"
+                  action="action_operating_unit_building" sequence="4"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <!-- <menuitem name="Payroll Branch" id="menu_pappaya_master_payroll_branch" parent="menu_pappaya_organization" action="action_pappaya_payroll_branch" sequence="6" groups="pappaya_base.marketing_pro_admin"/> -->
+
+        <menuitem name="Users" id="menu_pappaya_base_users" parent="menu_pappaya_master_base" sequence="30"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+        <menuitem name="Users" id="menu_pappaya_users_configuration" parent="menu_pappaya_base_users"
+                  action="pappaya_users_action" sequence="1"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+
+        <menuitem name="Masters" id="menu_pappaya_configurations_root" sequence="1"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <!-- <menuitem name="Geo Location" id="menu_geo_location_configuration" parent="menu_pappaya_configurations_root" sequence="10" groups="base.group_erp_manager"/>
+            <menuitem name="Country" id="menu_pappaya_country_configuration" parent="menu_geo_location_configuration" action="action_pappaya_country_view" sequence="-5" />
+            <menuitem name="State" id="menu_pappaya_country_state_configuration" parent="menu_geo_location_configuration" action="action_pappaya_country_state_view" sequence="-1" />
+            <menuitem name="Region" id="menu_pappaya_action_pappaya_region_view" parent="menu_geo_location_configuration" action="action_pappaya_region_view" sequence="1" />
+            <menuitem name="District" id="menu_pappaya_state_district_configuration" parent="menu_geo_location_configuration" action="action_state_district_action_view" sequence="2" />
+            <menuitem name="Cluster" id="menu_pappaya_master_cluster" parent="menu_geo_location_configuration" action="act_open_pappaya_cluster_view" sequence="8"/>
+            <menuitem name="Division" id="menu_pappaya_division" parent="menu_geo_location_configuration" action="action_pappaya_division_view" sequence="9"/>
+            <menuitem name="Zone" id="menu_pappaya_master_zone" parent="menu_geo_location_configuration" sequence="10" action="act_open_pappaya_zone_view"/>
+            <menuitem name="City" id="menu_city_configuration" parent="pappaya_base.menu_geo_location_configuration" action="action_pappaya_city_view" sequence="3"/>
+            <menuitem name="Ward" id="menu_ward_configuration" parent="pappaya_base.menu_geo_location_configuration" action="action_pappaya_ward_view" sequence="4"/>
+            <menuitem name="Area" id="menu_area_configuration" parent="pappaya_base.menu_geo_location_configuration" action="action_pappaya_area_view" sequence="5"/>
+            <menuitem name="Mandal" id="menu_mandal_configuration" parent="pappaya_base.menu_geo_location_configuration" action="action_pappaya_mandal_marketing_view" sequence="6"/>
+            <menuitem name="Village" id="menu_village_configuration" parent="pappaya_base.menu_geo_location_configuration" action="action_pappaya_village_view" sequence="7"/>
+            <menuitem name="Region" id="menu_pappaya_master_additional_region" parent="pappaya_base.menu_geo_location_configuration" action="action_pappaya_additional_region_form" sequence="52"/> -->
+
+        <menuitem name="HR Masters" id="menu_hr_masters" parent="menu_pappaya_configurations_root" sequence="20"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="State" id="menu_pappaya_country_state_hr_masters" parent="menu_hr_masters"
+                  action="action_pappaya_country_state_view" sequence="-10"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Region" id="menu_pappaya_action_pappaya_region_hr_masters" parent="menu_hr_masters"
+                  action="action_pappaya_region_view" sequence="-9"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="District" id="menu_pappaya_state_district_hr_masters" parent="menu_hr_masters"
+                  action="action_state_district_action_view" sequence="-8"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="City" id="menu_city_hr_masters" parent="menu_hr_masters" action="action_pappaya_city_view"
+                  sequence="-7" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+
+        <menuitem name="Fiscal Year" id="menu_pappaya_fiscal_year" parent="menu_hr_masters" action="fiscal_year_action"
+                  sequence="-5" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Employee ID Sequence" id="menu_pappaya_meta_data_master_action" parent="menu_hr_masters"
+                  action="meta_data_master_action" sequence="-1"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <!--<menuitem name="Department Master" id="menu_hr_department_master_action" parent="menu_hr_masters" action="action_hr_department_name_form" sequence="0"/>-->
+        <menuitem name="Stream" id="menu_pappaya_master_stream" parent="menu_hr_masters"
+                  action="action_pappaya_stream_form" sequence="10"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Class" id="menu_pappaya_master_class" parent="menu_hr_masters"
+                  action="action_pappaya_class_form" sequence="30"/>
+        <menuitem name="Subject" id="menu_pappaya_master_subject" parent="menu_hr_masters"
+                  action="action_pappaya_subject_form" sequence="35"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Statutory Requirements" id="menu_statutory_requirments" parent="menu_hr_masters"
+                  action="pappaya_base.open_action_view_statutory_requirment" sequence="36"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Residential Type" id="menu_residential_type" parent="menu_hr_masters"
+                  action="open_action_residential_type" sequence="40"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Gender" id="menu_pappaya_gender_view" parent="menu_hr_masters"
+                  action="pappaya_base.open_action_pappaya_gender" sequence="45"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="School/College" id="menu_branch_type" parent="menu_hr_masters"
+                  action="pappaya_base.open_action_view_branch_type_tree" sequence="46"/>
+        <menuitem name="Staff Type Hierarchy" id="menu_action_staff_type_hierarchy" parent="menu_hr_masters"
+                  action="pappaya_base.action_staff_type_hierarchy" sequence="47"/>
+        <menuitem id="work_hours_officetype_view" parent="pappaya_base.menu_hr_masters"
+                  action="pappaya_base.act_open_work_hours_officetype_view" name="Work Hours"
+                  sequence="3" groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+
+        <menuitem name="Attendance History Table" id="menu_action_attendance_histrory_table" parent="menu_hr_masters"
+                  action="pappaya_base.action_attendance_histrory_table" sequence="48"/>
+
+        <menuitem name="Course Masters" id="menu_pappaya_course_masters" parent="menu_pappaya_configurations_root" sequence="25"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+
+        <menuitem name="Segment" id="menu_pappaya_master_segment" parent="menu_pappaya_course_masters"
+                  action="action_pappaya_segment_form" sequence="9"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Course" id="menu_pappaya_master_course" parent="menu_pappaya_course_masters"
+                  action="act_open_pappaya_course_view" sequence="10"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Group" id="menu_pappaya_master_group" parent="menu_pappaya_course_masters"
+                  action="act_open_pappaya_curriculam_group_view" sequence="11"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Batch" id="menu_pappaya_master_batch" parent="menu_pappaya_course_masters"
+                  action="act_open_pappaya_batch_view" sequence="21"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Programme" id="menu_pappaya_master_programme" parent="menu_pappaya_course_masters"
+                  action="action_pappaya_programme_form" sequence="27"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Package" id="menu_pappaya_master_package" parent="menu_pappaya_course_masters"
+                  action="act_open_pappaya_package_view" sequence="28"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="CGB Program" id="menu_pappaya_master_program" parent="menu_pappaya_course_masters"
+                  action="act_open_pappaya_course_program_view" sequence="28"
+                  groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="CGB Package" id="menu_pappaya_master_course_package" parent="menu_pappaya_course_masters"
+                  action="act_open_pappaya_course_package_view" sequence="30"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+
+        <menuitem name="Bank Masters" id="menu_pappaya_bank_masters" parent="menu_pappaya_configurations_root"
+                  sequence="52"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Banks" id="menu_pappaya_res_bank" parent="menu_pappaya_bank_masters"
+                  action="base.action_res_bank_form" sequence="10"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants,pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+        <menuitem name="Bank Account Branch" id="pappaya_bank_account_branch_id" parent="menu_pappaya_bank_masters"
+                  action="action_bank_account_branch_view" sequence="20"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Bank Accounts" id="menu_pappaya_res_partner_bank" parent="menu_pappaya_bank_masters"
+                  action="base.action_res_partner_bank_account_form" sequence="30"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Pay Mode" id="pappaya_pay_mode_menu_id" parent="menu_pappaya_bank_masters"
+                  action="action_pappaya_paymode_form" sequence="40"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Bank Machine" id="pappaya_bank_machine_id" parent="menu_pappaya_bank_masters"
+                  action="action_bank_machine_view" sequence="50"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+        <menuitem name="Operating Unit Type" id="menu_pappaya_operating_unit_type"
+                  parent="menu_pappaya_configurations_root" action="action_operating_unit_type" sequence="80"
+                  groups="pappaya_base.pappaya_group_hidden"/>
+        <menuitem name="Other Masters" id="menu_pappaya_global_master" parent="menu_pappaya_configurations_root"
+                  action="action_pappaya_global_master_form" sequence="90"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <template id="template_address_collection">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pappaya_base.report_custom_layout">
+                        <div class="page">
+                            <style>
+                                .row1 {
+                                    text-align:center;
+                                    font-size:17px;
+                                    padding-top:20px;
+                                    padding-bottom:20px
+                                    }
+                                .table-condensed1 {
+                                    width:100%;
+                                    text-align:center;
+                                    border:1px solid black;
+                                    font-size:12px;
+                                    }
+                                .result1 td {
+                                    text-align:center;
+                                    border-bottom:1px solid black;
+                                    font-size:12px
+                                    }
+                            </style>
+                            <!--Branch Report-->
+                            <t t-if="o.report_type == 'branch'">
+                                <div class="row1">
+                                    <strong>BRANCH REPORT</strong>
+                                </div>
+                                <div>
+                                    <table class="table-condensed1">
+                                        <thead>
+                                            <tr>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:5%"><strong>S.No</strong></td>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:20%"><strong>BRANCH NAME</strong></td>
+                                                <t t-if="o.is_classwise == True or o.course_ids">
+                                                    <t t-foreach="o.get_course()" t-as="c">
+                                                        <td style="border-right:1px solid black;border-bottom:1px solid black;width:auto"><strong><span t-esc="c['course_name']"/></strong></td>
+                                                    </t>
+                                                     <td style="border-bottom:1px solid black;width:15%"><strong>ADDRESS COUNT</strong></td>
+                                                </t>
+                                                <t t-if="o.is_classwise == False and not o.course_ids">
+                                                    <td style="border-right:1px solid black;border-bottom:1px solid black;width:15%"><strong>ADDRESS COUNT</strong></td>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="o.get_branch_data()" t-as="b">
+                                                <tr class="result1">
+                                                    <td style="border-right:1px solid black;"><span t-esc="b['s_no']"/></td>
+                                                    <td style="border-right:1px solid black;"><span t-esc="b['branch_name']"/></td>
+                                                    <t t-if="o.is_classwise == True or o.course_ids">
+                                                        <t t-foreach="b['course']" t-as="c">
+                                                            <td style="border-right:1px solid black;"><span t-esc="c['c_count']"/></td>
+                                                        </t>
+                                                         <td><span t-esc="b['address_count']"/></td>
+                                                    </t>
+                                                    <t t-if="o.is_classwise == False and not o.course_ids">
+                                                         <td style="border-right:1px solid black;"><span t-esc="b['address_count']"/></td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                            <!--Branch and Employee Report-->
+                            <t t-if="o.report_type == 'branch_employee'">
+                                <div class="row1">
+                                    <strong>BRANCH &amp; EMPLOYEE REPORT</strong>
+                                </div>
+                                <div>
+                                    <table class="table-condensed1">
+                                        <thead>
+                                            <tr>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:5%"><strong>S.No</strong></td>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:15%"><strong>BRANCH <br/> NAME</strong></td>
+                                                <t t-if="o.is_classwise == True or o.course_ids">
+                                                    <t t-foreach="o.get_course()" t-as="c">
+                                                        <td style="border-right:1px solid black;border-bottom:1px solid black;width:auto"><strong><span t-esc="c['course_name']"/></strong></td>
+                                                    </t>
+                                                </t>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:10%"><strong>ADDRESS <br/> COUNT</strong></td>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:10%"><strong>EMPLOYEE <br/> ID</strong></td>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:10%"><strong>EMPLOYEE <br/> NAME</strong></td>
+                                                <td style="border-bottom:1px solid black;width:10%"><strong>MOBILE <br/> NUMBER</strong></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="o.get_branch_emp_data()" t-as="be">
+                                                <tr class="result1">
+                                                    <td style="border-right:1px solid black;"><span t-esc="be['s_no']"/></td>
+                                                    <td style="border-right:1px solid black;"><span t-esc="be['branch_name']"/></td>
+                                                    <t t-if="o.is_classwise == True or o.course_ids">
+                                                        <t t-foreach="be['course']" t-as="c">
+                                                            <td style="border-right:1px solid black;"><span t-esc="c['c_count']"/></td>
+                                                        </t>
+                                                    </t>
+                                                    <td style="border-right:1px solid black;"><span t-esc="be['address_count']"/></td>
+                                                    <td style="border-right:1px solid black;"><span t-esc="be['employee_id']"/></td>
+                                                    <td style="border-right:1px solid black;"><span t-esc="be['employee_name']"/></td>
+                                                    <td><span t-esc="be['mobile_no']"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                            <!--Employee Report-->
+                            <t t-if="o.report_type == 'employee'">
+                                <div class="row1">
+                                    <strong>EMPLOYEE REPORT</strong>
+                                </div>
+                                <div>
+                                    <table class="table-condensed1">
+                                        <thead>
+                                            <tr>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:5%"><strong>S.No</strong></td>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:10%"><strong>EMPLOYEE <br/> ID</strong></td>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:10%"><strong>EMPLOYEE <br/> NAME</strong></td>
+                                                <td style="border-right:1px solid black;border-bottom:1px solid black;width:10%"><strong>MOBILE <br/> NUMBER</strong></td>
+                                                <t t-if="o.is_classwise == True or o.course_ids">
+                                                    <t t-foreach="o.get_course()" t-as="c">
+                                                        <td style="border-right:1px solid black;border-bottom:1px solid black;width:auto"><strong><span t-esc="c['course_name']"/></strong></td>
+                                                    </t>
+                                                     <td style="border-bottom:1px solid black;wifth:10%"><strong>ADDRESS <br/> COUNT</strong></td>
+                                                </t>
+                                                <t t-if="o.is_classwise == False and not o.course_ids">
+                                                    <td style="border-right:1px solid black;border-bottom:1px solid black;width:10%"><strong>ADDRESS <br/> COUNT</strong></td>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="o.get_employee_data()" t-as="e">
+                                                <tr class="result1">
+                                                    <td style="border-right:1px solid black;"><span t-esc="e['s_no']"/></td>
+                                                    <td style="border-right:1px solid black;"><span t-esc="e['employee_id']"/></td>
+                                                    <td style="border-right:1px solid black;"><span t-esc="e['employee_name']"/></td>
+                                                    <td style="border-right:1px solid black;"><span t-esc="e['mobile_no']"/></td>
+                                                    <t t-if="o.is_classwise == True or o.course_ids">
+                                                        <t t-foreach="e['course']" t-as="c">
+                                                            <td style="border-right:1px solid black;"><span t-esc="c['c_count']"/></td>
+                                                        </t>
+                                                        <td><span t-esc="e['address_count']"/></td>
+                                                    </t>
+                                                    <t t-if="o.is_classwise == False and not o.course_ids">
+                                                         <td style="border-right:1px solid black;"><span t-esc="e['address_count']"/></td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+            id="report_address_collection"
+            model="address.collection"
+            string="Address Collection"
+            report_type="qweb-pdf"
+            name="pappaya_marketing.template_address_collection"
+            file="pappaya_marketing.template_address_collection"
+            attachment_use="False"
+            attachment="'Address Collection - ' + object.name + '.pdf'"
+            menu="False"
+            print_report_name="'Address Collection - %s' % object.name"
+        />
+
+        <!--Paperformat-->
+        <record id="pappaya_marketing.report_address_collection" model="ir.actions.report">
+            <field name="paperformat_id" ref="pappaya_base.paperformat_custom_euro_portrait"/>
+        </record>
+
+	</data>
+</odoo>

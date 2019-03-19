@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_course_tree" model="ir.ui.view">
+			<field name="name">pappaya.course.tree</field>
+			<field name="model">pappaya.course</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Course">
+					<field name="name" />
+<!-- 					<field name="course_provider_id"/>
+					<field name="office_type_id"/> -->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_course_form" model="ir.ui.view">
+			<field name="name">pappaya.course.form</field>
+			<field name="model">pappaya.course</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Course">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<!-- <field name="office_type_id" options="{'no_open': True,'no_create':True}" required="1"/> -->
+								<field name="segment_id" options="{'no_open': True,'no_create':True}" required="1"/>
+								<!-- <field name="course_provider_id" widget="many2many_tags" options="{'no_open': True,'no_create':True}" required="1"/> -->
+								<field name="sgst" attrs="{'invisible':[('show_gst','!=',True)],'required':[('show_gst','=',True)]}"/>
+								<field name="cgst" attrs="{'invisible':[('show_gst','!=',True)],'required':[('show_gst','=',True)]}"/>
+								<field name="show_gst" invisible="1"/>
+								<field name="final_sgst" invisible="1"/>
+								<field name="final_cgst" invisible="1"/>
+							</group>
+							<group>
+								<field name="type"/>
+								<field name="duration"/>
+								<field name="start_date"/>
+								<field name="end_date"/>
+							</group>
+						</group>
+						<separator string="Description"/>
+                        <field name="description" nolabel="1" style="height:100px !important"/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_course_search" model="ir.ui.view">
+			<field name="name">pappaya.course.search</field>
+			<field name="model">pappaya.course</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Course">
+					<field name="name" />
+					<field name="description"/>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_course_view">
+			<field name="name">Course</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.course</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_course_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Course.
+                </p>
+            </field>
+		</record>
+
+
+	</data>
+</odoo>

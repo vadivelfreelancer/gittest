@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_admission_tree" model="ir.ui.view">
+			<field name="name">Admission Tree</field>
+			<field name="model">pappaya.admission</field>
+			<field name="arch" type="xml">
+				<tree string="Admission">
+					<field name="res_no" string="Reservation/Admission No"/>
+					<field name="student_full_name"/>
+					<field name="branch_id"/>
+					<field name="branch_id_at"/>
+					<field name="package_id"/>
+					<field name="medium_id"/>
+					<field name="stage_id"/>
+					<field name="update_fullname" invisible="1"/>
+					<field name="active" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_admission_form" model="ir.ui.view">
+			<field name="name">Admission Form</field>
+			<field name="model">pappaya.admission</field>
+			<field name="arch" type="xml">
+				<form string="Admission">
+					<header>
+						<button name="conform_stage" string="Proceed" type="object" class="oe_highlight" attrs="{'invisible':[('stage_id','!=',False)]}"
+							groups="pappaya_base.group_admission_admin,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+						<!--<button name="action_confirm" string="Next" type="object" class="oe_highlight" attrs="{'invisible':['|','|',('stage_id','=',False),('is_final_stage','=',True),('cancel','=',True)]}"/>-->
+						<button name="cancel_stage_wiz" string="Cancel" type="object" class="oe_highlight" attrs="{'invisible':['|',('stage_id','=',False),('cancel','=',True)]}"
+							groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,
+									pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+						<button name="admission_reactivate" string="Reactivate" type="object" class="oe_highlight" attrs="{'invisible':['|','|',('cancel','!=',True),('is_fees_refunded', '=', True),('active', '=', False)]}"
+							groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,
+									pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+						<button name="create_refund_fees" string="Create Refund" type="object" class="oe_highlight" attrs="{'invisible':['|','|',('cancel','!=',True),('is_fees_refunded', '=', True),('active', '=', False)]}"
+								groups="pappaya_base.group_admission_admin"/>
+
+						<button string="Pay Fees" type="object" name="pay_fees" class="oe_highlight" attrs="{'invisible': ['|', ('cancel','=',True), ('active','=', False)]}"
+							groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head"/>
+
+						<button name="enroll_student" string="Update Student" type="object" class="oe_highlight" attrs="{'invisible':['|','|','|',('stage_id','=',False),('is_final_stage','=',False),('is_student_updated','=',True),('cancel','=',True)]}"
+							groups="pappaya_base.group_admission_admin,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+						<field name="stage_id" widget="statusbar" domain="[('school_id','=',branch_id)]"/>
+					</header>
+					<sheet>
+						<field name="image" widget='image' class="oe_avatar"/>
+						 <div class="oe_button_box" name="button_box" attrs="{'invisible':['|', ('cancel','!=',True), ('is_fees_refunded', '=', True)]}">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check" >
+                                <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+						<group>
+							<group>
+								<field name="is_soa_stage" invisible="1"/>
+								<field name="is_fee_created" invisible="1"/>
+                                <field name="old_new" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                <field name="admission_no" attrs="{'readonly':[('is_soa_stage','=',True)],'required':[('old_new','=','old')],'invisible':[('old_new','=','new')]}"/>
+								<field name="old_admission_no" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('old_new','=','old')]}" string="Old Admission No"/>
+                                <field name="branch_id_at" domain="[('type','=', 'branch')]" options="{'no_open': True,'no_create':True}" required="1"  attrs="{'readonly':[('is_fee_created','=',True)]}"/>
+								<field name="branch_id" domain="[('type','=', 'branch')]" options="{'no_open': True,'no_create':True}" required="1"  attrs="{'readonly':[('is_fee_created','=',True)]}"/>
+                                <field name="form_no" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                <field name="application_no" readonly="1"/>
+								<field name="res_no" string="Reservation No" readonly="1" attrs="{'invisible': ['|',('is_res_stage','!=',True),('old_new','=','old')]}" />
+								<field name="res_no" string="Admission No" readonly="1" attrs="{'invisible': ['|',('is_adm_stage','!=',True),('old_new','=','old')]}" />
+								<field name="hall_ticket_no" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="student_address_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="is_adm_stage" invisible="1"/>
+								<field name="is_res_stage" invisible="1"/>
+								<field name="pre_stage_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="sponsor_paid" invisible="1"/>
+							</group>
+							<group>
+								<field name="current_date" readonly="1"/>
+								<field name="academic_year" required="1" domain="[('is_active','=', True)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                <field name="office_type_id" readonly="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                <field name="show_student_type" invisible="1"/>
+                                <field name="residential_type_id" required="1" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('show_student_type','=',False)]}" options="{'no_open':True,'no_create':True}"/>
+								<field name="fees_opt_for" required="1" attrs="{'invisible':[('is_two_yr_fee','=',False)],'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="virtual_acc_no" readonly="1" force_save="1"/>
+								<field name="is_two_yr_fee" invisible="1"/>
+								<field name="student_type"  invisible="1"/>
+								<field name="student_type_option" invisible="1"/>
+							</group>
+						</group>
+						<group>
+							<group string="Basic Details">
+								<field name="course_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="group_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="batch_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="package" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="package_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="medium_id" required="1" attrs="{'readonly':['|',('is_soa_stage','=',True),('package_id','=',False)]}"
+								 options="{'no_open': True,'no_create':True}" domain="[('type','=','medium')]" context="{'master_type':'others','individual_master_type':'medium'}"/>
+								<label for="res_comm_amount" string="Comitted Amount" />
+								<div class="o_address_format" style="color:#d74930;">
+									<field name="res_comm_amount" style="max-width: 100px; font-color:#d74930;" force_save="1" class="o_address_city" attrs="{'readonly':['|',('sponsor_type','=','yes'),('is_soa_stage','=',True)]}" required="1"/>
+									<field name="comm_place_holder" class="o_address_city" readonly="1" />
+								</div>
+                                <field name="concession_type_id" invisible="1" domain="[('type','=','concession')]" attrs="{'readonly':[('is_soa_stage','=',True)]}" options="{'no_open': True,'no_create':True}" context="{'master_type':'others','individual_master_type':'concession'}"/>
+								<field name="concession_percentage" invisible="1"/>
+							</group>
+							<group string="Other Details">
+								<field name="is_correspondent_student" widget="radio" options="{'horizontal': true}" invisible="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="is_transport" invisible="1"/>
+								<field name="is_transport_required" widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible': [('is_transport','!=', True)]}"/>
+								<field name="is_nslate_required" invisible="1"  widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('is_nslate','=',False)]}" />
+								<field name="is_exam_attended" required="1" widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="talent_exam_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('is_exam_attended','=','no')],'required':[('is_exam_attended','!=','no')]}"/>
+								<field name="sponsor_type" required="1" widget="radio" options="{'horizontal': true}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="sponsor_value" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('sponsor_type','=','no')],'required':[('sponsor_type','=','yes')]}"/>
+								<field name="sponsor_id" domain="[('school_id','=',branch_id)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('sponsor_type','=','no')],'required':[('sponsor_type','=','yes')]}"/>
+								<field name="sponsor_amt" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':['|',('sponsor_value','=','full'),('sponsor_type','=','no')],'required':[('sponsor_type','=','yes')]}"/>
+								<field name="sponsor_pay_amt" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':['|',('sponsor_value','=','full'),('sponsor_type','=','no')]}"/>
+								<field name="material_set_ids" widget="many2many_tags" domain="[('course_package_id','=',package_id),('academic_year_id','=',academic_year),('branch_id','=',branch_id)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+								<field name="material_amt" invisible="1"/>
+								<field name="is_fees_not_paid" invisible="1"/>
+								<field name="is_fees_refunded" invisible="1"/>
+								<field name="student_full_name" invisible="1"/>
+								<field name="update_fullname" invisible="1"/>
+								<field name="show_material" invisible="1"/>
+								<field name="show_uniform" invisible="1"/>
+								<field name="is_final_stage" invisible="1"/>
+								<field name="is_student_created" invisible="1"/>
+								<field name="is_student_updated" invisible="1"/>
+								<field name="cancel" invisible="1"/>
+								<field name="partner_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page name="student_info" string="Student">
+								<group>
+									<group string="Student Information">
+                                        <label for="sur_name" string="Student Name"/>
+                                        <table>
+                                            <tr>
+                                                <td style="padding-right:6px"><field name="sur_name" placeholder="Sur Name" style="width:100%"  attrs="{'readonly':[('is_soa_stage','=',True)]}"/></td>
+                                                <td><field name="name" required="1" placeholder="Name" style="width:100%"  attrs="{'readonly':[('is_soa_stage','=',True)]}"/></td>
+                                            </tr>
+                                        </table>
+										<field name="dob" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                        <field name="gender" readonly="1" required="1" attrs="{'invisible':[('show_gender_option','=',True)],'readonly':[('is_soa_stage','=',True)]}" />
+                                        <field name="gender_option" attrs="{'required':[('show_gender_option','=',True)],'invisible':[('show_gender_option','=',False)],'readonly':[('is_soa_stage','=',True)]}"/>
+                                        <field name="aadhaar_no" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="aadhaar_file" class="oe_left oe_avatar" filename="filename" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="blood_group_id" domain="[('type','=','blood_group')]" context="{'master_type':'others','individual_master_type':'blood_group'}" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="religion_id" domain="[('type','=','religion')]" context="{'master_type':'others','individual_master_type':'religion'}" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                        <field name="caste_id" domain="[('type','=','caste')]" context="{'master_type':'others','individual_master_type':'caste'}" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="community_id" domain="[('type','=','community')]" context="{'master_type':'others','individual_master_type':'community'}" options="{'no_open': True,'no_create':True}" invisible="1"/>
+										<field name="show_gender_option" invisible="1"/>
+										<field name="filename" invisible="1"/>
+									</group>
+									<group string="Hall Ticket Information">
+										<field name="board_type_id" domain="[('type','=','board_type')]" options="{'no_open': True,'no_create':True}"  context="{'master_type':'others','individual_master_type':'board_type'}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="board_code" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="course_opted" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="total_marks" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="rank" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="grade" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+									</group>
+                                </group>
+								<group string="Previous Information" attrs="{'invisible':[('old_new','=','new')]}">
+                                    <group>
+										<field name="previous_course_id" force_save="1" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                        <field name="previous_batch_id" force_save="1" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                        <field name="previous_group_id" force_save="1" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                    </group>
+									<group>
+										<field name="previous_package_id" force_save="1" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                        <field name="previous_course_package_id" force_save="1" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                        <field name="previous_medium_id" force_save="1" options="{'no_open': True,'no_create':True}" readonly="1" domain="[('type','=','medium')]" context="{'master_type':'others','individual_master_type':'medium'}"/>
+									</group>
+								</group>
+							</page>
+                            <page nam="parent_info" string="Parent">
+                                <group string="Parent">
+									<group>
+										<field name="father_name" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="father_occupation_id" domain="[('type','=','occupation')]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="mobile_one" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="father_email" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+									</group>
+									<group>
+										<field name="mother_name" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="mother_occupation_id" domain="[('type','=','occupation')]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="mobile_two" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="mother_email" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+									</group>
+								</group>
+                            </page>
+							<page name="address_info" string="Address">
+								<group>
+									<group string="Present Address">
+										<field name="temp_street" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="temp_city_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="temp_district_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="temp_mandal_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="temp_state_id" domain="[('country_id','=',temp_country_id)]" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="temp_zip" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="temp_country_id" domain="[('is_active','=',True)]" options='{"no_open": True, "no_create": True}' required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                    </group>
+									<group string="Permanent Address">
+										<field name="street" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="city_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="district_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="mandal_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="state_id" domain="[('country_id','=',country_id)]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="zip" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="country_id" domain="[('is_active','=',True)]" options='{"no_open": True, "no_create": True}' attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+                                    </group>
+								</group>
+							</page>
+							<page name="cluster_info" string="Staff/PRO">
+								<group>
+									<group>
+										<field name="admission_from" required="1" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="pro_staff" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="staff_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="program_type" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+									</group>
+									<group>
+										<field name="cluster_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="cluster_district_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="cluster_state_id" options="{'no_open': True,'no_create':True}" domain="[('country_id','=',cluster_country_id)]" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="cluster_country_id" options="{'no_open': True,'no_create':True}" domain="[('is_active','=',True)]" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+										<field name="principal_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+									</group>
+								</group>
+							</page>
+							<page name="transaction_details" string="Transaction" invisible="1">
+								<group>
+									<group>
+										<field name="currency_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('is_soa_stage','=',True)]}"/>
+									</group>
+								</group>
+							</page>
+							<page name="transport_info" string="Transport" attrs="{'invisible':[('is_transport_required','=','no')]}">
+								<group>
+
+									<group>
+										<field name="service_route_id" domain="[('school_id','=', branch_id ),('is_active', '=', True)]"
+										 attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('is_transport_required','=','no')],'required':[('is_transport_required','!=','no')]}" options="{'no_open': True,'no_create':True}"/>
+									</group>
+									<group>
+										<field name="transport_slab_id" domain="[('route_id','=', service_route_id )]"
+										 attrs="{'readonly':[('is_soa_stage','=',True)],'invisible':[('is_transport_required','=','no')],'required':[('is_transport_required','!=','no')]}" options="{'no_open': True,'no_create':True}"/>
+									</group>
+								</group>
+							</page>
+							<page name="nslate_info" string="Nslate" attrs="{'invisible':[('is_nslate_required','=','no')]}">
+								<group>
+									<field name="nslate_item_ids" attrs="{'readonly':[('is_soa_stage','=',True)]}">
+										<tree editable="bottom" delete="false">
+											<field name="sequence" widget="handle"/>
+											<field name="product_id" options="{'no_open': True,'no_create':True}" required="1" domain="[('select_type','=','nslate')]"/>
+											<field name="product_uom_qty" required="1"/>
+											<field name="product_uom" invisible="1"/>
+											<field name="price_unit" required="1"/>
+											<field name="price_subtotal" readonly="1"/>
+										</tree>
+									</field>
+									<group class="oe_subtotal_footer oe_right" colspan="2">
+										<field name="nslate_amount" readonly="1"/>
+										<field name="is_nslate" invisible="1"/>
+									</group>
+								</group>
+							</page>
+							<page name="fees_collection" string="Fees Collections">
+								<separator/>
+								<field name="fees_collection_o2m_id" attrs="{'readonly':[('is_soa_stage','=',True)]}">
+									<tree string ="Fees Collection" create="false" open="false" delete="false">
+										<field name="pay" readonly="1"/>
+										<field name="name" readonly="1"/>
+										<field name="gst_total" string="Amount" readonly="1"/>
+										<field name="cgst" readonly="1"/>
+										<field name="sgst" readonly="1"/>
+										<field name="amount" string="Total" readonly="1"/>
+										<field name="res_adj_amt" readonly="1"/>
+										<field name="concession_amount" readonly="1"/>
+										<field name="concession_type_id" domain="[('type','=','concession')]" options="{'no_open': True,'no_create':True}" readonly="1" invisible="1"/>
+										<field name="concession_applied" invisible="1"/>
+										<field name="due_amount" readonly="1"/>
+										<field name="res_adj_amt_extra" invisible="1" readonly="1" />
+										<field name="total_paid" readonly="1"/>
+										<field name="adjusted_amount" readonly="1"/>
+										<field name="term_state" readonly="1"/>
+										<field name="allow_refund" invisible="1"/>
+										<field name="refund_amount" attrs="{'readonly':[('allow_refund','=',False)]}"/>
+									</tree>
+									<form string="Fees Collection">
+										<group colspan="4" col="4">
+											<field name="name" readonly="1" options="{'no_open': True,'no_create':True}"/>
+											<field name="gst_total" string="Amount" readonly="1"/>
+											<field name="cgst" readonly="1"/>
+											<field name="sgst" readonly="1"/>
+											<field name="amount" string="Total" readonly="1"/>
+											<field name="res_adj_amt" readonly="1"/>
+											<field name="concession_amount" readonly="1"/>
+											<field name="due_amount" readonly="1"/>
+											<field name="total_paid" readonly="1"/>
+											<field name="adjusted_amount" readonly="1"/>
+											<field name="term_state" readonly="1"/>
+											<field name="refund_amount" readonly="1"/>
+										</group>
+									</form>
+								</field>
+							</page>
+							<page name="grade_joining_document" string="Grade Joining Document">
+								<group>
+									<field name="enq_grade_doc_o2m" nolabel="1">
+										<tree create="false" delete="false">
+											<field name="document_name" readonly="1"/>
+											<field name="stage_name" readonly="1"/>
+											<field name="required" readonly="1"/>
+											<field name="filename" invisible="1"/>
+											<field name="document_file" widget="binary" filename="filename" />
+										</tree>
+										<form>
+											<group col="4" create="false">
+												<field name="document_name" readonly="1"/>
+												<field name="document_file" filename="filename"/>
+												<field name="stage_name" readonly="1"/>
+												<field name="required" readonly="1"/>
+												<field name="filename" invisible="1"/>
+											</group>
+										</form>
+									</field>
+								</group>
+							</page>
+							<page name="tracking_history" string="Tracking History">
+								<group>
+									<field name="enquiry_histroy_o2m" nolabel="1" attrs="{'readonly': ['|',('is_soa_stage','!=',False),('is_student_created','=',True )]}">
+										<tree create="false" edit="false" delete="false">
+											<field name="document_number"/>
+											<field name="course_package_id"/>
+											<field name="movement_stage"/>
+											<field name="description"/>
+											<field name="amount"/>
+											<field name="updated_on"/>
+											<field name="user_id"/>
+										</tree>
+										<form>
+											<group col="4">
+												<field name="enquiry_id" string="Enquiry" options='{"no_open": True, "no_create": True}'/>
+												<field name="document_number"/>
+												<field name="course_package_id" options='{"no_open": True, "no_create": True}'/>
+												<field name="movement_stage"/>
+												<field name="user_id" options='{"no_open": True, "no_create": True}'/>
+												<field name="amount"/>
+												<field name="updated_on"/>
+												<field name="description"/>
+											</group>
+										</form>
+									</field>
+								</group>
+							</page>
+							<!--<page name="transfer_history" string="Transfer History">-->
+								<!--<group>-->
+									<!--<field name="student_transfer_o2m_id" nolabel="1">-->
+										<!--<tree create="false" edit="false" delete="false">-->
+											<!--<field name="from_school_id"/>-->
+											<!--<field name="to_school_id"/>-->
+											<!--<field name="from_grade_id"/>-->
+											<!--<field name="to_grade_id"/>-->
+											<!--<field name="transfer_date"/>-->
+											<!--<field name="reason"/>-->
+										<!--</tree>-->
+									<!--</field>-->
+								<!--</group>-->
+							<!--</page>-->
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_admission_search" model="ir.ui.view">
+			<field name="name">Pappaya Admission Search</field>
+			<field name="model">pappaya.admission</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Admission">
+					<field name="form_no"/>
+					<field name="res_no" string="Reservation/Admission No"/>
+					<field name="application_no"/>
+					<field name="student_full_name"/>
+					<field name="father_name"/>
+					<field name="mother_name"/>
+					<field name="branch_id"/>
+					<field name="branch_id_at"/>
+					<field name="course_id"/>
+					<field name="group_id"/>
+					<field name="batch_id"/>
+					<field name="package"/>
+					<field name="package_id"/>
+					<field name="medium_id"/>
+					<field name="stage_id"/>
+					<field name="academic_year"/>
+					<separator/>
+					<newline />
+					<filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+					<group expand="0" string="Group By...">
+						<filter string="Academic Year" domain="[]" context="{'group_by':'academic_year'}"/>
+						<filter string="For Reservation Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="At Reservation Branch" domain="[]" context="{'group_by':'branch_id_at'}"/>
+						<filter string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+						<filter string="Group" domain="[]" context="{'group_by':'group_id'}"/>
+						<filter string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+						<filter string="Package" domain="[]" context="{'group_by':'package'}"/>
+						<filter string="Course Package" domain="[]" context="{'group_by':'package_id'}"/>
+						<filter string="Status" domain="[]" context="{'group_by':'stage_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_admission_view">
+			<field name="name">Admission</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.admission</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!--Admission form number and reservation number sequence-->
+		<record id="sequence_pappaya_enquiry_form" model="ir.sequence">
+			<field name="name">Pappaya Enquiry Form</field>
+			<field name="code">pappaya.enquiry.form</field>
+			<field name="padding">7</field>
+			<field name="company_id" eval="False"/>
+		</record>
+
+		<record id="sequence_pappaya_reservation" model="ir.sequence">
+			<field name="name">Pappaya Admission Reservation</field>
+			<field name="code">pappaya.admission.reservation</field>
+			<field name="padding">7</field>
+			<field name="company_id" eval="False"/>
+		</record>
+
+		<record id="view_pappaya_other_payment_form_inherit" model="ir.ui.view">
+			<field name="name">view.pappaya.other.payment.form.inherit</field>
+			<field name="model">pappaya.other.payment</field>
+			<field name="inherit_id" ref="pappaya_fees.view_pappaya_other_payment_form"/>
+			<field name="arch" type="xml">
+				<field name="academic_year_id" position="after">
+					<field name="admission_id" required="1" domain="[('cancel','=',False),('res_no','!=',False)]" options="{'no_create':True,'no_open':True}" attrs="{'readonly':[('state' ,'!=' ,'draft')]}"/>
+				</field>
+				<field name="branch_code" position="after">
+					<field name="course_package_id" options="{'no_create':True,'no_open':True}" readonly="1" force_save="1"/>
+				</field>
+				<field name="transport_slab_id" position="after">
+					<field name="material_set_ids" widget="many2many_tags" domain="[('course_package_id','=',course_package_id),('academic_year_id','=',academic_year_id),('branch_id','=',branch_id)]" options="{'no_open': True,'no_create':True}"
+						attrs="{'readonly':['|',('state','!=','draft'),('is_material_fee_editable','=',False)], 'invisible':[('other_payment_type','!=','material_pay')],
+						'required':[('other_payment_type','=','material_pay')]}" force_save="1"/>
+				</field>
+			</field>
+		</record>
+		
+		<!-- Old Student Pending Fees Wizard -->
+		
+        <record id="view_old_student_pending_fees_wizard_form" model="ir.ui.view">
+            <field name="name">view.old.student.pending.fees.wizard.form</field>
+            <field name="model">old.student.pending.fees.wizard</field>
+            <field name="arch" type="xml">
+            <form>
+            	<h4><field name="status" readonly="1"/></h4>
+            	<field name="fee_collection_id" invisible="1"/>
+                <footer>
+                    <button name="open_fees_collection" string="Open Fee Collection" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_old_student_pending_fees_wizard" model="ir.actions.act_window">
+            <field name="name">Pending Fees</field>
+            <field name="res_model">old.student.pending.fees.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_old_student_pending_fees_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+	</data>
+</odoo>

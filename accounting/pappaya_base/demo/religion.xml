@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+	
+		<record id="pappaya_religion_1" model="pappaya.religion">
+			<field name="name">Catholic</field>
+		</record>
+		
+		<record id="pappaya_religion_2" model="pappaya.religion">
+			<field name="name">Christian</field>
+		</record>
+		
+		<record id="pappaya_religion_3" model="pappaya.religion">
+			<field name="name">Hindu</field>
+		</record>
+		
+		<record id="pappaya_religion_4" model="pappaya.religion">
+			<field name="name">Muslim</field>
+		</record>
+		
+	</data>
+</openerp>	

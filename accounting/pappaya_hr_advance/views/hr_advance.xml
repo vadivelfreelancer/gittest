@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Advance Tree view-->
+    <record id="hr_advance_tree_view" model="ir.ui.view">
+        <field name="name">hr.advance.tree</field>
+        <field name="model">hr.advance</field>
+        <field name="arch" type="xml">
+            <tree string="Advance Request">
+                <field name="branch_id"/>
+                <field name="fiscal_year_id"/>
+                <field name="department_id"/>
+                <field name="job_position"/>
+                <field name="date"/>
+                <field name="name"/>
+                <field name="emp_id"/>
+                <field name="employee_id"/>
+                <field name="advance_amount"/>
+                <field name="state" string="Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Advance Form view-->
+    <record id="hr_advance_form_view" model="ir.ui.view">
+        <field name="name">hr.advance.form</field>
+        <field name="model">hr.advance</field>
+        <field name="arch" type="xml">
+            <form string="Advance Request" duplicate="0">
+                <header>
+                    <button name="action_submit" groups="pappaya_base.hr_executives,pappaya_base.hr_cpo,pappaya_base.hr_branch_employees" type="object" string="Request" states="draft" class="oe_highlight"/>
+					<button name="action_approve" type="object" string="Approve" states="request" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="request" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,request,approve" />
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="fiscal_year_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="emp_id" required="1"/>
+                            <field name="employee_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="job_position" options="{'no_open': True,'no_create':True}" force_save="1"/>
+                            <field name="max_net_percent" invisible="1"/>
+                            <field name="last_payslip_net_amt" attrs="{'invisible':[('state','=','draft')]}"/>
+                            <field name="amount_deduct_payslip_id" readonly="1" attrs="{'invisible':[('amount_deduct_payslip_id','=',False)]}"/>
+                        </group>
+                        <group>
+                            <field name="date" required="1" readonly="1" force_save="1"/>
+                            <field name="branch_id"  options="{'no_open': True,'no_create':True}" force_save="1"/>
+                            <field name="department_id" options="{'no_open': True,'no_create':True}" force_save="1"/>
+                            <field name="requested_amount" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="advance_amount" attrs="{'invisible':[('state','=','draft')]}"/>
+                            <field name="is_recoverable" readonly="1"/>
+                        </group>
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--Advance search view-->
+    <record id="view_advance_request_search_form" model="ir.ui.view">
+        <field name="name">hr.advance.search.form</field>
+        <field name="model">hr.advance</field>
+        <field name="arch" type="xml">
+           <search string="Tasks">
+                <field name="emp_id"/>
+                <field name="employee_id"/>
+                <field name="branch_id"/>
+                <field name="department_id"/>
+                <field name="job_position"/>
+                <group expand="0" string="Group By">
+                    <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                    <filter string="Branch" name="branch_id" context="{'group_by':'branch_id'}"/>
+                    <filter string="Department" context="{'group_by':'department_id'}"/>
+                    <filter string="Job" context="{'group_by':'job_position'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_advance_request" model="ir.actions.act_window">
+        <field name="name">Salary Advances</field>
+        <field name="res_model">hr.advance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_advance_request_search_form"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new HR Advance.
+            </p><p>
+                Use this menu to create HR Advance.
+            </p>
+        </field>
+    </record>
+
+    <!--Advance menu-->
+    <menuitem name="Salary Advances" id="menu_hr_advances" parent="hr.menu_hr_root" action="action_hr_advance_request"
+              sequence="20" groups="pappaya_base.hr_executives,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_employees"/>
+
+
+    <!-- Shortcuts -->
+    <record id="act_hr_employee_advance_request" model="ir.actions.act_window">
+        <field name="name">Salary Advances</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.advance</field>
+        <field name="src_model">hr.employee</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
+        <field name="domain">[('employee_id','=',active_id)]</field>
+        <field name="view_id" eval="hr_advance_tree_view"/>
+    </record>
+
+
+    <!-- HR employee inherit Advances -->
+    <record id="view_employee_form_advance_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.advance.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(act_hr_employee_advance_request)d"
+                    type="action"
+                    class="oe_stat_button"
+                    icon="fa-rupee"
+                    groups="pappaya_base.hr_executives,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_employees">
+                    <field name="advance_count" widget="statinfo" string="Advances"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="topics_view_view_form" model="ir.ui.view">
+        <field name="name">topics.view.view.form</field>
+        <field name="model">topics.view</field>
+        <field name="arch" type="xml">
+            <form string="topics">
+<!--                <sheet>-->
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                            <field name="course"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                            <field name="subject"/>
+                        </group>
+                    </group>
+                    <separator string="Topics"/>
+                    <field name="topics">
+                        <tree editable="bottom" create="false">
+                            <field name="name"/>
+                            <field name="subject"/>
+                            <field name="course"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+<!--                </sheet>-->
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.single_topic_action)d"
+                            context="{'default_academic_year': academic_year,
+                            'default_course_id': course,
+                            'default_subject_id': subject,
+                            'default_institution_type': institution_type}"/>
+                    <button string="Batch Mode" class="oe_highlight" type="action"
+                            style="margin-left: 10px"
+                            name="%(pappaya_academic_management.batch_course_topic_addition_action)d"
+                            context="{'default_academic_year': academic_year,
+                            'default_course_id': course,
+                            'default_subject_id': subject,
+                            'default_institution_type': institution_type}"
+                    />
+<!--                    <button special="cancel" string="Cancel"/>-->
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="topics_view_only_action" model="ir.actions.act_window">
+        <field name="name">Topics</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">topics.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+</odoo>

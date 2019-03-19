@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sub_batch_section_view_form" model="ir.ui.view">
+        <field name="name">sub.batch.section.view.form</field>
+        <field name="model">sub.batch.section.view</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group col="4">
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="New Sub Batch Wise Sections(Mapping)"/>
+                    <group col="2">
+                        <group>
+                            <field name="course"/>
+                            <field name="batch"/>
+                        </group>
+                        <group>
+                            <field name="group"/>
+                            <button string="Go" class="oe_highlight" type="action" name="sub_batch_section_batch_go"/>
+                        </group>
+                    </group>
+
+                    <field name="sub_batch_section_lines">
+                        <tree editable="bottom" create="false">
+                            <field name="section"/>
+                            <field name="course"/>
+                            <field name="group"/>
+                            <field name="batch"/>
+                            <field name="new_sub_batch"/>
+                        </tree>
+                    </field>
+
+
+                    <div style="text-align:center">
+                        <button special="cancel" class="oe_highlight" string="Save"/>
+                    </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="sub_batch_section_view_only_action" model="ir.actions.act_window">
+        <field name="name">New SubBatch Wise Sections</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.batch.section.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+        <menuitem id="sub_batch_section_view_sub_menu"
+              name="Sub Batch Section"
+              parent="academic_main_menu"
+              sequence="197"
+              action="sub_batch_section_view_only_action"/>
+
+</odoo>

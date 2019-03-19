@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_pocket_money_tree" model="ir.ui.view">
+			<field name="name">pappaya.pocket.money.tree</field>
+			<field name="model">pappaya.pocket.money</field>
+			<field name="arch" type="xml">
+				<tree string="Pocket Money">
+					<field name="admission_no"/>
+					<field name="name"/>
+					<field name="pocket_type"/>
+                    <field name="state"/>
+					<field name="branch_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_pocket_money_form" model="ir.ui.view">
+			<field name="name">pappaya.pocket.money.form</field>
+			<field name="model">pappaya.pocket.money</field>
+			<field name="arch" type="xml">
+				<form string="Pocket Money">
+					<header>
+						<button name="action_transaction" string="Transaction" type="object" class="oe_highlight" attrs="{'invisible':[('state','in',['deposit','withdraw','processing','paid'])]}"
+							groups="pappaya_base.group_admission_admin,pappaya_base.hr_branch_accountants,
+									pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant"/>
+
+						<field name="state" widget="statusbar" statusbar_visible="draft"/>
+					</header>
+					<sheet>
+						<field name="image" widget='image' class="oe_avatar"/>
+						<group>
+							<group>
+								<field name="pocket_type" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="admission_no" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="student_id" invisible="1" options="{'no_open': True,'no_create':True}" domain="[('user_type','=','student'),('student_type','=','hostel')]" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="name" readonly="1"/>
+								<field name="father_name" readonly="1"/>
+								<field name="user_id" invisible="1"/>
+								<field name="is_paid" invisible="1"/>
+							</group>
+							<group>
+								<field name="date" readonly="1"/>
+								<field name="branch_id" readonly="1" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}"/>
+								<field name="academic_year_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="balance_amount" readonly="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Amount &amp; Payment Details">
+								<group>
+									<group>
+										<field name="deposit_amount" attrs="{'invisible':[('pocket_type','!=','deposit')],'required':[('pocket_type','=','deposit')],'readonly':[('state','!=','draft')]}"/>
+										<!--<field name="head_id" attrs="{'invisible':[('pocket_type','!=','transfer')],'required':[('pocket_type','=','transfer')],'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>-->
+										<!--<field name="sub_head_id" attrs="{'invisible':[('pocket_type','!=','transfer')],'required':[('pocket_type','=','transfer')],'readonly':[('state','!=','draft')]}" options="{'no_open': True,'no_create':True}"/>-->
+										<!--<field name="transfer_amount" attrs="{'invisible':[('pocket_type','!=','transfer')],'required':[('pocket_type','=','transfer')],'readonly':[('state','!=','draft')]}"/>-->
+										<field name="withdraw_amount" attrs="{'invisible':[('pocket_type','!=','withdraw')],'required':[('pocket_type','=','withdraw')],'readonly':[('state','!=','draft')]}"/>
+									</group>
+									<group/>
+									<group>
+										<field name="payment_mode_id" attrs="{'readonly':[('pocket_type','=','deposit')],'required':[('pocket_type','=','withdraw')]}" options="{'no_open': True,'no_create':True}"/>
+										<field name="card_type" domain="[('type','=','card_type')]" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}"/>
+										<field name="card_number" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}"/>
+										<field name="card_holder_name" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}"/>
+										<field name="cheque_dd" class="asterik" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}" />
+										<field name="cheque_date" class="asterik" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}" />
+										<field name="is_show_card_details" invisible="1"/>
+										<field name="is_show_cheque_dd_details" invisible="1"/>
+										<field name="is_show_cash_details" invisible="1"/>
+									</group>
+									<group>
+										<field name="transaction_type" domain="[('type','=','transaction_type')]" context="{'master_type':'others','individual_master_type':'transaction_type'}" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('pocket_type','=','deposit')],'required':[('pocket_type','=','withdraw')]}"/>
+										<field name="bank_name" class="asterik" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False), ('is_show_card_details','=',False)],'readonly':[('pocket_type','=','deposit')]}"/>
+										<field name="bank_machine_id" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}"/>
+										<field name="bank_machine_type_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','bank_machine_type')]" context="{'master_type':'others','individual_master_type':'bank_machine_type'}" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}"/>
+										<field name="mid_no" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}"/>
+										<field name="tid_no" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'readonly':[('pocket_type','=','deposit')]}"/>
+									</group>
+								</group>
+								<separator string="Remarks"/>
+								<field name="remarks" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_pocket_money_search" model="ir.ui.view">
+			<field name="name">pappaya.pocket.money.search</field>
+			<field name="model">pappaya.pocket.money</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Pocket Money">
+					<field name="admission_no"/>
+					<field name="name"/>
+					<field name="branch_id"/>
+					<field name="student_id"/>
+					<field name="pocket_type"/>
+					<newline/>
+					<group expand="0" string="Group By...">
+                        <filter string="Admission No" name="student_id" domain="[]" context="{'group_by':'student_id'}"/>
+                        <filter string="Branch" name="branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="Student" name="name" domain="[]" context="{'group_by':'name'}"/>
+						<filter string="Pocket Type" name="pocket_type" domain="[]" context="{'group_by':'pocket_type'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_pappaya_pocket_money">
+			<field name="name">Pocket Money</field>
+			<field name="res_model">pappaya.pocket.money</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Pocket Money.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

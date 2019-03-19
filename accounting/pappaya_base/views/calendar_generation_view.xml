@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_calendar_generation_tree" model="ir.ui.view">
+			<field name="name">calendar.generation.tree</field>
+			<field name="model">calendar.generation</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Calendar Generation" duplicate="false" delete="false">
+					<field name="fiscal_year_id"/>
+					<field name="date_start"/>
+					<field name="date_end"/>
+					<!-- <field name="state_id"/>
+					<field name="region_id"/> -->
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_calendar_generation_form" model="ir.ui.view">
+			<field name="name">calendar.generation.form</field>
+			<field name="model">calendar.generation</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Calendar Generation" duplicate="false" delete="false">
+					<header>
+						<button name="action_submit" string="Request" type="object" attrs="{'invisible':[('state','!=','draft')]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <button name="calender_generation" string="Calendar Generation" type="object" attrs="{'invisible':[('state','!=','request')]}" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,request,generated" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="fiscal_year_id" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+                            <group>
+                                <label for="date_start" string="Period"/>
+			                     <div>
+			                           <field name="date_start" class="oe_inline" readonly="1" force_save="1"/> - <field name="date_end" class="oe_inline" readonly="1" force_save="1"/>
+			                     </div>
+                            </group>
+						<!-- <group string="Generate By">
+							<field name="state_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="region_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group> -->
+						</group>
+						
+                        <field name="hr_calendar_line_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                        </field>
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" invisible="1"/>
+                        <field name="message_ids" widget="mail_thread" invisible="1"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_calendar_generation_search" model="ir.ui.view">
+			<field name="name">calendar.generation.search</field>
+			<field name="model">calendar.generation</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Calendar Generation">
+					<field name="fiscal_year_id" />
+					<!-- <field name="state_id" />
+					<field name="region_id" /> -->
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="state" />
+					<group expand="0" string="Group By...">
+                        <filter name="fiscal_year_id" string="Fiscal Year" domain="[]" context="{'group_by':'fiscal_year_id'}" />
+                        <filter name="state_id" string="State" domain="[]" context="{'group_by':'state_id'}" />
+                        <filter name="region_id" string="Region" domain="[]" context="{'group_by':'region_id'}" />
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_calendar_generation_view">
+			<field name="name">Calendar Generation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">calendar.generation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_calendar_generation_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'tree', 'view_id': ref('view_calendar_generation_tree')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('view_calendar_generation_form')})]" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Calendar Generation.
+                </p>
+            </field>
+		</record>
+		
+		
+		<!--Calendar Generation Line  -->
+		
+		<record id="view_calendar_generation_line_tree" model="ir.ui.view">
+			<field name="name">calendar.generation.line.tree</field>
+			<field name="model">calendar.generation.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Calendar Generation Line" duplicate="false" delete="false">
+					<field name="name"/>
+					<field name="date_start"/>
+					<field name="date_end"/>
+					<field name="fiscal_year_active" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_calendar_generation_line_form" model="ir.ui.view">
+			<field name="name">calendar.generation.line.form</field>
+			<field name="model">calendar.generation.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Calendar Generation Line" duplicate="false" delete="false">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" readonly="1" force_save="1"/>
+							</group>
+                            <group>
+                                <label for="date_start" string="Period"/>
+			                     <div>
+			                           <field name="date_start" class="oe_inline" readonly="1" force_save="1"/> - <field name="date_end" class="oe_inline" readonly="1" force_save="1"/>
+			                     </div>
+                            </group>
+						</group>
+						
+                        <field name="hr_calendar_ids" readonly="1" force_save="1">
+                        </field>
+                        <field name="fiscal_year_active" invisible="1"/>
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" invisible="1"/>
+                        <field name="message_ids" widget="mail_thread" invisible="1"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_calendar_generation_line_search" model="ir.ui.view">
+			<field name="name">calendar.generation.line.search</field>
+			<field name="model">calendar.generation.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Calendar Generation Line">
+					<field name="name" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<group expand="0" string="Group By...">
+                        <filter name="name" string="Name" domain="[]" context="{'group_by':'name'}" />
+                        <filter name="date_start" string="Date Start" domain="[]" context="{'group_by':'date_start'}" />
+                        <filter name="date_end" string="Date End" domain="[]" context="{'group_by':'date_end'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_calendar_generation_line_view">
+			<field name="name">Calendar Generation Line</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">calendar.generation.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_calendar_generation_line_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'tree', 'view_id': ref('view_calendar_generation_line_tree')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('view_calendar_generation_line_form')})]" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Calendar Generation Line.
+                </p>
+            </field>
+		</record>
+		
+		
+		<!-- Inherit Fiscal Year -->
+		
+		
+        
+        <record id="view_fiscal_year_form_view_inherit_id" model="ir.ui.view">
+	        <field name="name">fiscal.year.form</field>
+	        <field name="model">fiscal.year</field>
+	        <field name="inherit_id" ref="pappaya_base.view_fiscal_year_form_view"/>
+	        <field name="arch" type="xml">
+	        	<field name="name" position="after">
+	        		<field name="calendar_generation_id" readonly="1" force_save="1" invisible="1"/>
+	        		<field name="calendar_created" readonly="1" force_save="1"/>
+	        	</field>
+	        
+	        </field>
+    	</record>
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="define_holiday_view_form" model="ir.ui.view">
+        <field name="name">define.holiday.view.form</field>
+        <field name="model">define.holiday</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="academic_year"/>
+                    </group>
+                    <group>
+                        <field name="institution_type"/>
+                    </group>
+                </group>
+                <separator string="Working Day/Holiday Schedule Details"/>
+                <group>
+                    <group>
+                        <field name="date"/>
+                        <field name="attendance_type"/>
+                    </group>
+                    <group>
+                        <field name="exam_branch"/>
+                        <button special="save" class="oe_inline oe_highlight" string="Modify"/>
+                    </group>
+                </group>
+                <field name="define_holiday_line">
+                    <tree editable="bottom">
+                        <field name="course"/>
+                        <field name="group"/>
+                        <field name="batch"/>
+                        <field name="sub_batch"/>
+                        <field name="section"/>
+                        <field name="working"/>
+                        <button special="save" class="oe_highlight" string="W/H"/>
+                        <button special="save" class="oe_highlight" string="Delete"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="define_holiday_view_tree" model="ir.ui.view">
+        <field name="name">define.holiday.view.tree</field>
+        <field name="model">define.holiday</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Range Master">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="define_holiday_menu_action" model="ir.actions.act_window">
+        <field name="name">Define Working Day/Holiday</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">define.holiday</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="define_holiday_sub_menu"
+              name="Define Holiday/Working Day"
+              parent="pappaya_academic_management.attendance_sub_menu"
+              sequence="8"
+              action="define_holiday_menu_action"/>
+
+</odoo>

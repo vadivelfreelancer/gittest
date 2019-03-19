@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="parent_feedback_view_form" model="ir.ui.view">
+        <field name="name">parent.feedback.view.form</field>
+        <field name="model">parent.feedback</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Branch Parent Phone Follow Up"/>
+                    <group>
+                        <group>
+                            <field name="exam_branch"/>
+                            <field name="admission_no"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <button string="Search" class="oe_highlight" type="action" name="sub_batch_section_batch_go"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="phone_number"/>
+                        <field name="remarks"/>
+                    </group>
+                    <!--<group >-->
+                        <!--<group string="Academics">-->
+                            <!--<group>-->
+                                <!--<field name="physics"/>-->
+                                <!--<field name="maths"/>-->
+                                <!--<field name="chemistry"/>-->
+                                <!--<field name="english"/>-->
+                                <!--<field name="diary_correction"/>-->
+                                <!--<field name="syllabus"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="state" nolabel="1"/>-->
+                                <!--<field name="state" nolabel="1"/>-->
+                                <!--<field name="state" nolabel="1"/>-->
+                                <!--<field name="state" nolabel="1"/>-->
+                                <!--<field name="state" nolabel="1"/>-->
+                                <!--<field name="state" nolabel="1"/>-->
+                            <!--</group>-->
+
+                        <!--</group>-->
+                        <!--<group string="Non-Academics">-->
+                        <!--<group >-->
+                            <!--<field name="transport"/>-->
+                            <!--<field name="books"/>-->
+                            <!--<field name="wash_room"/>-->
+                            <!--<field name="infrastructure"/>-->
+                            <!--<field name="ground"/>-->
+                        <!--</group>-->
+
+                        <!--<group>-->
+                            <!--<field name="state" nolabel="1"/>-->
+                            <!--<field name="state" nolabel="1"/>-->
+                            <!--<field name="state" nolabel="1"/>-->
+                            <!--<field name="state" nolabel="1"/>-->
+                            <!--<field name="state" nolabel="1"/>-->
+                        <!--</group>-->
+
+                        <!--</group>-->
+                    <!--</group>-->
+                <group style="width:50% !important;">
+                    <div style="overflow-x:auto">
+                        <table class="table table-bordered table-responsive" style="max-width:95% !important;">
+                            <thead colspan="3">
+                                <b>Academic</b>
+                            </thead>
+
+                            <tr>
+                                <td>Physics</td>
+                                <td><field name="physics"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Maths</td>
+                                <td><field name="maths"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Chemistry</td>
+                                <td><field name="chemistry"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td><field name="english"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Diary Correction</td>
+                                <td><field name="diary_correction"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Syllabus</td>
+                                <td><field name="syllabus"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </group>
+                        <group style="width:50% !important;">
+                            <div style="overflow-x:auto">
+                        <table class="table table-bordered table-responsive" style="max-width:95% !important;">
+                            <thead colspan="3">
+                               <b>Non-Academic</b>
+                            </thead>
+                            <tr>
+                                <td>Transport</td>
+                                <td><field name="transport"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Books</td>
+                                <td><field name="books"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Wash Room</td>
+                                <td><field name="wash_room"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Infrastructure</td>
+                                <td><field name="infrastructure"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr>
+                                <td>Ground</td>
+                                <td><field name="ground"/></td>
+                                <td><field name="state"/></td>
+                            </tr>
+                            <tr colsapn='3'>
+                                <td colsapn='3'><field name="ground"/></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </group>
+
+                    <div style="text-align:center;">
+                        <button special="save" class="oe_highlight" string="Save"/>
+                    </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="parent_feedback_view_tree" model="ir.ui.view">
+        <field name="name">parent.feedback.view.tree</field>
+        <field name="model">parent.feedback</field>
+        <field name="arch" type="xml">
+            <tree string="VC Parent Phone Enquiry">
+                <field name="exam_branch"/>
+                <field name="admission_no"/>
+                <field name="date"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="phone_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="parent_feedback_menu_action" model="ir.actions.act_window">
+        <field name="name">VC Parent Phone Enquiry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">parent.feedback</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="parent_feedback_sub_menu"
+      name="Parent Feedback"
+      parent="academic_main_menu"
+      sequence="203"
+      action="parent_feedback_menu_action"/>
+
+</odoo>

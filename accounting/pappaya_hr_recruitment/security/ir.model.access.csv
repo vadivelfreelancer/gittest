@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pappaya_budget_hr_group_pro_admin,access.pappaya.budget.hr.group.pro.admin,pappaya_hr_recruitment.model_pappaya_budget_hr,pappaya_base.marketing_pro_admin,1,1,1,0
+access_pappaya_budget_employee_line_pro_admin,access.pappaya.budget.employee.line.pro.admin,pappaya_hr_recruitment.model_pappaya_budget_employee_line,pappaya_base.marketing_pro_admin,1,1,1,0

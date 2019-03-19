@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_subcategory_with_subledger_mapping_tree" model="ir.ui.view">
+			<field name="name">subcategory.with.subledger.tree</field>
+			<field name="model">subcategory.with.subledger</field>
+			<field name="arch" type="xml">
+				<tree string="Sub Category + Sub Ledger">
+					<field name="sub_ledger"/>
+					<field name="revenue_capital"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_subcategory_with_subledger_mapping_form" model="ir.ui.view">
+			<field name="name">subcategory.with.subledger.form</field>
+			<field name="model">subcategory.with.subledger</field>
+			<field name="arch" type="xml">
+				<form string="Sub Category + Sub Ledger">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sub_ledger"/>
+								<field name="revenue_capital"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+				</form>
+			</field>
+		</record>
+
+         <record id="view_subcategory_with_subledger_mapping_search" model="ir.ui.view">
+			<field name="name">subcategory.with.subledger.search</field>
+			<field name="model">subcategory.with.subledger</field>
+			<field name="arch" type="xml">
+				<search string="ub Category + Sub Ledger">
+					<field name="sub_ledger"/>
+					<field name="revenue_capital"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_subcategory_with_subledger_mapping_view" model="ir.actions.act_window">
+			<field name="name">Sub Category + Sub Ledger </field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">subcategory.with.subledger</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_subcategory_with_subledger_mapping_search"/>
+		</record>
+	</data>
+</odoo>

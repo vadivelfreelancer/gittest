@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_tds_form_tree" model="ir.ui.view">
+            <field name="name">tds.form.tree</field>
+            <field name="model">tds.form</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="TDS Form">
+                    <field name="employee_id"/>
+                    <field name="total_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tds_form_form" model="ir.ui.view">
+            <field name="name">tds.form.form</field>
+            <field name="model">tds.form</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="TDS Form">
+                	<header>
+						 <button string="Request" name="to_request" states="draft" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.hr_branch_employees"/>
+						 <button string="Approve" name="to_approve" states="request" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.payroll_head"/>
+						 <button string="Cancel" name="to_cancel" states="request" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.payroll_head"/>
+						 <field name="state" widget="statusbar" statusbar_visible="draft,request,approve"  statusbar_colors='{"request":"blue",approve":"green","cancel":"red"}' colspan="2"/>
+					 </header>
+                    <sheet>
+                        <group>
+                        	<group>
+	                            <field name="employee_id" required="1" options="{'no_open': True,'no_create':True}"/>
+	                            <field name="fiscal_year_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                            	<field name="total_amount" readonly="1"/>
+                            </group>
+                            <group>
+	                            <field name="emp_id" readonly="1" force_save="1"/>
+	                            <field name="branch_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                            
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Tax Fillings">
+                                <field name="tds_heads_line">
+                                    <tree editable="bottom">
+                                        <field name="name" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="amount"/>
+                                        <field name="filename" invisible="1"/>
+                                        <field name="attachment" filename="filename" />
+                                    </tree>
+                                    <form>
+                                        <group colspan="4">
+                                            <field name="name" options="{'no_open': True,'no_create':True}"/>
+                                            <field name="amount"/>
+                                            <field name="filename" invisible="1"/>
+                                            <field name="attachment" filename="filename"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Other Income">
+                                <group>
+                                    <field name="other_income"/>
+                                    <field name="other_income_desc"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tds_form_search" model="ir.ui.view">
+            <field name="name">tds.form.search</field>
+            <field name="model">tds.form</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="TDS Search">
+                    <field name="employee_id" select="True"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="employee_id" string="Employee" domain="[]" context="{'group_by':'employee_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_tds_form_view">
+            <field name="name">Tax Declaration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tds.form</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_tds_form_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_tds_form_view_form">
+            <field name="act_window_id" ref="act_open_tds_form_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_tds_form_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_tds_form_view_tree">
+            <field name="act_window_id" ref="act_open_tds_form_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_tds_form_tree"/>
+        </record>
+
+
+
+
+        <record id="view_tds_heads_tree" model="ir.ui.view">
+            <field name="name">tds.heads.tree</field>
+            <field name="model">tds.heads</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Tax Declaration Form">
+                    <field name="head_id"/>
+                    <field name="max_allowed_amount"/>
+                    <field name="total_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tds_heads_form" model="ir.ui.view">
+            <field name="name">tds.heads.form</field>
+            <field name="model">tds.heads</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Tax Declaration Form">
+                    <sheet>
+						<group col="4">
+                            <field name="head_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                            <field name="max_allowed_amount"/>
+                            <field name="total_amount"/>
+                            <field name="name" invisible="1" />
+                        </group>
+                        <group name="tds_allowance" string="Tax Declaration">
+							<field name="tds_heads_line_o2m" nolabel="1">
+								<tree editable="bottom">
+									<field name="name" domain="[('head_master_id','=',parent.head_id )]" options="{'no_open': True,'no_create':True}"/>
+									<field name="amount"/>
+                                    <field name="filename" invisible="1"/>
+                                    <field name="attachment" filename="filename" />
+								</tree>
+                                <form create="false">
+                                    <group colspan="4">
+                                        <field name="name" domain="[('head_master_id','=',parent.head_id )]" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="amount"/>
+                                        <field name="filename" invisible="1"/>
+                                        <field name="attachment" filename="filename"/>
+                                    </group>
+								</form>
+							</field>
+						</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tds_heads_search" model="ir.ui.view">
+            <field name="name">tds.heads.search</field>
+            <field name="model">tds.heads</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="TDS Head">
+                    <field name="name" select="True"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_tds_heads_view">
+            <field name="name">Tax Declaration Form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tds.heads</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_tds_heads_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_tds_heads_view_form">
+            <field name="act_window_id" ref="act_open_tds_heads_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_tds_heads_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_tds_heads_view_tree">
+            <field name="act_window_id" ref="act_open_tds_heads_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_tds_heads_tree"/>
+        </record>
+
+
+
+        <record id="view_tds_heads_master_tree" model="ir.ui.view">
+            <field name="name">tds.heads.master.tree</field>
+            <field name="model">tds.heads.master</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="TDS Heads Master">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tds_heads_master_form" model="ir.ui.view">
+            <field name="name">tds.heads.master.form</field>
+            <field name="model">tds.heads.master</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="TDS Heads Master">
+                    <sheet>
+                        <group colspan="4">
+                            <field name="name" required="1"/>
+                            <field name="code"/>
+                            <field name="amount"/>
+                            <field name="description"/>
+                        </group>
+                        <field name="tds_allowance_head_line" readonly="1" force_save="1"/>
+                    </sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_tds_heads_master_view">
+            <field name="name">TDS Heads Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tds.heads.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_tds_heads_master_view_form">
+            <field name="act_window_id" ref="act_open_tds_heads_master_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_tds_heads_master_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_tds_heads_master_view_tree">
+            <field name="act_window_id" ref="act_open_tds_heads_master_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_tds_heads_master_tree"/>
+        </record>
+
+        <record id="view_tds_heads_allowance_master_tree" model="ir.ui.view">
+            <field name="name">tds.heads.allowance.master.tree</field>
+            <field name="model">tds.heads.allowance.master</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="TDS Allowance Head">
+                    <field name="name"/>
+                    <field name="amount"/>
+                    <field name="head_master_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tds_heads_allowance_master_form" model="ir.ui.view">
+            <field name="name">tds.heads.allowance.master.form</field>
+            <field name="model">tds.heads.allowance.master</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="TDS Allowance Head">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="amount"/>
+                            <field name="head_master_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_tds_heads_allowance_master_view">
+            <field name="name">TDS Allowance Head</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tds.heads.allowance.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+         <!--<menuitem id="menu_tds_heads"-->
+                  <!--parent="hr.menu_hr_root"-->
+                  <!--sequence="20"-->
+                  <!--action="act_open_tds_heads_view"/>-->
+
+        <menuitem id="menu_tds_form"
+                  parent="hr.menu_hr_root"
+                  sequence="20"
+                  action="act_open_tds_form_view" groups="pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.hr_branch_employees"/>
+
+        <menuitem id="tds_configuration_menu"
+                  parent="hr.menu_hr_root"
+                  sequence="50"
+                  name="TDS Configuration" groups="pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.payroll_operation"
+                  />
+
+        <menuitem id="menu_tds_heads_master"
+                  parent="tds_configuration_menu"
+                  name = "TDS Head"
+                  sequence="20"
+                  action="act_open_tds_heads_master_view" groups="pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.payroll_operation"/>
+
+        <menuitem id="menu_tds_heads_allowance_id"
+                  parent="tds_configuration_menu"
+                  sequence="40"
+                  action="act_open_tds_heads_allowance_master_view" groups="pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.payroll_operation"/>
+
+          <record id="view_hr_payslip_inherit_form" model="ir.ui.view">
+            <field name="name">hr.payroll.payslip.inherit.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[last()]" position="inside">
+                        <page string="TDS Declaration">
+                            <group>
+                                <field name="tds_declaration_amount" />
+                            </group>
+                        </page>
+                        <page string="Other Income">
+                            <group>
+                                <field name="other_income_amount"/>
+                            </group>
+                        </page>
+                </xpath>
+                <!-- <xpath expr="//button" position="replace">
+				</xpath> -->
+                <!-- <xpath expr="//notebook/page/field/tree/field[@name='amount']" position="replace">
+                	<field name="amount" invisible="1"/>
+				</xpath> -->
+				<!-- <xpath expr="//notebook/page/[@string='Salary Computation']/field/form/field[@name='amount']" position="attributes">
+				    <attribute name="invisible">1</attribute>
+				</xpath> -->
+            </field>
+        </record>
+        
+
+    </data>
+</odoo>

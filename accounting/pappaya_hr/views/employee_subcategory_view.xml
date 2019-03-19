@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!--Employees -> Configuration -> Sub Category-->
+
+		<record id="view_hr_employee_subcategory_tree" model="ir.ui.view">
+			<field name="name">pappaya.group.tree</field>
+			<field name="model">hr.employee.subcategory</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Sub Category">
+					<field name="name" />
+					<field name="code" />
+					<field name="parent_category_id" string="Parent Category" />
+					<field name="is_academic" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_hr_employee_subcategory_form" model="ir.ui.view">
+			<field name="name">pappaya.group.form</field>
+			<field name="model">hr.employee.subcategory</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Sub Category">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1" size="50"/>
+								<field name="code" required="1"/>
+								<field name="parent_category_id" string="Parent Category" required="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="is_academic" />
+							</group>
+							<group/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_hr_employee_subcategory_search" model="ir.ui.view">
+			<field name="name">hr.employee.subcategory.search</field>
+			<field name="model">hr.employee.subcategory</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Sub Category">
+					<field name="name" />
+					<field name="code" />
+					<field name="is_academic" />
+					<group expand="0" string="Group By...">
+                        <filter name="name" string="Sub Category" domain="[]" context="{'group_by':'name'}" />
+                        <filter name="code" string="Code" domain="[]" context="{'group_by':'code'}" />
+                        <filter name="is_academic" string="Is Academic" domain="[]" context="{'group_by':'is_academic'}" />
+                        <filter name="parent_category_id" string="Parent Category" domain="[]" context="{'group_by':'parent_category_id'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_hr_employee_subcategory_view">
+			<field name="name">Sub Category</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.employee.subcategory</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_hr_employee_subcategory_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Sub Category.
+                </p>
+            </field>
+		</record>
+		
+	</data>
+</odoo>

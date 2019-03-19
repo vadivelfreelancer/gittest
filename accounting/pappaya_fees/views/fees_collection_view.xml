@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- Fees Collection Form -->
+		<record id="pappaya_fees_collection_form" model="ir.ui.view">
+			<field name="name">pappaya.fees.collection.form</field>
+			<field name="model">pappaya.fees.collection</field>
+			<field name="arch" type="xml">
+				<form string="Fees collection" create="false" duplicate="0">
+					<sheet>
+						<group>
+							<group>
+								<field name="school_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]" required="1"  class="asterik" readonly="1"/>
+							</group>
+							<group>
+								<field name="academic_year_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+								<field name="collection_date" required="1" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')]}"/>
+								<field name="partner_id" invisible="1"/>
+								<field name="is_res_adjusted" invisible="1"/>
+								<field name="sponsor_paid" invisible="1"/>
+							</group>
+						</group>
+						<separator/>
+						<field name="fees_collection_line">
+							<tree string ="Fees Collection" create="false" open="false" delete="false">
+								<field name="pay" readonly="1"/>
+								<field name="less_sequence" invisible="1"/>
+								<field name="name" readonly="1"/>
+								<field name="gst_total" string="Amount" readonly="1"/>
+								<field name="cgst" readonly="1"/>
+								<field name="sgst" readonly="1"/>
+								<field name="amount" string="Total" readonly="1"/>
+								<field name="res_adj_amt" readonly="1"/>
+								<field name="concession_amount" readonly="1"/>
+								<field name="concession_type_id" domain="[('type','=','concession')]" options="{'no_open': True,'no_create':True}" readonly="1" invisible="1"/>
+								<field name="concession_applied" invisible="1"/>
+								<field name="due_amount" readonly="1"/>
+								<field name="res_adj_amt_extra" invisible="1" readonly="1" />
+								<field name="total_paid" readonly="1"/>
+								<field name="term_state" readonly="1"/>
+								<field name="allow_refund" invisible="1"/>
+								<field name="refund_amount" invisible="1" attrs="{'readonly':[('allow_refund','=',False)]}"/> <!-- attrs="{'readonly':['|',('allow_refund','!=','paid'),('name.is_refundable_fee','=',True)]}" -->
+								<field name="other_payment_id" invisible="1"/>
+							</tree>
+							<form string="Fees Collection">
+								<sheet>
+									<group colspan="4" col="4">
+										<field name="name" options="{'no_open': True,'no_create':True}" readonly="1"/>
+										<field name="gst_total" string="Amount" readonly="1"/>
+										<field name="tax_ids" readonly="1" widget="many2many_tags"/>
+										<field name="amount" string="Total" readonly="1"/>
+										<field name="due_amount" readonly="1"/>
+										<field name="total_paid" readonly="1"/>
+										<field name="term_state" readonly="1"/>
+										<field name="fine_amount" readonly="1"/>
+										<field name="is_transport" invisible="1"/>
+										<field name="is_update" invisible="1"/>
+									</group>
+									<button name="update_transport_installment" string="Update Installment" type="object" class="oe_highlight" attrs="{'invisible':['|',('is_transport','!=', True), ('is_update','=',True)]}"/>
+									<separator string="Transport Installment" attrs="{'invisible': [('is_transport','!=', True)]}"/>
+									<field name="transport_installment_line" attrs="{'invisible': [('is_transport','!=', True)]}">
+										<tree string ="Transport Collection" editable="bottom" create="false" delete="false">
+											<field name="due_date" readonly="1"/>
+											<field name="amount" readonly="1"/>
+											<field name="fine_amount"/>
+											<field name="total_amount"/>
+											<field name="total_paid" readonly="1"/>
+											<field name="due_amount"/>
+											<field name="term_state" readonly="1"/>
+											<field name="paid_date" readonly="1"/>
+											<field name="stud_collection_id" invisible="1"/>
+										</tree>
+									</field>
+									<group attrs="{'invisible': [('is_transport','!=', True)]}">
+										<group>
+											<field name="pay_amount" attrs="{'required':[('is_update','=',True)]}"/>
+											<field name="payment_mode_id" options="{'no_open': True,'no_create':True}" attrs="{'required':[('is_update','=',True)]}"/>
+											<field name="card_type" domain="[('type','=','card_type')]" options="{'no_open': True,'no_create':True}" readonly="1"
+												attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+											<field name="card_number" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+											<field name="card_holder_name" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+											<field name="cheque_dd" class="asterik" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}"/>
+											<field name="cheque_date" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}"/>
+											<field name="is_show_card_details" invisible="1"/>
+											<field name="is_show_cheque_dd_details" invisible="1"/>
+											<field name="is_show_cash_details" invisible="1"/>
+										</group>
+										<group>
+											<field name="transaction_type" options="{'no_open': True,'no_create':True}" attrs="{'required':[('is_update','=',True)]}" domain="[('type','=','transaction_type')]" context="{'master_type':'others','individual_master_type':'transaction_type'}"/>
+											<field name="bank_name" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}"/>
+											<field name="bank_machine_id" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+											<field name="bank_machine_type_id" domain="[('type','=','bank_machine_type')]" context="{'master_type':'others','individual_master_type':'bank_machine_type'}" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+											<field name="mid_no" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+											<field name="tid_no" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+										</group>
+									</group>
+									<footer attrs="{'invisible': [('is_transport','!=', True)]}">
+										<div class="text-center">
+											<button name="pay_installment" string="Pay Installment"  type="object"  class="oe_highlight"/>
+										</div>
+									</footer>
+								</sheet>
+							</form>
+						</field>
+						<!--<field name="bulk_term_state" nolabel="1" invisible="1"/>-->
+						<table class="fixed_table oe_list_content">
+							<tr>
+								<td></td>
+								<td></td>
+								<td><field name="total" nolabel="1" style="margin-right:25px"/></td>
+								<td></td>
+								<td class="o_list_number"><field name="total" nolabel="1"/></td>
+								<td></td>
+								<td class="o_list_number"><field name="res_adj_amt_total" nolabel="1"/></td>
+								<td></td>
+								<td class="o_list_number"><field name="pay_due_total" nolabel="1" style="margin-left:10px"/></td>
+								<td class="o_list_number"><field name="paid_total" nolabel="1" style="margin-left:30px"/></td>
+								<td class="o_list_number"><field name="bulk_term_state" nolabel="1" readonly="1" style="margin-left:20px"/></td>
+							</tr>
+						</table>
+						<group>
+							<group>
+								<field name="pay_due_total"/>
+								<field name="pay_amount" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')]}"/>
+								<field name="is_show_card_details" invisible="1"/>
+								<field name="no_of_cas_transaction" invisible="1"/>
+								<field name="is_show_cheque_dd_details" invisible="1"/>
+								<field name="transaction_type" domain="[('type','=','transaction_type')]" context="{'master_type':'others','individual_master_type':'transaction_type'}" attrs="{'invisible':[('is_amt' ,'!=',True)],'readonly':[('bulk_term_state' ,'=' ,'paid')]}" options="{'no_open': True,'no_create':True}" required="1"/>
+								<field name="payment_mode_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_amt' ,'!=' , True)],'readonly':[('bulk_term_state' ,'=' ,'paid')]}"/>
+								<field name="payment_mode" invisible="1"/>
+								<field name="card_type" options="{'no_open': True,'no_create':True}" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)]}" />
+								<field name="card_number" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)]}"/>
+								<field name="card_holder_name" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)]}"/>
+								<field name="cheque_dd" class="asterik" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')],'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}" />
+								<field name="cheque_date" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}"/>
+								<field name="is_amt" invisible="1"/>
+							</group>
+							<group>
+								<field name="is_refunded" invisible="1"/>
+								<field name="refund_amount" readonly="1"/>
+								<field name="bank_name" options="{'no_open': True,'no_create':True}" class="asterik" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')],'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}"/>
+								<field name="bank_machine_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="bank_machine_type_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}" domain="[('type','=','bank_machine_type')]" context="{'master_type':'others','individual_master_type':'bank_machine_type'}"/>
+								<field name="mid_no" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="tid_no" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)]}"/>
+								<field name="pos_reference_no" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)]}"/>
+								<field name="paytm_order_ref" invisible="1"/>
+							</group>
+							<separator string="Remarks"/>
+							<field name="remarks" attrs="{'readonly':[('bulk_term_state' ,'=' ,'paid')]}"/>
+						</group>
+						<footer>
+							<div class="text-center">
+								<button name="fee_pay" string="Pay Now"  type="object"  class="oe_highlight" attrs="{'invisible':['|',('bulk_term_state' ,'=' ,'paid'),('is_show_card_details' ,'=' ,True)]}"
+										groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+												pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.hr_branch_accountants"/>
+
+								<button string="Push to Pay" type="object" name="push_to_pay" attrs="{'invisible':['|',('bulk_term_state' ,'=' ,'paid'),('is_show_card_details' ,'=' ,False)]}" class="oe_highlight"
+										groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+												pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.hr_branch_accountants"/>
+
+								<button string="Validate Payment" type="object" name="validate_card_payment" attrs="{'invisible':['|',('bulk_term_state' ,'=' ,'paid'),('is_show_card_details' ,'=' ,False)]}" class="oe_highlight"
+										groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,
+												pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.hr_branch_accountants"/>
+							</div>
+						</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="pappaya_fees_collection_tree" model="ir.ui.view">
+			<field name="name">pappaya_fees_collection_tree</field>
+			<field name="model">pappaya.fees.collection</field>
+			<field name="priority" eval="5" />
+			<field name="arch" type="xml">
+				<tree string="Fees Term" create="false">
+					<field name="school_id"/>
+					<field name="academic_year_id"/>
+					<field name="bulk_term_state" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="pappaya_fees_collection_search" model="ir.ui.view">
+            <field name="name">pappaya_fees_collection_search</field>
+            <field name="model">pappaya.fees.collection</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Collection">
+					<field name="school_id"/>
+					<field name="academic_year_id"/>
+                    <group expand="0" string="Group By...">
+						<filter string="Branch" domain="[]" context="{'group_by':'school_id'}" />
+						<filter string="Academic Year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+		
+		<record model="ir.actions.act_window" id="action_pappaya_fees_collection_id1">
+			<field name="name">Fees Collection</field>
+			<field name="res_model">pappaya.fees.collection</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="pappaya_fees_collection_tree"/>
+		</record>
+
+	</data>
+</odoo>

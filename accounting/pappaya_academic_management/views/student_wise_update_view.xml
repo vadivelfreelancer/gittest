@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="student_updateview_form" model="ir.ui.view">
+        <field name="name">student.update.view.form</field>
+        <field name="model">student.update</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <group>
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+                </group>
+
+                <separator string="Section Wise Student Update"/>
+
+                <group>
+                    <group>
+                        <field name="branch"/>
+                        <field name="section"/>
+                        <field name="course"/>
+                    </group>
+                    <group>
+                        <field name="group"/>
+                        <field name="batch"/>
+
+                         <div class="oe_inline">
+                            <label for="filter"/>
+                            <field name="filter" class="oe_inline"/>
+                            <button special="save" class="oe_inline oe_highlight" style="margin-left:20px;" string="Go"/>
+                        </div>
+
+                    </group>
+                </group>
+
+                <field name="student_update_line">
+                    <tree editable="bottom">
+                        <field name="name"/>
+                        <field name="admission_no"/>
+                    </tree>
+                </field>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="student_update_view_only_action" model="ir.actions.act_window">
+        <field name="name">Section Wise Student Update</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.update</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="student_update_view_sub_menu"
+          name="Section Student Update"
+          parent="academic_main_menu"
+          sequence="210"
+          action="student_update_view_only_action"/>
+
+</odoo>

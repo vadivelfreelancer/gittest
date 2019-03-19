@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Fees Management" id="pappaya_fees_management_menu_id" sequence="3"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Fee Collection" id="pappaya_fees_collection_menu_id" parent="pappaya_fees_management_menu_id"
+                  action="action_pappaya_fees_collection_id1" sequence="1"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Fee Receipt" id="pappaya_fees_receipt_menu_id" parent="pappaya_fees_management_menu_id"
+                  action="action_pappaya_fees_receipt_id" sequence="10"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Fee Ledger" id="pappaya_fees_ledger_menu_id" parent="pappaya_fees_management_menu_id"
+                  action="action_pappaya_fees_ledger_id" sequence="13"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Cash Management" id="pappaya_fees_cash_deposit_menu_id" parent="pappaya_fees_management_menu_id"
+                  action="action_bank_deposits" sequence="20"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Non Cash Deposit" id="pappaya_fees_non_cash_deposit_menu_id"
+                  parent="pappaya_fees_management_menu_id" action="action_bank_deposit_clearance" sequence="25"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Non Cash Clearance" id="pappaya_payment_status_line_menu_id"
+                  parent="pappaya_fees_management_menu_id" action="action_payment_status_line_view" sequence="30"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+        <menuitem name="Bank Challan Transaction" id="pappaya_payment_challan_trans_menu_id"
+                  parent="pappaya_fees_management_menu_id" action="action_bank_challan_transaction" sequence="35"/>
+
+        <menuitem name="Fee Concession" id="menu_pappaya_fee_concession" parent="pappaya_fees_management_menu_id"
+                  action="action_pappaya_fees_concession" sequence="40"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <!-- <menuitem name="Fee Concession" id="menu_pappaya_fee_concession" parent="pappaya_fees_management_menu_id" action="action_pappaya_concession_fees" sequence="40"/> -->
+
+        <menuitem name="Report" id="menu_pappaya_fee_reports" parent="pappaya_fees_management_menu_id" sequence="81"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Day Book" id="menu_pappaya_daybook" parent="menu_pappaya_fee_reports"
+                  action="action_daybook_wizard_report" sequence="1" groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Cheque/DD Deposit Lag Report" id="menu_pappaya_cheque_dd_deposit_lag"
+                  parent="menu_pappaya_fee_reports" action="action_pappaya_cheque_deposit_lag_report" sequence="1"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <!--<menuitem name="Fee Collection Summary" id="menu_pappaya_fee_collection_summary" parent="menu_pappaya_fee_reports" action="fee_collection_summary_report_act" sequence="1" />-->
+        <!--<menuitem name="Fee Collection Details" id="menu_pappaya_student_fee_collection_summary" parent="menu_pappaya_fee_reports" action="student_fee_collection_summary_report_act" sequence="5" />-->
+        <!--<menuitem name="Fee Structure Report" id="menu_fee_structure_report1" parent="menu_pappaya_fee_reports" action="fee_structure_report_act" sequence="8" />-->
+        <!--<menuitem name="Cash Book" id="menu_bank_ledger_report" parent="menu_pappaya_fee_reports" action="action_bank_ledger_wizard" sequence="15" />-->
+        <!--<menuitem name="Bank Ledger" id="menu_bank_ledger_all_report" parent="menu_pappaya_fee_reports" action="action_bank_ledger_all" sequence="16" />-->
+        <!--<menuitem name="Fee Reconciliation" id="menu_bank_fee_reconciliation_report" parent="menu_pappaya_fee_reports" action="class_wise_feereconciliation_report_act" sequence="24" />-->
+        <!--<menuitem name="Cash Book Branch Wise" id="menu_bank_ledger_school_wise_report" parent="menu_pappaya_fee_reports" action="action_bank_ledger_school_wise" sequence="15" />-->
+        <menuitem name="Fees Masters" id="pappaya_fees_configuration_menu_id" parent="pappaya_base.menu_pappaya_configurations_root"
+                  sequence="33" groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <!-- Begin : Accounting Related Menus -->
+        <!-- <menuitem name="Main Group" id="pappaya_fees_main_group_menu" parent="pappaya_fees_configuration_menu_id" action="view_pappaya_account_main_group_action" sequence="1" groups="pappaya_base.group_admission_admin" />
+        <menuitem name="Group" id="pappaya_fees_group_menu" parent="pappaya_fees_configuration_menu_id" action="view_pappaya_account_group_action" sequence="2" groups="pappaya_base.group_admission_admin" />
+        <menuitem name="Sub Group" id="pappaya_fees_sub_group_menu" parent="pappaya_fees_configuration_menu_id" action="view_pappaya_account_sub_group_action" sequence="3" groups="pappaya_base.group_admission_admin" />
+        <menuitem name="Ledger" id="pappaya_fees_ledger_menu" parent="pappaya_fees_configuration_menu_id" action="view_pappaya_account_ledger_action" sequence="4" groups="pappaya_base.group_admission_admin" />
+        <menuitem name="Sub Ledger" id="pappaya_fees_sub_ledger_menu" parent="pappaya_fees_configuration_menu_id" action="view_pappaya_account_sub_ledger_action" sequence="5" groups="pappaya_base.group_admission_admin" />
+         --><!-- End : Accounting Related Menus-->
+
+        <menuitem name="Fees Head" id="pappaya_fees_head_menu_id" parent="pappaya_fees_configuration_menu_id"
+                  action="action_pappaya_fees_head_id" sequence="6" groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Fees Structure" id="pappaya_fees_structure_menu_id" parent="pappaya_fees_configuration_menu_id"
+                  action="action_pappaya_fees_structure_id" sequence="7" groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Admission Target Allocation" id="menu_action_admission_target_allocation"
+                  parent="pappaya_fees_configuration_menu_id" action="action_admission_target_allocation" sequence="8"
+                  groups="pappaya_base.group_admission_admin"/>
+        <menuitem name="Ezetap POS Devices" id="menu_pappaya_ezetap_device" parent="pappaya_fees_configuration_menu_id"
+                  sequence="20" action="act_open_pappaya_ezetap_device_view"
+                  groups="pappaya_base.group_admission_admin"/>
+        <menuitem name="SMS Content" id="menu_pappaya_sms_content" parent="pappaya_fees_configuration_menu_id"
+                  action="act_open_pappaya_sms_content_view" sequence="8" groups="pappaya_base.group_admission_admin"/>
+        <!--<menuitem name="Concession Reason" id="pappaya_concession_reason_menu_id" parent="pappaya_fees_configuration_menu_id" action="action_pappaya_concession_reason_id" sequence="8" />-->
+        <!--<menuitem name="Bank Account" id="pappaya_bank_account_menu_id" parent="pappaya_fees_configuration_menu_id" action="action_bank_account_config" sequence="9" />-->
+        <!--<menuitem name="Bank Name" id="pappaya_bank_name_menu_id" parent="pappaya_fees_configuration_menu_id" action="action_bank_name_config" sequence="10" />-->
+
+        <menuitem name="Other Payments" id="menu_view_pappaya_other_payment_tree"
+                  parent="pappaya_fees.pappaya_fees_management_menu_id" action="action_view_pappaya_other_payment_tree"
+                  sequence="16"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem id="menu_view_pappaya_refund_id"
+                  parent="pappaya_fees_management_menu_id"
+                  sequence="17"
+                  name="Fees Refund"
+                  action="action_view_pappaya_fees_refunt_tree"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+
+        <menuitem id="menu_pappaya_imulpay_authorize"
+                  parent="pappaya_fees_management_menu_id"
+                  sequence="18"
+                  name="iMulPay Authorize"
+                  action="act_open_pappaya_imulpay_authorize_view"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant"/>
+
+        <!-- <menuitem name="Fee Reconciliation" id="menu_pappaya_fee_reconciliation"
+        parent="menu_pappaya_fee_reports" action="class_wise_feereconciliation_report_act"
+        sequence="6"/> -->
+
+        <!-- <menuitem name="RTE Payment Report" id="menu_rte_payment_report1"
+            parent="menu_pappaya_fee_reports" action="rte_payment_report_act" groups="pappaya_core.group_pappaya_national_level_officer,pappaya_core.group_pappaya_national_level_it_admin,pappaya_core.group_pappaya_national_level_fin_admin,pappaya_core.group_pappaya_state_level_officer,pappaya_core.group_pappaya_state_level_it_admin,pappaya_core.group_pappaya_state_level_fin_admin,pappaya_core.group_pappaya_school_level_officer,pappaya_core.group_pappaya_school_level_it_admin,pappaya_core.group_pappaya_school_level_fin_admin"
+            sequence="7"/> -->
+
+        <!-- <menuitem name="Fee refund report" id="menu_pappaya_fee_refund_report"
+        parent="menu_pappaya_fee_reports" action="fee_refund_report_act" sequence="2"/> -->
+
+
+        <!-- <menuitem name="Fee Balance List" id="menu_pappaya_fee_balance" parent="menu_pappaya_fee_reports"
+            action="action_fee_balance_wizard_report" sequence="4"/> -->
+
+        <!-- <menuitem name="Non Cash Deposit Clear" id="pappaya_fees_non_cash_status_deposit_menu_id"
+        parent="pappaya_fees_management_menu_id" action="action_payment_status_id"
+        sequence="25"/> -->
+        <!--<menuitem name="Concession Fees" id="pappaya_concession_fees" parent="pappaya_fees_management_menu_id"
+            action="action_pappaya_concession_fees" sequence="40"/> -->
+        <!-- Fee Report -->
+
+        <!--<menuitem name="Fee Collection/Bills" id="pappaya_fees_bills_menu"
+        parent="pappaya_fees_management_menu_id" action="account.action_invoice_tree1"
+        sequence="5" groups="pappaya_base.group_admission_admin"/> -->
+        <!--<menuitem name="Refunds" id="pappaya_fees_refund_menu" parent="pappaya_fees_management_menu_id"
+            action="account.action_invoice_out_refund" sequence="10" groups="pappaya_base.group_admission_admin"/> -->
+        <!--<menuitem name="Cash Deposit" id="menu_student_cash_payment" parent="pappaya_fees_management_menu_id"
+            action="action_student_cash_payment" sequence="15" groups="pappaya_base.group_admission_admin"/> -->
+        <!--<menuitem name="Non Cash Deposit" id="menu_student_noncash_payment"
+            parent="pappaya_fees_management_menu_id" action="action_student_noncash_payment"
+            sequence="15" groups="pappaya_base.group_admission_admin"/> -->
+
+        <!-- <menuitem name="Branchwise Consolidated Report" id="menu_pappaya_schoolwise_consolidated" parent="menu_pappaya_fee_reports" action="action_schoolwise_consolidated_wizard_report" sequence="10"/> -->
+
+    </data>
+</odoo>

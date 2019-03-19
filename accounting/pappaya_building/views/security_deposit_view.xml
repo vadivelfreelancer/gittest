@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		
+        
+        <record id="view_security_deposit_tree" model="ir.ui.view">
+			<field name="name">security.deposit.tree</field>
+			<field name="model">security.deposit</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Security Deposit">
+				    <field name="name" />
+					<field name="branch_id"/>
+					<field name="building_id"/>
+					<field name="owner_id"/>
+					<field name="rent"/>
+					<field name="deposit_amount"/>
+					<field name="in_amount"/>
+					<field name="out_amount"/>
+					<field name="arrear_amount" />
+					<field name="advance_transfer_amount" />
+					<field name="available_amount"/>
+					<field name="repayment_amount"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_security_deposit_form" model="ir.ui.view">
+			<field name="name">security.deposit.form</field>
+			<field name="model">security.deposit</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Security Deposit">
+					<header>
+						<button name="act_proposal" states="draft" type="object" string="Proposal" class="oe_highlight"/>
+						<button name="act_approval" states="proposed" type="object" string="Approval" class="oe_highlight"/>
+						<button name="act_advance" states="approved" type="object" string="Convert To Advance" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,proposed,approved"/>
+					</header>
+					<sheet>
+					    <div class="oe_title">
+                        		<h1>
+                            		<strong><field name="name" readonly="1"/></strong>
+                        		</h1>
+                        </div>
+						<group colspan="4" col="4">
+							<field name="deposit_type" required="1"/>
+							<field name="branch_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="building_id" required="1" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="owner_id" required="1" domain="[('building_id','=',building_id)]" widget="selection"/>
+                            <field name="rent" required="1"/>
+                            <field name="deposit_amount" required="1"/>
+                            <field name="in_amount" invisible="1"/>
+                            <field name="out_amount" invisible="1"/>
+					        <field name="available_amount" invisible="1"/>
+					        <field name="repayment_amount" invisible="1" />
+					        <field name="arrear_amount"  invisible="1"/>
+					        <field name="advance_transfer_amount" invisible="1" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_security_deposit_search" model="ir.ui.view">
+			<field name="name">security.deposit.search</field>
+			<field name="model">security.deposit</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Security Deposit">
+					<field name="branch_id"/>
+					<field name="building_id"/>
+					<field name="owner_id"/>
+					<field name="rent"/>
+					<field name="deposit_amount"/>
+					<field name="state"/>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_security_deposits_view">
+			<field name="name">Security Deposit</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">security.deposit</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_security_deposit_search"/>
+		</record>
+
+	</data>
+</odoo>

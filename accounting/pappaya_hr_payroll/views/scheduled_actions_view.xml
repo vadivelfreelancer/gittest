@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+	<data noupdate="0">
+        <record id="calendar_generation_cron" model="ir.cron">
+            <field name="name">Calendar Generation [CALL]</field>
+            <field name="model_id" ref="pappaya_base.model_calendar_generation"/>
+            <field name="state">code</field>
+            <field name="code">model.schedule_action_calender_generation()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+
+        <record id="calendar_regeneration_cron" model="ir.cron">
+            <field name="name">Calendar ReGeneration [CALL]</field>
+            <field name="model_id" ref="pappaya_base.model_calendar_generation"/>
+            <field name="state">code</field>
+            <field name="code">model.schedule_action_calender_regeneration()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+
+        <!-- <record id="bulk_payslip_in_done" model="ir.cron">
+            <field name="name">Payslip Generation</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_payslip_run"/>
+            <field name="state">code</field>
+            <field name="code">model.bulk_payslip_in_done()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record> -->
+        
+        
+        
+        <!-- <record id="schedule_month_attendance_creation_branch_wise" model="ir.cron">
+            <field name="name">Schedule Month Attendance Creation Branch Wise</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.schedule_month_attendance_creation_branch_wise()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        <record id="schedule_today_attendance_creation_branch_wise" model="ir.cron">
+            <field name="name">Schedule Today Attendance Creation Branch Wise</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.schedule_today_attendance_creation_branch_wise()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        <record id="schedule_month_attendance_update" model="ir.cron">
+            <field name="name">Schedule Month Attendance Update</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.schedule_month_attendance_update()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record> -->
+        
+        
+        <!-- LOCK and SUB LOCK -->
+        
+        <record id="execute_lock_and_sublock_create_thread_function" model="ir.cron">
+            <field name="name">Create Lock and Sublock [CALL]</field>
+            <field name="model_id" ref="pappaya_payroll.model_employee_lock_sublock"/>
+            <field name="state">code</field>
+            <field name="code">model.execute_lock_and_sublock_create_thread_function()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <record id="execute_lock_and_sublock_create_manually" model="ir.cron">
+            <field name="name">Create Lock and Sublock Manually [CALL]</field>
+            <field name="model_id" ref="pappaya_payroll.model_employee_lock_sublock"/>
+            <field name="state">code</field>
+            <field name="code">model.execute_create_lock_and_sublock_manually(False,False,False)#('start date','end date','Branch ID') ex. ('2018-02-01','2018-02-01','1234')</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        
+        <!-- Payslip Creation and Update -->
+        
+        
+        <record id="create_and_update_payslip_function_one" model="ir.cron">
+            <field name="name">create and update payslip function one [Payslip FUNCTION ONE]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_payslip_run"/>
+            <field name="state">code</field>
+            <field name="code">model.create_and_update_payslip_function_one()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <record id="create_and_update_payslip_function_two" model="ir.cron">
+            <field name="name">create and update payslip function Two [Work FUNCTION TWO]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_payslip_run"/>
+            <field name="state">code</field>
+            <field name="code">model.create_and_update_payslip_function_two()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        
+        <record id="current_month_create_and_update_payslip_one" model="ir.cron">
+            <field name="name">Current Month Payslip and Work Days Lines [CALL ONE]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_payslip_run"/>
+            <field name="state">code</field>
+            <field name="code">model.current_month_create_and_update_payslip_one(False,False,False,False) #(Start Date, End Date,Branch ID,Employee ID) ex.('2018-02-01', '2018-02-28',Branch ID,Employee ID)</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        
+        <record id="current_month_create_and_update_payslip_lines_two" model="ir.cron">
+            <field name="name">Current Month Payslip Lines Update[CALL TWO]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_payslip_run"/>
+            <field name="state">code</field>
+            <field name="code">model.current_month_create_and_update_payslip_lines_two(False,False,False)#(Start Date, End Date,Branch ID) ex.('2018-02-01', '2018-02-28',Branch ID)</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <record id="payroll_cycle_payslip_generation_update" model="ir.cron">
+            <field name="name">Payroll Cycle Payslip Generation Update[CALL THIRD]</field>
+            <field name="model_id" ref="pappaya_payroll.model_payroll_cycle"/>
+            <field name="state">code</field>
+            <field name="code">model.payroll_cycle_payslip_generation_update()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        
+        
+        <!--  DAILY LEAVE AUTO ALLOCATION-->
+        
+        <record id="main_schedule_monthly_one_time_leave_allocation_update" model="ir.cron">
+            <field name="name">Main Schedule Monthly One Time Leave Allocation [CALL]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_holidays"/>
+            <field name="state">code</field>
+            <field name="code">model.main_schedule_monthly_one_time_leave_allocation_update()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        <record id="sub_main_monthly_one_time_leave_allocation_function_creation_one" model="ir.cron">
+            <field name="name">Main Schedule Monthly One Time Leave Allocation Function [FUNCTION ONE]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_holidays"/>
+            <field name="state">code</field>
+            <field name="code">model.sub_main_monthly_one_time_leave_allocation_function_creation_one()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <record id="sub_main_monthly_one_time_leave_allocation_function_creation_two" model="ir.cron">
+            <field name="name">Main Schedule Monthly One Time Leave Allocation Function [FUNCTION TWO]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_holidays"/>
+            <field name="state">code</field>
+            <field name="code">model.sub_main_monthly_one_time_leave_allocation_function_creation_two()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        
+        
+        
+        <!-- ATTENDANCE CREATION AND UPDATE CRON -->
+        
+        <record id="daily_attendance_create_and_update_one" model="ir.cron">
+            <field name="name">Daily Attendance Create and Update [FUNCTION ONE]</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.daily_attendance_create_and_update_one()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <record id="daily_attendance_create_and_update_two" model="ir.cron">
+            <field name="name">Daily Attendance Create and Update Two [FUNCTION TWO]</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.daily_attendance_create_and_update_two()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        <record id="daily_attendance_create_and_update_two" model="ir.cron">
+            <field name="name">Daily Attendance Create and Update Two [FUNCTION TWO]</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.daily_attendance_create_and_update_two()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        <record id="monthly_branch_attendance_create_and_update_third" model="ir.cron">
+            <field name="name">Monthly Branch Date Range Attendance Create and Update Third [FUNCTION Third]</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.Branch_wise_attendance_update()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <record id="daily_attendance_create_and_update_final" model="ir.cron">
+            <field name="name">Daily Attendance Create and Update Final [CALL]</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.daily_attendance_create_and_update_final()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        <record id="attendance_create_branch_and_date_range" model="ir.cron">
+            <field name="name">Monthly Attendance Create and Update Final [CALL]</field>
+            <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.attendance_create_branch_and_date_range(False,False,False)#(Branch ID,Date From,Date To)</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <!-- AUTO CARRYFORWAR LEAVE Update -->
+        
+        <record id="yearly_update_and_insert_carryforward_leaves_one" model="ir.cron">
+            <field name="name">Yearly Update and Insert Carryforward Leaves [FUNCTION]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_holidays"/>
+            <field name="state">code</field>
+            <field name="code">model.yearly_update_and_insert_carryforward_leaves_one()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+        <record id="yearly_update_and_insert_carryforward_leaves_two" model="ir.cron">
+            <field name="name">Yearly Update and Insert Carryforward Leaves [CALL]</field>
+            <field name="model_id" ref="pappaya_payroll.model_hr_holidays"/>
+            <field name="state">code</field>
+            <field name="code">model.yearly_update_and_insert_carryforward_leaves_two()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="numbercall">-1</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+        </record>
+        
+        
+    </data> 
+    <data>
+        
+        <record id="pappaya_ir_cron_act" model="ir.actions.act_window">
+            <field name="name">HR and Payroll Scheduled Actions</field>
+            <field name="res_model">ir.cron</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{'search_default_all': 1}</field>
+            <field name="view_id" ref="base.ir_cron_view_tree"/>
+        </record>
+        <menuitem id="menu_ir_cron_act_base_papapaya" action="pappaya_ir_cron_act"/>
+
+    </data>
+</odoo>

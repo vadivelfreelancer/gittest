@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_incentive_tree" model="ir.ui.view">
+			<field name="name">pappaya.incentive.tree</field>
+			<field name="model">pappaya.incentive</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Incentive">
+					<field name="academic_year_id" />
+					<field name="state_id" />
+					<field name="district_id" />
+					<field name="student_type" />
+					<field name="program_type" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_incentive_form" model="ir.ui.view">
+			<field name="name">pappaya.incentive.form</field>
+			<field name="model">pappaya.incentive</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Incentive">
+					<header>
+					<!-- <field name="school"/>
+						<label for="school" string="School"/>
+						<div>
+							<field name="school"  />
+							</div>
+							<label for="college" string="College"/>
+							<field name="college"  />
+							<label for="staff" string="Staff"/>
+							<field name="staff"  />
+							<label for="agm_principal" string="AGM/Principal"/>
+							<field name="agm_principal"  />
+							<label for="pro" string="PRO"/>
+							<field name="pro"  /> -->
+					</header>
+					<sheet>
+						<!-- <table>
+							<tr>
+								<td>School</td>
+								<td><field name="school" nolabel="1"/></td>
+								<td>College</td>
+								<td><field name="college" nolabel="1"/></td>
+							</tr>
+						</table> -->
+						<group col="8" colspan="8">
+							<field name="school" />
+							<field name="college" />
+							<field name="staff" />
+							<field name="agm_principal" />
+						</group>
+						<group col="4" colspan="4">
+							<field name="academic_year_id" />
+							<field name="program_type" />
+							<field name="appex_id" />
+							<field name="state_id" />
+							<field name="district_id" />
+							<field name="student_type" />
+						</group>
+						<group>
+							<field name="course_detail_ids" nolabel="1">
+								<tree editable="bottom">
+									<field name="name" string="Course" />
+								</tree>
+							</field>
+							<field name="group_detail_ids" nolabel="1">
+								<tree editable="bottom">
+									<field name="name" string="Group" />
+								</tree>
+							</field>
+							<field name="batch_detail_ids" nolabel="1">
+								<tree editable="bottom">
+									<field name="name" string="Batch" />
+								</tree>
+							</field>
+							<field name="batch_division_ids" nolabel="1">
+							<tree>
+							<field name="name" string="Division"/>
+							</tree>
+							</field>
+						</group>
+						<group col="4">
+							<field name="emp_no" />
+							<field name="res_from_date" />
+							<field name="res_to_date" />
+							<field name="order_by" />
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_incentive_search" model="ir.ui.view">
+			<field name="name">pappaya.incentive.search</field>
+			<field name="model">pappaya.incentive</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Incentive">
+					<field name="appex_id" select="True" />
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window"
+			id="act_open_pappaya_incentive_view">
+			<field name="name">Incentives</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.incentive</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id"
+				ref="view_pappaya_incentive_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                         (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_incentive_tree')}),
+                         (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_incentive_form')})]" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Incentives.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

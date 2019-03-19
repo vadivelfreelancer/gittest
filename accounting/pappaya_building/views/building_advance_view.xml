@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		
+        
+        <record id="view_building_advance_tree" model="ir.ui.view">
+			<field name="name">building.advance.tree</field>
+			<field name="model">building.advance</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Building Advance">
+				    <field name="name" />
+					<field name="branch_id"/>
+					<field name="building_id"/>
+					<field name="owner_id" />
+					<field name="rent"/>
+					<field name="advance_amount"/>
+					<field name="tds_amount"/>
+					<field name="in_advance"/>
+					<field name="out_advance"/>
+					<field name="arrear_advance" />
+					<field name="security_deposit_transfer" />
+					<field name="available_advance"/>
+					<field name="repayment_advance" />
+					<field name="date"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_building_advance_form" model="ir.ui.view">
+			<field name="name">building.advance.form</field>
+			<field name="model">building.advance</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Building Advance">
+					<header>
+						<button name="act_proposal" states="draft" type="object" string="Proposal" class="oe_highlight"/>
+						<button name="act_approval" states="proposed" type="object" string="Approval" class="oe_highlight"/>
+						<button name="act_advance" states="approved" type="object" string="Convert To Advance" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,proposed,approved"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+                       		<h1>
+                           		<strong><field name="name" readonly="1"/></strong>
+                       		</h1>
+                        </div>
+						<group colspan="4" col="4">
+							<field name="branch_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="building_id" required="1" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="owner_id" required="1" domain="[('building_id','=',building_id)]" widget="selection"/>
+                            <field name="rent" required="1"/>
+                            <field name="no_of_floors"/>
+                            <field name="advance_amount" required="1"/>
+                            <field name="tds_amount" />
+                            <field name="date"/>
+                            <field name="proposed_by" readonly="1"/>
+                            <field name="remarks"/>
+                            <field name="in_advance" invisible="1"/>
+							<field name="out_advance" invisible="1"/>
+							<field name="available_advance" invisible="1"/>
+							<field name="repayment_advance" invisible="1"/>
+							<field name="arrear_advance" invisible="1"/>
+							<field name="security_deposit_transfer" invisible="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_building_advance_search" model="ir.ui.view">
+			<field name="name">building.advance.search</field>
+			<field name="model">building.advance</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Building Advance">
+					<field name="branch_id"/>
+					<field name="building_id"/>
+					<field name="date"/>
+					<field name="rent"/>
+					<field name="advance_amount"/>
+					<field name="tds_amount"/>
+					<field name="state"/>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_building_advances_view">
+			<field name="name">Building Advance</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">building.advance</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_building_advance_search"/>
+		</record>
+
+	</data>
+</odoo>

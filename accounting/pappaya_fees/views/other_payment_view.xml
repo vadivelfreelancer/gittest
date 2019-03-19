@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_other_payment_configuration_tree" model="ir.ui.view">
+			<field name="name">view.other.payment.configuration.form</field>
+			<field name="model">other.payment.configuration</field>
+			<field name="arch" type="xml">
+				<tree string="Other Payment Configuration">
+					<field name="name" invisible="1"/>
+					<field name="branch_id"/>
+					<field name="academic_year_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_other_payment_configuration_form" model="ir.ui.view">
+			<field name="name">view.other.payment.configuration.form</field>
+			<field name="model">other.payment.configuration</field>
+			<field name="arch" type="xml">
+				<form string="Other Payment Configuration">
+					<sheet>
+						<group>
+							<group>
+								<field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+								<field name="name" invisible="1"/>
+							</group>
+							<group>
+								<field name="academic_year_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Fees Heads">
+								<field name="other_payment_configuration_line">
+									<tree editable="bottom">
+										<field name="other_payment_config_id" invisible="1"/>
+										<field name="fee_head_id" options="{'no_create':True,'no_open':True}" domain="[('is_other_payment','=',True)]" required="1"/>
+										<field name="fee_sub_head_id" options="{'no_create':True,'no_open':True}" domain="[('fees_head_id','=',fee_head_id)]"/>
+										<field name="amount" required="1"/>
+										<field name="sgst" />
+										<field name="cgst"/>
+										<field name="total_amount"/>
+										<field name="description"/>
+									</tree>
+									<form>
+										<group>
+											<field name="other_payment_config_id" options="{'no_create':True,'no_open':True}" readonly="1" />
+											<field name="amount" readonly="1"/>
+											<field name="sgst" readonly="1"/>
+											<field name="cgst" readonly="1"/>
+											<field name="total_amount" readonly="1"/>
+											<field name="description" readonly="1"/>
+										</group>
+									</form>
+								</field>
+							</page>
+						</notebook>
+						<group>
+							<field name="description" nolabel="1" placeholder="Add a description.."/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>	
+		
+		<record model="ir.actions.act_window" id="action_other_payment_configuration">
+			<field name="name">Other Payment Configuration</field>
+			<field name="res_model">other.payment.configuration</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_other_payment_configuration_tree"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Other Payment Configuration.
+				</p>
+			</field>
+		</record>
+		
+	    <record id="view_operating_unit_form_inherit" model="ir.ui.view">
+	        <field name="name">view.operating.unit.form.inherit</field>
+	        <field name="model">operating.unit</field>
+	        <field name="inherit_id" ref="pappaya_base.view_operating_unit_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//div[@class='oe_button_box']" position="inside">
+					<button name="action_other_payment_info"
+							class="oe_stat_button"
+							icon="fa-gears"
+							type="object"
+							string="Other Payments" groups="pappaya_base.group_admission_admin">
+					</button>
+	        	</xpath>	
+	        </field>
+	    </record>	
+
+		<record id="view_pappaya_other_payment_form" model="ir.ui.view">
+			<field name="name">view.pappaya.other.payment.form</field>
+			<field name="model">pappaya.other.payment</field>
+			<field name="arch" type="xml">
+				<form string="Other Payments">
+					<header>
+						<field name="state" widget="statusbar"/>
+					</header>				
+				
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button name="action_other_pay_receipt_info" class="oe_stat_button" icon="fa-file-o" type="object" string="Receipts"/>
+						</div>
+						<group>
+							<group>
+								<field name="academic_year_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="branch_id"  options="{'no_open':True,'no_create':True}" readonly="1" force_save="1"/>
+								<field name="father_name" readonly="1" force_save="1"/>
+								<field name="amount_collected" invisible="1"/>
+								<field name="balance_amount" invisible="1"/>
+							</group>
+							<group>
+								<field name="student_id"  options="{'no_open':True,'no_create':True}" readonly="1" force_save="1"/>
+								<field name="branch_code" readonly="1" force_save="1"/>
+								<field name="tax_collected" invisible="1"/>
+								<field name="balance_tax" invisible="1"/>
+								<field name="receipt_id" invisible="1"/>
+							</group>
+						</group>
+						<group string=" Fee &amp; Receipt Information">
+							<group>
+								<field name="is_transport" invisible="1"/>
+								<field name="other_payment_type" required="1"/>
+								<field name="service_route_id" attrs="{'invisible':[('other_payment_type','!=','transport_pay')], 'required':[('other_payment_type','=','transport_pay')]}" options="{'no_create':True,'no_open':True}"/>
+								<field name="transport_slab_id" attrs="{'invisible':[('other_payment_type','!=','transport_pay')], 'required':[('other_payment_type','=','transport_pay')]}" options="{'no_create':True,'no_open':True}"
+										domain="[('route_id','=',service_route_id)]"/>
+								<field name="payment_head" domain="[('is_other_payment','=',True)]" options="{'no_open': True,'no_create':True}" required="1" 
+									attrs="{'readonly':['|',('state' ,'!=' ,'draft'),('other_payment_type','!=','other_pay')]}" force_save="1"/>
+								<field name="payment_sub_head" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state' ,'!=' ,'draft')], 'invisible':[('other_payment_type','!=','other_pay')]}"/>
+								<field name="payment_mode_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('payment_mode_id','=',False)]}" />
+								<field name="card_type" domain="[('type','=','card_type')]" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}" />
+								<field name="card_number" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="card_holder_name" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="cheque_dd" class="asterik" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}" />
+								<field name="cheque_date" class="asterik" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}" />
+								<field name="is_show_card_details" invisible="1"/>
+								<field name="is_show_cheque_dd_details" invisible="1"/>
+								<field name="is_material_fee_editable" invisible="1"/>
+								<field name="is_paid" invisible="1"/>
+								<field name="is_fee_created" invisible="1"/>
+								<field name="is_caution_amt" invisible="1"/>
+								<field name="is_pocket_amt" invisible="1"/>
+							</group>
+							<group>
+								<field name="amount" attrs="{'readonly':['|',('state' ,'!=' ,'draft'),('other_payment_type','!=','other_pay')]}" force_save="1"/>
+								<field name="payment_date" required="1" attrs="{'readonly':[('state' ,'!=' ,'draft')]}"/>
+								<field name="payment_option" required="1" attrs="{'readonly':[('state' ,'!=' ,'draft')]}"/>
+								<field name="from_fee_head_id" options="{'no_open':True,'no_create':True}" attrs="{'invisible': [('payment_option','=','pay_amount')],'required':[('payment_option','=','fee_adjustment')],'readonly':[('state' ,'!=' ,'draft')]}"/>
+								<field name="caution_deposit_amt" readonly="1" attrs="{'invisible': [('is_caution_amt','=',False)]}"/>
+								<field name="student_wallet_amt" readonly="1" attrs="{'invisible': [('is_pocket_amt','=',False)]}"/>
+								<field name="transaction_type" domain="[('type','=','transaction_type')]" context="{'master_type':'others','individual_master_type':'transaction_type'}" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('transaction_type','=',False)]}" options="{'no_open': True,'no_create':True}"/>
+								<field name="bank_name" options="{'no_open': True,'no_create':True}" class="asterik" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_cheque_dd_details' ,'=' ,False), ('is_show_card_details','=',False)],'required':['|',('is_show_cheque_dd_details' ,'!=' ,False), ('is_show_card_details','!=',False)]}"/>
+								<field name="bank_machine_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="bank_machine_type_id" domain="[('type','=','bank_machine_type')]" context="{'master_type':'others','individual_master_type':'bank_machine_type'}" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="mid_no" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="tid_no" attrs="{'readonly':[('state' ,'!=' ,'draft')],'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+							</group>
+							<footer>
+								<div class="text-center">
+									<button name="action_pay_fees" string="Pay Now"  type="object"  class="oe_highlight" attrs="{'invisible':['|',('state','!=','draft'),('payment_option','=','fee_adjustment')]}"
+										groups="pappaya_base.group_admission_admin,pappaya_base.hr_branch_accountants,
+												pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant"/>
+
+									<button string="Fee Adjustment" type="object" name="action_fees_adjustment" class="oe_highlight" attrs="{'invisible':['|',('state','=','paid'),('payment_option','=','pay_amount')]}"
+											groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_assistant,pappaya_base.hr_branch_accountants,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant"/>
+								</div>
+							</footer>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>	
+	
+		<record id="view_pappaya_other_payment_tree" model="ir.ui.view">
+			<field name="name">view.pappaya.other.payment.view</field>
+			<field name="model">pappaya.other.payment</field>
+			<field name="arch" type="xml">
+				<tree string="Other Payments">
+					<field name="admission_id"/>
+					<field name="branch_id"/>
+					<field name="payment_head"/>
+					<field name="payment_sub_head" />
+					<field name="payment_option" />
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_other_payment_search" model="ir.ui.view">
+			<field name="name">view.pappaya.other.payment.view</field>
+			<field name="model">pappaya.other.payment</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Other Payment">
+					<field name="admission_id" string="Admission No"/>
+					<field name="branch_id"/>
+					<newline/>
+					<group expand="0" string="Group By...">
+                        <filter string="Admission No" name="admission_id" domain="[]" context="{'group_by':'admission_id'}"/>
+                        <filter string="Branch" name="branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="State" name="state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+	
+		<record model="ir.actions.act_window" id="action_view_pappaya_other_payment_tree">
+			<field name="name">Other Payments</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.other.payment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	
+	
+	</data>
+</odoo>

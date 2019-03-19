@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_pappaya_ezetap_device_tree" model="ir.ui.view">
+            <field name="name">pappaya.ezetap.device.tree</field>
+            <field name="model">pappaya.ezetap.device</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Ezetap POS Devices">
+                    <field name="name"/>
+                    <field name="device_id"/>
+                    <field name="school_ids_m2m"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_ezetap_device_form" model="ir.ui.view">
+            <field name="name">pappaya.ezetap.device.form</field>
+            <field name="model">pappaya.ezetap.device</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Ezetap POS Devices">
+                    <sheet>
+                        <group colspan="2">
+                            <field name="name" required="1" />
+                            <field name="device_id" required="1"/>
+                            <field name="school_ids_m2m" required="1" widget="many2many_tags" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_ezetap_device_search" model="ir.ui.view">
+            <field name="name">pappaya.ezetap.device.search</field>
+            <field name="model">pappaya.ezetap.device</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Ezetap POS Devices">
+                    <field name="name" select="True"/>
+                    <field name="device_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_pappaya_ezetap_device_view">
+            <field name="name">Ezetap POS device</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.ezetap.device</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_ezetap_device_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_pappaya_ezetap_device_view_form">
+            <field name="act_window_id" ref="act_open_pappaya_ezetap_device_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_pappaya_ezetap_device_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_pappaya_ezetap_device_view_tree">
+            <field name="act_window_id" ref="act_open_pappaya_ezetap_device_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_pappaya_ezetap_device_tree"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_pappaya_division_tree" model="ir.ui.view">
+		<field name="name">pappaya.group.tree</field>
+		<field name="model">pappaya.division</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Division">
+				<field name="name" />
+				<field name="cluster_id" />
+				<field name="email"/>
+				<field name="mobile_no"/>
+				<field name="academic_year_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_pappaya_division_form" model="ir.ui.view">
+		<field name="name">pappaya.group.form</field>
+		<field name="model">pappaya.division</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Division">
+				<sheet>
+					<group>
+						<group>
+							<field name="name" required="1"/>
+							<field name="ic_name"/>
+							<field name="email"/>
+							<field name="mobile_no"/>
+							<field name="district_ids_m2m" widget="many2many_tags" options="{'no_open':True,'no_create':True}" required="1"/>
+						</group>
+						<group>
+							<field name="cluster_id" options="{'no_open':True,'no_create':True}"/>
+							<field name="unique_no"/>
+							<field name="emp_slno"/>
+							<field name="user_slno"/>
+							<field name="academic_year_id" options="{'no_open':True,'no_create':True}" readonly="1"/>
+						</group>
+					</group>
+					<group>
+						<field name="description" placeholder="Add a description.."/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+					<field name="message_ids" widget="mail_thread" />
+				</div>
+			</form>
+		</field>
+	</record>
+	
+	<record id="view_pappaya_division_search" model="ir.ui.view">
+            <field name="name">pappaya.division.search</field>
+            <field name="model">pappaya.division</field>
+            <field name="arch" type="xml">
+                <search string="Division">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Division"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                        <separator />
+                        <filter name="group_by_academic_year_id" string="State" context="{'group_by':'academic_year_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+	<record model="ir.actions.act_window" id="action_pappaya_division_view">
+		<field name="name">Division</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">pappaya.division</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="view_pappaya_division_search"/>
+		<field name="view_ids" eval="[(5, 0, 0),
+				   (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_division_tree')}),
+				   (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_division_form')})]"/>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">
+				Click to add a new Division.
+			</p>
+		</field>
+	</record>
+
+</odoo>

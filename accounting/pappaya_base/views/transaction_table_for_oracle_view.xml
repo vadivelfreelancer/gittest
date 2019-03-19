@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_transaction_dt_tree" model="ir.ui.view">
+            <field name="name">transaction.dt.tree</field>
+            <field name="model">transaction.dt</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Transaction DT">
+                    <field name="sta_batchtransactionid"/>
+                    <field name="vouchertypeslno"/>
+                    <field name="transdate"/>
+                    <field name="serverdate"/>
+                    <field name="accbranchslno"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_transaction_dt_form" model="ir.ui.view">
+            <field name="name">transaction.dt.form</field>
+            <field name="model">transaction.dt</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Transaction DT">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="sta_batchtransactionid"/>
+                            <field name="vouchertypeslno"/>
+                            <field name="transdate"/>
+                            <field name="serverdate"/>
+                            <field name="accbranchslno"/>
+                            <field name="finslno"/>
+	                        <field name="moduleslno"/>
+	                        <field name="transtype"/>
+	                        <field name="student_emp_id"/>
+	                        <field name="chq_imp_pt_no"/>
+	                        <field name="pappaya_transactionid"/>
+	                        <field name="pappaya_voucherno"/>
+	                        <field name="pappaya_userid"/>
+                        	<field name="nerp_transactionid"/>
+	                        <field name="nerp_gvoucherno"/>
+                        	<field name="status"/>
+                            <field name="narration"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Transaction DDT">
+                                <field name="transaction_ddt_o2m">
+                                    <tree string="Transaction DDT">
+                                        <field name="subledgerslno"/>
+                                        <field name="accbranchslno"/>
+                                        <field name="amount"/>
+                                        <field name="drorcr"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>                                                                                                                                                                                                
+                </form>
+            </field>
+        </record>
+
+        <record id="view_transaction_dt_search" model="ir.ui.view">
+            <field name="name">transaction.search</field>
+            <field name="model">transaction.dt</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Transaction DT">
+                    <field name="sta_batchtransactionid" select="True"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_transaction_dt_view">
+            <field name="name">Transaction Data(Oracle)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transaction.dt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_transaction_dt_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_transaction_dt_view_form">
+            <field name="act_window_id" ref="act_open_transaction_dt_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_transaction_dt_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_transaction_dt_view_tree">
+            <field name="act_window_id" ref="act_open_transaction_dt_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_transaction_dt_tree"/>
+        </record>
+
+        <menuitem id="menu_transaction_dt"
+                  parent="menu_pappaya_master_base"
+                  sequence="20"
+                  action="act_open_transaction_dt_view"/>
+
+
+    </data>
+</odoo>

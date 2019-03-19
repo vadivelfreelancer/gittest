@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="batch_previous_course_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.previous.course.wizard.form </field>
+        <field name="model">batch.previous.course</field>
+        <field name="arch" type="xml">
+            <form string="Previous Courses">
+                <sheet>
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<field name="academic_year" />-->
+                            <!--<field name="institution_type" />-->
+                        <!--</group>-->
+                    <!--</group>-->
+                    <separator string="Previous Courses"/>
+                    <field name="previous_courses">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="is_external"/>
+                            <field name="description"/>
+                            <field name="result_entry"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_courses" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_previous_course_addition_action" model="ir.actions.act_window">
+        <field name="name">Previous Courses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.previous.course</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

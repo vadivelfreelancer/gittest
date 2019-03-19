@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+
+        <record id="view_daybook_wizard_report" model="ir.ui.view">
+            <field name="name">Day Book</field>
+            <field name="model">day.book.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Day Book">
+                    <group>
+                        <group>
+                            <field name="entity_ids" domain="[('type','=','entity')]" widget="many2many_tags" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <!--<field name="academic_year_id" options="{'no_open': True,'no_create':True}" required="1"/>-->
+                            <field name="payment_mode_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" required="1"/>
+                            <field name="start_date" required="1"/>
+                            <field name="end_date" required="1"/>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="PDF" name="generate_pdf_report" class="oe_highlight" type="object"/>
+                        <button string="Cancel" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_daybook_wizard_report" model="ir.actions.act_window">
+            <field name="name">Day Book</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">day.book.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

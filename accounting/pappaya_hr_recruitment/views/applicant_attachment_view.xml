@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_applicant_attachment_tree" model="ir.ui.view">
+			<field name="name">pappaya.applicant.attachment.tree</field>
+			<field name="model">pappaya.applicant.attachment</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Applicant Attachment" create="false">
+					<field name="applicant_name" />
+					<field name="application_id"/>
+					<field name="email"/>
+					<field name="mobile"/>
+					<field name="company_id"/>
+					<field name="branch_id"/>
+					<field name="department_id"/>
+					<field name="designation_id" />
+					<field name="state" string="Status"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_applicant_attachment_form" model="ir.ui.view">
+			<field name="name">pappaya.applicant.attachment.form</field>
+			<field name="model">pappaya.applicant.attachment</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Applicant Attachment" create="false" duplicate="0">
+                    <header>
+                        <button name="confirm_attachment" string="Confirm" type="object" attrs="{'invisible':[('state','=','verified')]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+					<sheet>
+						<group>
+							<group>
+								<field name="applicant_name" readonly="1"/>
+								<field name="application_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="company_id" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+								<field name="department_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                <field name="designation_id" domain="[('department_id','=',department_id)]" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							</group>
+                            <group>
+								<field name="aadhaar_no" readonly="1"/>
+								<field name="email" readonly="1"/>
+								<field name="mobile" readonly="1"/>
+								<field name="edu_qualification_ids" options="{'no_open': True,'no_create':True}" widget="many2many_tags" readonly="1"/>
+                            </group>
+						</group>
+                        <field name="attachment_line" attrs="{'readonly':[('state','!=','draft')]}">
+                            <!--<tree string="Attachments" create="false">-->
+                            <tree string="Attachments" delete="false">
+                                <field name="attachment_name" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="attachment_file" attrs="{'readonly':[('state','=','verified')]}"/>
+                                <field name="description" attrs="{'readonly':[('state','=','verified')]}"/>
+                                <field name="is_required" readonly="1"/>
+                                <field name="state" readonly="1"/>
+                                <field name="invisible_button" invisible="1"/>
+                                <button name="verify_attachment" string="Verify Attachment" type="object" attrs="{'invisible':[('invisible_button','=',True)]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                            </tree>
+                            <form string="Attachments">
+                                <header>
+                                    <button name="verify_attachment" string="Verify Attachment" type="object" attrs="{'invisible':[('invisible_button','=',True)]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                                    <field name="state" widget="statusbar"/>
+                                </header>
+                                <group>
+                                    <group>
+                                    	<field name="attachment_name" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                        <label for="attachment_file" />
+		                                <div>
+		                                    <field name="attachment_file" widget="many2many_binary" string="Document Upload" class="oe_inline" attrs="{'readonly':[('state','=','verified')]}"/>
+		                                </div>
+                                        <field name="description" attrs="{'readonly':[('state','=','verified')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_required" readonly="1"/>
+										<field name="invisible_button" invisible="1"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_applicant_attachment_search" model="ir.ui.view">
+			<field name="name">pappaya.applicant.attachment.search</field>
+			<field name="model">pappaya.applicant.attachment</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Applicant Attachment">
+					<field name="branch_id" />
+					<field name="department_id"/>
+					<field name="designation_id"/>
+					<field name="aadhaar_no"/>
+					<field name="email"/>
+					<field name="mobile"/>
+					<group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" /> 
+                        <filter name="department_id" string="Department" domain="[]" context="{'group_by':'department_id'}" />
+                        <filter name="designation_id" string="Designation" domain="[]" context="{'group_by':'designation_id'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_applicant_attachment_view">
+			<field name="name">Applicant Attachment</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.applicant.attachment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_applicant_attachment_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Applicant Attachments.
+                </p>
+            </field>
+		</record>
+
+    </data>
+</odoo>

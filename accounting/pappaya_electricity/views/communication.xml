@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--material master-->
+    <record id="material_master_form" model="ir.ui.view">
+        <field name="name">Material User</field>
+        <field name="model">material.user</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="material_master_tree" model="ir.ui.view">
+        <field name="name">Material User</field>
+        <field name="model">material.user</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+     <record id="material_master_action" model="ir.actions.act_window">
+            <field name="name">Material User</field>
+            <field name="res_model">material.user</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="communication_main_menu" name="Communication" sequence="1"/>
+     <menuitem id="material_master_main_sub_menu" parent="communication_main_menu" name="Communication Details" sequence="1"/>
+
+
+
+
+    <!--connection type master-->
+    <record id="connection_master_form" model="ir.ui.view">
+        <field name="name">Connection Type</field>
+        <field name="model">connection.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="connection_master_tree" model="ir.ui.view">
+        <field name="name">Connection Type</field>
+        <field name="model">connection.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+     <record id="connection_master_action" model="ir.actions.act_window">
+            <field name="name">Connection Type</field>
+            <field name="res_model">connection.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="connection_master_main_menu" parent="communication_main_menu" name="Configuration" sequence="5"/>
+     <menuitem id="connection_master_sub_menu" parent="connection_master_main_menu" action="connection_master_action" name="Connection Type" sequence="3"/>
+     <menuitem id="material_master_sub_menu" action="material_master_action" parent="connection_master_main_menu" name="Material User" sequence="2"/>
+
+
+
+    service provider master
+   <record id="service_provider_master_form" model="ir.ui.view">
+        <field name="name">Service Provider</field>
+        <field name="model">service.provider</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="service_provider_master_tree" model="ir.ui.view">
+        <field name="name">Service Provider</field>
+        <field name="model">service.provider</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+     <record id="service_provider_master_action" model="ir.actions.act_window">
+            <field name="name">Service Provider</field>
+            <field name="res_model">service.provider</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="service_provider_master_sub_menu" action="service_provider_master_action" parent="connection_master_main_menu" name="Service Provider" sequence="4"/>
+
+
+
+
+
+    <record id="branch_transfer_log_action" model="ir.actions.act_window">
+        <field name="name">Transfer Branch Log</field>
+        <field name="res_model">branch.update</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('communication_number', '=',active_id)]</field>
+    </record>
+    <!--communication details master-->
+    <record id="communication_details_master_form" model="ir.ui.view">
+        <field name="name">Communication Details</field>
+        <field name="model">communication.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <button name="communication_button_submit" string="Submit"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','not in', 'draft')]}"/>
+                        <button name="communication_approval_by_zonal" string="Approval By Zonal" groups="pappaya_electricity.group_zonal_approval"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','not in', 'zonal_approval')]}"/>
+                        <button name="communication_approval_by_rfo" string="Approvals By RFO" groups="pappaya_electricity.group_rfo_approval"
+                                 type="object" class="oe_highlight" attrs="{'invisible': [('state','not in', 'rfo_approval')]}"/>
+                        <button name="communication_button_reject" string="Reject"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','not in', ['zonal_approval','rfo_approval'])]}"/>
+                        <button name="communication_button_cancel" string="Cancel"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,zonal_approval,rfo_approval,approved"/>
+                </header>
+                <sheet>
+                      <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+
+                         <button class="btn btn-sm oe_stat_button" name="%(branch_transfer_log_action)d" type="action">
+                            <div class="fa fa-fw fa-book o_button_icon"/>
+                            <div class="o_form_field o_stat_info" data-original-title="" title="">
+                                <span class="o_stat_text">Transfer Logs </span>
+                            </div>
+                         </button>
+                     </div>
+                    <group>
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="building_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="floor_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                        </group>
+                        <group>
+                            <field name="owner_name" required="1" domain="[('building_id','=',building_id)]" widget="selection"/>
+                            <field name="communication_no" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="connection_type" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                        </group>
+                        <group>
+                            <field name="billing_duration" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="service_provider" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                        </group>
+                        <group>
+                            <field name="bill_due_gap" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="tds_amount" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                        </group>
+                         <group>
+                            <field name="transfer_branch" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="transfer_date" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                         </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="communication_detail_master_tree" model="ir.ui.view">
+        <field name="name">Communication Details</field>
+        <field name="model">communication.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="communication_no"/>
+                <field name="branch_id"/>
+                <field name="building_id"/>
+                <field name="floor_id"/>
+                <field name="owner_name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+     </record>
+     <record id="communication_detail_master_action" model="ir.actions.act_window">
+            <field name="name">Communication Details</field>
+            <field name="res_model">communication.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="communication_detail_master_sub_menu" parent="material_master_main_sub_menu" action="communication_detail_master_action" name="Communication Bill Details" sequence="4"/>
+    <record id="communication_zonal_master_action" model="ir.actions.act_window">
+            <field name="name">Zonal Approval</field>
+            <field name="res_model">communication.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[
+                ('state', 'in', ['zonal_approval'])]</field>
+              <field name="context">{
+                    'create': False,
+                    'edit': False
+                }
+              </field>
+     </record>
+      <record id="communication_rfo_master_action" model="ir.actions.act_window">
+            <field name="name">Rfo Approval</field>
+            <field name="res_model">communication.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[
+                ('state', 'in', ['rfo_approval'])]</field>
+              <field name="context">{
+                    'create': False,
+                    'edit': False
+                }
+              </field>
+     </record>
+    <menuitem id="zonal_approval_communication_main_menu" parent="communication_main_menu" name="Approvals" sequence="1"/>
+    <menuitem id="zonal_approval_communication_main_sub_menu" parent="zonal_approval_communication_main_menu" action="communication_zonal_master_action" name="Zonal Approval" sequence="1"/>
+    <menuitem id="rfo_approval_main_communication_sub_menu" parent="zonal_approval_communication_main_menu" action="communication_rfo_master_action" name=" Rfo Approval" sequence="1"/>
+
+
+
+
+    <!--communication security deposit master-->
+    <record id="security_deposit_communication_master_form" model="ir.ui.view">
+        <field name="name"> Communication Security Deposit</field>
+        <field name="model">communication.security</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                      <button name="communication_approval_by_co" string="Submit" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object" class="oe_highlight"/>
+                    <button name="communication_security_button_done" string="Approve" attrs="{'invisible': [('state','not in', 'co_approval')]}"
+                                 type="object" groups="pappaya_electricity.group_co_approval" class="oe_highlight"/>
+                    <button name="communication_security_button_reject" string="Reject"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','not in', 'co_approval')]}"/>
+                        <button name="communication_security_button_cancel" string="Cancel" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object"  class="oe_highlight"/>
+
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,co_approval,approved"/>
+                </header>
+                <sheet>
+                    <group string="Communication Security Deposit Proposal">
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="communication_number" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                    <group string="Communication Security Deposit Details">
+                            <group>
+                                <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+                                <field name="floor_id" options='{"no_open": True, "no_create": True}'/>
+                            </group>
+                            <group>
+                                <field name="branch_number_id" options='{"no_open": True, "no_create": True}'/>
+                                <field name="today_date"/>
+                            </group>
+                            <group>
+                                 <field name="deposit_amount"/>
+                            </group>
+                              <group>
+                                 <field name="description"/>
+                            </group>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="communication_security_deposit_master_tree" model="ir.ui.view">
+        <field name="name">Communication Security Deposit</field>
+        <field name="model">communication.security</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+               <field name="communication_number"/>
+               <field name="branch_number_id"/>
+               <field name="today_date"/>
+                <field name="deposit_amount"/>
+            </tree>
+        </field>
+     </record>
+     <record id="communication_security_deposit_master_action" model="ir.actions.act_window">
+            <field name="name">Communication Security Deposit</field>
+            <field name="res_model">communication.security</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="communication_transaction_menu" parent="communication_main_menu" name="Transaction" sequence="1"/>
+    <menuitem id="communication_security_deposit_sub_menu" parent="communication_transaction_menu" action="communication_security_deposit_master_action" name="Security Deposit " sequence="2"/>
+    <record id="communication_co_approval_action" model="ir.actions.act_window">
+            <field name="name">Co Approval</field>
+            <field name="res_model">communication.security</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[
+                ('state', 'in', ['co_approval'])]</field>
+              <field name="context">{
+                    'create': False,
+                    'edit': False
+                }
+              </field>
+     </record>
+    <menuitem id="communication_co_approval_main_sub_menu" parent="zonal_approval_communication_main_menu" action="communication_co_approval_action" name=" CO Approval" sequence="2"/>
+
+
+
+    <!--communication bill master-->
+    <record id="communication_bill_form" model="ir.ui.view">
+        <field name="name">Communication Bill</field>
+        <field name="model">communication.bill</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                 <header>
+                      <button name="bill_created" string="Submit" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,bill_created"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                             <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                             <field name="connection_type" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="communication_number" options='{"no_open": True, "no_create": True}'/>
+                            <field name="from_date"/>
+                        </group>
+                        <group>
+                            <div>
+                                <label for="month" string="Month"
+                                       style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                <field name="month" style="width:110px"/>
+                                <field name="year" style="width:110px;margin-left: 34px;"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="owner_name"/>
+                            <field name="trans_date"/>
+                            <field name="to_date"/>
+                        </group>
+                          <group>
+
+                            <field name="bill_date"/>
+                            <field name="bill_due_date"/>
+                        </group>
+                         <group>
+                             <field name="bill_number"/>
+                             <field name="branch_number_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="bill_upload"/>
+                    </group>
+                    <group>
+                            <div>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="bill_amount"/>
+                                    <field name="discount_type" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                                    <field name="discount_amount"/>
+                                    <field name="bill_amount_after_discount"/>
+                                    <field name="st_sbc_kkc"/>
+                                    <field name="total_bill_amount" class="oe_subtotal_footer_separator"/>
+                                    <field name="tds"/>
+                                    <field name="mis_amount"/>
+                                    <field name="net_amount" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </div>
+                        </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="communication_bill_master_tree" model="ir.ui.view">
+        <field name="name">Communication Bill</field>
+        <field name="model">communication.bill</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+               <field name="communication_number"/>
+               <field name="owner_name"/>
+               <field name="month"/>
+                <field name="year"/>
+                <field name="trans_date"/>
+               <field name="from_date"/>
+               <field name="to_date"/>
+                <field name="bill_due_date"/>
+               <field name="bill_date"/>
+            </tree>
+        </field>
+     </record>
+     <record id="communication_bill_master_action" model="ir.actions.act_window">
+            <field name="name">Communication Bill</field>
+            <field name="res_model">communication.bill</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="communication_bill_main_menu" parent="communication_transaction_menu" action="communication_bill_master_action" name="Communication Bill" sequence="6"/>
+
+
+    <!--communication deposit cheque preparation-->
+    <record id="communication_deposit_cheque_preparation_form" model="ir.ui.view">
+        <field name="name">Communication Cheque Preparation</field>
+        <field name="model">communication.deposit.cheque</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                        <group string="Communication Deposit Cheque Preparation">
+                            <group>
+                                 <field name="bank"/>
+                                <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                                <field name="cheque_lot"/>
+                            </group>
+                             <group>
+                                 <field name="trans_date"/>
+                                <field name="bank_balance"/>
+                                <field name="cheque_date"/>
+                            </group>
+                            <group>
+                                    <div>
+                                        <label for="month" string="Month"
+                                               style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                        <field name="month" style="width:110px"/>
+                                        <field name="year" style="width:110px;margin-left: 34px;"/>
+                                    </div>
+                            </group>
+                            <group>
+                                <field name="dd_bank_cheque" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                                <field name="cheque_no"/>
+                                <field name="payee_name"/>
+                                <field name="amount"/>
+                                 <field name="centrex_non_centrex" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                            </group>
+                            <group>
+                                <field name="centrex"/>
+                            </group>
+                        </group>
+                </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="communication_deposit_cheque_preparation_tree_view" model="ir.ui.view">
+        <field name="name">Communication Cheque Preparation</field>
+        <field name="model">communication.deposit.cheque</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="bank"/>
+                <field name="branch_id"/>
+                <field name="cheque_lot"/>
+                <field name="trans_date"/>
+                <field name="bank_balance"/>
+                <field name="cheque_date"/>
+                 <field name="cheque_no"/>
+                <field name="payee_name"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+     <record id="communication_deposit_cheque_preparation_action" model="ir.actions.act_window">
+            <field name="name"> Communication Cheque Preparation</field>
+            <field name="res_model">communication.deposit.cheque</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="communication_deposit_cheque_preparation_menu" action="communication_deposit_cheque_preparation_action"
+               parent="communication_transaction_menu" name="Deposit Cheque Preparation" sequence="16"/>
+
+
+    <!--communication group numbers mapping -->
+    <record id="communication_group_number_mapping_form" model="ir.ui.view">
+        <field name="name">Communication Group Numbers Mapping</field>
+        <field name="model">communication.mapping</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                      <button name="group_communication_mapping" string="Submit" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,mapped"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Communication Group Numbers Mapping">
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                          <field name="group_mapping_ids">
+                                <tree editable="bottom">
+                                     <field name="sl_no"/>
+                                     <field name="communication_number" domain="[('branch_id', '=', parent.branch_id), ('state', '=', 'approved')]" options='{"no_open": True, "no_create": True}'/>
+                                     <field name="employee_name" widget="selection"/>
+                                     <field name="mobile_payment_type"/>
+                                     <field name="payment_amount"/>
+                                </tree>
+                          </field>
+                        <group>
+                            <field name="communication"/>
+                             <field name="payroll_branch" options='{"no_open": True, "no_create": True}'/>
+                             <field name="employee"/>
+                             <field name="type"/>
+                        </group>
+                    </group>
+                </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="communication_group_number_mapping_tree_view" model="ir.ui.view">
+        <field name="name">Communication Group Numbers Mapping</field>
+        <field name="model">communication.mapping</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="communication_group_number_mapping_action" model="ir.actions.act_window">
+            <field name="name">Communication Group Numbers Mapping</field>
+            <field name="res_model">communication.mapping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="communication_group_number_mapping_menu" action="communication_group_number_mapping_action"
+               parent="material_master_main_sub_menu" name="Communication Group Numbers Mapping" sequence="8"/>
+
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_daily_menu_consumption_tree" model="ir.ui.view">
+			<field name="name">daily.menu.consumption.tree</field>
+			<field name="model">daily.menu.consumption</field>
+			<field name="arch" type="xml">
+				<tree string="Daily Menu Consumption">
+                    <field name="branch"/>
+                    <field name="date"/>
+					<field name="menu"/>
+                    <field name="total_studednts"/>
+                    <field name="menu_items"/>
+                    <field name="no_of_members"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_daily_menu_consumption_form" model="ir.ui.view">
+			<field name="name">mdaily.menu.consumption.form</field>
+			<field name="model">daily.menu.consumption</field>
+			<field name="arch" type="xml">
+				<form string="Daily Menu Consumption">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="branch" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="date" required="1"/>
+                                <field name="menu" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="total_studednts" required="1"/>
+                                <field name="menu_items" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="no_of_members" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+				</form>
+			</field>
+		</record>
+
+         <record id="view_daily_menu_consumption_search" model="ir.ui.view">
+			<field name="name">daily.menu.consumption.search</field>
+			<field name="model">daily.menu.consumption</field>
+			<field name="arch" type="xml">
+				<search string="Daily Menu Consumption">
+                    <field name="branch"/>
+                    <field name="date"/>
+					<field name="menu"/>
+                    <field name="total_studednts"/>
+                    <field name="menu_items"/>
+                    <field name="no_of_members"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_daily_menu_consumption_view" model="ir.actions.act_window">
+			<field name="name">Daily Menu Consumption</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">daily.menu.consumption</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_daily_menu_consumption_search"/>
+		</record>
+	</data>
+</odoo>

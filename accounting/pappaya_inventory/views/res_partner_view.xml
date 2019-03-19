@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Partner Type -->
+        <record id="view_partner_type_tree" model="ir.ui.view">
+            <field name="name">res.partner.type.tree</field>
+            <field name="model">res.partner.type</field>
+            <field name="arch" type="xml">
+                <tree string="Vendor Type">
+                    <field name="name"/>
+                    <field name="vendor_class_code"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_partner_type_form" model="ir.ui.view">
+            <field name="name">res.partner.type.form</field>
+            <field name="model">res.partner.type</field>
+            <field name="arch" type="xml">
+                <form string="Vendor Type">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="vendor_class_code"/>
+                        <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_partner_type_contact" model="ir.actions.act_window">
+            <field name="name">Vendor Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.type</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Categories -->
+        <record id="view_partner_category_form" model="ir.ui.view">
+            <field name="name">Vendor Category</field>
+            <field name="model">res.category</field>
+            <field name="arch" type="xml">
+                <form string="Vendor Category">
+                    <group col="4">
+                        <field name="type_id"/>
+                        <field name="vendor_class_code"/>
+                        <field name="vendor_category"/>
+                        <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_partner_category_list" model="ir.ui.view">
+            <field name="name">Vendor Category</field>
+            <field name="model">res.category</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Vendor Category">
+                    <field name="type_id"/>
+                    <field name="vendor_class_code"/>
+                    <field name="vendor_category"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_partner_category_contact" model="ir.actions.act_window">
+            <field name="name">Vendor Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.category</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new vendor category.
+                </p>
+            </field>
+        </record>
+
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="domain">[('supplier','=',True)]</field>
+        </record>
+
+      <record model="ir.ui.view" id="view_partner_form_inherit_pappaya">
+            <field name="name">res.partner.form.inherit.pappaya</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="type_id" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Vendor Type..."/>
+                    <field name="vendor_category" context="{'vendorcategory':'vendor_category'}"/>
+                    <field name="vendor_status"/>
+                    <field name="pan_no"/>
+                    <field name="works_contract_status"/>
+                    <field name="is_gst_registered"/>
+                    <field name="is_gst_regular"/>
+                </field>
+                <field name="lang" position="after">
+                    <field name="fax"/>
+                    <field name="name_pan_card"/>
+                    <field name="description"/>
+                    <field name="gstin_no"/>
+                </field>
+                <xpath expr="//notebook//page[@name='sales_purchases']" position="after">
+                     <page string=" Services Provided by Vendor" autofocus="autofocus">
+                            <group col="8" colspan="8">
+                                <field name="item_vendor"/>
+                                <field name="service_vendor"/>
+                                <field name="advertisement_vendor"/>
+                                <field name="printing_vendor"/>
+                                <field name="mess_vendor"/>
+                                <field name="vehicle_vendor"/>
+                                <field name="generator_vendor"/>
+                                <field name="security_vendor"/>
+                                <field name="housekeeping_vendor"/>
+                                <field name="water_vendor"/>
+                                <field name="travelling_vendor"/>
+                                <field name="building_maintenance_vendor"/>
+                            </group>
+                     </page>
+                </xpath>
+            </field>
+      </record>
+
+
+        <record id="view_pappaya_res_partner_search" model="ir.ui.view">
+            <field name="name">pappaya.res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1" />
+            <field name="arch" type="xml">
+                <search string="Vendor">
+                    <field name="name"
+                           filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                    <!--<separator/>-->
+                    <!--<filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>-->
+                    <!--<filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>-->
+                    <!--<separator/>-->
+                    <!--<filter string="Archived" name="inactive" domain="[('active','=',False)]"/>-->
+                </search>
+            </field>
+        </record>
+
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="search_view_id" ref="view_pappaya_res_partner_search"/>
+        </record>
+
+    </data>
+</odoo>

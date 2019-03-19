@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_room_usage_tree" model="ir.ui.view">
+			<field name="name">pappaya.room.usage.tree</field>
+			<field name="model">pappaya.room.usage</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Room Usage">
+					<field name="branch_id"/>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_room_usage_form" model="ir.ui.view">
+			<field name="name">pappaya.room.usage.form</field>
+			<field name="model">pappaya.room.usage</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Room Usage">
+					<sheet>
+						<group col="4">
+							<field name="branch_id" options="{'no_open': True, 'no_create': True}" required="1"
+								   domain="[('type','=','branch')]"/>
+                        	<field name="name" required="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_room_usage_search" model="ir.ui.view">
+			<field name="name">pappaya.room.usage.search</field>
+			<field name="model">pappaya.room.usage</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Room Usage">
+					<field name="name"/>
+					<field name="branch_id"/>
+					<group>
+						<filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_room_usage_view">
+			<field name="name">Room Usage</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.room.usage</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_room_usage_search"/>
+		</record>
+
+	</data>
+</odoo>

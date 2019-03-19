@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!--Settings - Incoming/Outgoing mail servers-->
+		<menuitem id="fetchmail.menu_action_fetchmail_server_tree" parent="base.menu_administration" action="fetchmail.action_email_server_tree" name="Incoming Mail Servers" sequence="14" groups="base.group_system"/>
+		<menuitem id="base.menu_mail_servers" parent="base.menu_administration" action="base.action_ir_mail_server_list" name="Outgoing Mail Servers" sequence="15" groups="base.group_system"/>
+
+		<!-- Purpose : Adds all assets in Odoo -->
+		<template id="assets_backend_pappaya_custom_design" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pappaya_debranding11/static/src/js/narayana.js"/>
+                <script type="text/javascript" src="/pappaya_debranding11/static/src/js/dialog.js"/>
+                <script type="text/javascript" src="/pappaya_debranding11/static/src/js/title.js"/>
+            </xpath>
+        </template>
+
+        <!-- Purpose : Changing 'Odoo' title string into '' and favion image -->
+        <template id="pappaya_crm_fav_ico" name=" Icon" inherit_id="web.layout">
+        	<xpath expr="//html/head/title" position="replace">
+        		<title>Pappaya</title>
+        	</xpath>
+        	<xpath expr="//html/head/link[1]" position="replace">
+        	 	<link rel="shortcut icon" href="/pappaya_debranding11/static/src/img/favicon.ico" type="image/x-icon"/>
+        	</xpath>
+        </template>
+
+        <!-- Purpose : Renaming 'Email' into 'Username' in login screen. -->
+		<template id="web_login_inherited_pappaya_crm" inherit_id="web.login">
+			<xpath expr="//div[@class='form-group field-login']" position="replace">
+				<div class="form-group field-login form-element">
+                    <input type="text" name="login" t-att-value="login" id="login" class="form-control form-element-field" required="required" autofocus="autofocus" autocapitalize="off" placeholder=" "/>
+					<div class="form-element-bar"></div>
+      					<label class="form-element-label"><img src="/pappaya_theme11/static/src/img/user-icon.png" />&amp;nbsp; User ID</label>
+                	</div>
+			</xpath>
+
+			<xpath expr="//div[@class='form-group field-password']" position="replace">
+				<div class="form-group field-password form-element">
+                    <input type="password" name="password" id="password" class="form-control form-element-field" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096" placeholder=" "/>
+					<div class="form-element-bar"></div>
+					<label class="form-element-label"><img src="/pappaya_theme11/static/src/img/pwd-icon.png" />&amp;nbsp; Password</label>
+				</div>
+<!-- 				<div class="width-100-per margin-bottom-20">
+					  <div class="pull-left">
+					  <label class="form-checkbox-label">
+						  <input name='rap' class="form-checkbox-field" type="checkbox" />
+						  <i class="form-checkbox-button"></i>Remember me
+					  </label>
+				  </div>
+				  <a href="javascript:void(0)" class="pull-right">Forgot password?</a>
+				</div> -->
+			</xpath>
+
+			<xpath expr="//div[@class='clearfix oe_login_buttons']" position="replace">
+				<div class="clearfix oe_login_buttons">
+                    <button type="submit" class="btn btn-primary LoginBtn">Login</button>
+                </div>
+			</xpath>
+
+		</template>
+
+        <!-- Purpose :Replaced Odoo' string into 'Pappaya' in login page -->
+        <!-- <template id="web_login_layout_inherited_pappaya" inherit_id="web.login_layout">
+            <xpath expr='//div[@t-if="not disable_footer"]' position="replace">
+            	<div class="text-center" t-if="not disable_footer">
+                    <a href="https://pappaya.education/" target="_blank">Powered by <span>Pappaya</span></a>
+                </div>
+            </xpath>
+        </template> -->
+
+        <!-- Purpose :Replaced Odoo' string into 'Pappaya' in footer -->
+        <!-- <template id="web_menu_secondary_inherited_pappaya" inherit_id="web.menu_secondary">
+            <xpath expr='//div[@class="o_sub_menu_footer"]' position="replace">
+            </xpath>
+        </template> -->
+
+        <!-- Purpose : Displaying 'Upgrade Button' in Kanban view itself. -->
+		<record id="custom_upgrade_option_kanban_view" model="ir.ui.view">
+			<field name="name">Apps Kanban</field>
+			<field name="model">ir.module.module</field>
+			<field name="inherit_id" ref="base.module_view_kanban" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="//span[@t-if='installed']" position="attributes">
+						<attribute name="invisible">1</attribute>
+					</xpath>
+					<xpath expr="//span[@t-if='installed']" position="after">
+						<button type="object" class="btn btn-primary  pull-right btn-sm"
+							name="button_immediate_upgrade" states="installed" string="Upgrade">Upgrade
+						</button>
+					</xpath>
+				</data>
+			</field>
+		</record>
+
+	</data>
+</odoo>

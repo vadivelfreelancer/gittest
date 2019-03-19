@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_bank_account_branch_tree" model="ir.ui.view">
+			<field name="name">bank.account.branch.tree</field>
+			<field name="model">bank.account.branch</field>
+			<field name="arch" type="xml">
+				<tree string="Bank Account Branch">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_bank_account_branch_form" model="ir.ui.view">
+			<field name="name">bank.account.branch.form</field>
+			<field name="model">bank.account.branch</field>
+			<field name="arch" type="xml">
+				<form string="Bank Account Branch" delete="false" duplicate="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1"/>
+                        	</group>
+                        	<group>
+								<field name="description"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_bank_account_branch_search" model="ir.ui.view">
+            <field name="name">bank.account.branch.search</field>
+            <field name="model">bank.account.branch</field>
+            <field name="arch" type="xml">
+                <search string="Bank Account Branch">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_bank_account_branch_view" model="ir.actions.act_window">
+			<field name="name">Bank Account Branch</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">bank.account.branch</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_bank_account_branch_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Bank Account Branch.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

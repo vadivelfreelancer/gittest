@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+        <record id="view_hr_contract_wage_update_form" model="ir.ui.view">
+            <field name="name">hr_contract_wage_form</field>
+            <field name="model">hr.contract.wage</field>
+            <field name="arch" type="xml">
+                <form string="Contract Wage Update" create="false">
+                    <header>
+                        <button icon="fa-cogs" string="Update Wage" name="update_contract_wage" type="object" class="oe_highlight"  />
+                    </header>
+                    <group colspan="4" >
+                        <field name="wage_amount" required="1"/>
+                        <field name="update_reason"/>
+                    </group>
+                    <footer></footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_hr_contract_update_wage" model="ir.actions.act_window">
+            <field name="name">Contract Wage Update</field>
+            <field name="res_model">hr.contract.wage</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_hr_contract_wage_update_form"/>
+            <field name="target">new</field>
+        </record>
+	
+        <record model="ir.ui.view" id="view_view_hr_contract_form_inherit_pappaya">
+            <field name="name">hr.contract.form.form.view.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="replace">
+                    <field name="employee_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="department_id" position="replace">
+                    <field name="branch_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                    <field name="department_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="job_id" position="replace">
+                    <field name="job_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="type_id" position="replace">
+                    <field name="type_id" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <xpath expr="//div[@name='wage']" position="after">
+                    <button name="%(action_hr_contract_update_wage)d" string="Update Wage" type="action" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//page[@name='other']" position="after">
+                    <page string="Wage History" name="wage_history">
+                        <field name="wage_history_line" readonly="1" >
+                            <tree string="Wage History" delete="false">
+                                <field name="date"/>
+                                <field name="user_id"/>
+                                <field name="old_wage"/>
+                                <field name="new_wage"/>
+                                <field name="update_reason"/>
+                            </tree>
+                            <form string="Wage History">
+                                <group>
+                                    <group>
+                                        <field name="date"/>
+                                        <field name="user_id"/>
+                                        <field name="update_reason"/>
+                                    </group>
+                                    <group>
+                                        <field name="old_wage"/>
+                                        <field name="new_wage"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        <!-- HR COntract Type Inherit -->
+        <record id="hr_contract.hr_contract_type_view_form" model="ir.ui.view">
+            <field name="name">hr.contract.type.form</field>
+            <field name="model">hr.contract.type</field>
+            <field name="arch" type="xml">
+                <form string="Type of Employment">
+                    <group>
+                        <group>
+                            <field colspan="4" name="name"/>
+                            <field name="is_permanent" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="sequence_id" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_contract.hr_contract_type_view_tree" model="ir.ui.view">
+            <field name="name">hr.contract.type.tree</field>
+            <field name="model">hr.contract.type</field>
+            <field name="arch" type="xml">
+                <tree string="Type of Employment">
+                    <field name="sequence" widget="handle" invisible="1"/>
+                    <field colspan="4" name="name"/>
+                    <field name="sequence_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_contract.hr_contract_type_view_search" model="ir.ui.view">
+            <field name="name">hr.contract.type.search</field>
+            <field name="model">hr.contract.type</field>
+            <field name="arch" type="xml">
+                <search string="Type of Employment">
+                    <field name="name" string="Type of Employment"/>
+                    <field name="sequence" string="Sequence"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="hr_contract.action_hr_contract_type" model="ir.actions.act_window">
+            <field name="name">Type of Employment</field>
+            <field name="res_model">hr.contract.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_type_view_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Type of Employment.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+            id="hr_contract.hr_menu_contract_type"
+            action="hr_contract.action_hr_contract_type"
+            parent="pappaya_base.menu_hr_masters"
+            sequence="3"
+            groups="pappaya_base.hr_administrator,pappaya_base.hr_cpo"/>
+
+	</data>
+</odoo>

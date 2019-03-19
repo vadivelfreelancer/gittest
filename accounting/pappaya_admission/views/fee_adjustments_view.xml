@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		<record id="pappaya_fees_collection_form_inherited_adjusted" model="ir.ui.view">
+	        <field name="name">pappaya.fees.collection.form.inherited.adjusted</field>
+			<field name="model">pappaya.fees.collection</field>
+	        <field name="inherit_id" ref="pappaya_fees.pappaya_fees_collection_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='fees_collection_line']/tree/field[@name='total_paid']" position="after">
+	                <field name="adjusted_amount"/>
+	            </xpath>
+	        </field>
+	    </record>
+		
+		<record id="view_pappaya_fee_adjustment_tree" model="ir.ui.view">
+			<field name="name">pappaya.fee.adjustment.tree</field>
+			<field name="model">pappaya.fee.adjustment</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Fee Adjustments" delete="false">
+					<field name="admission_id" />
+					<field name="current_date" />
+					<field name="from_fee_head_id" />
+					<field name="to_fee_head_id" />
+					<field name="amount" />
+					<field name="status"/>
+					<field name="academic_year_id" />
+					<field name="branch_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_fee_adjustment_form" model="ir.ui.view">
+			<field name="name">pappaya.fee.adjustment.form</field>
+			<field name="model">pappaya.fee.adjustment</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Fee Adjustments" delete="false">
+					<header>
+						<button name="request_status" string="Request" type="object" class="oe_highlight" attrs="{'invisible':[('status','!=','draft')]}"
+								groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant"/>
+
+						<button name="confirm_status" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible':[('status','!=','request')]}"
+								groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant"/>
+
+						<field name="status" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="admission_id" string='Admission No/Student name' required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','confirm')]}" domain="[('cancel','=',False)]"/>
+								<field name="admission_number" invisible="1"/>
+							</group>
+							<group>
+								<field name="branch_id" required="1" readonly="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="academic_year_id" required="1" readonly="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="current_date" required="1" readonly="1" options="{'no_open': True,'no_create':True}"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Transaction Details">
+								<field name="stu_transaction_ids" attrs="{'readonly':[('status','=','confirm')]}">
+									<tree string ="Fees Collection" editable="bottom" create="false" open="false" delete="false">
+										<field name="pay" readonly="1"/>
+										<field name="name" readonly="1"/>
+										<field name="gst_total" string="Amount" readonly="1"/>
+										<field name="cgst" readonly="1"/>
+										<field name="sgst" readonly="1"/>
+										<field name="amount" string="Total" readonly="1"/>
+										<field name="res_adj_amt" readonly="1"/>
+										<field name="concession_amount" readonly="1" invisible="1"/>
+										<field name="concession_type_id" domain="[('type','=','concession')]" options="{'no_open': True,'no_create':True}" readonly="1" invisible="1"/>
+										<field name="concession_applied" invisible="1"/>
+										<field name="due_amount" readonly="1"/>
+										<field name="res_adj_amt_extra" invisible="1" readonly="1" />
+										<field name="total_paid" readonly="1"/>
+										<field name="adjusted_amount"/>
+										<field name="term_state" readonly="1"/>
+										<field name="allow_refund" invisible="1"/>
+									</tree>
+									<form>
+										<group colspan="4" col="4">
+											<field name="name" readonly="1" options="{'no_open': True,'no_create':True}"/>
+											<field name="gst_total" string="Amount" readonly="1"/>
+											<field name="cgst" readonly="1" />
+											<field name="sgst" readonly="1" />
+											<field name="amount" string="Total" readonly="1" />
+											<field name="res_adj_amt" readonly="1" />
+											<field name="due_amount" readonly="1" />
+											<field name="total_paid" readonly="1" />
+											<field name="adjusted_amount"  readonly="1"/>
+											<field name="term_state" readonly="1"/>
+										</group>
+									</form>
+								</field>
+								<table class="fixed_table oe_list_content">
+									<tr>
+										<td></td>
+										<td></td>
+										<td><field name="total" nolabel="1" style="margin-right:25px"/></td>
+										<td></td>
+										<td class="o_list_number"><field name="total" nolabel="1"/></td>
+										<td></td>
+										<td class="o_list_number"><field name="res_adj_amt_total" nolabel="1"/></td>
+										<td class="o_list_number"><field name="due_total" nolabel="1" style="margin-left:10px"/></td>
+										<td class="o_list_number"><field name="paid_total" nolabel="1" style="margin-left:30px"/></td>
+										<td></td>
+										<td class="o_list_number"><field name="adj_amt_total" nolabel="1" style="margin-left:10px"/></td>
+										<td></td>
+									</tr>
+								</table>
+								<group>
+									<group>
+										<field name="from_fee_head_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','confirm')]}"/>
+										<field name="to_fee_head_id" required="1" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('status','=','confirm')]}"/>
+										<field name="amount" required="1" attrs="{'readonly':[('status','=','confirm')]}"/>
+									</group>
+									<group/>
+								</group>
+								<separator string="Remarks"/>
+								<field name="description" nolabel="1" required="1" attrs="{'readonly':[('status','=','confirm')]}"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_fee_adjustment_action" model="ir.actions.act_window">
+			<field name="name">Fee Adjustments</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.fee.adjustment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+	</data>
+</odoo>

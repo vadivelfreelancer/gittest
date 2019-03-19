@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_pappaya_marketing_base" name="Marketing" sequence="10"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+
+        <menuitem name="Student Address" id="menu_lead_stud_address" parent="menu_pappaya_marketing_base"
+                  action="act_open_lead_stud_address_view" sequence="1" groups="pappaya_base.marketing_pro_admin"/>
+        <menuitem name="Invalid Student Address" id="menu_invalid_lead_stud_address"
+                  parent="menu_pappaya_marketing_base" action="act_view_student_address_editable_tree"
+                  sequence="2" groups="pappaya_base.marketing_pro_admin"/>
+        <menuitem name="Student Address Import" id="menu_student_address_data_import"
+                  parent="menu_pappaya_marketing_base" action="action_student_address_data_import" sequence="3"
+                  groups="pappaya_base.marketing_pro_admin"/>
+
+        <menuitem id="menu_marketing_target_root" name="Target" parent="menu_pappaya_marketing_base" sequence="4"
+                  groups="pappaya_base.pappaya_group_hidden"/>
+        <menuitem name="Staff Allocation" id="menu_action_marketing_staff_allocation"
+                  parent="menu_marketing_target_root" action="action_marketing_staff_allocation" sequence="1"/>
+        <menuitem name="Target Object" id="menu_marketing_target_object" parent="menu_marketing_target_root"
+                  sequence="2" action="open_action_marketing_target_object"/>
+        <menuitem name="Target Configuration" id="menu_open_action_marketing_target" parent="menu_marketing_target_root"
+                  action="open_action_marketing_target" sequence="3"/>
+        <menuitem name="Target Allocation" id="menu_open_action_target_allocation" parent="menu_marketing_target_root"
+                  action="open_action_target_allocation" sequence="4"/>
+
+
+        <!-- 			<menuitem name="Branch Target Entry" id="menu_branch_target_id" parent="menu_pappaya_marketing_base" action="act_open_pappaya_branch_target_view" sequence="2" groups="pappaya_base.pappaya_group_hidden,base.group_system"/>
+         -->
+        <menuitem name="Incentives" id="menu_incentive_form_id" parent="menu_pappaya_marketing_base"
+                  action="act_open_pappaya_incentive_view" sequence="10"
+                  groups="pappaya_base.pappaya_group_hidden,base.group_system"/>
+        <menuitem name="Configuration" id="menu_marketing_configuration" parent="menu_pappaya_marketing_base"
+                  sequence="5" groups="pappaya_base.marketing_pro_admin"/>
+        <!-- Pappaya Base menu for PRO UAT -->
+
+        <menuitem name="Lead School" id="menu_lead_school_configuration" parent="menu_marketing_configuration"
+                  action="pappaya_base.action_pappaya_lead_school" sequence="1"/>
+        <!-- Pappaya Base menu for PRO UAT -->
+        <menuitem name="Lead Course" id="menu_pappaya_pro_lead_course" parent="menu_marketing_configuration"
+                  sequence="2" action="pappaya_base.act_open_pappaya_lead_course_view"/>
+
+        <menuitem name="Address Import Template" id="menu_address_import_template" parent="menu_marketing_configuration"
+                  action="pappaya_base.action_address_import_template" sequence="100" groups="base.group_no_one"/>
+
+        <menuitem name="Users" id="menu_pappaya_pro_users_root" parent="menu_marketing_configuration" sequence="10"
+                  groups="pappaya_base.marketing_pro_admin"/>
+        <menuitem name="Users" id="menu_pappaya_users_configuration" parent="menu_pappaya_pro_users_root"
+                  action="pappaya_base.pappaya_users_action" sequence="1" groups="pappaya_base.marketing_pro_admin"/>
+
+
+        <!-- Expenditure Proposal -->
+
+        <menuitem id="expenditure_root" name="Expenditure Proposal"
+                  parent="pappaya_marketing.menu_pappaya_marketing_base" sequence="11"/>
+        <menuitem id="menu_action_expenditure_proposal" parent="expenditure_root" action="action_expenditure_proposal"
+                  sequence="1"/>
+        <!-- Address & Travelling Expenditure Proposal -->
+        <menuitem id="menu_action_travelling_expenditure_proposal" name="Address &amp; Travelling"
+                  action="action_travelling_expenditure_proposal"
+                  parent="expenditure_root" sequence="2"/>
+        <!-- Report -->
+        <menuitem id="menu_expenditure_report_root" name="Report" parent="expenditure_root" sequence="10"
+                  groups="pappaya_base.pappaya_group_hidden,base.group_system"/>
+        <menuitem id="menu_action_view_expenditure_proposal_report_wizard"
+                  action="action_view_expenditure_proposal_report_form"
+                  name="Expenditure proposal" parent="menu_expenditure_report_root" sequence="1"/>
+
+        <!--Marketing Report-->
+        <menuitem id="menu_marketing_report_root" name="Report" parent="menu_pappaya_marketing_base" sequence="50"
+                  groups="pappaya_base.pappaya_group_hidden"/>
+
+        <!-- <menuitem id="menu_address_collection_report" action="action_address_collection" name="Address Collection" parent="menu_marketing_report_root" sequence="10"/> -->
+
+        <menuitem id="menu_address_collection_report_new" action="action_address_collection_new"
+                  name="Address Collection Report" parent="menu_marketing_report_root" sequence="11"/>
+
+
+        <!--Marketing Report-->
+        <menuitem id="menu_marketing_report_root" name="Report" parent="menu_pappaya_marketing_base" sequence="50"/>
+
+        <!-- <menuitem id="menu_address_collection_report" action="action_address_collection" name="Address Collection" parent="menu_marketing_report_root" sequence="10"/> -->
+
+        <menuitem id="menu_address_collection_report_new" action="action_address_collection_new"
+                  name="Address Collection Report" parent="menu_marketing_report_root" sequence="11"/>
+
+
+        <menuitem name="Geo Location" id="menu_geo_location_configuration" parent="menu_pappaya_marketing_base"
+                  sequence="51"
+                  groups="base.group_erp_manager,pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Country" id="menu_pappaya_country_configuration" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_country_view" sequence="-5"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="State" id="menu_pappaya_country_state_configuration" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_country_state_view" sequence="-1"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Region" id="menu_pappaya_action_pappaya_region_view" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_region_view" sequence="1"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="District" id="menu_pappaya_state_district_configuration"
+                  parent="menu_geo_location_configuration" action="pappaya_base.action_state_district_action_view"
+                  sequence="2"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Cluster" id="menu_pappaya_master_cluster" parent="menu_geo_location_configuration"
+                  action="pappaya_base.act_open_pappaya_cluster_view" sequence="8"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Division" id="menu_pappaya_division" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_division_view" sequence="9"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Zone" id="menu_pappaya_master_zone" parent="menu_geo_location_configuration" sequence="10"
+                  action="pappaya_base.act_open_pappaya_zone_view"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="City" id="menu_city_configuration" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_city_view" sequence="3"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Ward" id="menu_ward_configuration" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_ward_view" sequence="4"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Area" id="menu_area_configuration" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_area_view" sequence="5"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Mandal" id="menu_mandal_configuration" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_mandal_marketing_view" sequence="6"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Village" id="menu_village_configuration" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_village_view" sequence="7"
+                  groups="pappaya_base.group_admission_admin,pappaya_base.group_admission_revenue_head,pappaya_base.group_admission_revenue_assistant,pappaya_base.group_admission_revenue_operation_head,pappaya_base.group_admission_revenue_operation_assistant,pappaya_base.group_admission_chamber,pappaya_base.hr_deans,pappaya_base.hr_principal_hod,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+        <menuitem name="Region" id="menu_pappaya_master_additional_region" parent="menu_geo_location_configuration"
+                  action="pappaya_base.action_pappaya_additional_region_form" sequence="52"
+                  groups="pappaya_base.pappaya_group_hidden"/>
+
+
+    </data>
+</odoo>

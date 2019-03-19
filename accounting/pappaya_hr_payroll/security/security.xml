@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        
+        <!--	Branch	-->
+
+		<record id="branch_access_hr_level_user" model="ir.rule">
+	        <field name="name">Branch User</field>
+	        <field name="model_id" ref="pappaya_base.model_operating_unit"/>
+	        <field name="domain_force">[('id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+			<field name="groups" eval="[
+				(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<record id="branch_access_hr_level_admin" model="ir.rule">
+	        <field name="name">Branch Admin</field>
+	        <field name="model_id" ref="pappaya_base.model_operating_unit"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+			<field name="groups" eval="[(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+        
+        
+        <!--	Employee 	-->
+
+		<record id="employee_access_hr_level" model="ir.rule">
+	        <field name="name">Employee One</field>
+	        <field name="model_id" ref="pappaya_hr.model_hr_employee"/>
+	        <field name="domain_force">[('id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees'))]"/>
+	    </record>
+
+		<record id="employee_access_hr_level_all" model="ir.rule">
+	        <field name="name">Employee All</field>
+	        <field name="model_id" ref="pappaya_hr.model_hr_employee"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+			<field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Salary Advances		-->
+
+	    <record id="employee_eadvance_access_level" model="ir.rule">
+	        <field name="name">Advance Employee Rule</field>
+	        <field name="model_id" ref="pappaya_hr_advance.model_hr_advance"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_eadvance_access_level_all" model="ir.rule">
+	        <field name="name">Advance Employee All</field>
+	        <field name="model_id" ref="pappaya_hr_advance.model_hr_advance"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Promotion		-->
+
+	    <record id="employee_promotion_access_level" model="ir.rule">
+	        <field name="name">Promotion Employee Rule</field>
+	        <field name="model_id" ref="pappaya_promotion.model_pappaya_promotion"/>
+	        <field name="domain_force">[('requested_by','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_promotion_access_level_all" model="ir.rule">
+	        <field name="name">Promotion Employee All</field>
+	        <field name="model_id" ref="pappaya_promotion.model_pappaya_promotion"/>
+	        <field name="domain_force">[('requested_by.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Employee Transfer		-->
+
+	    <record id="employee_transfer_access_level" model="ir.rule">
+	        <field name="name">Transfer Employee Rule</field>
+	        <field name="model_id" ref="pappaya_employee_transfer.model_employee_transfer"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_transfer_access_level_all" model="ir.rule">
+	        <field name="name">Transfer Employee All</field>
+	        <field name="model_id" ref="pappaya_employee_transfer.model_employee_transfer"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Leave Encashment	-->
+
+	    <record id="employee_leave_encashment_request_access_level" model="ir.rule">
+	        <field name="name">Leave Encashment Employee Rule</field>
+	        <field name="model_id" ref="pappaya_payroll.model_leave_encashment_request"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_leave_encashment_request_access_level_all" model="ir.rule">
+	        <field name="name">Leave Encashment Employee All</field>
+	        <field name="model_id" ref="pappaya_payroll.model_leave_encashment_request"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Exit Employee	-->
+
+	    <record id="employee_exit_access_level" model="ir.rule">
+	        <field name="name">Exit Employee Rule</field>
+	        <field name="model_id" ref="pappaya_hr_exit.model_hr_exit"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_exit_access_level_all" model="ir.rule">
+	        <field name="name">Exit Employee All</field>
+	        <field name="model_id" ref="pappaya_hr_exit.model_hr_exit"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Tax Declaration		-->
+
+	    <record id="employee_tds_form_access_level" model="ir.rule">
+	        <field name="name">Tax Declaration Employee Rule</field>
+	        <field name="model_id" ref="pappaya_payroll.model_tds_form"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_tds_form_access_level_all" model="ir.rule">
+	        <field name="name">Tax Declaration Employee All</field>
+	        <field name="model_id" ref="pappaya_payroll.model_tds_form"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Requisition Form	-->
+
+	    <record id="requisition_form_user_access_level" model="ir.rule">
+	        <field name="name">Requisition User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_requisition_form"/>
+	        <field name="domain_force">[('location_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="requisition_form_manager_access_level" model="ir.rule">
+	        <field name="name">Requisition Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_requisition_form"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Job Description	-->
+
+	    <record id="job_description_user_access_level" model="ir.rule">
+	        <field name="name">Job Description User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_job_description"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="job_description_manager_access_level" model="ir.rule">
+	        <field name="name">Job Description Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_job_description"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Application	-->
+
+	    <record id="application_user_access_level" model="ir.rule">
+	        <field name="name">Application User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_hr_applicant"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="application_manager_access_level" model="ir.rule">
+	        <field name="name">Application Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_hr_applicant"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Screening Process	-->
+
+	    <record id="screening_process_user_access_level" model="ir.rule">
+	        <field name="name">Screening Process User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_screening"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="screening_process_manager_access_level" model="ir.rule">
+	        <field name="name">Screening Process Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_screening"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Applicant Attachments	-->
+
+	    <record id="applicant_attachment_user_access_level" model="ir.rule">
+	        <field name="name">Applicant Attachment User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_applicant_attachment"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="applicant_attachment_manager_access_level" model="ir.rule">
+	        <field name="name">Applicant Attachment Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_applicant_attachment"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	No. of Students	-->
+
+	    <record id="number_students_user_access_level" model="ir.rule">
+	        <field name="name">No.of Students User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_number_students"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="number_students_manager_access_level" model="ir.rule">
+	        <field name="name">No.of Students Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_number_students"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Workload Hours	-->
+
+	    <record id="number_hours_user_access_level" model="ir.rule">
+	        <field name="name">Workload Hours User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_number_hours_subject"/>
+	        <!--<field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>-->
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="number_hours_manager_access_level" model="ir.rule">
+	        <field name="name">Workload Hours Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_number_hours_subject"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	HR Budget	-->
+
+	    <record id="hr_budget_user_access_level" model="ir.rule">
+	        <field name="name">HR Budget User</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_budget_hr"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="hr_budget_manager_access_level" model="ir.rule">
+	        <field name="name">HR Budget Admin</field>
+	        <field name="model_id" ref="pappaya_hr_recruitment.model_pappaya_budget_hr"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Lock (Branch)	-->
+
+	    <record id="lock_branch_user_access_level" model="ir.rule">
+	        <field name="name">Lock(Branch) User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_employee_lock_sublock"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_principal_hod')),
+	        	(4,ref('pappaya_base.hr_deans')), (4,ref('pappaya_base.payroll_operation')), (4,ref('pappaya_base.payroll_head'))]" >
+			</field>
+	    </record>
+
+	    <record id="lock_branch_manager_access_level" model="ir.rule">
+	        <field name="name">Lock(Branch) Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_employee_lock_sublock"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Payroll Cycle	-->
+
+	    <record id="payroll_cycle_user_access_level" model="ir.rule">
+	        <field name="name">Payroll Cycle User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_payroll_cycle"/>
+	        <!--<field name="domain_force">[('branch_ids','in',user.operating_unit_ids.ids)]</field>-->
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.payroll_operation')), (4,ref('pappaya_base.payroll_head'))]" >
+			</field>
+	    </record>
+
+	    <record id="payroll_cycle_manager_access_level" model="ir.rule">
+	        <field name="name">Payroll Cycle Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_payroll_cycle"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Payment Release	-->
+
+	    <record id="payment_release_user_access_level" model="ir.rule">
+	        <field name="name">Payment Release User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_payment_release"/>
+	        <!--<field name="domain_force">[('branch_ids','in',user.operating_unit_ids.ids)]</field>-->
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.payroll_operation')), (4,ref('pappaya_base.payroll_head'))]" >
+			</field>
+	    </record>
+
+	    <record id="payment_release_manager_access_level" model="ir.rule">
+	        <field name="name">Payment Release Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_payment_release"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Bank Pay Sheet	-->
+
+	    <record id="bank_paysheet_user_access_level" model="ir.rule">
+	        <field name="name">Bank Paysheet User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_pappaya_bank_paysheet"/>
+	        <!--<field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>-->
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.payroll_operation')), (4,ref('pappaya_base.payroll_head'))]" >
+			</field>
+	    </record>
+
+	    <record id="bank_paysheet_manager_access_level" model="ir.rule">
+	        <field name="name">Bank Paysheet Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_pappaya_bank_paysheet"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+		<!--	Arrear Bank Pay Sheet	-->
+
+	    <!-- <record id="arrear_bank_paysheet_user_access_level" model="ir.rule">
+	        <field name="name">Arrear Bank Paysheet User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_arrear_bank_paysheet"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.payroll_operation')), (4,ref('pappaya_base.payroll_head'))]" >
+			</field>
+	    </record>
+
+	    <record id="arrear_bank_paysheet_manager_access_level" model="ir.rule">
+	        <field name="name">Arrear Bank Paysheet Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_arrear_bank_paysheet"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+			Incentive Bank Pay Sheet	
+
+	    <record id="incentive_bank_paysheet_user_access_level" model="ir.rule">
+	        <field name="name">Incentive Bank Paysheet User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_incentive_bank_paysheet"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.payroll_operation')), (4,ref('pappaya_base.payroll_head'))]" >
+			</field>
+	    </record>
+
+	    <record id="incentive_bank_paysheet_manager_access_level" model="ir.rule">
+	        <field name="name">Incentive Bank Paysheet Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_incentive_bank_paysheet"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record> -->
+
+		<!--	Payslip		-->
+
+	    <record id="employee_payslip_access_employee_level" model="ir.rule">
+	        <field name="name">Payslip Employee Rule</field>
+	        <field name="model_id" ref="pappaya_payroll.model_hr_payslip"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees'))]"/>
+	    </record>
+
+	    <record id="employee_payslip_access_employee_level_all" model="ir.rule">
+	        <field name="name">Payslip Employee All</field>
+	        <field name="model_id" ref="pappaya_payroll.model_hr_payslip"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Payslip	Batch	-->
+
+	    <record id="employee_payslip_batch_access_employee_level" model="ir.rule">
+	        <field name="name">Payslip Batch User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_hr_payslip_run"/>
+	        <!--<field name="domain_force">[('branch_id','=',user.operating_unit_ids.ids)]</field>-->
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees'))]"/>
+	    </record>
+
+	    <record id="employee_payslip_batch_access_employee_level_all" model="ir.rule">
+	        <field name="name">Payslip Batch Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_hr_payslip_run"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Yearly Holidays	-->
+
+	    <record id="yearly_holidays_access_employee_level" model="ir.rule">
+	        <field name="name">Holidays User</field>
+	        <field name="model_id" ref="pappaya_payroll.model_yearly_holidays"/>
+	        <field name="domain_force">[('branch_id','=',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="yearly_holidays_access_employee_level_all" model="ir.rule">
+	        <field name="name">Holidays Admin</field>
+	        <field name="model_id" ref="pappaya_payroll.model_yearly_holidays"/>
+	        <field name="domain_force">[('branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]"/>
+	    </record>
+
+		<!--	Calendar	-->
+
+	    <record id="calendar_access_employee_level" model="ir.rule">
+	        <field name="name">Holidays User</field>
+	        <field name="model_id" ref="pappaya_base.model_hr_calendar"/>
+	        <field name="domain_force">[('branch_id','=',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="yearly_holidays_access_employee_level_all" model="ir.rule">
+	        <field name="name">Holidays Admin</field>
+	        <field name="model_id" ref="pappaya_base.model_hr_calendar"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]"/>
+	    </record>
+
+		<!--	Employee Attendance	-->
+
+	    <record id="employee_attendance_access_employee_level" model="ir.rule">
+	        <field name="name">Employee Attendance User</field>
+	        <field name="model_id" ref="pappaya_hr_attendance.model_hr_employee_attendance"/>
+	        <field name="domain_force">[('branch_id','=',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')), (4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="employee_attendance_access_employee_level_all" model="ir.rule">
+	        <field name="name">Employee Attendance Admin</field>
+	        <field name="model_id" ref="pappaya_hr_attendance.model_hr_employee_attendance"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]"/>
+	    </record>
+
+		<!--	Manual Attendance	-->
+
+	    <record id="manual_attendance_access_employee_level" model="ir.rule">
+	        <field name="name">Manual Attendance User</field>
+	        <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+	        <field name="domain_force">[('branch_id','=',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_executives')), (4,ref('pappaya_base.hr_operations_head'))]"/>
+	    </record>
+
+	    <record id="manual_holidays_access_employee_level_all" model="ir.rule">
+	        <field name="name">Manual Attendance Admin</field>
+	        <field name="model_id" ref="pappaya_hr_attendance.model_hr_daily_attendance"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_cpo'))]"/>
+	    </record>
+
+		<!--	Leaves	-->
+
+	    <record id="employee_Leaves_access_level" model="ir.rule">
+	        <field name="name">Leave Employee Rule</field>
+	        <field name="model_id" ref="pappaya_payroll.model_hr_holidays"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_Leaves_access_level_all" model="ir.rule">
+	        <field name="name">Leave Employee All</field>
+	        <field name="model_id" ref="pappaya_payroll.model_hr_holidays"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Attendance	-->
+
+	    <record id="employee_attendances_access_level" model="ir.rule">
+	        <field name="name">Attendances Employee Rule</field>
+	        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="0"/>
+	        <field name="perm_write" eval="0"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="employee_attendances_access_level_all" model="ir.rule">
+	        <field name="name">Attendances Employee All</field>
+	        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="0"/>
+	        <field name="perm_write" eval="0"/>
+	        <field name="perm_unlink" eval="0"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<!--	Compensatory Request	-->
+
+	    <record id="compensatory_request_user_access_level" model="ir.rule">
+	        <field name="name">Compensatory Request Employee Rule</field>
+	        <field name="model_id" ref="pappaya_payroll.model_leave_compensatory_request"/>
+	        <field name="domain_force">[('employee_id','=',user.employee_id.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees')),(4,ref('base.group_user'))]"/>
+	    </record>
+
+	    <record id="compensatory_request_all_access_level" model="ir.rule">
+	        <field name="name">Compensatory Request Employee All</field>
+	        <field name="model_id" ref="pappaya_payroll.model_leave_compensatory_request"/>
+	        <field name="domain_force">[('employee_id.branch_id','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[
+				(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_executives')),
+				(4,ref('pappaya_base.hr_operations_head')),(4,ref('pappaya_base.hr_cpo')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		
+
+		<!--	Users	-->
+
+		<record id="users_access_hr_level_user" model="ir.rule">
+	        <field name="name">Users Employee Level</field>
+	        <field name="model_id" ref="pappaya_base.model_res_users"/>
+	        <field name="domain_force">[('id','=',user.id)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+			<field name="groups" eval="[(4,ref('pappaya_base.hr_branch_employees'))]" />
+	    </record>
+
+		<record id="users_access_hr_level_manager" model="ir.rule">
+	        <field name="name">Users Manager</field>
+	        <field name="model_id" ref="pappaya_base.model_res_users"/>
+	        <field name="domain_force">[('operating_unit_ids','in',user.operating_unit_ids.ids)]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+			<field name="groups" eval="[(4,ref('pappaya_base.hr_executives')),(4,ref('pappaya_base.hr_operations_head')),
+				(4,ref('pappaya_base.payroll_operation')),(4,ref('pappaya_base.payroll_head')),
+				(4,ref('pappaya_base.hr_branch_accountants')),(4,ref('pappaya_base.hr_zonal_accountant')),
+				(4,ref('pappaya_base.hr_principal_hod')),(4,ref('pappaya_base.hr_deans'))]" >
+			</field>
+	    </record>
+
+		<record id="users_access_hr_level_admin" model="ir.rule">
+	        <field name="name">Users Admin</field>
+	        <field name="model_id" ref="pappaya_base.model_res_users"/>
+	        <field name="domain_force">[]</field>
+	        <field name="perm_read" eval="1"></field>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+			<field name="groups" eval="[(4,ref('pappaya_base.hr_administrator')),(4,ref('pappaya_base.hr_cpo'))]" >
+			</field>
+	    </record>
+
+	</data>
+</odoo>

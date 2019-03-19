@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<!-- Payslip Report-->
+		<template id="report_nspira_payslip">
+			<t t-call="web.html_container">
+				<t t-set="all_alw" t-value="[]"/>
+                <t t-set="all_ded" t-value="[]"/>
+				<t t-foreach="docs" t-as="o">
+					<t t-call="pappaya_payroll.pappaya_payroll_nspira_report_custom_layout">
+						<div class="page">
+							<div class="main">
+								<style>
+									.main {
+										width:100%;
+									}
+									.table-condensed1 {
+										width:100%;
+									}
+									.result1 td {
+										text-align:center;
+										padding-bottom:3px;
+									}
+									.table-condensed2 {
+										border:1px solid black;
+										border-radius:5px 5px;
+										border-collapse:separate;
+										width:94%;
+										font-size:14px;
+										margin-top:7px;
+										margin-bottom:7px;
+										margin-left:14px;
+										margin-right:14px;
+									}
+									.result2a td {
+										padding-top:5px;
+										padding-bottom:5px;
+										padding-left:5px;
+										padding-right:5px;
+										border-bottom:1px solid black
+									}
+									.result2b td {
+										padding-top:5px;
+										padding-right:5px;
+										padding-bottom:5px;
+										padding-left:5px;
+									}
+									.result2c td {
+										border:1px solid black;
+										border-radius:5px 5px;
+										border-collapse:separate;
+										width:90%;
+										font-size:14px;
+										margin-top:5px;
+										margin-bottom:5px;
+										margin-left:14px;
+										margin-right:14px;
+										padding-top:5px;
+										padding-right:5px;
+										padding-bottom:5px;
+										padding-left:5px;
+									}
+									.table-condensed3 {
+										border:1px solid black;
+										border-radius:5px 5px;
+										border-collapse:separate;
+										width:94%;
+										font-size:14px;
+										margin-top:5px;
+										margin-bottom:5px;
+										margin-left:14px;
+										margin-right:14px;
+									}
+									.table-condensed4 {
+										border:1px solid black;
+										border-radius:5px 5px;
+										border-collapse:separate;
+										width:98%;
+										font-size:14px;
+										margin-top:1px;
+										margin-bottom:5px;
+										margin-left:5px;
+										margin-right:5px;
+									}
+									.result3 td {
+
+										padding-top:5px;
+										padding-bottom:5px;
+										padding-left:5px;
+										padding-right:5px;
+									}
+									.r3 {
+										border-top:1px solid black;
+										border-right:1px solid black;
+									}
+									.r4 {
+										border-bottom:1px solid black;
+										border-right:1px solid black;
+									}
+									.r5 {
+										text-align:left;
+										padding-top:4px;
+										padding-bottom:40px;
+										padding-left:6px;
+									}
+								</style>
+
+								<div style="text-align:right; font-size:12px; padding-top:5px; padding-bottom:2px; width:94%; margin: 7px 14px 7px 14px;"><strong>(Amounts In INR)</strong></div>
+
+								<table class="table-condensed2">
+									<tr class="result2a">
+										<td colspan="1"><strong>Name</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td><span t-field="o.employee_id"/></td>
+										<td colspan="1"><strong>Emp No</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td><span t-field="o.employee_id.emp_id"/></td>
+									</tr>
+									<tr class="result2b">
+										<td colspan="1"><strong>Department</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td style="border-right:1px solid black"><span t-field="o.employee_id.department_id"/></td>
+										<td colspan="1"><strong>Bank A/c No</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td><span t-field="o.employee_id.account_number"/></td>
+									</tr>
+									<tr class="result2b">
+										<td colspan="1"><strong>Designation</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td style="border-right:1px solid black"><span t-field="o.employee_id.job_id"/></td>
+										<td colspan="1"><strong>PF UAN No</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td><span t-field="o.employee_id.pf_no"/></td>
+									</tr>
+									<tr class="result2b">
+										<td colspan="1"><strong>DOJ</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td style="border-right:1px solid black"><span t-field="o.employee_id.date_of_joining" t-field-options='{"format": "dd-MM-yyyy"}'/></td>
+										<td colspan="1"><strong>ESI No</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td><span t-field="o.employee_id.esi_no"/></td>
+									</tr>
+									<tr class="result2b">
+										<td colspan="1"><strong>Gross Salary</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+											<t t-if="line.code == 'GROSS'">
+												<td style="border-right:1px solid black"><span t-field="line.total"/></td>
+											</t>
+										</t>
+										<td colspan="1"><strong>PAN No</strong></td>
+										<td colspan="1"><strong>:</strong></td>
+										<td><span t-field="o.employee_id.pan_no"/></td>
+									</tr>
+								</table>
+								<table class="table-condensed3">
+									<thead>
+										<tr class="result3">
+											<td><strong>Total Number of Days : </strong> <span t-esc="o.total_work_days"/></td>
+											<td><strong>Paid Number of Days : </strong> <span t-esc="o.paid_days"/></td>
+										</tr>
+									</thead>
+								</table>
+
+								<table class="table-condensed3">
+									<thead>
+										<tr class="result2a">
+											<td class="text-center" colspan="3" style="width:50%; border-right:1px solid black;"><strong>Earnings</strong></td>
+											<td class="text-center" colspan="3" style="width:50%;"><strong>Deduction</strong></td>
+										</tr>
+									</thead>
+									<tbody>
+										<t t-foreach="o.alllowance_and_deduction()" t-as="lines">
+											<tr class="result2b">
+												<td style="width:35%; border-right:1px solid black;" colspan="2"><span t-esc="lines['alw_name']"/></td>
+												<td class="text-right" style="width:15%; border-right:1px solid black; padding-right:10px;"><span t-esc="lines['alw_amount']"/></td>
+												<td colspan="2" style="width:35%; border-right:1px solid black;"><span t-esc="lines['ded_name']"/></td>
+												<td style="width:15%; padding-right:10px;" class="text-right"><span t-esc="lines['ded_amount']"/></td>
+
+												<t t-if="lines['alw_amount'] != ' ' " t-set="all_alw" t-value="all_alw+[lines['alw_amount']]"/>
+												<t t-if="lines['ded_amount'] != ' ' " t-set="all_ded" t-value="all_ded+[lines['ded_amount']]"/>
+											</tr>
+										</t>
+										<tr class="result2b">
+											<td colspan="2" style="border-top:1px solid black"></td>
+											<td style="text-align:right; border-top:1px solid black; padding-right:10px;"><span t-esc="'{0:,.2f}'.format(sum(all_alw))"/></td>
+											<td colspan="2" style="border-top:1px solid black"></td>
+											<td style="text-align:right; border-top:1px solid black; padding-right:10px;"><span t-esc="'{0:,.2f}'.format(sum(all_ded))"/></td>
+										</tr>
+										<tr class="result2b">
+											<t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+												<t t-if="line.code == 'NET'">
+													<td colspan="6" style="padding-left:5px; padding-right:5px;">
+														<table class="table-condensed4">
+															<tr>
+																<td colspan="5" class="text-left" style="padding-left:15px;"><b>Net Pay</b><span style="padding-left:10px;" t-esc="o.company_id.currency_id.amount_to_text(line.total)"/></td>
+																<td class="text-right"><b><span t-field="line.total"/></b> </td>
+															</tr>
+														</table>
+													</td>
+												</t>
+											</t>
+										</tr>
+									</tbody>
+								</table>
+
+								<div class="text-left" style="font-size:9px; padding-left:10px;"><strong>Generated On: </strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></div>
+
+								<div class="text-center" style="font-size:10px;"><strong>This Is Computer Generated Payslip Hence No Signature Is Required!!!</strong></div>
+
+							</div>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+		<report
+			id="nspira_payslip_reports"
+			model="hr.payslip"
+			string="PaySlip"
+			report_type="qweb-pdf"
+			name="pappaya_payroll.report_nspira_payslip"
+			file="pappaya_payroll.report_nspira_payslip"
+			print_report_name="'%s' % (object.payslip_report_name())"
+		/>
+
+		<record id="paperformat_nspira_payslip_reports" model="report.paperformat">
+			<field name="name">European A4 - Payslip</field>
+			<field name="default" eval="True" />
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">20</field>
+			<field name="margin_bottom">15</field>
+			<field name="margin_left">10</field>
+			<field name="margin_right">10</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">20</field>
+			<field name="dpi">80</field>
+		</record>
+
+		<record id="pappaya_payroll.nspira_payslip_reports" model="ir.actions.report">
+			<field name="paperformat_id" ref="pappaya_payroll.paperformat_nspira_payslip_reports"/>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_employee_lock_tree" model="ir.ui.view">
+			<field name="name">employee.lock.sublock.tree</field>
+			<field name="model">employee.lock.sublock</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Lock" delete="false" duplicate="false" create="0">
+					<field name="name" />
+					<field name="branch_id"/>
+					<field name="payslip_batch_id" invisible="1"/>
+					<field name="lock_state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_employee_lock_form" model="ir.ui.view">
+			<field name="name">employee.lock.sublock.form</field>
+			<field name="model">employee.lock.sublock</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Lock" delete="false" duplicate="false" create="false">
+					<header>
+						<button name="lock_button_request" string="Request" attrs="{'invisible':[('lock_state','!=','draft')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_principal_hod"/>
+						<button name="lock_sublock_update" string="Update" attrs="{'invisible':[('lock_state','!=','draft')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_principal_hod"/>
+						<button name="lock_button_approve" string="Approve" attrs="{'invisible':[('lock_state','!=','requested')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_deans"/>
+ 						<button name="lock_button_reset" string="Reset" attrs="{'invisible':[('lock_state','!=','approved')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod"/>
+						<field name="lock_state" widget="statusbar" statusbar_visible="draft,requested,approved" readonly="1" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="company_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+								<field name="month_id" options="{'no_open': True,'no_create':True}" required="1" readonly="0" force_save="1" attrs="{'readonly':[('lock_state','!=','draft')]}"/>
+								<field name="branch_id" options="{'no_open': True,'no_create':True}" required="1" readonly="0" force_save="1" attrs="{'readonly':[('lock_state','!=','draft')]}"/>
+							</group>
+                            <group>
+                            	<label for="date_start" string="Period"/>
+			                     <div>
+			                           <field name="date_start" class="oe_inline" readonly="1" force_save="1"/> - <field name="date_end" class="oe_inline" readonly="1" force_save="1"/>
+			                     </div>
+                                <field name="payslip_batch_id" invisible="1" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}" />
+								<field name="name" readonly="1" force_save="1"/>
+								<field name="is_active" invisible="1"/>
+                            </group>
+						</group>
+                        <field name="lock_sublock_line" attrs="{'readonly':[('lock_state','=','approved')]}" string="Lock">
+                            <tree string="Lock" editable="bottom" delete="0" create="0">
+                                <field name="employee_id" attrs="{'readonly':[('lock_state','!=','draft')]}" force_save="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="emp_id" readonly="1" force_save="1"/>
+                                <field name="date_of_joining" readonly="1" force_save="1"/>
+                                <field name="is_lock" attrs="{'readonly':[('lock_state','=','approved')]}" groups="pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+                                <field name="is_remarks_required" invisible="1"/>
+                                <field name="remarks" attrs="{'required':[('is_remarks_required','=',True)]}" groups="pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+                                <field name="is_sublock"  invisible="1"/>
+                                <field name="slip_id" readonly="1" force_save="1" invisible="1"/>
+                                <field name="slip_number" readonly="1" force_save="1" invisible="1"/>
+                                <field name="lock_state" readonly="1" force_save="1" invisible="1"/>
+								<field name="is_remarks_generated" invisible="1"/>
+								<button name="open_lock_remarks" attrs="{'invisible':[('is_remarks_generated','=',False)]}" string="View Remarks" type="object" groups="pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+                            </tree>
+							<form string="Lock">
+								<group>
+									<group>
+										<field name="employee_id" options="{'no_open': True,'no_create':True}"/>
+										<field name="emp_id"/>
+										<field name="date_of_joining"/>
+										<field name="is_lock" groups="pappaya_base.hr_principal_hod,pappaya_base.hr_deans" attrs="{'readonly':[('lock_state','!=','draft')]}"/>
+									</group>
+									<group>
+										<field name="is_sublock" invisible="1"/>
+										<field name="slip_id" readonly="1" force_save="1" invisible="1"/>
+										<field name="slip_number" readonly="1" force_save="1" invisible="1"/>
+										<field name="lock_state" readonly="1" force_save="1" invisible="1"/>
+									</group>
+									<field name="lock_remarks_line">
+										<tree string="Remarks">
+											<field name="date"/>
+											<field name="generated_by" options="{'no_open': True,'no_create':True}"/>
+											<field name="remarks"/>
+											<field name="process_salary"/>
+										</tree>
+										<form string="Remarks">
+											<group col="4">
+												<field name="date"/>
+												<field name="generated_by" options="{'no_open': True,'no_create':True}"/>
+												<field name="remarks"/>
+												<field name="process_salary"/>
+											</group>
+										</form>
+									</field>
+								</group>
+                            </form>
+                        </field>
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" invisible="1"/>
+                        <field name="message_ids" widget="mail_thread" invisible="1"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_employee_lock_search" model="ir.ui.view">
+			<field name="name">employee.lock.sublock.search</field>
+			<field name="model">employee.lock.sublock</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Lock">
+					<field name="name" />
+					<field name="branch_id" />
+					<field name="lock_state" />
+					<group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter name="lock_state" string="State" domain="[]" context="{'group_by':'lock_state'}" />
+                        <filter string="Requested" name="requested" domain="[('lock_state','=','requested')]" />
+                        <filter string="Draft" name="draft" domain="[('lock_state','=','draft')]" />
+                        <filter string="Approved" name="approved" domain="[('lock_state','=','approved')]" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_employee_lock_view">
+			<field name="name">Lock(BRANCH)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">employee.lock.sublock</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('is_active','=',True)]</field>
+			<field name="context">{'search_default_requested': True, 'search_default_draft': True}</field>
+			<field name="search_view_id" ref="view_employee_lock_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'tree', 'view_id': ref('view_employee_lock_tree')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('view_employee_lock_form')})]" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Lock.
+                </p>
+            </field>
+		</record>
+
+        
+        
+        
+        <!-- Sub Lock -->
+
+
+		<record id="view_employee_sublock_tree" model="ir.ui.view">
+			<field name="name">employee.lock.sublock.tree</field>
+			<field name="model">employee.lock.sublock</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Sublock" delete="false" duplicate="false" create="false">
+					<field name="name"/>
+					<field name="branch_id"/>
+					<field name="payslip_batch_id" invisible="1"/>
+					<field name="sublock_state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_employee_sublock_form" model="ir.ui.view">
+			<field name="name">employee.lock.sublock.form</field>
+			<field name="model">employee.lock.sublock</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Sublock" delete="false" duplicate="false" create="false">
+					<header>
+						<button name="sublock_button_request" string="Request" attrs="{'invisible':[('sublock_state','!=','draft')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+						<button name="lock_sublock_update" string="Update" attrs="{'invisible':[('lock_state','!=','draft')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+						<button name="sublock_button_approve" string="Approve" attrs="{'invisible':[('sublock_state','!=','requested')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+						<button name="sublock_button_reset" string="Reset" attrs="{'invisible':[('sublock_state','!=','approved')]}" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+						<field name="sublock_state" widget="statusbar" statusbar_visible="draft,requested,approved" readonly="1" />
+						<field name="lock_state" widget="statusbar" statusbar_visible="draft,requested,approved" readonly="1" invisible="1"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="company_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+								<field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+								<field name="month_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+							</group>
+                            <group>
+                                <field name="payslip_batch_id" invisible="1" attrs="{'readonly':[('sublock_state','!=','draft')]}" options="{'no_open': True,'no_create':True}" />
+                                <label for="date_start" string="Period"/>
+			                     <div>
+			                           <field name="date_start" class="oe_inline" readonly="1" force_save="1"/> - <field name="date_end" class="oe_inline" readonly="1" force_save="1"/>
+			                     </div>
+			                     <field name="name" readonly="1" force_save="1"/>
+                            </group>
+						</group>
+                        <field name="lock_sublock_line" attrs="{'readonly':[('sublock_state','=','approved')]}" string="Sublock">
+                            <tree string="Sublock" create="false" editable="bottom" delete="false">
+                                <field name="employee_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="emp_id" readonly="1" force_save="1"/>
+                                <field name="date_of_joining" readonly="1" force_save="1"/>
+                                <field name="is_lock" groups="pappaya_base.hr_branch_accountants" invisible="1"/>
+                                <field name="is_sublock" groups="pappaya_base.payroll_head,pappaya_base.payroll_operation" attrs="{'invisible':[('is_lock','!=',True)],'readonly':[('sublock_state','=','approved')]}"/>
+								<field name="is_remarks_required" invisible="1"/>
+                                <field name="remarks" attrs="{'required':[('is_remarks_required','=',True)]}" groups="pappaya_base.payroll_head,pappaya_base.payroll_operation"/>
+                                <field name="partial_account_entry" readonly="1" force_save="1" invisible="1"/>
+                                <field name="account_entry" readonly="1" force_save="1" invisible="1"/>
+                                <field name="sublock_state" readonly="1" force_save="1" invisible="1"/>
+                                <field name="is_remarks_generated" invisible="1"/>
+								<button name="open_sublock_remarks" attrs="{'invisible':[('is_remarks_generated','=',False)]}" string="View Remarks" type="object" groups="pappaya_base.payroll_head,pappaya_base.payroll_operation"/>
+                            </tree>
+							<form string="Sublock">
+								<group>
+									<group>
+										<field name="employee_id" options="{'no_open': True,'no_create':True}"/>
+										<field name="emp_id"/>
+										<field name="date_of_joining"/>
+										<field name="is_lock" groups="pappaya_base.hr_branch_accountants" invisible="1"/>
+									</group>
+									<group>
+										<field name="is_sublock" groups="pappaya_base.payroll_head" attrs="{'invisible':[('is_lock','!=',True)],'readonly':[('sublock_state','!=','draft')]}"/>
+										<field name="partial_account_entry" readonly="1" force_save="1" invisible="1"/>
+										<field name="account_entry" readonly="1" force_save="1" invisible="1"/>
+										<field name="sublock_state" readonly="1" force_save="1" invisible="1"/>
+									</group>
+								</group>
+								<field name="sublock_remarks_line">
+									<tree string="Remarks">
+										<field name="date"/>
+										<field name="generated_by" options="{'no_open': True,'no_create':True}"/>
+										<field name="remarks"/>
+										<field name="release_payment"/>
+									</tree>
+									<form string="Remarks">
+										<group col="4">
+											<field name="date"/>
+											<field name="generated_by" options="{'no_open': True,'no_create':True}"/>
+											<field name="remarks"/>
+											<field name="release_payment"/>
+										</group>
+									</form>
+								</field>
+                            </form>
+                        </field>
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" invisible="1"/>
+                        <field name="message_ids" widget="mail_thread" invisible="1"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_employee_sublock_search" model="ir.ui.view">
+			<field name="name">employee.lock.sublock.search</field>
+			<field name="model">employee.lock.sublock</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Sublock">
+					<field name="branch_id" />
+					<filter string="Archived" name="inactive" domain="[('is_active','=',False)]"/>
+                    <filter string="Requested" name="requested" domain="[('sublock_state','=','requested')]" />
+                    <filter string="Draft" name="draft" domain="[('sublock_state','=','draft')]" />
+                    <filter string="Approved" name="approved" domain="[('sublock_state','=','approved')]" />
+					<group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_employee_sublock_view">
+			<field name="name">Sublock(CO)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">employee.lock.sublock</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_employee_sublock_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'tree', 'view_id': ref('view_employee_sublock_tree')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('view_employee_sublock_form')})]" />
+			<field name="domain">[('lock_state','=','approved')]</field>
+			<field name="context">{'search_default_requested': True, 'search_default_draft': True}</field>
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create Sublock.
+                </p>
+            </field>
+		</record>
+
+		<menuitem id="menu_employee_lock" parent="hr_payroll.menu_hr_payroll_root" action="action_open_employee_lock_view"
+				  groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod,pappaya_base.hr_deans" sequence="-25"/>
+
+		<menuitem id="menu_employee_sublock" parent="hr_payroll.menu_hr_payroll_root" action="action_open_employee_sublock_view"
+				  groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head" sequence="-20"/>
+
+		<!--	Remarks Line Tree View	-->
+
+		<record id="view_employee_lock_remarks_tree" model="ir.ui.view">
+			<field name="name">employee.lock.remarks.line.tree</field>
+			<field name="model">employee.lock.remarks.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Remarks" delete="false" duplicate="false" create="false">
+					<field name="date"/>
+					<field name="generated_by"/>
+					<field name="remarks"/>
+					<field name="process_salary"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_employee_sublock_remarks_tree" model="ir.ui.view">
+			<field name="name">employee.sublock.remarks.line.tree</field>
+			<field name="model">employee.sublock.remarks.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Remarks" delete="false" duplicate="false" create="false">
+					<field name="date"/>
+					<field name="generated_by"/>
+					<field name="remarks"/>
+					<field name="release_payment"/>
+				</tree>
+			</field>
+		</record>
+
+    </data>
+</odoo>

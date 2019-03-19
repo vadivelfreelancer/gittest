@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="bank_challan_form_view" model="ir.ui.view">
+            <field name="name">bank.challan.form.view</field>
+            <field name="model">bank.challan</field>
+            <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="branch_id" style="width:50%" required="1" options="{'no_open': True,'no_create':True}" />
+                    <field name="application_no" style="width:50%" required="1"/>
+                    <field name="std_type" style="width:50%" required="1" readonly="1" force_save="1"/>
+                </group>
+                <group string="Student Information">
+                    <field name="ad_date" style="width:33%" readonly="1" force_save="1"/>
+                    <field name="num" style="width:33%" readonly="1" force_save="1"/>
+                    <field name="branch" style="width:33%" readonly="1" force_save="1"/>
+                    <field name="code" style="width: 33%" readonly="1" force_save="1"/>
+                    <field name="name" style="width: 33%" readonly="1" force_save="1"/>
+                    <field name="father_name" style="width: 33%" readonly="1" force_save="1"/>
+                </group>
+                <footer>
+                    <button name="print_challan_student" string="Print Challan" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_bank_challan" model="ir.actions.act_window">
+            <field name="name">Bank Challan Details</field>
+            <field name="res_model">bank.challan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bank_challan_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

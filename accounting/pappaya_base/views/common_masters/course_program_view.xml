@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_pappaya_course_program_tree" model="ir.ui.view">
+            <field name="name">pappaya.course.program.tree</field>
+            <field name="model">pappaya.course.program</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Course Program">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="group_id"/>
+                    <field name="batch_id"/>
+                    <field name="program_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_course_program_form" model="ir.ui.view">
+            <field name="name">pappaya.course.program.form</field>
+            <field name="model">pappaya.course.program</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Course Program">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="course_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="group_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="batch_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="program_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_course_program_search" model="ir.ui.view">
+            <field name="name">pappaya.course.program.search</field>
+            <field name="model">pappaya.course.program</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Course Program">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="group_id"/>
+                    <field name="batch_id"/>
+                    <field name="program_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="course_id" string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+                        <filter name="group_id" string="Group" domain="[]" context="{'group_by':'group_id'}"/>
+                        <filter name="batch_id" string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+                        <filter name="program_id" string="Program" domain="[]" context="{'group_by':'program_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_pappaya_course_program_view">
+            <field name="name">CGB Program</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.course.program</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_course_program_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Course Program.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+                <!-- Rule for University user  to see own Record. -->
+            
+            <record model="ir.rule" id="attendance_register_university_login_rule">
+                <field name="name">university Attendance Register Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_register" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_university'))]" />
+                <field name="domain_force"> [('university_id','in',[x.id for x in
+                    user.university_ids])]</field>
+           </record>
+            
+            <record model="ir.rule" id="attendance_sheet_university_login_rule">
+                <field name="name">university Attendance Sheet Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_sheet" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_university'))]" />
+                <field name="domain_force"> [('university_id','in',[x.id for x in
+                    user.university_ids])]</field>
+           </record>
+            
+            <record model="ir.rule" id="attendance_line_university_login_rule">
+                <field name="name">university Attendance Line Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_line" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_university'))]" />
+                <field name="domain_force"> [('university_id','in',[x.id for x in
+                    user.university_ids])]</field>
+           </record>
+                
+                <!--Rule For Department Login user to see own Record -->
+            
+            <record model="ir.rule" id="attendance_register_department_login_rule">
+                <field name="name"> Attendance Register Department Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_register" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_department'))]" />
+                <field name="domain_force"> [('department_id','in',[x.id for x in
+                    user.department_ids])]</field>
+            </record>                  
+            
+            
+            <record model="ir.rule" id="attendance_sheet_department_login_rule">
+                <field name="name">Department Attendance Sheet Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_sheet" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_department'))]" />
+                <field name="domain_force"> [('department_id','in',[x.id for x in
+                    user.department_ids])]</field>
+           </record>
+            
+           <record model="ir.rule" id="attendance_line_department_login_rule">
+                <field name="name">Department Attendance Line Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_line" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_department'))]" />
+                <field name="domain_force"> [('department_id','in',[x.id for x in
+                    user.department_ids])]</field>
+           </record> 
+            
+            
+            <!--Company Login Rule user to see Own Record  -->
+            
+            
+            
+             <record model="ir.rule" id="attendance_register_company_login_rule">
+                <field name="name">  Attendance Register  Company Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_register" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_back_office_admin'))]" />
+                <field name="domain_force"> [('company_id','in',[x.id for x in
+                    user.company_id])]</field>
+             </record>
+            
+            
+            <record model="ir.rule" id="attendance_sheet_company_login_rule">
+                <field name="name">Company Attendance Sheet Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_sheet" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_back_office_admin'))]" />
+                <field name="domain_force"> [('company_id','in',[x.id for x in
+                    user.company_id])]</field>
+           </record>
+            
+            <record model="ir.rule" id="attendance_line_company_login_rule">
+                <field name="name">Company Attendance Line Login rule</field>
+                <field name="model_id" ref="model_pappaya_attendance_line" />
+                <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_back_office_admin'))]" />
+                <field name="domain_force"> [('company_id','in',[x.id for x in
+                    user.company_id])]</field>
+           </record> 
+            
+            
+            
+<!--
+            <record model="ir.rule" id="faculty_library_login_rule">
+            <field name="name">Faculty Login rule</field>
+            <field name="model_id" ref="model_pappaya_attendance_sheet" />
+            <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_faculty'))]" />
+            <field name="domain_force"> [('university_id','in',[x.id for x in
+                                                        user.faculty_ids[0].university_id])]</field>
+            </record>
+-->
+            <record model="ir.rule" id="faculty_attendance_register_login_rule">
+            <field name="name">Facult Register Login rule</field>
+            <field name="model_id" ref="model_pappaya_attendance_register" />
+            <field name="groups" eval="[(4, ref('pappayaed_core.group_pappaya_faculty'))]" />
+            <field name="domain_force"> [('university_id','in',[x.id for x in
+                                                        user.faculty_ids[0].university_id])]</field>
+            </record>
+
+    </data>
+</odoo>

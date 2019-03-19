@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_marketing_staff_allocation_tree" model="ir.ui.view">
+			<field name="name">view.marketing.staff.allocation.tree</field>
+			<field name="model">marketing.staff.allocation</field>
+			<field name="arch" type="xml">
+				<tree string="Staff Allocation">
+					<field name="name" default_focus="1" />
+					<field name="academic_type"/>
+					<field name="staff_hierarchy_id"/>
+					<field name="head_employee_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_marketing_staff_allocation_form" model="ir.ui.view">
+			<field name="name">view.marketing.staff.allocation.form</field>
+			<field name="model">marketing.staff.allocation</field>
+			<field name="arch" type="xml">
+				<form string="Staff Allocation">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<field name="staff_allocation_type" widget="radio" options="{'horizontal':True}"/>
+								<field name="academic_type" widget="radio" options="{'horizontal':True}"/>
+							</group>
+							<group>
+								<field name="academic_year_id" options="{'no_open':True,'no_create':True}" readonly="1"/>
+								<field name="staff_hierarchy_id" options="{'no_open':True,'no_create':True}"
+									domain="[('academic_type','=',academic_type)]" 
+									attrs="{'invisible':[('staff_allocation_type','!=','employee_wise')],'required':[('staff_allocation_type','=','employee_wise')]}"/>
+								<field name="head_employee_id" options="{'no_open':True,'no_create':True}" attrs="{'invisible':[('staff_allocation_type','!=','employee_wise')],'required':[('staff_allocation_type','=','employee_wise')]}"/>
+								<field name="location_type" attrs="{'invisible':[('staff_allocation_type','!=','location_wise')],'required':[('staff_allocation_type','=','location_wise')]}"/>
+							</group>
+						</group>
+						<group attrs="{'invisible':[('staff_allocation_type','!=','employee_wise')],'required':[('staff_allocation_type','=','employee_wise')]}">
+							<field name="employee_ids" options="{'no_open':True,'no_create':True}">
+								<tree>
+									<field name="emp_id"/>
+									<field name="name"/>
+									<field name="job_id"/>
+									<field name="payroll_branch_id"/>
+								</tree>
+							</field>
+						</group>
+						<notebook attrs="{'invisible':[('staff_allocation_type','!=','location_wise')]}">
+							<page string="State wise staff allocations" attrs="{'invisible':[('location_type','!=','state_wise')],'required':[('location_type','=','state_wise')]}">
+								<field name="state_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="state_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>
+							
+							<page string="cluster wise staff allocations" attrs="{'invisible':[('location_type','!=','cluster_wise')],'required':[('location_type','=','cluster_wise')]}">
+								<field name="cluster_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="cluster_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>							
+							
+							<page string="District wise staff allocations" attrs="{'invisible':[('location_type','!=','district_wise')],'required':[('location_type','=','district_wise')]}">
+								<field name="district_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="district_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>							
+							
+							<page string="Division wise staff allocations" attrs="{'invisible':[('location_type','!=','division_wise')],'required':[('location_type','=','division_wise')]}">
+								<field name="division_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="division_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>							
+							
+							<page string="Mandal wise staff allocations" attrs="{'invisible':[('location_type','!=','mandal_wise')],'required':[('location_type','=','mandal_wise')]}">
+								<field name="mandal_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="mandal_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Village wise staff allocations" attrs="{'invisible':[('location_type','!=','village_wise')],'required':[('location_type','=','village_wise')]}">
+								<field name="village_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="village_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>							
+							
+							<page string="City wise staff allocations" attrs="{'invisible':[('location_type','!=','city_wise')],'required':[('location_type','=','city_wise')]}">
+								<field name="city_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="city_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>								
+							
+							<page string="Ward wise staff allocations" attrs="{'invisible':[('location_type','!=','ward_wise')],'required':[('location_type','=','ward_wise')]}">
+								<field name="ward_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="ward_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>								
+							
+							<page string="Area wise staff allocations" attrs="{'invisible':[('location_type','!=','area_wise')],'required':[('location_type','=','area_wise')]}">
+								<field name="area_wise_staff_allocation_ids">
+									<tree editable="bottom">
+										<field name="staff_allocation_id" invisible="1"/>
+										<field name="name" invisible="1"/>
+										<field name="area_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+										<field name="employee_ids" widget="many2many_tags" options="{'no_create':True,'no_open':True}" required="1"/>
+									</tree>
+								</field>
+							</page>								
+						</notebook>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_marketing_staff_allocation" model="ir.actions.act_window">
+			<field name="name">Staff Allocation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">marketing.staff.allocation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Staff Allocation.
+				</p>
+			</field>
+		</record>	
+
+	</data>
+</odoo>

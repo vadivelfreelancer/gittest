@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!--Building Agreement-->
+
+		<record id="view_building_agreement_tree" model="ir.ui.view">
+			<field name="name">Rent Agreement Tree</field>
+			<field name="model">building.agreement</field>
+			<field name="arch" type="xml">
+				<tree string="Building Agreement">
+					<field name="branch_id"/>
+					<field name="type"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_building_agreement_form" model="ir.ui.view">
+			<field name="name">Rent Agreement Form</field>
+			<field name="model">building.agreement</field>
+			<field name="arch" type="xml">
+				<form string="Building Agreement">
+					<sheet>
+						<group>
+							<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+							<field name="type" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+						<field name="building_line_ids" options="{'no_open': True, 'no_create': True}" attrs="{'invisible':[('type','=','building_capacity')]}">
+							<tree editable="bottom" delete="false" create="false">
+								<field name="agreement_id" invisible="1" options="{'no_open': True, 'no_create': True}"/>
+								<field name="branch_id"  invisible="1" options="{'no_open': True, 'no_create': True}"/>
+								<field name="building_id" options="{'no_open': True, 'no_create': True}"/>
+								<field name="total_area"/>
+								<field name="rent"/>
+								<field name="expiry_date"/>
+								<field name="filename"/>
+								<field name="attachment" filename="filename"/>
+							</tree>
+						</field>
+						<field name="building_capacity_ids" options="{'no_open': True, 'no_create': True}" attrs="{'invisible':[('type','=','expiry_date')]}">
+							<tree editable="bottom" delete="false" create="false">
+								<field name="agreement_id" invisible="1" options="{'no_open': True, 'no_create': True}"/>
+								<field name="branch_id"  invisible="1" options="{'no_open': True, 'no_create': True}"/>
+								<field name="building_id" options="{'no_open': True, 'no_create': True}"/>
+								<field name="total_area"/>
+								<field name="rent"/>
+								<field name="capacity"/>
+								<field name="occupied"/>
+							</tree>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_building_agreement_view">
+			<field name="name">Building Agreement Expiry Date and Capacity</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">building.agreement</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+    </data>
+</odoo>

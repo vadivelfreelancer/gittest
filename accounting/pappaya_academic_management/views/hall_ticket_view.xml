@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="hall_ticket_view_form_field_only" model="ir.ui.view">
+        <field name="name">hall.ticket.view.form</field>
+        <field name="model">hall.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+
+                </group>
+                <group string="Students Hall Ticket Nos Entry">
+                    <group>
+                        <field name="exam_branch"/>
+                        <field name="section"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="course"/>
+                        <field name="division"/>
+                        <field name="is_default"/>
+                    </group>
+                </group>
+                <div style="text-align:center;margin-bottom:25px;">
+                    <button special="save" class="oe_highlight" string="Save" style="margin-right:20px;"/>
+                    <button special="save" class="oe_highlight" string="Search"/>
+
+                </div>
+
+                <field name="hall_ticket_line">
+                    <tree editable="bottom">
+                        <field name="admission_no"/>
+                        <field name="name"/>
+                        <field name="application_no"/>
+                        <field name="roll_number"/>
+                        <field name="password"/>
+                        <field name="remarks"/>
+                        <field name="exam_type"/>
+                        <field name="exam_date"/>
+                        <field name="phone_number"/>
+                        <field name="email_id"/>
+                        <field name="school"/>
+                        <field name="centre_code"/>
+
+                        <field name="time_slot_name" />
+                        <field name="paper_name" />
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+        <record id="default_field_action" model="ir.actions.act_window">
+        <field name="name">Student Hall Ticket Entry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hall.ticket</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hall_ticket_view_form_field_only"/>
+        <field name="target">inline</field>
+    </record>
+
+    <record id="hall_ticket_view_form" model="ir.ui.view">
+        <field name="name">hall.ticket.view.form</field>
+        <field name="model">hall.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+
+                </group>
+                <group string="Students Hall Ticket Nos Entry">
+                    <group>
+                        <field name="exam_branch"/>
+                        <field name="section"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="course"/>
+                        <field name="division"/>
+                        <field name="is_default"/>
+
+                    </group>
+                </group>
+                <div style="text-align:center;margin-bottom:25px;">
+                    <button special="save" class="oe_highlight" string="Save" style="margin-right:20px;"/>
+                    <button special="save" class="oe_highlight" string="Search"/>
+                    <button type="action" name="%(pappaya_academic_management.default_field_action)d" string="All Fields"/>
+                </div>
+
+                <field name="hall_ticket_line">
+                    <tree editable="bottom">
+                        <field name="admission_no"/>
+                        <field name="name"/>
+                        <field name="application_no"/>
+                        <field name="roll_number"/>
+                        <field name="password"/>
+                        <field name="remarks"/>
+                        <field name="exam_type"/>
+                        <field name="exam_date"/>
+                        <field name="phone_number"/>
+                        <field name="email_id"/>
+                        <field name="school"/>
+                        <field name="centre_code"/>
+                        <!--<field name="time_slot_name" attrs="{'invisible':[('is_default', '=', True)]}"/>-->
+                        <!--<field name="paper_name" attrs="{'invisible':[('is_default', '=', True)]}"/>-->
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="hall_ticket_view_only_action" model="ir.actions.act_window">
+        <field name="name">Students Hall Ticket Nos Entry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hall.ticket</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+
+
+    <menuitem id="hall_ticket_view_sub_menu"
+          name="Hall Ticket"
+          parent="academic_main_menu"
+          sequence="209"
+          action="hall_ticket_view_only_action"/>
+
+</odoo>

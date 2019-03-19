@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<template id="generate_fee_structure_pdf_report">
+			<t t-call="report.html_container">
+				<t t-set="data_report_margin_top" t-value="40"/>
+				<t t-set="data_report_dpi" t-value="90"/>
+				<t t-foreach="docs" t-as="o">
+					<t t-foreach="o.get_school_header()" t-as="l">
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-xs-2" style="text-align:center;">
+                                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:110px;max-height:130px;width:110px;max-width:130px;margin-left:20px;"/>
+                                </div>
+                                <div class="col-xs-10">
+                                    <div style="font-weight:700;font-size:20px; text-align:center;">
+                                        <t t-if="l['school_id']"> <strong><span t-esc="l['school_id']"/></strong></t>
+                                    </div>
+                                    <div style="font-size:15px; text-align:center;">
+                                        <t t-if="l['street']"> <span t-esc="l['street']"/>,</t>
+                                        <t t-if="l['street2']"> <span t-esc="l['street2']"/>,</t>
+                                        <t t-if="l['city']"> <span t-esc="l['city']"/> </t>-
+                                        <t t-if="l['zip']"> <span t-esc="l['zip']"/></t>
+                                    </div>
+                                    <div style="font-size:15px; text-align:center;">
+                                        <t t-if="l['phone']"> Tel: <span t-esc="l['phone']"/>,</t>
+                                        <t t-if="l['fax']"> Fax: <span t-esc="l['fax']"/>,</t>
+                                        <t t-if="l['email']"> Email: <span t-esc="l['email']"/></t>
+                                    </div>
+                                    <div style="font-size:14px; text-align:center;">
+                                        <t t-if="l['website']"> Website: <span t-esc="l['website']"/></t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-foreach="o.get_school()" t-as="soc">
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-xs-2" style="text-align:center;">
+                                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:110px;max-height:130px;width:110px;max-width:130px;margin-left:20px;"/>
+                                </div>
+                                <div class="col-xs-10">
+                                    <br/><br/>
+                                    <div style="font-weight:600;font-size:22px;text-align:center;">
+                                        <t t-if="soc['school_id']"> <strong><span t-esc="soc['school_id']"/></strong></t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+					<div class="page">
+						<style>
+							.row1 {
+								text-align:center;
+								font-size:18px;
+								padding-top:10px;
+								padding-bottom:20px;
+								}
+							.row2 {
+								text-align:left;
+								font-size:16px;
+								padding-bottom:5px
+								}
+							.table-condensed {
+								width:100%;
+								border:1px solid black;
+								font-size:12px;
+								}
+							.result1 td {
+								text-align:center;
+								vertical-align:middle;
+								border-right:1px solid black;
+								border-bottom:1px solid black;
+								font-size:12px;
+								}
+							.result2 td {
+								font-size:12px;
+								vertical-align:middle;
+								border:1px solid black;
+								}
+							   .DIS_watermark_report{
+								background:url('/theme_pappaya/static/src/img/logo_dis.png') no-repeat center center; position:fixed; width:100%; height:100%; pointer-events: none; opacity:0.15; z-index:9999}
+								}
+						</style>
+						<div class="row1" style="border-top:1px solid black">
+							<strong>Fee Structure Report</strong>
+						</div>
+						<div>
+							<t t-foreach="o.get_data()" t-as="l">
+								<div class="row1">
+									<strong><span t-esc="l['school']"/> </strong><br/>
+									<strong><span t-esc="l['academic_year']"/> </strong>
+								</div>
+								<table style="border: 1px solid black;" class="table-condensed">
+									<thead>
+										<tr class="result1">
+											<td><strong>Course</strong></td>
+											<td><strong>Batch</strong></td>
+											<td><strong>Fees Head Name</strong></td>
+											<td><strong>Actual Amount</strong></td>
+											<td><strong>Minimum Locking Amount</strong></td>
+											<td><strong>Reservation Minimum percentage </strong></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="border-right:1px solid black;text-align:center"><span t-esc="l['class']"/></td>
+											<td style="border-right:1px solid black;text-align:center"><span t-esc="l['batch']"/></td>
+											<td style="border-right:1px solid black;text-align:center"></td>
+											<td style="border-right:1px solid black;text-align:center"></td>
+											<td style="border-right:1px solid black;text-align:center"></td>
+											<td></td>
+											<t t-foreach="l['head_list']" t-as="h">
+												<tr>
+													<td style="border-right:1px solid black"></td>
+													<td style="border-right:1px solid black"></td>
+													<td style="border-right:1px solid black;border-top:1px solid black;text-align:left"><span t-esc="h['fee_head']"/></td>
+													<td style="border-right:1px solid black;border-top:1px solid black;text-align:center"><span t-esc="h['fee_amt']"/></td>
+													<td style="border-right:1px solid black;border-top:1px solid black;text-align:center"><span t-esc="h['min_amt']"/></td>
+													<td style="border-top:1px solid black;text-align:center"><span t-esc="h['percentage']"/></td>
+												</tr>
+											</t>
+											<td style="border-top:1px solid black"></td>
+											<td style="border-top:1px solid black"></td>
+											<td style="border-top:1px solid black;border-right:1px solid black;text-align:center"><strong>Total</strong></td>
+											<td style="border-right:1px solid black;border-top:1px solid black;text-align:center"><span t-esc="l['tot_amt']"/></td>
+											<td style="border-right:1px solid black;border-top:1px solid black;text-align:center"><span t-esc="l['tot_min_amt']"/></td>
+											<td style="border-top:1px solid black;text-align:center"><span t-esc="l['tot_percentage']"/></td>
+										</tr>
+									</tbody>
+								</table>
+							</t>
+						</div>
+					</div>
+					<div class="footer">
+						<table>
+							<thead>
+								<tr>
+									<td class="col-xs-5 pull-left" style="font-size:16px;">
+										<strong>Dated On: </strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%b/%Y %H:%M:%S')"/>
+									</td>
+									<td class="col-xs-4 pull-center" style="font-size:16px;">
+					                    <ul class="list-inline">
+					                        <li>Page</li>
+					                        <li><span class="page"/></li>
+					                        <li>of</li>
+					                        <li><span class="topage"/></li>
+					                    </ul>
+					                </td>
+									<td class="col-xs-3 pull-right" style="font-size:16px;">
+										<strong>Generated By: </strong> <span t-esc="user.name"/>
+									</td>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</t>
+			 </t>
+		</template>
+
+		<report
+			id="print_generate_fee_structure_pdf_report"
+			model="fee.structure.report"
+			string="fee structure report"
+			report_type="qweb-pdf"
+			name="pappaya_fees.generate_fee_structure_pdf_report"
+			file="pappaya_fees.generate_fee_structure_pdf_report"
+			attachment_use="False"
+		/>
+
+		<!-- <record id="pappaya_fees.print_generate_fee_structure_pdf_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="pappaya_core.paperformat_euro_landscape"/>
+        </record> -->
+	
+    </data>
+</openerp>
+
+

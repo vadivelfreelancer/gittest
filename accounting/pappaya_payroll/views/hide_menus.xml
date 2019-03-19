@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+        
+        <!-- Purpose : This group is used to hide unwanted menus.Just add this group in menuitem. -->
+		<record id="menu_invisible" model="res.groups">
+			<field name="name">Menu Invisible</field>
+			<field name="category_id" ref="base.module_category_hidden"/>
+		</record>
+		<!-- End -->
+		
+		<!-- Purpose : Hiding 'Discuss' menu. -->
+		<!-- <record model="ir.ui.menu" id="mail.mail_channel_menu_root_chat">
+			<field name="groups_id" eval="[(6,0,[ref('menu_invisible')])]"/>
+		</record> -->
+		<!-- <menuitem
+        id="mail.mail_channel_menu_root_chat"
+        name="Discuss"
+        action="mail_channel_action_client_chat"
+        web_icon="mail,static/description/icon.png"
+        groups="base.group_user"
+        sequence="1"/> -->
+        <!-- <menuitem
+        id="mail.mail_channel_menu_root_chat"
+        name="Discuss"
+        action="mail.mail_channel_action_client_chat"
+        web_icon="mail,static/description/icon.png"
+        groups="menu_invisible"
+        sequence="1"/> -->
+		
+		<!-- Purpose : Hiding 'Contacts' menu. -->
+		<!-- <record model="ir.ui.menu" id="mail.menu_contacts">
+			<field name="groups_id" eval="[(6,0,[ref('menu_invisible')])]"/>
+		</record> -->
+		
+		<!-- Purpose : Hiding 'Calendar' menu. -->
+		<!-- <record model="ir.ui.menu" id="calendar.mail_menu_calendar">
+			<field name="groups_id" eval="[(6,0,[ref('menu_invisible')])]"/>
+		</record> -->
+		
+		<!-- Purpose : Hide 'Print' button in company form. -->
+		<!-- <report id="report.action_report_internalpreview"
+            model="res.company"
+            name="report.preview_internalreport"
+            file="report.preview_internalreport"
+            string="Preview Internal Report"
+            report_type="qweb-pdf"
+            menu="False"/>
+        <report id="report.action_report_externalpreview"
+            model="res.company"
+            name="report.preview_externalreport"
+            file="report.preview_externalreport"
+            string="Preview External Report"
+            report_type="qweb-pdf"
+            menu="False"/> -->
+		
+	</data>
+</openerp>

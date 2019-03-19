@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+
+{
+    'name': 'Pappaya Admission Management',
+    'version': '11.0',
+    'category': 'Admission Management',
+    'sequence': -17,
+    'summary': 'Pappaya',
+    'description': """This module allows you to set up multiple surveys for interview""",
+    'author': 'Think42labs',
+    'website': 'https://www.think42labs.com',
+    'depends': [
+        'document','account_cancel','account_invoice_refund_link','account_payment_mode',
+        'pappaya_base','pappaya_fees','pappaya_building','pappaya_marketing',
+    ],
+    'data': [
+        'data/talent_exam_sequence.xml',
+        'data/mail_template_data.xml',
+        'demo/business_stage.xml',
+        'security/ir.model.access.csv',
+        'wizard/add_uniform_set_view.xml',
+        'wizard/admission_detailed_report.xml',
+        'wizard/material_set_add.xml',
+        # Configurations
+        'views/configurations/branchwise_material_view.xml',
+        'views/configurations/branchwise_service_view.xml',
+        # 'views/configurations/service_vehicle_mapping_view.xml',
+        'views/configurations/vehicle_view.xml',
+        'views/configurations/uniform_item_view.xml',
+        'views/configurations/transport_route_view.xml',
+        'views/configurations/distance_slab_view.xml',
+        # Main Views
+        'views/business_stage_setup_view.xml',
+        'views/admission_view.xml',
+        # 'views/inherited_sale_views.xml',
+        'views/enquiry_confirm_wizard_view.xml',
+        'views/student_transfer_view.xml',
+        'views/pappaya_student_view.xml',
+        'views/talent_exam_view.xml',
+        'views/pappaya_pocket_money_view.xml',
+        'views/inherited_pappaya_fees_view.xml',
+        'views/fee_adjustments_view.xml',
+        # 'wizard/pappaya_report_view.xml',
+        'wizard/bank_challan_view.xml',
+        'report/challan_report_template.xml',
+        'menu/menu.xml',
+    ],
+    'demo': [
+    ],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

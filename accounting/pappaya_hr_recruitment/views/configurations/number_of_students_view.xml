@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_pappaya_number_students_tree" model="ir.ui.view">
+			<field name="name">pappaya.number.students.tree</field>
+			<field name="model">pappaya.number.students</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Number of Students" delete="0" duplicate="0">
+					<field name="fiscal_year_id" />
+					<field name="company_id" />
+					<field name="branch_id" />
+					<field name="state_id" />
+					<field name="program_id" />
+					<field name="segment_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_number_students_form" model="ir.ui.view">
+			<field name="name">pappaya.number.students.form</field>
+			<field name="model">pappaya.number.students</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Number of Students" delete="0" duplicate="0">
+					<sheet>
+						<group>
+							<group>
+								<field name="company_id"  options="{'no_open': True,'no_create':True}" required="1"/>
+								<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1"/>
+								<field name="state_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+								<field name="fiscal_year_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+							</group>
+							<group>
+								<field name="program_id" options="{'no_open': True,'no_create':True}" required="1"/>
+								<field name="segment_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="active" readonly="0"/>
+							</group>
+						</group>
+						<button name="get_class_details" type="object" string="Get Details" class="oe_highlight" attrs="{'invisible': [('student_line_ids','!=',[])]}" invisible="1"/>
+						<label for="class_details_get" class="btn btn-sm btn-primary" attrs="{'invisible': [('student_line_ids','!=',[])]}"/>
+						<field name="class_details_get" invisible="1"/>
+						<field name="student_line_ids">
+							<tree string="Number of Students" editable="bottom" create="false" delete="0">
+								<field name="class_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+								<field name="old_student_count"/>
+								<field name="dropout_percent"/>
+								<field name="target_count"/>
+								<field name="total_count"/>
+								<field name="max_intake_count"/>
+								<field name="number_sections"/>
+							</tree>
+							<form string="Number of Students">
+								<group>
+									<group>
+										<field name="class_id" options="{'no_open': True,'no_create':True}"/>
+										<field name="old_student_count"/>
+										<field name="dropout_percent"/>
+										<field name="target_count"/>
+									</group>
+									<group>
+										<field name="total_count"/>
+										<field name="max_intake_count"/>
+										<field name="number_sections"/>
+									</group>
+								</group>
+							</form>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_number_students_search" model="ir.ui.view">
+			<field name="name">pappaya.number.students.search</field>
+			<field name="model">pappaya.number.students</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Number of Students">
+					<field name="name" />
+					<field name="branch_id" />
+					<field name="program_id" />
+                    <field name="segment_id" />
+					<group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+						<filter name="program_id" string="Program" domain="[]" context="{'group_by':'program_id'}" />
+                        <filter name="segment_id" string="Segment" domain="[]" context="{'group_by':'segment_id'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_pappaya_number_students_view">
+			<field name="name">Number of Students</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.number.students</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_number_students_search" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Number of Students.
+                </p>
+            </field>
+		</record>
+
+    </data>
+</odoo>

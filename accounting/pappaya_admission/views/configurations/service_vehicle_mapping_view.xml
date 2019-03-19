@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pappaya_service_vehicle_mapping_tree" model="ir.ui.view">
+            <field name="name">pappaya.service.vehicle.mapping.tree</field>
+            <field name="model">pappaya.service.vehicle.mapping</field>
+            <field name="arch" type="xml">
+                <tree string="Service Vehicle Mapping" delete="false">
+                    <field name="id" groups="base.group_system" invisible="1"/>
+                    <field name="service_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="academic_year_id" invisible="1"/>
+                    <field name="branch_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_service_vehicle_mapping_form" model="ir.ui.view">
+            <field name="name">pappaya.service.vehicle.mapping.form</field>
+            <field name="model">pappaya.service.vehicle.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Service Vehicle Mapping" duplicate="0" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="branch_id" options="{'no_open': True,'no_create':True}" required="1"
+                                       domain="[('type','=','branch')]" />
+                                <field name="service_id" domain="[('school_id','=', branch_id)]"
+                                       required="1" options="{'no_open': True,'no_create':True}"/>
+
+                            </group>
+                            <group>
+                                <field name="description"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" invisible="1"
+                                       domain="[('is_active','=',True)]"/>
+                                <field name="vehicle_id" domain="[('is_active','=',True),('school_id','=', branch_id)]"
+                                       required="1" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_service_vehicle_mapping_search" model="ir.ui.view">
+            <field name="name">pappaya.service.vehicle.mapping.search</field>
+            <field name="model">pappaya.service.vehicle.mapping</field>
+            <field name="arch" type="xml">
+                <search string="Service Vehicle Mapping">
+                    <field name="vehicle_id" filter_domain="[('name','ilike',self)]"/>
+                    <field name="service_id" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pappaya_service_vehicle_mapping_form" model="ir.actions.act_window">
+            <field name="name">Service and Vehicle Mapping</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.service.vehicle.mapping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_service_vehicle_mapping_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Service and Vehicle Mapping.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

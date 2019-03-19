@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<!-- <record model="ir.actions.act_window" id="action_hr_job_inherit_pappaya">
+        <field name="name">Designation</field>
+        <field name="res_model">hr.job</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_recruitment.view_hr_job_kanban"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	              Click here to create a new designation.
+	          </p><p>
+	              Once a job position is created, you can track related applications
+	              and manage the recruitment process.
+	          </p>
+        </field>
+    	</record>
+    
+ 		   
+    	<record id="view_hr_job_inherit_pappaya_inherit" model="ir.ui.view">
+		<field name="name">hr.job.form.inherit.view</field>
+        <field name="model">hr.job</field>
+		<field name="inherit_id" ref="hr.view_hr_job_form" />
+			<field name="arch" type="xml">
+				<field name="name" position="replace">
+					<field name="name" string="Designation"/>
+				</field>
+				<field name="company_id" position="replace">
+					<field name="company_id" required="1"/>
+				</field>
+				<field name="department_id" position="replace">
+					<field name="department_id" required="1"/>
+				</field>
+				<field name="hr_responsible_id" position="after">
+						<label for="wage"/>
+		                <div class="o_row" name="wage">
+		                    <field name="wage" nolabel="1"/>
+		                    <span>/ month</span>
+		                </div>
+		                <field name="salary_struct"/>
+				</field>
+			</field>
+		</record>
+		
+		
+		<record id="view_hr_job_inherit_tree_pappaya_inherit" model="ir.ui.view">
+		<field name="name">hr.job.tree.inherit.view</field>
+        <field name="model">hr.job</field>
+		<field name="inherit_id" ref="hr.view_hr_job_tree" />
+			<field name="arch" type="xml">
+				<field name="name" position="replace">
+					<field name="name" string="Designation"/>
+				</field>
+			</field>
+		</record>
+    
+    
+		<menuitem id="hr_recruitment.menu_hr_department" name="Departments"
+            parent="hr.menu_human_resources_configuration" action="hr_recruitment.action_hr_department" sequence="45"/>
+                
+        <menuitem action="action_hr_job_inherit_pappaya" id="hr_job_inherit"
+            parent="hr.menu_human_resources_configuration" sequence="50"/>
+             -->
+                
+	
+    
+
+    </data>
+</odoo>

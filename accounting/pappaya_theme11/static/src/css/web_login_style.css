@@ -1,0 +1,287 @@
+#wrapper > .row{
+    background: url('/pappaya_theme11/static/src/img/Login-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: cover;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    font-weight: 100;
+    overflow:auto; min-height:100%
+  }
+#wrapper{height:100%}
+  .LoginDiv {
+    background: url('/pappaya_theme11/static/src/img/log-bg.png');
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.56s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 370px;
+    padding: 0px;
+    margin: 7% 15%;
+    float: right;
+  }
+
+  a, span {
+    color: #00aeff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+   a:hover {
+    color: #008bcc;
+  }
+  .margin-bottom-20{
+    margin-bottom: 20px;
+  }
+  .LoginLogo{
+    background: #fff;
+    padding: 15px 10px;
+    text-align: center;
+  }
+  .SignTxt{
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    margin: 0px 0px;
+    color: #fff;
+  }
+  .innerLoginDiv{
+    padding: 30px;
+  }
+  .width-100-per{
+    width: 100%;
+    padding: 5px;
+    float: left;
+  }
+.pull-right{
+  float: right;
+}
+.pull-left{
+  float: left;
+}
+.LoginBtn{
+  background: #008ffc;
+  width: 100%;
+  border: 0px;
+  padding: 10px 10px;
+  border-radius: 3px;
+  font-size: 20px;
+  color:#fff;
+  cursor: pointer;
+}
+.clear{
+  clear: both;
+}
+  .form-card:hover,
+  .form-card:focus {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+  .form-element {
+    position: relative;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    padding: 2px;
+  }
+  .form-element-bar {
+    position: relative;
+    height: 1px;
+    background: #0060a4;
+    display: block;
+  }
+  .form-element-label {
+    position: absolute;
+    top: 1.50rem;
+    line-height: 1.5rem;
+    pointer-events: none;
+    padding-left: 0.125rem;
+    z-index: 1;
+    font-size: 18px;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    color: #008ffc;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transform-origin: left center;
+    transform-origin: left center;
+    transition: color 0.28s linear, opacity 0.28s linear, -webkit-transform 0.28s ease;
+    transition: transform 0.28s ease, color 0.28s linear, opacity 0.28s linear;
+    transition: transform 0.28s ease, color 0.28s linear, opacity 0.28s linear, -webkit-transform 0.28s ease;
+    will-change: transform, color, opacity;
+  }
+  .form-element-field {
+    outline: none;
+    display: block;
+    background: none;
+    font-size: 16px;
+    border: 0 solid transparent;
+    line-height: 1.7;
+    width: 100%;
+    color: #f1f1f1;
+    box-shadow: none;
+    opacity: 0.001;
+    transition: opacity 0.28s ease;
+    transition: all 0.56s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: opacity;
+  }
+
+  .form-element-field.-hasvalue,
+  .form-element-field:focus {
+    opacity: 1;
+    padding-left: 34px;
+  }
+
+  .form-element-field.-hasvalue~.form-element-label,
+  .form-element-field:focus~.form-element-label {
+    -webkit-transform: translateY(-100%) translateY(-0.5em) translateY(-2px) scale(0.9);
+    transform: translateY(-100%) translateY(-0.5em) translateY(-2px) scale(0.9);
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  input.form-element-field:not(:placeholder-shown),
+  textarea.form-element-field:not(:placeholder-shown) {
+    opacity: 1;
+  }
+
+  input.form-element-field:not(:placeholder-shown)~.form-element-label,
+  textarea.form-element-field:not(:placeholder-shown)~.form-element-label {
+    -webkit-transform: translateY(-100%) translateY(-0.5em) translateY(-2px) scale(0.9);
+    transform: translateY(-100%) translateY(-0.5em) translateY(-2px) scale(0.9);
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  textarea.form-element-field {
+    height: auto;
+    min-height: 3rem;
+  }
+
+  .form-select select:focus~.form-element-bar::before {
+    -webkit-transform: translateY(-50%) rotateX(180deg) rotate(45deg);
+    transform: translateY(-50%) rotateX(180deg) rotate(45deg);
+  }
+
+/* Checkbox Start */
+
+.form-checkbox-label,
+.form-radio-label {
+  position: relative;
+  cursor: pointer;
+  padding-left: 2.5rem;
+  text-align: left;
+  color: #fff; font-weight:normal !important
+}
+
+.form-checkbox-label input,
+.form-radio-label input {
+  width: auto;
+  opacity: 0.0001;
+  position: absolute;
+  left: 0.25rem;
+  top: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.form-checkbox-button {
+  position: absolute;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+  color: #999;
+  left: 0;
+  top: 0.25rem;
+  width: 2rem;
+  height: 2rem;
+  z-index: 0;
+  border: 0.225rem solid #337ab7;
+  border-radius: 0.0625rem;
+  transition: color 0.28s ease;
+  will-change: color;
+}
+
+.form-checkbox-button::before,
+.form-checkbox-button::after {
+  position: absolute;
+  height: 0;
+  width: 0.2rem;
+  background-color: #fff;
+  display: block;
+  transform-origin: left top;
+  border-radius: 0.25rem;
+  content: "";
+  transition: opacity 0.28s ease, height 0s linear 0.28s;
+  opacity: 0;
+  will-change: opacity, height;
+}
+
+.form-checkbox-button::before {
+  top: 0.9rem;
+  left: 0.68rem;
+  transform: rotate(-135deg);
+}
+
+.form-checkbox-button::after {
+  top: 0.3rem;
+  left: 0;
+  transform: rotate(-45deg);
+}
+
+.form-checkbox-field:checked ~ .form-checkbox-button {
+  color: #337ab7;
+}
+
+.form-checkbox-field:checked ~ .form-checkbox-button::after,
+.form-checkbox-field:checked ~ .form-checkbox-button::before {
+  opacity: 1;
+  transition: height 0.28s ease;
+}
+
+.form-checkbox-field:checked ~ .form-checkbox-button::after {
+  height: 0.8rem;
+}
+
+.form-checkbox-field:checked ~ .form-checkbox-button::before {
+  height: 1.8rem;
+  transition-delay: 0.28s;
+}
+
+.form-has-error .form-checkbox-button,
+.form-has-error .form-radio-button {
+  color: #d9534f;
+}
+/* Checkbox End */
+
+@media screen and (max-width: 1028px) {
+  .LoginDiv {
+    margin: 10% 28%;
+  }
+}
+.form-control:focus{ box-shadow:none !important}
+.alert-danger{ float:left; width:100%}
+.oe_login_form{ margin: 30px auto 0 !important}
+@media screen and (min-width: 1400px){
+.LoginDiv { transform: scale(1.1);  margin: 9% 17% 0}
+  .form-element-bar{ height:2px}
+ }
+@media screen and (min-width: 1600px){
+.LoginDiv { transform: scale(1.3);  margin: 10% 17% 0}
+  .form-element-bar{ height:2px}
+ }
+ @media screen and (min-width: 1800px){
+.LoginDiv { transform: scale(1.6);  margin: 14% 20% 0 }
+  .form-element-bar{ height:2px}
+ }
+ @media screen and (min-width: 2400px){
+.LoginDiv { transform: scale(2);  margin: 14% 20% 0; width:15% }
+ }
+ @media screen and (min-width: 3600px){
+.LoginDiv { transform: scale(2.8);  margin: 16% 20% 0; width:11%}
+  .form-element-label{ top:0.5rem}
+  .form-checkbox-button{ height: 1.5rem; width: 1.5rem; top:0}
+  .form-checkbox-label, .form-radio-label{ padding-left: 2rem}
+  .form-element-bar {height:3px }
+ }

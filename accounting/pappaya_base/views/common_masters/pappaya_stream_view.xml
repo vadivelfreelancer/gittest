@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_stream_tree" model="ir.ui.view">
+			<field name="name">pappaya.stream.tree</field>
+			<field name="model">pappaya.stream</field>
+			<field name="arch" type="xml">
+				<tree string="Stream">
+					<field name="name" />
+					<field name="code"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_stream_form" model="ir.ui.view">
+			<field name="name">pappaya.stream.form</field>
+			<field name="model">pappaya.stream</field>
+			<field name="arch" type="xml">
+				<form string="Stream" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1"/>
+                        		<field name="sequence_id" readonly="1" force_save="1"/>
+								<field name="description"/>
+                        	</group>
+                        	<group>
+								<field name="code" required="1"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_stream_search" model="ir.ui.view">
+            <field name="name">pappaya.stream.search</field>
+            <field name="model">pappaya.stream</field>
+            <field name="arch" type="xml">
+                <search string="Stream">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_stream_form" model="ir.actions.act_window">
+			<field name="name">Stream</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.stream</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_stream_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Stream.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

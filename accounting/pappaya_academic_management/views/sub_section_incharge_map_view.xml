@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sub_section_incharge_map_view_form" model="ir.ui.view">
+        <field name="name">sub.section.incharge.map.view.form</field>
+        <field name="model">sub.section.incharge.map</field>
+        <field name="arch" type="xml">
+            <form string="Subject Order">
+<!--                <sheet>-->
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Sub Section In-Charge Mapping"/>
+                        <group>
+                            <group>
+                                <field name="exam_branch" />
+                                <field name="group"/>
+                                <field name="employee_no" />
+                            </group>
+                            <group>
+                                <field name="course"/>
+                                <field name="sub_section" />
+                                <div style="text-align:center">
+                                    <button special="save" class="oe_highlight" string="Search"/></div>
+                            </group>
+                        </group>
+                <group>
+                    <field name="name"/>
+                </group>
+                    <div style="text-align:center">
+                        <button special="save" class="oe_highlight" string="Save"/>
+                    </div>
+<!--                </sheet>-->
+            </form>
+        </field>
+    </record>
+
+    <record id="sub_section_incharge_map_view_tree" model="ir.ui.view">
+        <field name="name">sub.section.incharge.map.view.tree</field>
+        <field name="model">sub.section.incharge.map</field>
+        <field name="arch" type="xml">
+            <tree string="Sub Section In-charge Map">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sub_section_incharge_map_menu_action" model="ir.actions.act_window">
+        <field name="name">Subject Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.section.incharge.map</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="sub_section_incharge_map_sub_menu"
+      name="Sub Section In-Charge Map"
+      parent="academic_main_menu"
+      sequence="70"
+      action="sub_section_incharge_map_menu_action"/>
+
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+	
+        <record id="view_pappaya_report_form" model="ir.ui.view">
+            <field name="name">view.pappaya.report.form</field>
+            <field name="model">pappaya.report</field>
+            <field name="arch" type="xml">
+                <form string="Pappaya Report">
+                	<group>
+                        <field name="branch_ids" options="{'no_create':True}" widget="many2many_tags" required="1"/>
+                	</group>
+                	<footer>
+                		<button name="action_get_pdf" type="object" string="Export PDF" class="oe_highlight"/> or
+                		<button name="action_get_excel" type="object" string="Export EXCEL" class="oe_highlight"/> or
+                		<button string="Cancel" special="cancel"/>
+                	</footer>
+                </form>
+            </field>
+        </record>		
+		
+		<record id="action_pappaya_report_form" model="ir.actions.act_window">
+			<field name="name">Pappaya Report</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.report</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_pappaya_report_form"/>
+			<field name="target">new</field>
+		</record>
+		
+	</data>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+        <record id="view_pappaya_course_package_tree" model="ir.ui.view">
+            <field name="name">pappaya.course.package.tree</field>
+            <field name="model">pappaya.course.package</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Course Package">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="group_id"/>
+                    <field name="batch_id"/>
+                    <field name="package_id"/>
+                    <field name="office_type_id"/>
+                    <field name="entity_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pappaya_course_package_form" model="ir.ui.view">
+            <field name="name">pappaya.course.package.form</field>
+            <field name="model">pappaya.course.package</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Course Package">
+                    <sheet>
+                    	<group>
+							<group>
+								<field name="entity_id" domain="[('type','=', 'entity')]" required="1" options="{'no_open': True,'no_create':True}" />
+								<field name="office_type_id" domain="[('entity_id','=', entity_id)]" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="course_id" required="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="group_id" required="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="batch_id"  required="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="package_id" required="1" options="{'no_open': True,'no_create':True}"/>
+							</group>
+							<group>
+								<field name="name" readonly="1" force_save="1"/>
+								<field name="school_id" invisible="1"/>
+                    			<field name="academic_year_id" invisible="1"/>
+							</group>
+						</group>
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pappaya_course_package_search" model="ir.ui.view">
+            <field name="name">pappaya.course.package.search</field>
+            <field name="model">pappaya.course.package</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Course Package">
+                    <field name="name"/>
+                    <field name="course_id" />
+                    <field name="group_id"/>
+                    <field name="batch_id" />
+                    <field name="package_id" />
+                    <field name="office_type_id" />
+                    <field name="entity_id" />
+                    <group expand="0" string="Group By...">
+                        <filter name="course_id" string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+                        <filter name="group_id" string="Group" domain="[]" context="{'group_by':'group_id'}"/>
+                        <filter name="batch_id" string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+                        <filter name="package_id" string="Package" domain="[]" context="{'group_by':'package_id'}"/>
+                        <filter name="office_type_id" string="Office Type" domain="[]" context="{'group_by':'office_type_id'}"/>
+                        <filter name="entity_id" string="Entity" domain="[]" context="{'group_by':'entity_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_pappaya_course_package_view">
+            <field name="name">CGB Package</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.course.package</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_course_package_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Course Package.
+                </p>
+            </field>
+        </record>
+    	
+	</data>
+</odoo>

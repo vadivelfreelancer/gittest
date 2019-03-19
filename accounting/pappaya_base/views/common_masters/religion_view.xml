@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="religion_tree_view" model="ir.ui.view">
+			<field name="name">pappaya.religion.tree</field>
+			<field name="model">pappaya.religion</field>
+			<field name="arch" type="xml">
+				<tree string="Religion">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name"/>
+					<field name="school_id" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="religion_form_view" model="ir.ui.view">
+			<field name="name">pappaya.religion.form</field>
+			<field name="model">pappaya.religion</field>
+			<field name="arch" type="xml">
+				<form string="Religion" duplicate="0">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name"/>
+								<field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                        	</group>
+                        	<group/>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="religion_action" model="ir.actions.act_window">
+			<field name="name">Religion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.religion</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Religion.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

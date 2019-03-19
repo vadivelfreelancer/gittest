@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sub_sub_batch_view_form" model="ir.ui.view">
+        <field name="name">sub.sub.batch.view.form</field>
+        <field name="model">sub.sub.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Sub Sub Batch">
+<!--                <sheet>-->
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Sub Sub Batch"/>
+                    <field name="sub_sub_batch_line">
+                        <tree editable="bottom" create="false">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                    <div style="text-align:center;">
+
+                        <button string="Single Mode" class="oe_highlight" type="action"
+                                name="%(pappaya_academic_management.sub_sub_batch_single_action)d"
+                                context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"/>
+                        <button string="Batch Mode" class="oe_highlight" type="action" style="margin-left:10px"
+                                name="%(pappaya_academic_management.sub_sub_batch_batch_mode_action)d"
+                                context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"
+                        />
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sub_sub_batch_view_only_action" model="ir.actions.act_window">
+        <field name="name">Sub Sub Batch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.sub.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="sub_sub_batch_batch_view_sub_menu"
+              name="Sub Sub Batch"
+              parent="academic_main_menu"
+              sequence="150"
+              action="sub_sub_batch_view_only_action"/>
+</odoo>

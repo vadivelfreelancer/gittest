@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="academic_year_form_view" model="ir.ui.view">
+        <field name="name">academic.year.form.view</field>
+        <field name="model">academic.year</field>
+        <field name="arch" type="xml">
+            <form string="Institution">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="subject_form_view" model="ir.ui.view">
+        <field name="name">subject.form.view</field>
+        <field name="model">subject.subject</field>
+        <field name="arch" type="xml">
+            <form string="Subjects">
+                <header>
+                    <button name="%(pappaya_academic_management.batch_subject_addition_action)d"
+                            context="{'default_subject_id': active_id,
+                            'default_academic_year': academic_year, 'default_institution_type': institution_type}"
+                            string="Batch Mode" class="oe_highlight" type="action"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="academic_year" options='{"no_open": True}'/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Subjects"/>
+                    <field name="subjects">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tracks_form_view" model="ir.ui.view">
+        <field name="name">tracks.form.view</field>
+        <field name="model">pappaya.tracks</field>
+        <field name="arch" type="xml">
+            <form string="Tracks">
+                <!--                <header>-->
+                <!--                    <button name="%(pappaya_academic_management.batch_tracks_addition_action)d"-->
+                <!--                            context="{'default_tracks_id': active_id,-->
+                <!--                            'default_academic_year': academic_year, 'default_institution_type': institution_type}"-->
+                <!--                            string="Batch Mode" class="oe_highlight" type="action"/>-->
+                <!--                </header>-->
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="subject_tree_view" model="ir.ui.view">
+        <field name="name">subject.tree.view</field>
+        <field name="model">subject.subject</field>
+        <field name="arch" type="xml">
+            <tree string="Subjects">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tracks_tree_view" model="ir.ui.view">
+        <field name="name">tracks.tree.view</field>
+        <field name="model">pappaya.tracks</field>
+        <field name="arch" type="xml">
+            <tree string="Tracks">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="subject_menu_action" model="ir.actions.act_window">
+        <field name="name">Subject</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">subject.subject</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <record id="tracks_menu_action" model="ir.actions.act_window">
+        <field name="name">Tracks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pappaya.tracks</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

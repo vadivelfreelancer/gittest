@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="academic_main_menu" name="Academic Details" sequence="1"/>
+    <record id="batch_subject_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.subject.wizard.form </field>
+        <field name="model">batch.subject</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<field name="academic_year"/>-->
+                            <!--<field name="institution_type"/>-->
+                        <!--</group>-->
+                    <!--</group>-->
+                    <separator string="Subjects"/>
+                    <field name="batch_subjects">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_subject_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.subject</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="batch_tracks_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.tracks.wizard.form </field>
+        <field name="model">batch.tracks</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<field name="academic_year"/>-->
+                            <!--<field name="institution_type"/>-->
+                        <!--</group>-->
+                    <!--</group>-->
+                    <separator string="Tracks"/>
+                    <field name="batch_tracks">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_tracks" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_tracks_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.tracks</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <record id="batch_course_topic_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.course.topic.wizard.form </field>
+        <field name="model">batch.course.topic</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="course_id"/>
+                            <field name="subject_id"/>
+                        </group>
+                    </group>
+                    <separator string="Topics"/>
+                    <field name="batch_topics">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_topics" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_course_topic_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.course.topic</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+
+     <record id="batch_preview_type_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.previous.type.wizard.form </field>
+        <field name="model">batch.previous.type</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Previous Type"/>
+                    <field name="batch_subjects">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_preview_type_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.previous.type</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <record id="batch_batch_combination_view_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.previous.type.wizard.form </field>
+        <field name="model">batch.combination.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <group>
+                            <field name="exam_type"/>
+                            <field name="course"/>
+                            <field name="group"/>
+                    </group>
+                    <separator string="Combinations"/>
+                    <field name="batch_subjects">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_batch_combination_view_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.combination.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <record id="batch_sub_batch_view_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.previous.type.wizard.form </field>
+        <field name="model">batch.sub.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Sub Batch"/>
+                    <field name="batch_subbatches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_sub_batch_view_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.sub.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <record id="batch_special_batch_view_wizard_view_form" model="ir.ui.view">
+        <field name="name">batch.special.batch.view.wizard.form </field>
+        <field name="model">batch.special.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Special Batch"/>
+                    <field name="batch_subbatches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_special_batch_view_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.special.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+
+     <record id="area_batch_view_wizard_view_form" model="ir.ui.view">
+        <field name="name">area.batch.view.wizard.form </field>
+        <field name="model">area.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Area"/>
+                    <field name="area_batches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_area" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record id="sub_topic_batch_view_wizard_view_form" model="ir.ui.view">
+        <field name="name">sub.topic.batch.view.wizard.form </field>
+        <field name="model">sub.topic.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Sub Topic"/>
+                    <group>
+                        <field name="course"/>
+                        <field name="subject"/>
+                        <field name="topic"/>
+                    </group>
+                    <field name="sub_topic_batches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_subtopic" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="area_batch_view_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">area.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="sub_topic_batch_view_addition_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.topic.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <record id="university_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">university.wizard.batch.mode</field>
+        <field name="model">university.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="University"/>
+                    <field name="university_batches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="university_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">university.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <record id="new_sub_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">university.wizard.batch.mode</field>
+        <field name="model">newsubbatch.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sub_batch"/>
+                        </group>
+                    </group>
+                    <separator string="New Sub Batch(Batch Mode)"/>
+                    <field name="new_sub_batches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+
+                <footer>
+                    <button name="action_create_new_sub_batch" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="new_sub_batch_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">newsubbatch.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <record id="sub_sub_batch_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">sub.sub.batch.batch.view.form</field>
+        <field name="model">sub.sub.batch.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Sub Sub Batch"/>
+                    <field name="sub_sub_batch_batches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_sub_sub_batch" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="sub_sub_batch_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sub.sub.batch.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="exam_name_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">exam.name.batch.view.form</field>
+        <field name="model">exam.name.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Exam Name"/>
+                    <field name="exam_name_batches">
+                        <tree editable="bottom">
+                            <field name="course"/>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="status"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_exam_name" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="exam_name_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.name.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="course_group_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">course.group.batch.view.form</field>
+        <field name="model">course.group.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Class Group Wise Subjects"/>
+                    <group>
+                        <field name="course"/>
+                        <field name="group"/>
+                    </group>
+                    <field name="course_group_batches">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_course_group_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="course_group_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.group.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="previous_course_type_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">previous.course.type.batch.view.form</field>
+        <field name="model">previous.course.type.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <separator string="Previous Course And Present Course(Batch Mode)"/>
+                    <group>
+                        <field name="course"/>
+                    </group>
+                    <field name="previous_course_type_batches">
+                        <tree editable="bottom">
+                            <field name="previous_course"/>
+                            <field name="pre_type"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_previous_course_subjects" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="previous_course_type_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">previous.course.type.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="pc_subject_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">pc.subject.batch.view.form</field>
+        <field name="model">pc.subject.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <group>
+                        <field name="previous_course"/>
+                    </group>
+                    <separator string="Previous Class Wise Subject"/>
+                    <field name="pc_subject_batches">
+                        <tree editable="bottom">
+                            <field name="subject"/>
+                            <field name="marks"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_previous_course_subject" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="pc_subject_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pc.subject.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="language_mapping_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">language.mapping.batch.view.form</field>
+        <field name="model">language.mapping.batch.view</field>
+        <field name="arch" type="xml">
+            <form string="Batch Mode">
+                <sheet>
+                    <group>
+                        <field name="subject"/>
+                    </group>
+                    <separator string="Subject Mapping"/>
+                    <field name="lang_mapping_batches">
+                        <tree editable="bottom">
+                            <field name="subject" string="Subject Name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_language_mapping" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="language_mapping_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">language.mapping.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+
+
+
+
+
+
+
+
+
+    <record id="holiday_entry_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">holiday_entry_batch.view.form</field>
+        <field name="model">holiday.entry.batch.view</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <separator string="Holiday Entry(Batch Mode)"/>
+                    <field name="holiday_entry_batches">
+                        <tree editable="bottom">
+                            <field name="holiday_name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_holiday_entry" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="holiday_entry_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Holiday Entry Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">holiday.entry.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="attendance_type_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">attendance.type.batch.view.form</field>
+        <field name="model">attendance.type.batch.view</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <separator string="Attendance Type(Batch Mode)"/>
+                    <field name="attendance_type_batches">
+                        <tree editable="bottom">
+                            <field name="attendance_type"/>
+                            <field name="description"/>
+                            <field name="period_from"/>
+                            <field name="period_to"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_attendance_type" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_type_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Attendance Remark Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.remark.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="attendance_remark_batch_mode_wizard_view_form" model="ir.ui.view">
+        <field name="name">attendance.remark.batch.view.form</field>
+        <field name="model">attendance.remark.batch.view</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <separator string="Attendance Remark(Batch Mode)"/>
+                    <field name="attendance_remark_batches">
+                        <tree editable="bottom">
+                            <field name="attendance_remark"/>
+                            <field name="remark_code"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_create_attendance_remark" type="object" class="oe_highlight" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="attendance_remark_batch_mode_action" model="ir.actions.act_window">
+        <field name="name">Attendance Remark Batch Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.remark.batch.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

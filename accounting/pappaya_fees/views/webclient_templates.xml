@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <template id="fee_assets_backend" name="Fee Module Assets" inherit_id="web.assets_backend">
+            <xpath expr=".">
+-               <!-- <link rel="stylesheet" href="/pappaya_theme11/static/src/css/bootstrap.css"/> -->
+				<script type="application/javascript" src="/pappaya_fees/static/src/js/fee_structure.js"/>
+            </xpath>
+        </template>
+        
+    </data>
+</odoo>

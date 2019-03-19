@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_menu_ingredients_mapping_tree" model="ir.ui.view">
+			<field name="name">menu.ingredients.mapping.tree</field>
+			<field name="model">menu.ingredients.mapping</field>
+			<field name="arch" type="xml">
+				<tree string="Menu Item + Ingredients Mapping">
+					<field name="menu"/>
+                    <field name="menu_items"/>
+                    <field name="ingredient_item"/>
+                    <field name="per_members"/>
+                    <field name="ingredient_item_qty"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_menu_ingredients_mapping_form" model="ir.ui.view">
+			<field name="name">menu.ingredients.mapping.form</field>
+			<field name="model">menu.ingredients.mapping</field>
+			<field name="arch" type="xml">
+				<form string="Menu Item + Ingredients Mapping">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="menu" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="menu_items" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="ingredient_item" required="1"/>
+                                <field name="per_members" required="1"/>
+                                <field name="ingredient_item_qty" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+				</form>
+			</field>
+		</record>
+
+         <record id="view_menu_ingredients_mapping_search" model="ir.ui.view">
+			<field name="name">menu.ingredients.mapping.search</field>
+			<field name="model">menu.ingredients.mapping</field>
+			<field name="arch" type="xml">
+				<search string="Menu Item + Ingredients Mapping">
+                    <field name="menu"/>
+					<field name="menu_items"/>
+                    <field name="ingredient_item"/>
+                    <field name="per_members"/>
+                    <field name="ingredient_item_qty"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_menu_ingredients_mapping_view" model="ir.actions.act_window">
+			<field name="name">Menu Item + Ingredients Mapping</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">menu.ingredients.mapping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_menu_ingredients_mapping_search"/>
+		</record>
+	</data>
+</odoo>

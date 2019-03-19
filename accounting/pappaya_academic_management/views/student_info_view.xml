@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="student_hall_ticket_view_form" model="ir.ui.view">
+        <field name="name">student.hall.ticket.form</field>
+        <field name="model">hall.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="3">
+                    <group>
+                        <field name="exam_branch"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="course"/>
+                        <field name="exam_name"/>
+                    </group>
+                    <group>
+                        <field name="section"/>
+                    </group>
+                </group>
+
+                <field name="hall_ticket_line">
+                    <tree editable="bottom">
+                        <field name="application_no"/>
+                        <field name="exam_type"/>
+                        <field name="hall_ticket_no"/>
+                        <field name="exam_date"/>
+                        <field name="roll_number"/>
+                        <field name="school"/>
+                        <field name="password"/>
+                        <field name="centre_code"/>
+                        <field name="remarks"/>
+                        <field name="time_slot_name"/>
+                        <field name="phone_number"/>
+                        <field name="paper_name"/>
+                        <field name="email_id"/>
+                        <field name="name"/>
+                    </tree>
+                </field>
+
+            </form>
+        </field>
+    </record>
+
+        <record id="hall_ticket_action" model="ir.actions.act_window">
+        <field name="name">Hall Ticket Entry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hall.ticket</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="student_hall_ticket_view_form"/>
+        <field name="target">inline</field>
+    </record>
+
+    <record id="student_info_view_form" model="ir.ui.view">
+        <field name="name">student.info.view.form</field>
+        <field name="model">student.info</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="academic_year"/>
+                    <field name="institution_type"/>
+                </group>
+
+                <separator string="Student Info"/>
+
+                <!--<group>-->
+                    <!--<group>-->
+                        <div class="oe_inline">
+                            <label for="admission_number"/>
+                            <field name="admission_number" class="oe_inline"/>
+                            <button special="save" class="oe_inline oe_highlight" string="Search"/>
+                        </div>
+                    <!--</group>-->
+                <!--</group>-->
+
+                <group col="3">
+                    <group>
+                        <field name="branch"/>
+                        <field name="group"/>
+                    </group>
+                    <group>
+                        <field name="course"/>
+                        <field name="batch"/>
+                    </group>
+                    <group>
+                        <field name="section"/>
+                        <div class="oe_inline">
+                            <button special="save" class="oe_inline oe_highlight" string="Search"/>
+                        </div>
+                    </group>
+                </group>
+                <group>
+                    <group string="Student Information">
+                        <field name="admission_number"/>
+                        <!--<div class="oe_inline">-->
+                            <!--<label for="student_name_first"/>-->
+                            <field name="student_name_first"/>
+                            <!--<field name="student_name_last"/>-->
+                        <!--</div>-->
+                        <field name="date_of_birth"/>
+                        <field name="gender"/>
+                        <field name="aadhar_no"/>
+                        <field name="blood_group"/>
+                        <field name="religion"/>
+                        <field name="caste"/>
+                    </group>
+
+                    <group string="Parent">
+                        <field name="father_name"/>
+                        <field name="mother_name"/>
+                        <field name="father_occupation"/>
+                        <field name="father_email"/>
+                        <field name="father_mobile"/>
+                        <field name="mother_mobile"/>
+                        <field name="section"/>
+                        <field name="sub_section"/>
+                        <field name="university"/>
+                        <button class="fa fa-external-link btn btn-default o_external_button" name="%(pappaya_academic_management.hall_ticket_action)d" type="action" string="Hall Ticket"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Academic Info">
+                        <group>
+                            <group>
+                                <field name="group"/>
+                                <field name="course"/>
+                                <field name="batch"/>
+                                <field name="sub_batch"/>
+                                <field name="date_of_admission"/>
+                                <field name="date_of_joining"/>
+                            </group>
+                            <group string="Language Mappping">
+                                <field name="first_language"/>
+                                <field name="second_language"/>
+                                <field name="third_language"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Address">
+                        <group>
+                            <group string="Present Address">
+                                <field name="present_street"/>
+                                <field name="present_city"/>
+                                <field name="present_district"/>
+                                <field name="present_mandal"/>
+                                <field name="present_state"/>
+                                <field name="present_country"/>
+                                <field name="present_zipcode"/>
+                            </group>
+                            <group string="Permanent Address">
+                                <field name="permanent_street"/>
+                                <field name="permanent_city"/>
+                                <field name="permanent_district"/>
+                                <field name="permanent_mandal"/>
+                                <field name="permanent_state"/>
+                                <field name="permanent_country"/>
+                                <field name="permanent_zipcode"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="NTR Student Info">
+                        <separator string="Father Information"/>
+                        <group col="3">
+                            <group>
+                                <field name="father_name"/>
+                                <field name="father_qualification"/>
+                                <field name="father_annual_income"/>
+                            </group>
+                            <group>
+                                <field name="father_alive"/>
+                                <field name="father_profession"/>
+                                <field name="father_party_worker"/>
+                            </group>
+                            <group>
+                                <field name="father_date_of_expiry"/>
+                                <field name="father_cause_of_death"/>
+                                <field name="father_designation"/>
+                            </group>
+                        </group>
+
+                        <separator string="Mother Information"/>
+                        <group col="3">
+                            <group>
+                                <field name="mother_name"/>
+                                <field name="mother_qualification"/>
+                                <field name="mother_annual_income"/>
+                            </group>
+                            <group>
+                                <field name="mother_alive"/>
+                                <field name="mother_profession"/>
+                                <field name="mother_party_worker"/>
+                            </group>
+                            <group>
+                                <field name="mother_date_of_expiry"/>
+                                <field name="mother_cause_of_death"/>
+                                <field name="mother_designation"/>
+                            </group>
+                        </group>
+                        <separator string="General Information"/>
+                        <group col="3">
+                            <group>
+                                <field name="admission_ref"/>
+                                <field name="contact_no"/>
+                                <field name="admission_type"/>
+                            </group>
+                            <group>
+                                <field name="cause"/>
+                                <field name="concession_ref"/>
+                                <field name="no_of_brothers"/>
+                            </group>
+                            <group>
+                                <field name="no_of_sisters"/>
+                                <field name="join_of_year"/>
+                                <field name="previous_class"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="student_info_view_only_action" model="ir.actions.act_window">
+        <field name="name">Student Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.info</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+
+    <menuitem id="student_info_view_sub_menu"
+          name="Student Info"
+          parent="academic_main_menu"
+          sequence="209"
+          action="student_info_view_only_action"/>
+
+</odoo>

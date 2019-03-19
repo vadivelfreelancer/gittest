@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+     <record id="communication_number_branch_update_form" model="ir.ui.view">
+        <field name="name">Communication Number Branch Update</field>
+        <field name="model">branch.update</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                             <field name="communication_number" options='{"no_open": True, "no_create": True}'/>
+                             <field name="new_branch_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="transfer_date"/>
+                            <field name="user_id" invisible="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="communication_number_branch_update_tree_view" model="ir.ui.view">
+        <field name="name">Communication Number Branch Update</field>
+        <field name="model">branch.update</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="communication_number"/>
+                <field name="transfer_date"/>
+                <field name="new_branch_id"/>
+                <field name="branch_id"/>
+                <field name="user_id" />
+            </tree>
+        </field>
+    </record>
+
+     <record id="communication_number_branch_update_action" model="ir.actions.act_window">
+            <field name="name">Communication Number Branch Update</field>
+            <field name="res_model">branch.update</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="target">new</field>
+     </record>
+
+     <menuitem id="communication_number_branch_update_menu" action="communication_number_branch_update_action"
+               parent="material_master_main_sub_menu" name="Communication Number Branch Update" sequence="5"/>
+</odoo>

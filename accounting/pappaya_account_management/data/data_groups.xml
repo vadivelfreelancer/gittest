@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+<!--        <record id="income_group" model="main.group">-->
+<!--            <field name="name">Income</field>-->
+<!--        </record>-->
+
+<!--        <record id="expenditure_group" model="main.group">-->
+<!--            <field name="name">Expenditure</field>-->
+<!--        </record>-->
+
+<!--        <record id="assets_group" model="main.group">-->
+<!--            <field name="name">Assets</field>-->
+<!--        </record>-->
+<!--        <record id="liabilities_group" model="main.group">-->
+<!--            <field name="name">Liabilities</field>-->
+<!--            -->
+<!--        </record>-->
+<!--         <record id="all_group" model="main.group">-->
+<!--            <field name="name">All</field>-->
+<!--        </record>-->
+
+       <record id="financial_year_one" model="financial.year">
+            <field name="name">2018-2019</field>
+            <field name="from_date">04/01/2018</field>
+            <field name="to_date">03/31/2019</field>
+        </record>
+
+          <record id="financial_year_two" model="financial.year">
+            <field name="name">2019-2020</field>
+            <field name="from_date">04/01/2019</field>
+            <field name="to_date">03/31/2020</field>
+        </record>
+
+       <record id="financial_year_three" model="financial.year">
+            <field name="name">2020-2021</field>
+            <field name="from_date">04/01/2020</field>
+            <field name="to_date">03/31/2021</field>
+        </record>
+
+        <record id="financial_year_four" model="financial.year">
+            <field name="name">2021-2022</field>
+            <field name="from_date">04/01/2021</field>
+            <field name="to_date">03/31/2022</field>
+        </record>
+
+          <record id="financial_year_five" model="financial.year">
+            <field name="name">2022-2023</field>
+            <field name="from_date">04/01/2022</field>
+            <field name="to_date">03/31/2023</field>
+        </record>
+    </data>
+</odoo>

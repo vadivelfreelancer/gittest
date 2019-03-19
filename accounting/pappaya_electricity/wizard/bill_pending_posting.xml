@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="electricity_bill_pending_form" model="ir.ui.view">
+        <field name="name">Electricity Bill Pending Posting</field>
+        <field name="model">bill.pending</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                             <div>
+                                <label for="month" string="Month"
+                                       style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                <field name="month" style="width:110px" required="1"/>
+                                <field name="year" style="width:110px;margin-left: 34px;" required="1"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="division_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                    <notebook>
+                            <page string="Electricity Bill Pending Details ">
+                                <field name="pending_bill">
+                                    <tree editable="bottom">
+                                         <field name="service_number" />
+                                         <field name="opening_units"/>
+                                         <field name="closing_units"/>
+                                         <field name="total_units"/>
+                                         <field name="bill_amt"/>
+                                         <field name="arriers_amt"/>
+                                         <field name="acd_amt"/>
+                                         <field name="fsa_amt"/>
+                                         <field name="remarks"/>
+                                         <field name="branch_id" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="electricity_bill_pending_tree_view" model="ir.ui.view">
+        <field name="name">Electricity Bill Pending Posting</field>
+        <field name="model">bill.pending</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="division_id"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="electricity_bill_pending_action" model="ir.actions.act_window">
+            <field name="name">Electricity Bill Pending Posting</field>
+            <field name="res_model">bill.pending</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+     </record>
+
+     <menuitem id="electricity_bill_pending_menu" action="electricity_bill_pending_action" parent="transaction_menu" name="Electricity Bill Pending Posting" sequence="17"/>
+
+</odoo>

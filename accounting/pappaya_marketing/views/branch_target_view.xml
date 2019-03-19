@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_branch_target_tree" model="ir.ui.view">
+			<field name="name">pappaya.branch.target.tree</field>
+			<field name="model">pappaya.branch.target</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Branch Target">
+					<field name="academic_year_id" />
+					<field name="state_id" />
+					<field name="branches" />
+					<field name="lock_unlock" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_branch_target_form" model="ir.ui.view">
+			<field name="name">pappaya.branch.target.form</field>
+			<field name="model">pappaya.branch.target</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Branch Target Entry">
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="academic_year_id"
+								options="{'no_open': True,'no_create':True}" required="1" />
+							<field name="branches" />
+							<field name="state_id"
+								options="{'no_open': True,'no_create':True}" required="1" />
+							<field name="lock_unlock" />
+						</group>
+						<group name="district">
+							<field name="district_id"
+								options="{'no_open': True,'no_create':True}" nolabel="1">
+								<tree create="false">
+									<field name="name" string="District" />
+								</tree>
+							</field>
+							<!-- <group></group> -->
+							<field name="school_id" options="{'no_open': True,'no_create':True}" domain="[('type','=','branch')]" nolabel="1">
+								<tree create="false">
+									<field name="name" string="Branches" />
+								</tree>
+							</field>
+						</group>
+						<!-- <group name="branches" string="Branches"> <field name="school_id" 
+							options="{'no_open': True,'no_create':True}" nolabel="1"> <tree create="false"> 
+							<field name="name" string="Branches" /> </tree> </field> </group> -->
+						<group>
+							<button name="collect_branch_course" class="oe_highlight" string="Course Details" type="object"/>
+						</group>
+						<group>
+							<field name="course_packages_ids"
+								options="{'no_open': True,'no_create':True}" nolabel="1">
+								<tree create="false" editable="bottom">
+									<field name="course_id" string="Course" readonly="1"
+										options="{'no_open': True,'no_create':True}" />
+									<field name="branch_id" domain="[('type','=','branch')]" string="Branch" readonly="1"
+										options="{'no_open': True,'no_create':True}" />
+									<field name="res_target"
+										attrs="{'readonly':[('lock_unlock','=',True)]}"
+										string="Res Target" />
+									<field name="res_target" string="Adm Target"
+										attrs="{'readonly':[('lock_unlock','=',True)]}" />
+									<field name="lock_unlock" />
+								</tree>
+							</field>
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_branch_target_search" model="ir.ui.view">
+			<field name="name">pappaya.branch.target.search</field>
+			<field name="model">pappaya.branch.target</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Branch Target Entry">
+					<field name="state_id" select="True" />
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window"
+			id="act_open_pappaya_branch_target_view">
+			<field name="name">Branch Target Entry</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.branch.target</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id"
+				ref="view_pappaya_branch_target_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                         (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_branch_target_tree')}),
+                         (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_branch_target_form')})]" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Branch Target Entry.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

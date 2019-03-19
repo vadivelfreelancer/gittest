@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="et_wise_combination_view_form" model="ir.ui.view">
+        <field name="name">et.wise.combination.view.form</field>
+        <field name="model">et.wise.combination</field>
+        <field name="arch" type="xml">
+            <form string="Exam Type Combination Mapping">
+                <sheet>
+                    <group>
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Exam Type Combination Mapping"/>
+                    <group>
+                        <field name="exam_type"/>
+                    </group>
+                    <div style="text-align:center">
+                        <label for="select_all"/>
+                        <field name="select_all"/>
+                    </div>
+                    <group>
+                        <field name="combinations" widget="many2many_checkboxes" class="oe_inline"/>
+                    </group>
+
+                    <div style="text-align:center">
+                        <button special="cancel" class="oe_highlight" string="Save"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="et_wise_combination_action" model="ir.actions.act_window">
+        <field name="name">Exam Type Combination Mapping</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">et.wise.combination</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="et_wise_combination_sub_menu" name="Exam Type Wise Combination Mapping" parent="pappaya_academic_management.academic_main_menu"
+              action="et_wise_combination_action" sequence="420"/>
+</odoo>

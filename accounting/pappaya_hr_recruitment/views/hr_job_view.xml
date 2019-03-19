@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		
+
+       <record model="ir.ui.view" id="view_hr_job_form_pappaya_form">
+            <field name="name">hr.job.inherit.form</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+         		<xpath expr="//button[@name='set_recruit']" position="replace">
+         			<button name="set_recruit" string="Launch Recruitment" states="open" type="object" class="oe_highlight" groups="base.group_user" invisible="1"/>
+         			
+         		</xpath>
+         		<xpath expr="//button[@name='set_open']" position="replace">
+                    <button name="set_open" string="Stop Recruitment" states="recruit" type="object" groups="base.group_user" invisible="1"/>
+                    
+         		</xpath>
+         		<xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="recruit,open" invisible="1"/>
+                    <button name="to_request" string="Request" attrs="{'invisible':[('approve_state','!=','draft')]}" type="object" class="oe_highlight" />
+                    <button name="to_confirm" string="Confirm" attrs="{'invisible':[('approve_state','!=','request')]}" type="object" class="oe_highlight" />
+                    <field name="approve_state" widget="statusbar" />
+         		</xpath>
+         		
+         		<field name="company_id" position="replace">
+         			<field name="company_id" required="1" string="Branch" options="{'no_open': True,'no_create':True}"/>
+         		</field>
+         		<field name="department_id" position="replace">
+         			<field name="department_id" required="1" options="{'no_open': True,'no_create':True}"/>
+         		</field>
+         		 <field name="address_id" position="replace">
+         			<field name="address_id" invisible="1"/>
+         		</field>
+         		<field name="user_id" position="replace">
+         			<field name="user_id" invisible="1"/>
+         		</field>
+         		<field name="no_of_recruitment" position="replace">
+         			<field name="no_of_recruitment" invisible="1"/>
+         		</field>
+         		
+         		<field name="department_id" position="after">
+         			<field name="no_of_recruitment" readonly="1"/>
+         			<field name="year_of_experience" required="1"/>
+         		</field>
+         		
+         		<xpath expr="//form/sheet/div[3]" position="replace">
+         			<div>
+                        <label for="description"/>
+                        <field name="description"/>
+                    </div>
+                    <group>
+	                    <group>
+	                    	<field name="educational_qualification" widget="many2many_tags" required="1" options="{'no_open': True,'no_create':True}"/>
+	                    	<field name="expected_date_of_joining"/>
+	                    	<field name="budgeted_salary" required="1"/>
+	                    </group>
+	                    <group>
+	                    	<field name="preferred_skills"/>
+	                    	<field name="desired_skills"/>
+	                    </group>
+                    </group>
+                    <field name="requisition_ids" invisible="1"/>
+                    <field name="job_description" invisible="1"/>
+         		</xpath>
+         			
+            </field>
+        </record>
+         
+
+		<record model="ir.ui.view" id="view_hr_recruitment_hr_job_survey_pappaya_form">
+            <field name="name">hr.job.inherit.form</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+            <field name="arch" type="xml">
+             <xpath expr="//group[@name='offer']" position="replace">
+             	<group >
+                    <field name="user_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+                    <field name="hr_responsible_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+                    <field name="jd_initial_date" />
+                    <field name="last_date" readonly="1"/>
+                </group>
+             </xpath>
+         		
+            </field>
+        </record>
+
+
+        <record id="pappaya_hr.pappaya_view_hr_job_form" model="ir.ui.view">
+            <field name="name">pappaya.hr.job.form</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <form string="Job">
+		                
+                    <sheet>
+                    	<div class="oe_button_box" name="button_box">
+	                    	<button class="oe_stat_button" icon="fa-file-o" name="%(hr_recruitment.action_hr_job_applications)d" context="{'default_user_id': user_id}" type="action">
+			                    <field name="application_count" widget="statinfo" string="Applications"/>
+			                </button>
+			                <button class="oe_stat_button" icon="fa-users" name="%(hr_recruitment.action_hr_job_no_employee)d" type="action">
+			                    <field name="no_of_employee" widget="statinfo" string="Employees"/>
+			                </button>
+			                <button class="oe_stat_button" icon="fa-book" name="action_get_attachment_tree_view" type="object">
+			                    <field name="documents_count" widget="statinfo" string="Documents"/>
+			                </button>
+			                <!--<button class="oe_stat_button" type="action" name="332" icon="fa-share" context="{'default_job_id': active_id}">-->
+			                    <!--<div class="o_field_widget o_stat_info">-->
+			                        <!--<span class="o_stat_text">Trackers</span>-->
+			                    <!--</div>-->
+			                <!--</button>-->
+			            </div>
+                        <group>
+                            <group>
+                                <field name="name" invisible="1" required="0"/>
+                                <field name="entity_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="office_type_id" domain="[('entity_id','=',entity_id)]" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="job_master_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="code" required="1"/>
+                                <field name="department_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="company_id" invisible="1" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="description" string="Description"/>
+                                <field name="category_id" required="1" options="{'no_open': True,'no_create':True}" />
+                                <field name="sub_category_id" domain="[('parent_category_id','=',category_id)]" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="no_of_recruitment" readonly="1" force_save="1"/>
+                                <field name="record_id" invisible="1"/>
+                                <field name="emp_no_ref" invisible="1"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="is_budget_applicable_from_job" invisible="1"/>
+                                <field name="is_budget_applicable" attrs="{'invisible':[('is_budget_applicable_from_job','=',False)]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="pappaya_action_hr_job_inherit_hr_recruitment" model="ir.actions.act_window">
+            <field name="name">Job Description</field>
+            <field name="res_model">hr.job</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('job_description','=',True)]</field>
+            <!-- <field name="search_view_id" ref="pappaya_inherit_view_job_filter"/>
+			<field name="view_ids" eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('pappaya_inherit_view_hr_job_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_hr_job_form_pappaya_form')})]" /> -->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new Job Description.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="hr_recruitment.menu_hr_department" name="Departments" parent="hr.menu_human_resources_configuration" action="hr_recruitment.action_hr_department" sequence="45" groups="pappaya_base.pappaya_group_hidden"/>
+
+        <!--Resumes and Letters Tree View-->
+
+        <record id="base.view_attachment_tree" model="ir.ui.view">
+            <field name="model">ir.attachment</field>
+            <field name="arch" type="xml">
+                <tree string="Attachments">
+                    <field name="company_id"/>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="res_model"/>
+                    <field name="res_field"/>
+                    <field name="res_id"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Job Positions Tree View-->
+
+        <record id="hr.view_hr_job_tree" model="ir.ui.view">
+            <field name="name">hr.job.tree</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <tree string="Job" decoration-bf="message_needaction==True">
+                    <field name="entity_id" options="{'no_open': True,'no_create':True}"/>
+                    <field name="office_type_id"/>
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="category_id"/>
+                    <field name="sub_category_id"/>
+                    <field name="no_of_recruitment"/>
+                    <field name="state" invisible="1"/>
+                    <field name="message_needaction" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Degree Action -->
+
+        <record id="hr_recruitment.hr_recruitment_degree_action" model="ir.actions.act_window">
+            <field name="name">Degree</field>
+            <field name="res_model">hr.recruitment.degree</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="hr_recruitment.hr_recruitment_degree_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Degrees.
+                </p>
+            </field>
+        </record>
+
+        <!-- Sources of Applicants Action -->
+
+        <record id="hr_recruitment.hr_recruitment_source_action" model="ir.actions.act_window">
+            <field name="name">Sources of Applicants</field>
+            <field name="res_model">hr.recruitment.source</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Sources of Applicants.
+                </p>
+            </field>
+        </record>
+
+        <record id="utm.utm_source_view_tree" model="ir.ui.view">
+            <field name="name">utm.source.tree</field>
+            <field name="model">utm.source</field>
+            <field name="arch" type="xml">
+                <tree string="Sources" duplicate="0">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="utm.utm_source_view_form" model="ir.ui.view">
+            <field name="name">utm.source.form</field>
+            <field name="model">utm.source</field>
+            <field name="arch" type="xml">
+                <form string="Sources" duplicate="0">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

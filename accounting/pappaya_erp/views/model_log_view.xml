@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="pappaya_model_log_tree_view" model="ir.ui.view">
+			<field name="name">pappaya.model.log.tree</field>
+			<field name="model">pappaya.model.log</field>
+			<field name="arch" type="xml">
+				<tree string="core">
+					<field name="model_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="pappaya_model_log_form_view" model="ir.ui.view">
+			<field name="name">pappaya.model.log.form</field>
+			<field name="model">pappaya.model.log</field>
+			<field name="arch" type="xml">
+				<form string="core">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="model_id" options="{'no_create': True, 'no_open': True}"/>
+                        	</group>
+                        	<group>
+                        		<button name="update_data" string="Refresh" type="object"/>
+                        		<!-- <field name="empty"/> -->
+                        	</group>
+                        </group>
+                        <field name="field_data_ids" options="{'no_create': True, 'no_open': True}">
+                    		<tree create="false" edit="false" delete="false">
+                   				<field name="name"/>
+                   				<field name="field_label"/>
+                   				<field name="field"/>
+                   				<field name="ttype"/>
+                   				<field name="data"/>
+                   			</tree>
+                   			<form create="false" edit="false" delete="false">
+                   				<sheet>
+                   					<group>
+                   						<field name="name"/>
+	                     				<field name="field_label"/>
+	                     				<field name="field"/>
+	                     				<field name="ttype"/>
+	                     				<field name="data"/>
+                   					</group>
+                   				</sheet>
+                   			</form>
+                   		</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="pappaya_model_log_kanban_view" model="ir.ui.view">
+            <field name="name">pappaya.model.log.kanban</field>
+            <field name="model">pappaya.model.log</field>
+            <field name="arch" type="xml">
+				<kanban>
+                  <field name="model_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+								<div class="oe_kanban_details">
+                                    <div class="o_kanban_record_title">
+                                        <strong><field name="model_id"/> </strong>
+                                    </div>
+                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                    <ul>
+										<!--<li t-if="record.is_active.raw_value" class="o_text_overflow"> <field name="is_active"/></li><br/>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+		<record id="pappaya_model_log_search_view" model="ir.ui.view">
+            <field name="name">pappaya.model.log search</field>
+            <field name="model">pappaya.model.log</field>
+            <field name="arch" type="xml">
+                <search string="core">
+                    <field name="model_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                    	<filter string="core" domain="[]" context="{'group_by':'model_id'}"/>
+					</group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_model_log_view" model="ir.actions.act_window">
+			<field name="name">Pappaya Model Log</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.model.log</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,kanban</field>
+			<field name="search_view_id" ref="pappaya_model_log_search_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new model log.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

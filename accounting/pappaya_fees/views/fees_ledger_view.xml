@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="pappaya_fees_ledger_tree" model="ir.ui.view">
+			<field name="name">pappaya.fees.ledger.tree</field>
+			<field name="model">pappaya.fees.ledger</field>
+			<field name="priority" eval="8"/>
+			<field name="arch" type="xml">
+				<tree string="Fees Ledger" create="false" edit="false">
+					<field name="school_id"/>
+					<field name="course_id"/>
+					<field name="group_id"/>
+					<field name="batch_id"/>
+					<field name="package"/>
+					<field name="package_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="pappaya_fees_ledger_form" model="ir.ui.view">
+			<field name="name">pappaya.fees.ledger.form</field>
+			<field name="model">pappaya.fees.ledger</field>
+			<field name="arch" type="xml">
+				<form string="Fees Ledger" create="false" duplicate="0" edit="false">
+					<sheet>
+						<!--<group col="2" colspan="4">-->
+							<!--<button name="generate_ledger_report" type="object" string="Print" class="oe_highlight"/>-->
+					    <!--</group>-->
+						<group col="4" colspan="4">
+							<field name="school_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							<field name="academic_year_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							<field name="course_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							<field name="group_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							<field name="batch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							<field name="package" options="{'no_open': True,'no_create':True}" readonly="1"/>
+							<field name="package_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+						</group>
+						<group col="4" colspan="4">
+							<field name="fee_ledger_line" nolabel="1" colspan="4">
+								<tree string ="Fees Ledger" create="false" edit="false" editable="bottom">
+									<field name="fee_line_id" invisible="1"/>
+									<field name="name" />
+									<field name="credit"/>
+									<field name="concession_amount"/>
+									<field name="concession_type_id" invisible="1" domain="[('type','=','concession')]"/>
+									<field name="refund_amount" invisible="1" />
+									<field name="debit" />
+									<field name="balance" />
+									<field name="balance_with_clear" invisible="1"/>
+									<field name="res_adj_amt" readonly="1"/>
+									<field name="fee_term_state" />
+								</tree>
+								<form string = "Fees Ledger" create="false" edit="false">
+									<group col="4" colspan="4">
+										<field name="name" />
+										<field name="credit" />
+										<field name="debit" />
+										<field name="res_adj_amt" readonly="1"/>
+										<field name="balance_with_clear" />
+										<field name="fee_line_id" invisible="1"/>
+									</group>
+								</form>
+							</field>
+						</group>
+						<group col="4" colspan="4" string="Transaction History">
+							<field name="fee_receipt_ledger_line" nolabel="1" colspan="4">
+								<tree string ="Fees Ledger Receipt" editable="bottom" create="false" edit="false">
+									<field name="posting_date" />
+									<field name="name" />
+									<field name="fees_head" />
+									<field name="amount" />
+									<field name="payment_mode_id" />
+									<field name="concession_amount" invisible="1"/>
+									<field name="res_adj_amt" readonly="1"/>
+									<field name="transaction" />
+								</tree>
+								<form string = "Fees Ledger Receipt" create="false" edit="false">
+									<group col="4" colspan="4">
+										<field name="posting_date" />
+										<field name="name" />
+										<field name="fees_head" />
+										<field name="transaction" />
+										<field name="payment_mode_id" options="{'no_open': True,'no_create':True}"  />
+										<field name="amount" />
+										<field name="res_adj_amt" readonly="1"/>
+									</group>
+								</form>
+							</field>
+						</group>
+						<group string="Fees Refund/Pocket Money Withdraw/Fees Adjustment/Other Payment" col="4" colspan="4">
+							<field name="fee_refund_ledger_line" nolabel="1" colspan="4">
+								<tree string ="Fees Ledger Refund" editable="bottom" delete="false" create="false" edit="false">
+									<field name="transaction_remarks"/>
+									<field name="posting_date" string="Date"/>
+									<field name="amount" />
+								</tree>
+								<form string = "Fees Ledger Refund" create="false" edit="false">
+									<group colspan="4" col="4">
+										<field name="transaction_remarks"/>
+										<field name="posting_date" string="Date"/>
+										<field name="amount" />
+									</group>
+								</form>
+							</field>
+						</group>
+						<group string="Fees Cancelled" col="4" colspan="4">
+							<field name="fee_cancel_ledger_line" nolabel="1" colspan="4">
+								<tree string ="Fees Ledger Cancel" editable="bottom" delete="false" create="false" edit="false">
+									<field name="remarks"/>
+									<field name="posting_date" />
+									<field name="amount" />
+								</tree>
+								<form string = "Fees Ledger Cancel" create="false" edit="false">
+									<group colspan="4" col="4">
+										<field name="remarks"/>
+										<field name="posting_date" />
+										<field name="amount" />
+									</group>
+								</form>
+							</field>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="pappaya_fees_ledger_search" model="ir.ui.view">
+            <field name="name">pappaya.fees.ledger.search</field>
+            <field name="model">pappaya.fees.ledger</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Enquiry">
+                    <field name="school_id"/>
+					<field name="academic_year_id"/>
+					<field name="course_id"/>
+					<field name="group_id"/>
+					<field name="batch_id"/>
+					<field name="package"/>
+					<field name="package_id"/>
+					<group expand="0" string="Group By...">
+						<filter string="Branch" domain="[]" context="{'group_by':'school_id'}" />
+						<filter string="Academic Year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+						<filter string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+						<filter string="Group" domain="[]" context="{'group_by':'group_id'}"/>
+						<filter string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+						<filter string="Package" domain="[]" context="{'group_by':'package'}"/>
+						<filter string="package Course" domain="[]" context="{'group_by':'package_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_pappaya_fees_ledger_id">
+			<field name="name">Fees Ledger</field>
+			<field name="res_model">pappaya.fees.ledger</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</odoo>

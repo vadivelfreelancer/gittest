@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record model="ir.ui.view" id="pappaya_hr_applicant_form_inherit_view">
+            <field name="name">HR Applicant Inherit View</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='create_employee_from_applicant']" position="replace">
+                    
+                    <button string="Create Employee" name="create_employee_from_applicant" type="object"
+                            class="oe_highlight" attrs="{'invisible': ['|',('is_job_offer_sent','!=',True),('is_employee_created','=',True)]}"
+                            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+                    <button string="Send Job Confirmation Letter" name="action_confirmation_send" type="object"
+                            class="oe_highlight" attrs="{'invisible': ['|','|','|','|',('doc_verified','=','no'),('final_state','!=',True),('emp_id', '!=', False),('active', '=', False),('is_job_confirm_sent','=',True)]}"
+                            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+                    <button string="Send Job Offer Letter" name="action_offer_send" type="object"
+                            class="oe_highlight" attrs="{'invisible': ['|',('is_job_confirm_sent','!=',True),('is_job_offer_sent','=',True)]}"
+                            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+                    <!-- <button string="Send Appointment Letter" name="action_appointment_send" type="object"
+                            class="oe_highlight" attrs="{'invisible': ['|','|','|',('doc_verified','=','no'),('final_state','!=',True),('emp_id', '!=', False),('active', '=', False)]}"/> --> 
+
+					<button string="Document Verification" name="document_verification" type="object"
+                            class="oe_highlight" attrs="{'invisible': ['|','|','|',('doc_verified','=','yes'),('final_state','!=',True),('emp_id', '!=', False),('active', '=', False)]}"
+                            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+                </xpath>
+				<field name="stage_id" position="replace">
+					<field name="stage_id" widget="statusbar" attrs="{'invisible': [('active', '=', False),('emp_id', '=', False)]}"/>
+				</field>
+				<xpath expr="//button[@name='action_makeMeeting']" position="replace">
+                </xpath>
+                <xpath expr='//form["1"]' position='attributes'>
+                    <attribute name="create">false</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='reset_applicant']" position="replace">
+                    <button string="Reopen Application" name="reset_applicant" type="object" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='archive_applicant']" position="replace">
+                    <button string="Reject" name="archive_applicant" type="object" attrs="{'invisible': ['|',('doc_verified','=','yes'),('active', '=', False)]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                    <button string="Confirm" name="confirm_applicant" type="object" attrs="{'invisible': ['|','|',('doc_verified','=','yes'),('active', '=', False),('final_state','=',True)]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                </xpath>
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" invisible="1"/>
+                    <field name="is_confirmed" invisible="1"/>
+                </field>
+                <field name="company_id" position="replace"></field>
+                <field name="department_id" position="replace"></field>
+                <field name="medium_id" position="replace">
+                    <field name="medium_id" groups="base.group_no_one" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="source_id" position="replace">
+                    <field name="source_id" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <field name="job_id" position="replace">
+                    <field name="company_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                    <field name="branch_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                    <field name="entity_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}" />
+                    <field name="office_type_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}"/>
+                    <field name="category_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                    <field name="sub_category_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                    <field name="department_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                    <field name="job_id" string="Designation" options="{'no_open': True,'no_create':True}" required="1"/>
+                    <field name="is_budget_applied" invisible="1"/>
+                    <field name="sub_category_code" invisible="1"/>
+                    <field name="segment_id" options="{'no_open': True,'no_create':True}" attrs="{'required': [('final_state','=',True),('is_budget_applied','=',True),('sub_category_code','=','ACADE')]}"/>
+                    <field name="subject_id" options="{'no_open': True,'no_create':True}" attrs="{'invisible': [('final_state','!=',True)],'required': [('final_state','=',True),('is_budget_applied','=',True),('sub_category_code','=','ACADE')]}" />
+                </field>
+                <field name="type_id" position="replace">
+                    <field name="short_list" invisible="1"/>
+                    <field name="final_state" invisible="1"/>
+                    <field name="screening_list" invisible="1"/>
+                    <field name="is_job_confirm_sent" invisible="1"/>
+                    <field name="is_job_offer_sent" invisible="1"/>
+                    <field name="is_employee_created" invisible="1"/>
+                </field>
+                <field name="partner_mobile" position="replace">
+                	<field name="partner_mobile" required="1"/>
+                	<field name="gender_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                    <field name="aadhaar_no" required="1"/>
+                    <field name="date_of_birth" required="1"/>
+                    <field name="country_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                    <field name="type_id" placeholder="Degree" required="1" options="{'no_open': True,'no_create':True}"/>
+                    <label for="partner_street" string="Address"/>
+                    <div class="o_address_format">
+                        <field name="partner_street" style="max-width: 500px;" required="1" placeholder="Address 1..." />
+                        <field name="partner_street2" style="max-width: 500px;" placeholder="Address 2..." class="o_address_street" />
+                        <field name="partner_state_id" required="1" class="o_address_state" placeholder="State" domain="[('country_id','=',partner_country_id)]" options="{'no_open': True,'no_create':True}"/>
+                        <field name="partner_district_id" required="1" class="o_address_state" placeholder="District" domain="[('state_id','=',partner_state_id)]" options="{'no_open': True,'no_create':True}"/>
+                        <field name="partner_city_id" required="1" placeholder="City" class="o_address_city" options="{'no_open': True,'no_create':True}" domain="[('district_id','=',partner_district_id)]"/>
+                        <field name="partner_zip" required="1" placeholder="ZIP" class="o_address_zip" />
+                        <field name="partner_country_id" required="1" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+                    </div>
+                </field>
+                <field name="reference" position="after">
+                    <field name="doc_verified" readonly="1" force_save="1"/>
+                </field>
+                <field name="availability" position="replace">
+                    <field name="availability" attrs="{'required': [('final_state','=',True)]}"/>
+                    <field name="pan_no" attrs="{'required': [('final_state','=',True)]}"/>
+                    <field name="stream_id" options="{'no_open': True,'no_create':True}"/>
+                    <field name="designation" invisible="1"/>
+                </field>
+                <field name="salary_proposed" position="replace">
+                    <field name="salary_proposed" class="oe_inline" required="1"/>
+                    
+                </field>
+                <field name="availability" position="before">
+                	<label for="finalized_salaries"/>
+                    <div>
+                       <field name="finalized_salaries" class="oe_inline" required="1"/>
+                    </div>
+                    <field name="struct_id" options="{'no_open': True,'no_create':True}" attrs="{'required': [('doc_verified','=','yes')]}"/>
+                    <field name="unique_id" attrs="{'required': [('is_job_offer_sent','=',True),('is_employee_created','!=',True)]}"/>
+                    <field name="employee_type" options="{'no_open': True,'no_create':True}" attrs="{'required': [('doc_verified','=','yes')]}"/>
+                    <!--<field name="emp_work_hours" domain="[('branch_id','=',branch_id)]" options="{'no_open': True,'no_create':True}" attrs="{'required': [('doc_verified','=','yes')]}"/>-->
+                </field>
+                <field name="salary_expected_extra" position="replace">
+                	<field name="salary_expected_extra" invisible="1" />
+                </field>
+				<field name="salary_proposed_extra" position="replace">
+					<field name="salary_proposed_extra" invisible="1" />
+				</field>
+                <field name="user_id" position="replace">
+					<field name="interviewer_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+				</field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_recruitment.crm_case_tree_view_job">
+			<field name="name">Applicants</field>
+			<field name="model">hr.applicant</field>
+			<field name="arch" type="xml">
+				<tree string="Applicants" decoration-bf="message_needaction==True" create="false">
+					<field name="message_needaction" invisible="1"/>
+					<field name="last_stage_id" invisible="1"/>
+					<field name="create_date"/>
+					<field name="date_last_stage_update" invisible="1"/>
+					<field name="name"/>
+					<field name="partner_name"/>
+					<field name="aadhaar_no"/>
+					<field name="email_from"/>
+					<field name="partner_phone"/>
+					<field name="job_id"/>
+					<field name="stage_id"/>
+					<field name="source_id"/>
+					<!--<field name="availability"/>-->
+					<field name="user_id"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="crm_case_categ0_act_job_pappaya">
+            <field name="name">Applications</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="view_mode">tree,form,pivot,graph,calendar</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="hr_recruitment.view_crm_case_jobs_filter"/>
+            <field name="context">{}</field>
+            <field name="domain">[('short_list','=',True)]</field>
+            <field name="help" type="html">
+                <p>
+                    Pappaya helps you track applicants in the recruitment
+                    process and follow up all operations: meetings, interviews, etc.
+                </p><p>
+                Applicants and their attached CV are created automatically when an email is sent.
+                If you install the document management modules, all resumes are indexed automatically,
+                so that you can easily search through their content.
+            </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="pappaya_jobs_form_crm_case_form_view_job">
+            <field name="name">Jobs - Recruitment Form</field>
+            <field name="model">hr.applicant</field>
+            <field name="arch" type="xml">
+                <form string="Jobs - Recruitment Form" duplicate="0">
+                    <header>
+                        <field name="stage_id" widget="statusbar" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_makeMeeting" class="oe_stat_button" icon="fa-calendar" invisible="1" type="object"
+                                    help="Schedule interview with this applicant">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Meetings</span>
+                                </div>
+                            </button>
+                            <button name="action_get_attachment_tree_view"
+                                    class="oe_stat_button"
+                                    icon="fa-book"
+                                    type="object">
+                                <field name="attachment_number" widget="statinfo" string="Documents"/>
+                            </button>
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive"
+                                    attrs="{'invisible': [('active', '=', True)]}">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                            <h2 class="o_row">
+                                <div>
+                                    <label for="partner_name" class="oe_edit_only"/>
+                                    <field name="partner_name" required="1"/>
+                                </div>
+                                <div>
+                                    <!--  <label for="categ_ids" class="oe_edit_only"/>
+                                     <field name="categ_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/> -->
+                                </div>
+                            </h2>
+                        </div>
+                        <group>
+                            <group string="Job">
+								<field name="company_id" options="{'no_open': True,'no_create':True}"/>
+                                
+                                <field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1"/>
+			                    <field name="entity_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}" required="1"/>
+			                    <field name="office_type_id" readonly="1" force_save="1" options="{'no_open': True,'no_create':True}" required="1"/>
+			                    <field name="category_id" options="{'no_open': True,'no_create':True}" required="1"/>
+			                    <field name="sub_category_id" options="{'no_open': True,'no_create':True}" required="1"/>
+			                    <field name="department_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="job_id" string="Designation" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="segment_id" options="{'no_open': True,'no_create':True}"/>
+                                
+                            </group>
+                            <group string="Details">
+                                <field name="partner_id" invisible="1"/>
+                                <field name="aadhaar_no" required="1"/>
+                                <field name="gender_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="date_of_birth" required="1"/>
+                                <field name="country_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                                <field name="type_id" placeholder="Degree" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="email_from" required="1" widget="email"/>
+                                <field name="partner_phone" required="0"/>
+                                <field name="partner_mobile" required="1"/>
+                                <label for="partner_street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="partner_street" style="max-width: 500px;" required="1" placeholder="Address 1..." />
+                                    <field name="partner_street2" style="max-width: 500px;" placeholder="Address 2..." class="o_address_street" />
+                                    <field name="partner_state_id" required="1" class="o_address_state" placeholder="State" domain="[('country_id','=',partner_country_id)]" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="partner_district_id" required="1" class="o_address_state" placeholder="District" domain="[('state_id','=',partner_state_id)]" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="partner_city_id" required="1" placeholder="City" class="o_address_city" options="{'no_open': True,'no_create':True}" domain="[('district_id','=',partner_district_id)]"/>
+                                    <field name="partner_zip" required="1" placeholder="ZIP" class="o_address_zip" />
+                                    <field name="partner_country_id" required="1" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+                                </div>
+
+                                <field name="short_list" invisible="1"/>
+                                <field name="screening_list" invisible="1"/>
+                            </group>
+                            <group>
+                                <!--<field name="user_id" options="{'no_open': True,'no_create':True}"/>-->
+					            <field name="interviewer_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                <field name="priority" widget="priority"/>
+                                <field name="medium_id" groups="base.group_no_one" options="{'no_open': True,'no_create':True}"/>
+                                <field name="source_id" options="{'no_open': True,'no_create':True}"/>
+                                <field name="reference"/>
+                            </group>
+                            <group string="Contract">
+                                <label for="salary_expected"/>
+                                <div>
+                                    <field name="salary_expected" required="1" readonly="0" class="oe_inline"/>
+                                    <span class="oe_inline" attrs="{'invisible':[('salary_expected_extra','=',False)]}"> + </span>
+                                    <field name="salary_expected_extra" invisible="1" class="oe_inline" placeholder="Extra advantages..."/>
+                                    
+                                </div>
+                                <!--<label for="salary_proposed"/>-->
+                                <!--<div>-->
+                                    <!--<field name="salary_proposed" class="oe_inline"/>-->
+                                    <!--<span class="oe_inline" attrs="{'invisible':[('salary_proposed_extra','=',False)]}"> + </span>-->
+                                    <!--<field name="salary_proposed_extra" invisible="1" class="oe_inline" placeholder="Extra advantages..."/>-->
+                                <!--</div>-->
+                                <field name="availability" />
+                                <field name="emp_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <separator string="Application Summary"/>
+                        <field name="description" placeholder="Feedback of interviews..."/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="pappaya_jobs_form_crm_case_tree_view_job">
+            <field name="name">Application Entry</field>
+            <field name="model">hr.applicant</field>
+            <field name="arch" type="xml">
+                <tree string="Applicants" decoration-bf="message_needaction==True">
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="last_stage_id" invisible="1"/>
+                    <field name="create_date"/>
+                    <field name="date_last_stage_update" invisible="1"/>
+                    <field name="name"/>
+                    <field name="partner_name"/>
+                    <field name="email_from"/>
+                    <field name="partner_phone"/>
+                    <field name="job_id"/>
+                    <field name="stage_id"/>
+                    <field name="medium_id"/>
+                    <field name="source_id"/>
+                    <field name="priority"/>
+                    <field name="type_id" invisible="1"/>
+                    <field name="availability" invisible="1"/>
+                    <field name="department_id" invisible="context.get('invisible_department', True)"/>
+                    <field name="user_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="pappaya_jobs_form_crm_case_form_view_job_action">
+            <field name="name">Application Entry</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="view_mode">tree,form,pivot,graph,calendar</field>
+            <field name="search_view_id" ref="hr_recruitment.view_crm_case_jobs_filter"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+							(0, 0, {'view_mode': 'tree', 'view_id': ref('pappaya_jobs_form_crm_case_tree_view_job')}),
+                          	(0, 0, {'view_mode': 'form', 'view_id': ref('pappaya_jobs_form_crm_case_form_view_job')})]" />
+            <field name="domain">[('short_list','!=',True)]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p>
+                    Pappaya helps you track applicants in the recruitment
+                    process and follow up all operations: meetings, interviews, etc.
+                </p><p>
+                Applicants and their attached CV are created automatically when an email is sent.
+                If you install the document management modules, all resumes are indexed automatically,
+                so that you can easily search through their content.
+            </p>
+            </field>
+        </record>
+
+
+        <!-- Stage Form View -->
+        <record model="ir.ui.view" id="hr_recruitment_stage_form_pappaya_inherit">
+            <field name="name">hr.recruitment.stage.form</field>
+            <field name="model">hr.recruitment.stage</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_recruitment_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="duplicate">0</attribute>
+                </xpath>
+                <field name="fold" position="replace">
+                    <field name="fold" invisible="1"/>
+                    <field name="final_stage"/>
+                    <field name="doc_upload"/>
+                    <field name="is_responsible_person"/>
+                    <field name="department_id" domain="[('id','=',parent_department_id)]" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_responsible_person','=',False)],'required':[('is_responsible_person','!=',False)]}"/>
+                    <!--<field name="reponsible_person_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" domain="[('department_id','=',department_id)]"-->
+                            <!--attrs="{'invisible':[('is_responsible_person','=',False)],'required':[('is_responsible_person','!=',False)]}"/>-->
+                    <field name="interviewer_id" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_responsible_person','=',False)],'required':[('is_responsible_person','!=',False)]}"/>
+                </field>
+
+                <field name="sequence" position="replace">
+                    <field name="sequence" required="1" />
+                </field>
+
+                <field name="job_id" position="replace">
+                	<field name="entity_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                	<field name="office_type_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                	<field name="category_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                	<field name="sub_category_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                	<field name="parent_department_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                    <field name="job_id" string="Designation" options="{'no_open': True,'no_create':True}"/>
+                </field>
+
+                <field name="template_id" position="replace">
+                    <field name="template_id" invisible="1" domain= "[('model_id.model', '=', 'hr.applicant')]" options="{'no_open': True,'no_create':True}"/>
+                </field>
+                <xpath expr="//form/group" position="after">
+                    <field name="doc_ids" attrs="{'invisible':['|',('doc_upload','=',False),('final_stage','=',False)],'required':[('doc_upload','=',True),('final_stage','=',True)]}">
+                        <tree editable="bottom" delete="false">
+                            <field name="document_id" required="1" options="{'no_open': True,'no_create':True}"/>
+                            <field name="recruitment_stage_id" invisible="1"/>
+                            <field name="description"/>
+                            <field name="required"/>
+                        </tree>
+                        <form editable="bottom" delete="false">
+                            <field name="document_id" options="{'no_open': True,'no_create':True}"/>
+                            <field name="description"/>
+                            <field name="required"/>
+                        </form>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.menu" id="hr_recruitment.menu_hr_recruitment_source">-->
+            <!--<field name="groups_id" eval="[(4, ref('pappaya_base.pappaya_group_hidden'))]"/>-->
+        <!--</record>-->
+
+        <record model="ir.ui.menu" id="hr_recruitment.report_hr_recruitment">
+            <field name="groups_id" eval="[(6,0,[ref('pappaya_hr.pappaya_group_invisible')])]"/>
+        </record>
+
+        <menuitem parent="hr_recruitment.menu_hr_recruitment_configuration" id="hr_recruitment.menu_hr_job_position_config" action="hr_recruitment.action_hr_job_config" sequence="10" groups="pappaya_base.pappaya_group_hidden"/>
+
+        <menuitem
+            id="menu_hr_recruitment_utm_source"
+            parent="hr_recruitment.menu_hr_recruitment_configuration"
+            action="utm.utm_source_action"
+            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"
+            name = "Sources of Applicants"
+            sequence="11"/>
+
+        <menuitem id="hr_payroll.menu_hr_payroll_global_settings" name="Settings"
+            parent="hr_payroll.menu_hr_payroll_configuration" sequence="0" action="hr_payroll.action_hr_payroll_configuration" groups="pappaya_base.pappaya_group_hidden"/>
+
+        <menuitem id="hr_payroll.hr_contract_advantage_template_menu_action" action="hr_payroll.hr_contract_advantage_template_action"
+            parent="hr_payroll.menu_hr_payroll_configuration" sequence="50" groups="pappaya_base.pappaya_group_hidden"/>
+
+        <menuitem id="hr_payroll.menu_action_hr_contribution_register_form" action="hr_payroll.action_contribution_register_form"
+            parent="hr_payroll.menu_hr_payroll_configuration" sequence="14"  groups="pappaya_base.pappaya_group_hidden"/>
+
+    </data>
+
+</odoo>

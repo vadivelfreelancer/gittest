@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="attendance_delete_view_form" model="ir.ui.view">
+        <field name="name">attendance.delete.view.form</field>
+        <field name="model">attendance.delete</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+
+                    <separator string="Attendance Delete"/>
+
+                    <group>
+                        <group>
+                            <field name="exam_branch"/>
+                            <field name="sub_batch"/>
+                            <field name="attendance_type"/>
+                        </group>
+                        <group>
+                            <field name="course"/>
+                            <field name="section"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <div style="text-align:right;">
+                        <button special="save" class="oe_inline oe_highlight"  string="Delete"/>
+                    </div>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_delete_view_only_action" model="ir.actions.act_window">
+        <field name="name">Attendance Delete</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.delete</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="attendance_delete_view_sub_menu"
+          name="Attendance Delete"
+          parent="pappaya_academic_management.attendance_sub_menu"
+          sequence="5"
+          action="attendance_delete_view_only_action"/>
+
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_branch_wise_item_mapping_tree" model="ir.ui.view">
+			<field name="name">branch.wise.item.mapping.tree</field>
+			<field name="model">branch.wise.item.mapping</field>
+			<field name="arch" type="xml">
+				<tree string="Branch Wise Item Mapping">
+					<field name="branch"/>
+					<field name="store_type"/>
+					<field name="item_class"/>
+					<field name="item_category"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_branch_wise_item_mapping_form" model="ir.ui.view">
+			<field name="name">branch.wise.item.mapping.form</field>
+			<field name="model">branch.wise.item.mapping</field>
+			<field name="arch" type="xml">
+				<form string="Branch Wise Item Mapping">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="branch" required="1"/>
+								<field name="store_type" required="1"/>
+								<field name="item_class" required="1"/>
+								<field name="item_category" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+				</form>
+			</field>
+		</record>
+
+         <record id="view_branch_wise_item_mapping_search" model="ir.ui.view">
+			<field name="name">branch.wise.item.mapping.search</field>
+			<field name="model">branch.wise.item.mapping</field>
+			<field name="arch" type="xml">
+				<search string="Branch Wise Item Mapping">
+					<field name="branch"/>
+					<field name="store_type"/>
+					<field name="item_class"/>
+					<field name="item_category"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_branch_wise_item_mapping_view" model="ir.actions.act_window">
+			<field name="name">Branch Wise Item Mapping</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">branch.wise.item.mapping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_branch_wise_item_mapping_search"/>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_class_tree" model="ir.ui.view">
+			<field name="name">pappaya.class.tree</field>
+			<field name="model">pappaya.class</field>
+			<field name="arch" type="xml">
+				<tree string="Class">
+					<field name="name" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_class_form" model="ir.ui.view">
+			<field name="name">pappaya.class.form</field>
+			<field name="model">pappaya.class</field>
+			<field name="arch" type="xml">
+				<form string="Class" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1"/>
+                                <field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}"/>
+                        	</group>
+                        	<group>
+                        		<field name="description"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_class_search" model="ir.ui.view">
+            <field name="name">pappaya.class.search</field>
+            <field name="model">pappaya.class</field>
+            <field name="arch" type="xml">
+                <search string="Class">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+					<field name="description" />
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_class_form" model="ir.actions.act_window">
+			<field name="name">Class</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.class</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_class_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Class.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

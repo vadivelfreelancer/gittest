@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pic_combination_view_form" model="ir.ui.view">
+        <field name="name">pic.combination.view.form</field>
+        <field name="model">pic.combination</field>
+        <field name="arch" type="xml">
+            <form string="Program Incharge Combination Mapping">
+                <sheet>
+                    <group>
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Program Incharge Combination Mapping"/>
+                    <group col="6">
+                        <field name="division"/>
+                        <field name="pgm_in_charge"/>
+                        <field name="course_exam"/>
+                    </group>
+
+                    <div style="text-align:center">
+                        <field name="type" widget="radio" options="{'horizontal': true}"/>
+                    </div>
+
+                    <div style="text-align:center;margin-top:20px">
+                        <label for="select_all"/>
+                        <field name="select_all"/>
+                    </div>
+                    <group>
+                        <field name="branches" attrs="{'invisible': [('type', '=', 'combination')]}" widget="many2many_checkboxes" class="oe_inline"/>
+                        <field name="combinations" attrs="{'invisible': [('type', '=', 'exam_branch')]}" widget="many2many_checkboxes" class="oe_inline"/>
+                    </group>
+
+                    <div style="text-align:center">
+                        <button special="cancel" class="oe_highlight" string="Save"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pic_combination_action" model="ir.actions.act_window">
+        <field name="name">Program Incharge Combination Mapping</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pic.combination</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="pic_combination_sub_menu" name="Program Incharge Combination Mapping" parent="academic_main_menu"
+              action="pic_combination_action" sequence="421"/>
+</odoo>

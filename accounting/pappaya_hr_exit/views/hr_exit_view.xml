@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="hr_exit_tree_view" model="ir.ui.view">
+            <field name="name">hr.exit.tree.view</field>
+            <field name="model">hr.exit</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Exit" >
+                    <field name="emp_id"/>
+                    <field name="employee_id"/>
+                    <field name="request_date"/>
+                    <field name="department_id"/>
+                    <field name="state" string="Status"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="hr_exit_form_view" model="ir.ui.view">
+			<field name="name">hr.exit.form.view</field>
+            <field name="model">hr.exit</field>
+            <field name="arch" type="xml">
+				 <form>
+					 <header>
+						 <button string="Confirm" name="get_confirm" states="draft" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo,pappaya_base.hr_deans,pappaya_base.hr_principal_hod"/>
+						 <button string="Approve by DM" name="get_apprv_dept_manager" states="confirm" type="object" groups="pappaya_base.hr_cpo,pappaya_base.hr_deans"/>
+						 <button string="Compute" name="compute_salary_calculation" type="object" class="oe_highlight" states="approved_dept_manager" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                         <!-- <button string="Print Slip" name="print_slip" type="object" class="oe_highlight"/> -->
+                         <button string="Approve by HR" name="get_apprv_hr_manager" states="approved_dept_manager" type="object" class="oe_highlight" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+						 <button string="Approve by GM" name="get_apprv_general_manager" states="approved_hr_manager" type="object" class="oe_highlight" groups="pappaya_base.hr_cpo"/>
+                         <button string="Exit" name="get_done" type="object" states="approved_general_manager" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                         <button string="Reject" name="get_reject" states="confirm,approved_dept_manager,approved_hr_manager" type="object" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_executives"/>
+                         <button string="Cancel" name="exit_cancel" states="draft" type="object" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_deans,pappaya_base.hr_principal_hod"/>
+                         <button string="Set To Draft" name="request_set" states="reject" type="object" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_deans,pappaya_base.hr_principal_hod"/>
+						 <field name="state" widget="statusbar" statusbar_visible="draft,confirm,approved_dept_manager,approved_hr_manager,approved_general_manager,done" statusbar_colors='{"confirm":"blue",validate":"green","cancel":"red"}' colspan="2"/>
+					 </header>
+					 <sheet>
+						 <div class="oe_title">
+							 <h2>
+                             <group>
+                                <group>
+                                    <field name="emp_id" required="1"/>
+                                    <field name="employee_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                                </group>
+                                <group/>
+                             </group>
+                            </h2>
+						 </div>
+				     
+						<group>
+							<group>
+								<field name="request_date" required="1"/>
+                                <label for="date_from" string="Last work period"/>
+			                    <div>
+			                        <field name="date_from" required="1" class="oe_inline"/> - <field name="date_to" required="1" class="oe_inline"/>
+			                    </div>
+                                <field name="contract_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+							</group>
+							<group>
+                                <field name="manager_id" options="{'no_open': True,'no_create':True}"/>
+                                <field name="department_id" options="{'no_open': True,'no_create':True}"/>
+                                <field name="job_id" options="{'no_open': True,'no_create':True}"/>
+                                <field name="user_id" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+							<group>
+                                <field name="confirm_date" />
+                                <field name="dept_approved_date" />
+                            </group>
+                            <group>
+								<field name="validate_date" />
+                                <field name="general_validate_date" />
+                            </group>
+                            <group>
+                                <field name="confirm_by_id" options="{'no_open': True,'no_create':True}"/>
+                                <field name="dept_manager_by_id" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                           <group>
+							   <field name="hr_manager_by_id" options="{'no_open': True,'no_create':True}"/>
+                               <field name="gen_man_by_id" options="{'no_open': True,'no_create':True}"/>
+                           </group>
+						</group> 
+						<notebook name="notes">
+							<page string="Information">
+								<group string="Assets">
+									<field name="asset_ids" nolabel="1" force_save="1" attrs="{'readonly': ['|',('state', '=', 'approved_general_manager'),('state', '=', 'done')]}">
+										 <tree string="Asset Details" editable="bottom" delete="false" create="false">
+                                            <field name="asset_id" readonly="1" force_save="1"/>
+                                            <field name="model_no" readonly="1" force_save="1"/>
+                                            <field name="asset_quantity" readonly="1" force_save="1"/>
+                                            <field name="asset_value" readonly="1" force_save="1"/>
+                                            <field name="issued_by" readonly="1" force_save="1"/>
+                                            <field name="allocated_date" readonly="1" force_save="1"/>
+                                            <field name="returned_date" force_save="1" attrs="{'readonly':[('state','=','return')]}"/>
+                                            <field name="state" force_save="1"  readonly="1"/>
+                                            <field name="remarks" force_save="1" attrs="{'readonly':[('state','=','return')]}"/>
+                                            <button name="return_asset" string="Return" type="object" attrs="{'invisible':[('state','=','return')]}"/>
+                                        </tree>
+									</field>
+								</group>
+								<group string="Reason for Exit">
+									<field name="reason_for_leaving" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+									<field name="notes" attrs="{'readonly': ['|',('state', '=', 'approved_general_manager'),('state', '=', 'done')]}"/>
+					            </group>
+							</page>
+							<page string="Contract" invisible="1">
+								 <tree editable="top">
+                                        <field name="contract_ids" state=''/>
+                                    </tree>
+							</page>
+							<page string="Full &amp; Final Settlement">
+							   <group>
+								  <group>
+										<field name="wage" invisible="1"/>
+										<field name="last_drawn_salary"/>
+								  </group>
+								  <group>
+									  <field name="no_of_yrs"/>
+								  </group>
+								  <group>
+									  <field name="gratuity"/>
+								  </group>
+								</group>
+								<group>
+									<field name="line_ids" nolabel="1">
+										<tree editable='top'>
+											<field name="name"/>
+											<field name="code"/>
+											<field name="amount"/>
+	                                    </tree>
+                                        <form>
+											<field name="name" options="{'no_open': True,'no_create':True}"/>
+											<field name="code"/>
+											<field name="amount"/>
+	                                    </form>
+									</field>
+									
+									
+								</group>
+							</page>
+							
+							
+							<!-- <page string="Accounting">
+							   <group>
+								  <group>
+										
+										<field name="salary_journal" required="1"/>
+										
+								  </group>
+								</group>
+							</page> -->
+							
+						</notebook>
+					 </sheet>
+					 <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div> 
+				 </form>
+            </field>
+        </record>
+        
+        <record id="hr_exit_search_view" model="ir.ui.view">
+            <field name="name">hr.exit.search.view</field>
+            <field name="model">hr.exit</field>
+            <field name="arch" type="xml">
+                <search string="Hr exit" >
+                    <field name="emp_id"/>
+                    <field name="employee_id"/>
+                    <field name="request_date"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Exit date" context="{'group_by':'request_date'}"/>
+                        <filter string="Employee" context="{'group_by':'employee_id'}"/>
+                        <filter string="State" context="{'group_by':'state'}"/>
+                        <filter string="Department" context="{'group_by':'department_id'}"/>
+                        <filter string="Job" context="{'group_by':'job_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="action_pappaya_hr_exit">
+			<field name="name">Exit Requests</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.exit</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="hr_exit_search_view"/>
+		</record>
+
+		<!-- Exit Line-->
+	
+
+   
+   
+   	
+   
+		
+        
+        
+        <menuitem name="Employee Exit" parent="hr.menu_hr_root" id="menu_open_exit"
+                 sequence="6" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod,pappaya_base.hr_deans,pappaya_base.hr_branch_employees"/>
+
+        <menuitem id="menu_exit" action="action_pappaya_hr_exit" parent="menu_open_exit"
+                 sequence="11" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod,pappaya_base.hr_deans,pappaya_base.hr_branch_employees"/>
+        
+	
+		<record id="hr_payroll_view_hr_payslip_form_form_in_inherit" model="ir.ui.view">
+         <field name="name">hr.payslip.form.in.inherit</field>
+         <field name="model">hr.payslip</field>
+         <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+         <field name="arch" type="xml">
+            <data>
+                <field name="credit_note" position="after">
+                    <field name="exist_slip" invisible="1"/>
+                </field>
+                <xpath expr='//form["1"]' position='attributes'>
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </data>
+         </field>
+     </record>
+     
+     <record id="hr_payroll_view_hr_payslip_tree_in_inherit" model="ir.ui.view">
+         <field name="name">hr.payslip.tree.in.inherit</field>
+         <field name="model">hr.payslip</field>
+         <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+         <field name="arch" type="xml">
+            <data>
+         	    <field name="payslip_run_id" position="after">
+         		    <field name="exist_slip" invisible="1"/>
+         	    </field>
+                <xpath expr='//tree["1"]' position='attributes'>
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </data>
+         </field>
+     </record>
+     
+     
+     
+    
+   <record id="hr_payroll.action_view_hr_payslip_form" model="ir.actions.act_window">
+        <field name="name">Employee Payslips</field>
+        <field name="res_model">hr.payslip</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('exist_slip','=',False),('is_payroll_cycle','=',True)]</field>
+        <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/>
+    </record> 
+    
+    <record id="exit_employee_hr_payroll_action_view_hr_payslip_form" model="ir.actions.act_window">
+        <field name="name">Full and Final Settlement</field>
+        <field name="res_model">hr.payslip</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('exist_slip','!=',False)]</field>
+        <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to configure Full and Final Settlement.
+            </p>
+        </field>
+    </record> 
+	
+	
+	<menuitem name="Full &amp; Final Settlement" id="menu_exit_employee_slips" action="exit_employee_hr_payroll_action_view_hr_payslip_form" parent="menu_open_exit"
+              sequence="15" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.hr_principal_hod,pappaya_base.hr_deans,pappaya_base.hr_branch_employees"/>
+	
+	</data>
+</odoo>

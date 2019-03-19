@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="exam_type_type_view_view_form" model="ir.ui.view">
+        <field name="name">exam.type.type.view.view.form</field>
+        <field name="model">exam.type.type.view</field>
+        <field name="arch" type="xml">
+            <form string="Exam Type">
+<!--                <sheet>-->
+                    <group>
+                        <group>
+                            <field name="academic_year"/>
+                        </group>
+                        <group>
+                            <field name="institution_type"/>
+                        </group>
+                    </group>
+                    <separator string="Exam Type"/>
+                    <field name="exam_type_lines">
+                        <tree editable="bottom" create="false">
+                            <field name="name"/>
+                            <field name="exam_type"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+<!--                </sheet>-->
+                <div style="text-align:center">
+                    <button string="Single Mode" class="oe_highlight" type="action"
+                            name="%(pappaya_academic_management.single_exam_type_type_action)d"
+                            context="{'default_academic_year': academic_year, 'default_institution_type': institution_type}"/>
+<!--                    <button special="cancel" string="Cancel"/>-->
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="exam_type_type_view_only_action" model="ir.actions.act_window">
+        <field name="name">Previous Course</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.type.type.view</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+        <menuitem id="exam_type_types_sub_menu"
+              name="Exam Type"
+              parent="academic_main_menu"
+              sequence="180"
+              action="exam_type_type_view_only_action"/>
+
+</odoo>

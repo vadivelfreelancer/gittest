@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_country_state_tree" model="ir.ui.view">
+			<field name="name">res.country.state.tree</field>
+			<field name="model">res.country.state</field>
+			<field name="arch" type="xml">
+				<tree string="State">
+					<field name="record_id" invisible="1"/>
+					<field name="sequence_id" />
+					<field name="name" string="State Name"/>
+					<field name="code" string="State Code"/>
+					<field name="sequence"/>
+					<field name="country_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_country_state_form" model="ir.ui.view">
+			<field name="name">res.country.state.form</field>
+			<field name="model">res.country.state</field>
+			<field name="arch" type="xml">
+				<form string="State">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" string="State Name"/>
+								<field name="sequence_id" readonly="1" force_save="1"/>
+								<field name="code"/>
+								<field name="sequence"/>
+								<field name="state_code_phone" invisible="1"/>
+							</group>
+							<group>
+								<field name="country_id" widget="selection"/>
+								<field name="record_id" invisible="1"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_pappaya_country_state_view" model="ir.actions.act_window">
+			<field name="name">State</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.country.state</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('country_id.is_active','=',True)]</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_country_state_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_country_state_form')})]" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new State.
+				</p>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_inherit_company_state_form123">
+			<field name="name">inherit.company.state.form</field>
+			<field name="model">res.country.state</field>
+			<field name="inherit_id" ref="base.view_country_state_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='code']" position="after">
+					<field name="state_code_phone" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data>
+
+	<menuitem
+		id="hr_holidays.menu_hr_holidays_my_leaves"
+		name="My Leaves"
+		parent="hr_holidays.menu_hr_holidays_root"
+		sequence="2"
+		groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant,pappaya_base.hr_principal_hod,pappaya_base.hr_deans,pappaya_base.hr_branch_employees"
+	/>
+
+	<menuitem
+		id="hr_holidays.menu_open_company_allocation"
+		name="Leaves Summary"
+		parent="hr_holidays.menu_hr_holidays_my_leaves"
+		action="hr_holidays.open_company_allocation"
+		sequence="21"
+		groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant,pappaya_base.hr_principal_hod,pappaya_base.hr_deans,pappaya_base.hr_branch_employees"
+	/>
+
+	<menuitem
+		id="hr_holidays.menu_open_ask_holidays_new"
+		parent="hr_holidays.menu_hr_holidays_my_leaves"
+		action="hr_holidays.open_ask_holidays"
+		sequence="22"
+		groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant,pappaya_base.hr_principal_hod,pappaya_base.hr_deans,pappaya_base.hr_branch_employees"
+	/>
+
+	<record id="leave_request_wizard_view" model="ir.ui.view">
+		<field name="name">leave.request.wizard,view</field>
+		<field name="model">leave.request.wizard</field>
+		<field name="arch" type="xml">
+		<form string="Leave Request Wizard">
+			<group>
+				<field name="remarks" required="1"/>
+				<field name="is_cancelled" invisible="1"/>
+			</group>
+			<footer>
+				<button name="action_cancel" string="Cancel" type="object" class="oe_highlight" attrs="{'invisible':[('is_cancelled','=',False)]}"/>
+				<button name="action_reject" string="Reject" type="object" class="oe_highlight" attrs="{'invisible':[('is_cancelled','!=',False)]}"/>
+			</footer>
+		</form>
+		</field>
+	</record>
+
+	<record id="leave_request_wizard_action_id" model="ir.actions.act_window">
+		<field name="name">Leave Request Wizard</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">leave.request.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	
+        
+        
+    <record model="ir.ui.view" id="view_holiday_status_normal_tree_inherit">
+	    <field name="name">hr.holidays.status.tree.view.inherit</field>
+	    <field name="model">hr.holidays.status</field>
+	    <field name="inherit_id" ref="hr_holidays.view_holiday_status_normal_tree"/>
+	    <field name="arch" type="xml">
+	        <xpath expr="//tree/field[@name='name']" position="attributes">
+	            <attribute name="string">Leave Type</attribute>
+	        </xpath>
+			<field name="name" position="before">
+				<field name="entity_id"/>
+				<field name="office_type_id"/>
+			</field>
+	        <field name="limit" position="replace">
+	        	<field name="max_allowed_days" />
+           		<field name="per_month_days" />
+           		<field name="carry_forward" />
+           		<field name="max_carry_days" />
+           		<field name="leave_encashment"/>
+           		<field name="max_leave_encashment_days"/>
+           		<field name="years_service" />      
+				<field name="include_all"/>
+				<field name="work_days"/>
+	        </field>
+	        
+	    </field>
+    </record>
+
+	<record id="hr_holidays.view_holiday_status_tree" model="ir.ui.view">
+		<field name="name">hr.holidays.status.tree</field>
+		<field name="model">hr.holidays.status</field>
+		<field name="arch" type="xml">
+			<tree string="Leave Type">
+				<field name="entity_id"/>
+				<field name="name"/>
+				<field name="max_allowed_days" />
+           		<field name="per_month_days" />
+           		<field name="carry_forward" />
+           		<field name="max_carry_days" />
+           		<field name="leave_encashment"/>
+           		<field name="max_leave_encashment_days"/>
+           		<field name="years_service" />
+				<field name="include_all"/>
+				<field name="work_days"/>
+			</tree>
+		</field>
+	</record>
+
+    
+    <record model="ir.ui.view" id="view_holiday_status_normal_form_inherit">
+	    <field name="name">hr.holidays.status.form.view.inherit</field>
+	    <field name="model">hr.holidays.status</field>
+	    <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+	    <field name="arch" type="xml">
+	    
+		    <field name="company_id" position="replace">
+		    	<field name="company_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+		    </field>
+		    <field name="categ_id" position="replace">
+		    	<field name="categ_id" invisible="1"/>
+		    </field>
+		    <field name="double_validation" position="replace">
+		    	<field name="double_validation" invisible="1"></field>
+		    </field>
+		    
+		    <field name="limit" position="replace">
+		    	<field name="limit" invisible="1"></field>
+		    </field>
+		    
+		    <field name="name" position="before">
+		    	<field name="entity_id" options="{'no_open': True,'no_create':True}" required="1"/>
+                <field name="office_type_id" domain="[('entity_id','=',entity_id)]" required="1" options="{'no_open': True,'no_create':True}"/>
+		    </field>
+		    
+		    <field name="name" position="after">
+		    	<field name="code" required="1"/>
+		    	<field name="max_allowed_days" required="1"/>
+           		<field name="per_month_days" required="1"/>
+           		<field name="accrued_leaves" required="1"/>
+           		<field name="parts_of_the_day" required="1"/>
+           		<field name="gender" required="1"/>
+		    </field>
+
+		    
+		    <field name="color_name" position="replace">
+		    	 <field name="color_name" invisible="1"/>
+		    	<field name="leave_auto_allocation"/>
+		    	<field name="carry_forward" required="1"/>
+           		<field name="carry_forward_type" attrs="{'required':[('carry_forward','=','yes')],'invisible':[('carry_forward','!=','yes')]}"/>
+           		<field name="max_carry_days" attrs="{'invisible':[('carry_forward_type','!=','manual')]}"/>
+           		
+           		<field name="leave_encashment" required="1"/>
+           		<field name="leave_encashment_type" attrs="{'required':[('leave_encashment','=','yes')],'invisible':[('leave_encashment','!=','yes')]}"/>
+           		<field name="max_leave_encashment_days" attrs="{'invisible':[('leave_encashment_type','!=','manual')]}"/>
+           		<label for="years_service" string="Year of Service"
+				               style="font-weight: bold !important;margin-right:1px;margin-left: 0px;min-width: 200px;"/> 
+				    <div>
+				        <field name="operators" style="width:50px"/>     
+				        <field name="years_service" force_save="1" style="width:30px"/>
+				    </div>
+				<field name="include_all"/>
+				<field name="work_days"/>
+		    </field>
+		    
+		    
+		    
+	    </field>
+	    </record>
+
+	<!--<record id="hr_leave_summary_inherit_tree" model="ir.ui.view">-->
+		<!--<field name="name">hr.leave.summary.inherit.tree</field>-->
+		<!--<field name="model">hr.holidays</field>-->
+		<!--<field name="inherit_id" ref="hr_holidays.view_holiday_simple"/>-->
+		<!--<field name="arch" type="xml">-->
+			<!--<xpath expr="//tree['1']" position="attributes">-->
+				<!--<attribute name="create">false</attribute>-->
+			<!--</xpath>-->
+		<!--</field>-->
+	<!--</record>-->
+    
+    
+    <record id="hr_holidays_edit_holiday_newe_inherit_form" model="ir.ui.view">
+		<field name="name">hr.holidays.inherit.form</field>
+		<field name="model">hr.holidays</field>
+		<field name="inherit_id" ref="hr_holidays.edit_holiday_new" />
+		<field name="arch" type="xml">
+			<xpath expr="//form" position="attributes">
+				<attribute name="duplicate">0</attribute>
+				<attribute name="delete">0</attribute>
+				<attribute name="create">0</attribute>
+				<attribute name="edit">0</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_confirm']" position="replace">
+            	<button string="Request" name="action_confirm" states="draft" type="object" class="oe_highlight" groups="pappaya_base.hr_administrator,pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head,pappaya_base.hr_branch_accountants,pappaya_base.hr_zonal_accountant,pappaya_base.hr_principal_hod,pappaya_base.hr_deans,pappaya_base.hr_branch_employees"/>
+            </xpath>
+			<xpath expr="//button[@name='action_approve']" position="replace">
+            	<button string="Approve" name="action_approve" type="object" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.hr_principal_hod,pappaya_base.hr_deans" class="oe_highlight" attrs="{'invisible':['|',('holiday_type','=','category'),('state','!=','confirm')]}"/>
+            	<button string="Approve"  name="action_approve1" type="object" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.hr_principal_hod,pappaya_base.hr_deans" class="oe_highlight" attrs="{'invisible':['|',('holiday_type','!=','category'),('state','!=','confirm')]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_refuse']" position="replace">
+            	<button string="Reject" name="%(pappaya_payroll.leave_request_wizard_action_id)d" states="confirm,validate1" type="action" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+				<button string="Cancel" name="%(pappaya_payroll.leave_request_wizard_action_id)d" states="confirm" type="action" class="oe_highlight" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"
+					context = "{
+					   'search_default_is_cancelled': True,
+					   'default_is_cancelled': True,
+					   }"
+				/>
+            </xpath>
+			<xpath expr="//button[@name='action_draft']" position="replace">
+            	<button string="Reset to Draft" name="action_draft" type="object" attrs="{'invisible': ['|', ('can_reset', '=', False), ('state', '!=', 'confirm')]}" groups="pappaya_base.hr_operations_head,pappaya_base.hr_cpo,pappaya_base.payroll_head,pappaya_base.hr_principal_hod,pappaya_base.hr_deans"/>
+            </xpath>
+            <field name="holiday_status_id" position="replace">
+            	<field name="holiday_status_id" force_save="1" context="{'employee_id':employee_id}" domain="[('office_type_id','=',office_type_id)]" attrs="{'invisible':[('employee_id','=',False)]}" options="{'no_open': True, 'no_create':True}"/>
+            </field>
+			<field name="category_id" position="replace">
+				<field name="category_id"  invisible="1"/>
+				<!-- <field name="hr_job" attrs="{'required':[('holiday_type','=','category')], 'readonly': [('type', '=', 'remove'),('state','!=','draft'), ('state','!=','confirm')], 'invisible':[('holiday_type','=','employee')]}"/> -->
+			</field>
+			<field name="employee_id" position="replace">
+				<!--<field name="employee_id" attrs="{'required':[('holiday_type','=','employee')],'invisible':[('holiday_type','!=','employee')]}" -->
+					<!--domain="[('id','!=',1),('unit_type_id','=',office_type_id)]" options="{'no_open': True, 'no_create':True}"/>-->
+				<field name="year_of_passing" required="1"/>
+				<field name="emp_id" attrs="{'invisible':[('holiday_type','!=','employee')]}" required="1"/>
+				<field name="employee_id" attrs="{'invisible':[('holiday_type','!=','employee')]}" options="{'no_open': True, 'no_create':True}" readonly="1" force_save="1"/>
+				<field name="office_type_id" attrs="{'invisible':[('holiday_type','!=','employee')]}" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+			</field>
+			<field name="department_id" position="replace">
+            	<field name="department_id" groups="hr_holidays.group_hr_holidays_user" 
+            	attrs="{'invisible':[('holiday_type','!=','employee')]}" readonly="1" force_save="1" options="{'no_open': True, 'no_create':True}"/>
+            </field>
+            <field name="name" position="replace">
+            	<field name="name" required="1"/>
+            </field>
+            <field name="payslip_status" position="after">
+            	<field name="available_balance_leave_till" attrs="{'invisible':[('type','!=','remove')]}"/>
+            	<field name="accrued_leaves" attrs="{'invisible':[('type','!=','remove')]}"/>
+            	<field name="from_carry_forward_leave" attrs="{'invisible':['|',('type','=','remove'),('from_carry_forward_leave','=',False)]}" options="{'no_open': True, 'no_create':True}"/>
+            	<field name="to_carry_forward_leave" attrs="{'invisible':['|',('type','=','remove'),('to_carry_forward_leave','=',False)]}" options="{'no_open': True, 'no_create':True}"/>
+            	<field name="encashment_leave" attrs="{'invisible':['|',('type','=','remove'),('encashment_leave','=',False)]}"/>
+            </field>
+            
+            <field name="holiday_type" position="replace">
+            	<field name="holiday_type" force_save="1" attrs="{'invisible':[('type', '=', 'remove')],'readonly':['|',('type', '=', 'remove'),('state','!=','draft')]}" string="Mode" context="{'employee_id':employee_id}" />
+				<!--<field name="active_upto" invisible="0"/>-->
+				<!--<field name="active" invisible="0" readonly="1" force_save="1"/>-->
+            </field>
+            <field name="number_of_days_temp" position="replace">
+            	<field name="number_of_days_temp" class="oe_inline" force_save="1" attrs="{'invisible':[('employee_id','=',False)],'readonly':['|',('type', '=', 'remove'),('state','!=','draft')]}"/>
+            </field>
+			
+			<field name="notes" position="before">
+				<field name="holiday_calendar_line" attrs="{'invisible':[('type','!=','remove')]}" force_save="1">
+					<tree editable="bottom" create="false" delete="false">
+						<field name="holidays_id" invisible="1"/>
+						<field name="calendar_line_id" invisible="1"/>
+						<field name="date" readonly="1" force_save="1"/>
+						<field name="work_type" readonly="1" force_save="1"/>
+						<field name="include_all" readonly="1" force_save="1"/>
+						<field name="parts_of_the_day" force_save="1" attrs="{'readonly':['|',('work_type', 'in', ['week_off','holiday']),('status_parts_of_the_day','in',['half_day','full_day'])]}"/>
+						<field name="leave" readonly="1" force_save="1" invisible="1"/>
+						<field name="status_id" invisible="1" force_save="1"/>
+						<field name="status_parts_of_the_day" invisible="1" force_save="1"/>
+					</tree>
+					<form>
+						<group col="4">
+							<field name="date"/>
+							<field name="work_type"/>
+							<field name="include_all"/>
+							<field name="parts_of_the_day"/>
+						</group>
+					</form>
+				</field>
+				<separator string="Remarks" colspan="4" attrs="{'invisible':[('leave_request_remarks_line','=',[])]}"/>
+				<field name="leave_request_remarks_line" attrs="{'invisible':[('leave_request_remarks_line','=',[])]}" readonly="1" force_save="1">
+					<tree string="Remarks" delete="false">
+						<field name="date"/>
+						<field name="generated_by"/>
+						<field name="remarks"/>
+						<field name="state"/>
+					</tree>
+					<form string="Remarks">
+						<group col="4">
+							<field name="date"/>
+							<field name="generated_by" options="{'no_open': True, 'no_create':True}"/>
+							<field name="remarks"/>
+							<field name="state"/>
+						</group>
+					</form>
+				</field>
+			</field>
+
+			<field name="payslip_status" position="replace"></field>
+			
+		</field>
+	</record>
+
+	<!--Leave Summary Tree View-->
+    
+    <record id="hr_holidays.view_holiday_simple" model="ir.ui.view">
+		<field name="name">hr.holidays.report_tree</field>
+		<field name="model">hr.holidays</field>
+		<field name="priority">20</field>
+		<field name="arch" type="xml">
+			<tree decoration-danger="state == 'refuse'" decoration-info="state == 'draft'" string="Leaves Summary" create="0" delete="0">
+				<field name="emp_id"/>
+				<field name="employee_id"/>
+				<field name="department_id"/>
+				<field name="holiday_status_id"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="number_of_days" string="Number of Days" sum="Remaining Days"/>
+				<field name="state" string="Status"/>
+			</tree>
+		</field>
+	</record>
+
+	<!--Leave Details Tree View-->
+
+	<record id="view_holiday_employee_tree_inherit" model="ir.ui.view">
+        <field name="name">view_holiday_employee.tree_inherit</field>
+        <field name="model">hr.holidays</field>
+        <field name="inherit_id" ref="hr_holidays.view_holiday_employee"/>
+        <field name="arch" type="xml">
+            <field name="payslip_status" position="replace"></field>
+        </field>
+    </record>
+
+	<!--Leave Request Tree View-->
+
+	<record id="hr_holidays.view_holiday" model="ir.ui.view">
+		<field name="name">hr.holidays.tree</field>
+		<field name="model">hr.holidays</field>
+		<field name="arch" type="xml">
+			<tree decoration-danger="state == 'refuse'" decoration-info="state == ' draft'" string="Leave Requests" decoration-bf="message_needaction == True" delete="0" duplicate="0">
+				<field name="emp_id"/>
+				<field name="employee_id"/>
+				<field name="department_id"/>
+				<field name="holiday_status_id"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="number_of_days_temp" string="Number of Days Applied" sum="Total Applied Days"/>
+				<field name="state" string="Status"/>
+				<field name="message_needaction" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<!--Leave Allocation Search View-->
+
+    <record id="view_hr_holidays_filterr_inherit" model="ir.ui.view">
+        <field name="name">view.hr.holidays.filter.inherit</field>
+        <field name="model">hr.holidays</field>
+        <field name="inherit_id" ref="hr_holidays.view_hr_holidays_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <field name="emp_id"/>
+            </xpath>
+        </field>
+    </record>
+
+	<!--Leave Tree View-->
+
+	<record id="hr_holidays.view_holiday_allocation_tree" model="ir.ui.view">
+		<field name="name">hr.holidays.allocation.tree</field>
+		<field name="model">hr.holidays</field>
+		<field name="arch" type="xml">
+		  <tree decoration-danger="state == 'refuse'" decoration-info="state == 'draft'" string="Allocation Requests"
+			   decoration-bf="message_needaction == True">
+			 <field name="emp_id"/>
+			  <field name="employee_id"/>
+			 <field name="department_id"/>
+			 <field name="holiday_status_id"/>
+			 <field name="date_from"/>
+			 <field name="date_to"/>
+			 <field name="number_of_days" string="Number of Days" sum="Remaining Days"/>
+			 <field name="state" string="Status"/>
+			 <field name="message_needaction" invisible="1"/>
+			 <field name="holiday_type" invisible="1"/>
+			 <field name="category_id" invisible="1"/>
+			 <field name="name" invisible="1"/>
+			 <field name="manager_id" invisible="1"/>
+			 <field name="user_id" invisible="1"/>
+		  </tree>
+		</field>
+	</record>
+
+	<record id="hr_holidays.action_open_ask_holidays_calendar" model="ir.actions.act_window.view">
+		<field name="sequence" eval="2"/>
+		<field name="view_mode">calendar</field>
+		<field name="view_id" ref="hr_holidays.view_holiday_new_calendar"/>
+		<field name="act_window_id" ref="hr_holidays.open_ask_holidays"/>
+	</record>
+
+	<!--	Leave Types Action		-->
+
+	<record id="hr_holidays.open_view_holiday_status" model="ir.actions.act_window">
+		<field name="name">Leave Types</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">hr.holidays.status</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,kanban,form</field>
+		<!--<field name="view_id" eval="hr_holidays.view_holiday_status_normal_tree"/>-->
+		<field name="search_view_id" ref="hr_holidays.view_hr_holidays_status_search"/>
+		<field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to configure Leave Types.
+            </p>
+        </field>
+	</record>
+
+	<!--	Employee Leaves		-->
+
+	<record id="hr_holidays.act_hr_employee_holiday_request" model="ir.actions.act_window">
+		<field name="name">Leaves</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">hr.holidays</field>
+		<field name="src_model">hr.employee</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id, 'search_default_group_type': 1,
+			'search_default_year': 1}</field>
+		<field name="domain">[('employee_id', '=', active_id)]</field>
+		<field name="search_view_id" ref="hr_holidays.view_hr_holidays_filter"/>
+	</record>
+
+	<!--Leave Summary Kanban View-->
+
+	<record id="view_hr_holidays_kanban_inherit" model="ir.ui.view">
+		<field name="name">hr.holidays.kanban.inherit</field>
+		<field name="model">hr.holidays</field>
+		<field name="inherit_id" ref="hr_holidays.view_hr_holidays_kanban"/>
+		<field name="arch" type="xml">
+			<xpath expr="//kanban" position="attributes">
+				<attribute name="create">0</attribute>
+			</xpath>
+		</field>
+	</record>
+	
+	<!--<record id="view_holiday_allocation_tree_inherit" model="ir.ui.view">-->
+		<!--<field name="name">view.holiday.allocation.inherit.tree</field>-->
+		<!--<field name="model">hr.holidays</field>-->
+		<!--<field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree"/>-->
+		<!--<field name="arch" type="xml">-->
+			<!--<xpath expr="//field[@name='category_id']" position="replace">-->
+				<!--<field name="category_id" invisible="1"/>-->
+			<!--</xpath>-->
+		<!--</field>-->
+	<!--</record>-->
+
+	<menuitem
+            id="hr_holidays.menu_hr_holidays_configuration"
+            name="Configuration"
+            parent="hr_holidays.menu_hr_holidays_root"
+            sequence="100"
+            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"
+            action="hr_holidays.open_view_holiday_status"/>
+
+	<menuitem
+            id="hr_holidays.menu_hr_holidays_approvals"
+            name="Leaves to Approve"
+            parent="hr_holidays.menu_hr_holidays_root"
+            sequence="3"
+            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+	<menuitem
+            id="hr_holidays.menu_hr_holidays_report"
+            name="Reporting"
+            parent="hr_holidays.menu_hr_holidays_root"
+            sequence="99"
+            groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+            
+    <menuitem
+            id="hr_holidays.menu_open_allocation_holidays"
+            parent="hr_holidays.menu_hr_holidays_my_leaves"
+            action="hr_holidays.open_allocation_holidays"
+            sequence="40"
+            groups="base.group_no_one"
+            />
+            
+	
+	</data>
+</odoo>

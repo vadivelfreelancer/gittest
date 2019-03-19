@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_sponsor_tree" model="ir.ui.view">
+			<field name="name">pappaya.sponsor.tree</field>
+			<field name="model">pappaya.sponsor</field>
+			<field name="arch" type="xml">
+				<tree string="Sponsor">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name" />
+					<field name="school_id" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_sponsor_form" model="ir.ui.view">
+			<field name="name">pappaya.sponsor.form</field>
+			<field name="model">pappaya.sponsor</field>
+			<field name="arch" type="xml">
+				<form string="Sponsor" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1"/>
+								<field name="sponsor_type_id" domain="[('type','=','sponsor_type')]" context="{'master_type':'others','individual_master_type':'sponsor_type'}" options="{'no_open': True,'no_create':True}"/>
+								<label for="street" string="Address"/>
+								<div class="o_address_format">
+									<field name="street" placeholder="Address 1..." class="o_address_street" required="1"/>
+									<field name="street2" placeholder="Address 2..." class="o_address_street" />
+									<field name="city" placeholder="City" class="o_address_city" required="1"/>
+									<field name="state_id" domain="[('country_id','=',country_id)]" class="o_address_state" placeholder="State" options="{'no_open': True,'no_create':True}" required="1"/>
+									<field name="zip" placeholder="Pin Code" class="o_address_zip" required="1"/>
+									<field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True,'no_create':True}" required="1"/>
+								</div>
+                        	</group>
+                        	<group>
+								<field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1"/>
+								<field name="academic_year_id" options="{'no_open': True,'no_create':True}" invisible="1"/>
+                        	</group>
+                        </group>
+						<notebook>
+							<page string="Sponsor Document">
+								<field name="sponsor_doc_ids">
+									<tree>
+										<field name="document_name"/>
+										<field name="description"/>
+										<field name="required"/>
+									</tree>
+									<form>
+										<group>
+											<field name="document_name" required="1"/>
+											<field name="description"/>
+											<field name="required"/>
+										</group>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_sponsor_search" model="ir.ui.view">
+            <field name="name">pappaya.sponsor.search</field>
+            <field name="model">pappaya.sponsor</field>
+            <field name="arch" type="xml">
+                <search string="Sponsor">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_sponsor_form" model="ir.actions.act_window">
+			<field name="name">Sponsor</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.sponsor</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_sponsor_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Sponsor.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

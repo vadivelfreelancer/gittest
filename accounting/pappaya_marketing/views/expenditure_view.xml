@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<!-- Expenditure Proposal -->
+		
+        <record id="view_expenditure_proposal_form" model="ir.ui.view">
+            <field name="name">view.expenditure.proposal.form</field>
+            <field name="model">expenditure.proposal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Expenditure Proposal">
+            		<header>
+            			<button name="action_proposal" string="Request proposal" class="oe_highlight" 
+            				type="object" states="draft"/> 
+            			<button name="action_approval" string="Approve" class="oe_highlight" 
+            				type="object" states="proposed"/>
+            			<button name="action_reject" string="Reject" class="oe_highlight" 
+            				type="object" states="proposed"/>            				
+            			<button name="action_cancel" string="Cancel" class="oe_highlight" 
+            				type="object" states="proposed,rejected"/>  
+            			<button name="action_reset" string="Reset" class="oe_highlight" 
+            				type="object" states="approved"/>
+            			<field name="state" widget="statusbar" statusbar_visible="draft,proposed,approved"/>
+            		</header>
+            		<div class="oe_title">
+            			<h1>
+            				<field name="name" readonly="1"/>
+            			</h1>
+            		</div>
+            		<group>
+            			<group>
+            				<field name="proposal_date" required="1" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="academic_year_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="staff_type_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="dgm_dean" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="cluster_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            			</group>
+            			<group>
+            				<field name="apex_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="division_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="program_type_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="state_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            				<field name="district_id" domain="[('state_id','=',state_id)]" options="{'no_open':True,'no_create':True}" 
+            							attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+            			</group>
+            		</group>
+            		<notebook>
+            			<page string="Staff">
+            				<field name="expenditure_proposal_line" context="{'staff_type_id':staff_type_id}">
+	            				<tree editable="bottom">
+	            					<field name="staff_id" required="1" options="{'no_open':True,'no_create': True}"
+	            							attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+	            					<field name="staff_type_id" invisible="1" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+	            					<field name="bank_id" options="{'no_open':True,'no_create': True}" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+	            					<field name="staff_rtgs" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+	            					<field name="account_number" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+	            					<field name="amount" required="1" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+	            					<field name="approved_amount" attrs="{'readonly':[('state','!=','proposed')]}"/>
+	            					<field name="state" invisible="1" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+	            				</tree>
+            				</field>
+            			</page>
+            		</notebook>
+            		
+            		<group class="oe_subtotal_footer oe_right">
+            			<field name="total_amount"/>
+            			<field name="total_approved_amount"/>
+            		</group>
+					<field name="description" class="oe_inline" placeholder="Add a comment ..."/>
+	                <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="activity_ids" widget="mail_activity"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+            	</form>
+            </field>
+        </record>
+
+        <record id="view_expenditure_proposal_tree" model="ir.ui.view">
+            <field name="name">view.expenditure.proposal.tree</field>
+            <field name="model">expenditure.proposal</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Expenditure Proposal">
+                	<field name="name"/>
+                    <field name="proposal_date"/>
+                    <field name="academic_year_id"/>
+                    <field name="division_id"/>
+                    <field name="total_amount"/>
+                    <field name="total_approved_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>	
+        
+        <record id="view_expenditure_proposal_search" model="ir.ui.view">
+            <field name="name">view.expenditure.proposal.search</field>
+            <field name="model">expenditure.proposal</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Expenditure Proposal">
+                    <field name="proposal_date" select="True"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_expenditure_proposal">
+            <field name="name">Expenditure Proposal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">expenditure.proposal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_expenditure_proposal_tree"/>
+            <field name="search_view_id" ref="view_expenditure_proposal_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Expenditure Proposal.
+				</p>
+			</field>
+        </record>
+	
+	</data>
+</odoo>

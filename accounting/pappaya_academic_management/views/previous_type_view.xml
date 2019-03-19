@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="previous_type_form_view" model="ir.ui.view">
+        <field name="name">previous.type.form.view</field>
+        <field name="model">previous.type</field>
+        <field name="arch" type="xml">
+            <form string="Previous Type">
+                <sheet>
+                    <group>
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Previous Type"/>
+                    <field name="previous_type">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="previous_type_tree_view" model="ir.ui.view">
+        <field name="name">previous.type.tree.view</field>
+        <field name="model">previous.type</field>
+        <field name="arch" type="xml">
+            <tree string="Previous Type">
+                <field name="academic_year"/>
+                <field name="institution_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="previous_type_menu_action" model="ir.actions.act_window">
+        <field name="name">Previous Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">previous.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--<menuitem id="previous_type_sub_menu"-->
+          <!--name="Previous Types"-->
+          <!--parent="academic_main_menu"-->
+          <!--sequence="5"-->
+          <!--action="previous_type_menu_action"/>-->
+
+
+</odoo>

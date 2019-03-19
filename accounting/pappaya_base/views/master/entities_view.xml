@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		
+		<record id="view_sub_organization_tree" model="ir.ui.view">
+			<field name="name">res.company.tree</field>
+			<field name="model">res.company</field>
+			<field name="arch" type="xml">
+				<tree string="Entity">
+					<field name="record_id" invisible="1"/>
+					<field name="name" string="Entity"/>
+                    <field name="entity_description"/>
+                    <field name="code" string="Entity Code"/>
+                    <field name="entity_sequence_id" string='Series'/>
+                    <field name="parent_id" string="Organization"/>
+					<field name="email"/>
+                    <field name="mobile"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_sub_organization_form" model="ir.ui.view">
+            <field name="name">res.pappaya.company.form</field>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <form string="Entity">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="action_branch_view" type="object" icon="fa-check">
+		                    	<div class="o_form_field o_stat_info">
+		                            <span class="o_stat_value">
+		                                <field name="branch_count"/>
+		                            </span>
+		                            <span class="o_stat_text">Branch</span>
+		                        </div>
+		                    </button>
+                        </div>
+                        <field name="logo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" string="Entity" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                            <field name="entity_description" placeholder="Description"/>
+                        </div>
+                        <notebook colspan="4">
+                            <page string="General Information">
+                                <group>
+                                    <group>
+                                    	<field name="entity_sequence_id" string='Series' readonly="1" force_save="1"/>
+                                        <label for="street" string="Address"/>
+                                        <div class="o_address_format">
+                                            <field name="tem_street" required="1" placeholder="Address 1..." class="o_address_street"/>
+                                            <field name="tem_street2" placeholder="Address 2..." class="o_address_street"/>
+                                            <field name="tem_city_id" placeholder="City" class="o_address_city" options="{'no_open': True,'no_create':True}"/>
+                                            <field name="tem_state_id" domain="[('country_id','=',tem_country_id)]" class="o_address_state" placeholder="State" options="{'no_open': True,'no_create':True}" />
+                                            <field name="tem_zip" required="1" placeholder="ZIP" class="o_address_zip"/>
+                                            <field name="tem_country_id" required="1" placeholder="Country" class="o_address_country" options="{'no_open': True,'no_create':True}" />
+                                        </div>
+                                        <field name="website" widget="url" />
+                                    </group>
+                                    <group>
+                                    	<!-- Beginning : Master Configuration -->
+                                        <field name="type" widget="radio" options="{'horizontal': true}" string="Type" style="color: red !important;" invisible="1"/> <!-- attrs="{'invisible':[('parent_company','=',True)]}" -->
+                                        <field name="parent_id" groups="base.group_multi_company" string="Organization" domain="[('type','=','organization')]" required="1" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="partner_id" readonly="1" required="0" groups="base.group_no_one"/>
+                                        <!-- End : Master Configuration -->
+                                        <field name="code" required="1" string="Entity Code" />
+                                        <field name="email" required="1" string="Email" />
+                                        <field name="mobile" required="1"/>
+                                        <field name="phone" />
+                                        <field name="fax_id"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+		
+		<record id="view_sub_organization_search" model="ir.ui.view">
+            <field name="name">res.company.search.pappaya</field>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <search string="Entity">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Organization"/>
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+		
+		<record id="action_sub_organization_view" model="ir.actions.act_window">
+			<field name="name">Entities</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.company</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('type','=','entity')]</field>
+			<field name="context">{'type':'entity'}</field>
+			<field name="search_view_id" ref="view_sub_organization_search"/>
+			<field name="view_ids" eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_sub_organization_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_sub_organization_form')})]" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Entity.
+				</p>
+			</field>
+		</record>
+		
+	</data>
+</odoo>

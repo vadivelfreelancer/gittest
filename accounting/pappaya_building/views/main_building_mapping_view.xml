@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_main_building_mapping_tree" model="ir.ui.view">
+			<field name="name">main.building.mapping.tree</field>
+			<field name="model">main.building.mapping</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Main Building Mapping">
+					<field name="branch_id"/>
+                    <field name="main_building_id"/>
+                    <field name="building_id" widget="many2many_tags"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_main_building_mapping_form" model="ir.ui.view">
+			<field name="name">main.building.mapping.form</field>
+			<field name="model">main.building.mapping</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Main Building Mapping">
+					<sheet>
+						<group col="4">
+                            <field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+							<field name="main_building_id" domain="[('branch_id','=',branch_id),('is_main_building','=',True)]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="building_id" widget="many2many_tags" domain="[('branch_id','=',branch_id),('is_main_building','=',False)]" required="1" options="{'no_open': True, 'no_create': True}"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_main_building_mapping_search" model="ir.ui.view">
+			<field name="name">main.building.mapping.search</field>
+			<field name="model">main.building.mapping</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Main Building Mapping">
+					<field name="branch_id"/>
+                    <field name="main_building_id"/>
+                    <field name="building_id"/>
+					<group>
+						<filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Main Building" domain="[]" context="{'group_by':'main_building_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_main_building_mapping_view">
+			<field name="name">Main Building Mapping</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">main.building.mapping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_main_building_mapping_search"/>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+        <!-- Purpose : Hide 'Print' button in Organization form. - BEGIN-->
+        <report id="web.action_report_internalpreview"
+                model="res.company"
+                name="web.preview_internalreport"
+                file="web.preview_internalreport"
+                string="Preview Internal Report"
+                report_type="qweb-pdf"
+                menu="False"/>
+
+        <report id="web.action_report_externalpreview"
+                model="res.company"
+                name="web.preview_externalreport"
+                file="web.preview_externalreport"
+                string="Preview External Report"
+                report_type="qweb-pdf"
+                menu="False"/>
+
+        <report id="account.account_invoices"
+                model="account.invoice"
+                string="Invoices"
+                report_type="qweb-pdf"
+                name="account.report_invoice_with_payments"
+                file="account.report_invoice_with_payments"
+                attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+                print_report_name="(object._get_printed_report_name())"
+                groups="account.group_account_invoice"
+                menu="False"/>
+
+        <report id="account.account_invoices_without_payment"
+                model="account.invoice"
+                string="Invoices without Payment"
+                report_type="qweb-pdf"
+                name="account.report_invoice"
+                file="account.report_invoice"
+                attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+                print_report_name="(object._get_printed_report_name())"
+                menu="False"/>
+
+		<record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+			<field name="groups_id" eval="[(6,0,[ref('pappaya_group_hidden')])]"/>
+		</record>
+
+		<record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+			<field name="groups_id" eval="[(6,0,[ref('pappaya_group_hidden')])]"/>
+		</record>
+
+		<act_window
+            id="account.action_move_line_select"
+            name="Journal Items"
+            context="{'search_default_account_id': [active_id]}"
+            res_model="account.move.line"
+            src_model="account.account"
+		 	groups="pappaya_base.pappaya_group_hidden"/>
+
+		<act_window
+			id="account.act_account_invoice_partner_relation"
+			name="Monthly Turnover"
+			groups="pappaya_base.pappaya_group_hidden"
+			context="{'search_default_partner_id':[active_id], 'search_default_month':1,'search_default_user':1,'group_by_no_leaf':1,'group_by':[]}"
+			res_model="account.invoice.report"
+			src_model="res.partner"
+			view_mode="graph"/>
+
+		<act_window id="account.send_sms_action"
+			name="Send SMS"
+			src_model="res.partner"
+			res_model="sms.send_sms"
+			view_type="form"
+			view_mode="form"
+			key2="client_action_multi"
+			target="new"
+			groups="pappaya_base.pappaya_group_hidden"/>
+
+		<act_window
+			id="account.action_all_partner_invoices"
+			name="All Invoices"
+			res_model="account.invoice"
+			domain="[('partner_id', 'child_of', active_id)]"
+			src_model="res.partner"
+			groups="pappaya_base.pappaya_group_hidden"/>
+
+		<report
+            id="account.action_report_print_overdue"
+            model="res.partner"
+            report_type="qweb-pdf"
+            string="Due Payments"
+            name="account.report_overdue"
+            file="account.report_overdue"
+            print_report_name="'Due Payments - %s' % (object.name)"
+			menu="False"
+		/>
+
+		<!--END-->
+
+	</data>
+</odoo>

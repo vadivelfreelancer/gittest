@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ay_combination_view_form" model="ir.ui.view">
+        <field name="name">ay.combination.view.form</field>
+        <field name="model">ay.combination</field>
+        <field name="arch" type="xml">
+            <form string="Academic Year Wise Combinations">
+                <sheet>
+                    <group>
+                        <field name="institution_type"/>
+                        <field name="academic_year"/>
+                    </group>
+                    <separator string="Academic Year Wise Combinations"/>
+                    <group>
+                        <field name="academic_year"/>
+                    </group>
+                    <div class="col-xs-12">
+                        <div class="col-xs-5">
+                            <field name="combination_keys" nolabel="1">
+                                <tree create="false">
+                                    <field name="name" string="Combination Keys"/>
+                                </tree>
+                            </field>
+                        </div>
+                        <div class="btn-group-vertical col-xs-2">
+                            <button name="" type="object" class="oe_highlight" string="&gt;"/>
+                            <button name="" type="object" class="oe_highlight" style="margin-top:5px" string="&gt;&gt;"/>
+                            <button name="" type="object" class="oe_highlight" style="margin-top:5px" string="&lt;"/>
+                            <button name="" type="object" class="oe_highlight" style="margin-top:5px" string="&lt;&lt;"/>
+                        </div>
+                        <div class="col-xs-5">
+                            <field name="selected_combinations" nolabel="1">
+                                <tree create="false">
+                                    <field name="name" string="Selected"/>
+                                </tree>
+                            </field>
+                        </div>
+
+                    </div>
+                    <div style="text-align:center">
+                        <button special="cancel" class="oe_highlight" string="Save"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ay_combination_action" model="ir.actions.act_window">
+        <field name="name">Academic Year Wise Combinations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ay.combination</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="ay__combination_sub_menu" name="Academic Year Combination" parent="academic_main_menu"
+              action="ay_combination_action" sequence="415"/>
+</odoo>

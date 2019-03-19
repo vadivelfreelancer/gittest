@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_building_enhancement_tree" model="ir.ui.view">
+			<field name="name">pappaya.building.enhancement.tree</field>
+			<field name="model">pappaya.building.enhancement</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Building Enhnacement">
+					<field name="branch_id"/>
+                    <field name="building_id"/>
+					<field name="building_new_rent"/>
+					<field name="building_new_maintenance"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_building_enhancement_form" model="ir.ui.view">
+			<field name="name">pappaya.building.enhancement.form</field>
+			<field name="model">pappaya.building.enhancement</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Building Enhancement">
+					<sheet>
+						<group col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+							<field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="present_building_rent"/>
+							<field name="present_building_maintenance"/>
+							<field name="building_new_rent" required="1"/>
+							<field name="building_new_maintenance" required="1"/>
+							<field name="effect_month" required="1"/>
+							<field name="date" required="1"/>
+							<field name="proposed_by"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_building_enhancement_view">
+			<field name="name">Building Enhancement</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.building.enhancement</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_payroll_cycle_tree" model="ir.ui.view">
+			<field name="name">payroll.cycle.tree</field>
+			<field name="model">payroll.cycle</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Payroll Cycle" duplicate="false">
+					<field name="cycle" />
+					<field name="month_id"/>
+					<field name="region_ids" widget="many2many_tags"/>
+					<field name="state_ids" widget="many2many_tags"/>
+					<field name="branch_ids" widget="many2many_tags"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_payroll_cycle_form" model="ir.ui.view">
+			<field name="name">payroll.cycle.form</field>
+			<field name="model">payroll.cycle</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Payroll Cycle" duplicate="false">
+					<header>
+						<button name="action_submit" string="Request" type="object" attrs="{'invisible':[('state','!=','draft')]}" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+                        <button name="payslip_generation" string="Payslip Generation" type="object" attrs="{'invisible':[('state','!=','request')]}" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,request,approve" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="month_id" options="{'no_open': True,'no_create':True}" required="1" domain="[('fiscal_year_active','=',True)]" attrs="{'readonly':[('state','!=','draft')]}" />
+								<field name="cycle" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+                            <group>
+                                <label for="date_start" string="Period"/>
+			                     <div>
+			                           <field name="date_start" class="oe_inline" required="1" readonly="1" force_save="1"/> - <field name="date_end" class="oe_inline" required="1" readonly="1" force_save="1"/>
+			                     </div>
+                            </group>
+						<group string="Generate By">
+							<field name="office_type_ids" context="{'special_display_name': True}" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="region_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="state_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="district_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="branch_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+						</group>
+						
+                        <field name="hr_payslip_batch_ids"  delete="false" readonly="1" force_save="1" mode="tree">
+	                        <tree editable="bottom" open="false">
+						    	<field name="name"/>
+						    	<field name="branch_id" options="{'no_open': True,'no_create':True}"/>
+				                <field name="date_start"/>
+				                <field name="date_end"/>
+				                <field name="state"/>
+						    </tree>
+	                        
+	                        <form>
+	                        	<group colspan="4" cols="4">
+		                        	<field name="name"/>
+							    	<field name="branch_id" options="{'no_open': True,'no_create':True}"/>
+					                <field name="date_start"/>
+					                <field name="date_end"/>
+					                <field name="state"/>
+					            </group>
+	                        </form>
+                        </field>
+					</sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" invisible="1"/>
+                        <field name="message_ids" widget="mail_thread" invisible="1"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_payroll_cycle_search" model="ir.ui.view">
+			<field name="name">payroll.cycle.search</field>
+			<field name="model">payroll.cycle</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Payroll Cycle">
+					<field name="month_id"/>
+					<field name="cycle" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="state" />
+					<group expand="0" string="Group By...">
+                        <filter name="cycle" string="Cycle" domain="[]" context="{'group_by':'cycle'}" />
+                        <filter name="month_id" string="Month" domain="[]" context="{'group_by':'month_id'}" />
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_open_payroll_cycle_view">
+			<field name="name">Payroll Cycle</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">payroll.cycle</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_payroll_cycle_search" />
+			<field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'tree', 'view_id': ref('view_payroll_cycle_tree')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('view_payroll_cycle_form')})]" />
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Payroll Cycle.
+                </p>
+            </field>
+		</record>
+
+       <menuitem id="menu_action_open_payroll_cycle_view" parent="hr_payroll.menu_hr_payroll_root" action="action_open_payroll_cycle_view" groups="pappaya_base.hr_cpo,pappaya_base.payroll_operation,pappaya_base.payroll_head" sequence="-4"/>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="group_nconnect_parent" model="res.groups">
+            <field name="name">nConnect - Parents group</field>
+            <field name="implied_ids"/>
+        </record>
+
+        <record id="group_nconnect_teacher" model="res.groups">
+            <field name="name">nConnect - Teachers group</field>
+            <field name="implied_ids"/>
+        </record>
+
+        <record id="group_nconnect_principal" model="res.groups">
+            <field name="name">nConnect - Principal group</field>
+            <field name="implied_ids"/>
+        </record>
+    </data>
+</odoo>

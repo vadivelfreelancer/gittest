@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="fee_receipt_sequence" model="ir.sequence">
+            <field name="name">Fees Receipt Sequence</field>
+            <field name="code">pappaya.fees.receipt</field>
+            <field name="prefix">REC/</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record id="pappaya_fees_receipt_tree" model="ir.ui.view">
+            <field name="name">pappaya.fees.receipt.tree</field>
+            <field name="model">pappaya.fees.receipt</field>
+            <field name="priority" eval="5" />
+            <field name="arch" type="xml">
+                <tree string="Fees Receipt" create="false" edit="false">
+                    <field name="receipt_no"/>
+                    <field name="school_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="receipt_date"/>
+				    <field name="payment_mode_id"/>
+                    <field name="total" sum="Total"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pappaya_fees_receipt_form" model="ir.ui.view">
+            <field name="name">pappaya.fees.receipt.form</field>
+            <field name="model">pappaya.fees.receipt</field>
+            <field name="arch" type="xml">
+                <form string="Fees Receipt" create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="paid"/>
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <button name="generate_receipt_report" type="object" string="Print" class="oe_highlight" attrs="{'invisible': ['|', ('state','=', 'cancel'),('is_all_adj','=',True)]}"
+                                groups="pappaya_base.group_admission_admin,pappaya_base.hr_zonal_accountant,pappaya_base.hr_branch_accountants"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="school_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" readonly="1" />
+                                <field name="receipt_no" readonly="1"/>
+                                <field name="receipt_date" readonly="1"/>
+                                <field name="receipt_status" readonly="1" force_save="1"/>
+                                <field name="enquiry_id" invisible="1" />
+                                <field name="is_all_adj" invisible="1"/>
+                            </group>
+                        </group>
+                        <group col="4">
+                            <field name="fees_receipt_line" nolabel="1" colspan="4">
+                                <tree string ="Fees Receipt Line" create="false" delete="false">
+                                    <field name="name" readonly="1"/>
+                                    <field name="amount" readonly="1"/>
+                                    <field name="concession_amount" readonly="1"/>
+                                    <field name="res_adj_amt" readonly="1"/>
+                                    <field name="cgst" invisible="1" readonly="1"/>
+                                    <field name="sgst" invisible="1" readonly="1"/>
+                                    <field name="without_gst_amt" readonly="1" invisible="1"/>
+                                    <field name="total_paid" readonly="1" string="Subtotal"/>
+                                    <field name="other_payment_id" invisible="1"/>
+                                    <field name="fees_coll_line_id" invisible="1"/>
+                                </tree>
+                                <form string="Fees Receipt Line">
+                                    <group col="4" colspan="4">
+                                        <field name="name" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                        <field name="amount" readonly="1"/>
+                                        <field name="concession_amount" readonly="1"/>
+                                        <field name="res_adj_amt" readonly="1"/>
+                                        <field name="cgst" readonly="1" invisible="1"/>
+	                                    <field name="sgst" readonly="1" invisible="1"/>
+	                                    <field name="without_gst_amt" readonly="1" invisible="1"/>
+                                        <field name="total_paid" readonly="1" string="Subtotal"/>
+                                        <field name="other_payment_id" invisible="1"/>
+                                        <field name="fees_coll_line_id" readonly="1" options="{'no_open': True,'no_create':True}" force_save="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+						<group>
+							<group>
+								<field name="is_show_card_details" invisible="1"/>
+								<field name="is_show_cheque_dd_details" invisible="1"/>
+								<field name="payment_mode_id" readonly="1" options="{'no_open': True,'no_create':True}"/>
+								<field name="card_type" readonly="1"
+									attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="card_number" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="card_holder_name" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="cheque_dd" class="asterik" readonly="1" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}"/>
+								<field name="cheque_date" class="asterik" readonly="1" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)],'required':[('is_show_cheque_dd_details' ,'!=' ,False)]}"/>
+								<field name="paytm_order_ref" attrs="{'invisible':[('paytm_order_ref','=',False)]}" readonly="1" force_save="1"/>
+							</group>
+							<group>
+								<field name="transaction_type" options="{'no_open': True,'no_create':True}" domain="[('type','=','transaction_type')]" context="{'master_type':'others','individual_master_type':'transaction_type'}" readonly="1"/>
+								<field name="bank_name" options="{'no_open': True,'no_create':True}" readonly="1" attrs="{'invisible':[('is_show_cheque_dd_details' ,'=' ,False)]}"/>
+								<field name="bank_machine_id" options="{'no_open': True,'no_create':True}" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="bank_machine_type_id" domain="[('type','=','bank_machine_type')]" context="{'master_type':'others','individual_master_type':'bank_machine_type'}" options="{'no_open': True,'no_create':True}" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="mid_no" options="{'no_open': True,'no_create':True}" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+								<field name="tid_no" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+                                <field name="pos_reference_no" readonly="1" attrs="{'invisible':[('is_show_card_details' ,'=' ,False)],'required':[('is_show_card_details' ,'!=' ,False)]}"/>
+                                
+                                
+                                <field name="ibank_transaction_id" attrs="{'invisible':[('ibank_transaction_id','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="instrument_no" attrs="{'invisible':[('instrument_no','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="instrument_date" attrs="{'invisible':[('instrument_date','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="pay_mode" attrs="{'invisible':[('pay_mode','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="transaction_date" attrs="{'invisible':[('transaction_date','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="isure_id" attrs="{'invisible':[('isure_id','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="micr_code" attrs="{'invisible':[('micr_code','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="bank_name_char" attrs="{'invisible':[('bank_name_char','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="branch_name" attrs="{'invisible':[('branch_name','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="client_code" attrs="{'invisible':[('client_code','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="virtual_acc_no" attrs="{'invisible':[('virtual_acc_no','=',False)]}" readonly="1" force_save="1"/>
+                                <field name="ifsc_code" attrs="{'invisible':[('ifsc_code','=',False)]}" readonly="1" force_save="1"/>
+
+							</group>
+						</group>
+                        <separator string="Remarks"/>
+                        <field name="remarks" nolabel="1"/>
+                        <field name="pos_api_response" invisible="1"/>
+                    </sheet>
+                    <group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="total" />
+                            </div>
+                            <field name="total" nolabel="1" class="oe_subtotal_footer_separator" sum="Total"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="pappaya_fees_receipt_search" model="ir.ui.view">
+            <field name="name">pappaya_fees_receipt_search</field>
+            <field name="model">pappaya.fees.receipt</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Fee Receipt">
+                    <field name="receipt_no"/>
+                    <field name="school_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="receipt_date"/>
+                    <field name="payment_mode_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Branch" domain="[]" context="{'group_by':'school_id'}" />
+                        <filter string="Academic Year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+                        <filter string="Student" domain="[]" context="{'group_by':'fee_collection_id'}"/>
+                        <filter string="Receipt Date" domain="[]" context="{'group_by':'receipt_date'}"/>
+                        <filter string="Cheque Date" domain="[]" context="{'group_by':'cheque_date'}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Payment Mode" domain="[]" context="{'group_by':'payment_mode_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_pappaya_fees_receipt_id">
+            <field name="name">Fees Receipt</field>
+            <field name="res_model">pappaya.fees.receipt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

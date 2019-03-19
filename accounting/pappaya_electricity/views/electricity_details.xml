@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<!--#menu of branch details-->
+
+    <menuitem id="branch_master_main_menu" name="Electricity" sequence="1"/>
+
+     <menuitem id="building_master_main_menu" parent="branch_master_main_menu" name="Configuration" sequence="5"/>
+
+      <!--service user master-->
+      <record id="service_user_master_form" model="ir.ui.view">
+        <field name="name">Service User</field>
+        <field name="model">service.user</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="service_user_master_tree" model="ir.ui.view">
+        <field name="name">Service User</field>
+        <field name="model">service.user</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+     <record id="service_user_master_action" model="ir.actions.act_window">
+            <field name="name">Service User</field>
+            <field name="res_model">service.user</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="service_user_master_sub_menu" action="service_user_master_action" parent="building_master_main_menu" name="Service User" sequence="4"/>
+
+      <record id="ero_details_form" model="ir.ui.view">
+        <field name="name">ero.details.tree</field>
+        <field name="model">ero.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="ero_details_tree" model="ir.ui.view">
+        <field name="name">ero.details.form</field>
+        <field name="model">ero.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+ 
+     <record id="ero_details_action" model="ir.actions.act_window">
+            <field name="name">ERO</field>
+            <field name="res_model">ero.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+
+    <menuitem id="ero_details_sub_menu" action="ero_details_action" parent="building_master_main_menu" name="ERO" sequence="4"/>
+    
+    <!--electricity details master-->
+    <record id="electricity_master_form" model="ir.ui.view">
+        <field name="name">Electricity Details</field>
+        <field name="model">electricity.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <button name="button_submit" string="Submit"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+                    <button name="approval_by_zonal" string="Approval By Zonal" groups="pappaya_electricity.group_zonal_approval"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'zonal_approval')]}"/>
+                        <button name="approval_by_rfo" string="Approvals By RFO" groups="pappaya_electricity.group_rfo_approval"
+                                 type="object" class="oe_highlight" attrs="{'invisible': [('state','!=', 'rfo_approval')]}"/>
+                        <button name="button_reject" string="Reject"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','not in', ['zonal_approval', 'rfo_approval'])]}"/>
+                        <button name="button_cancel" string="Cancel"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,zonal_approval,rfo_approval,approved"/>
+                </header>
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                     </div>
+                        <group col="4">
+                            <field name="branch_id" required="1" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="building_id" required="1" domain="[('branch_id','=',branch_id)]" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="owner_id" required="1" domain="[('building_id','=',building_id)]" widget="selection" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="block_id" required="1" domain="[('building_id','=',building_id)]" widget="selection" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="floor_id" required="1" domain="[('block_id','=',block_id)]"  options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="service_number" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="billing_duration" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="service_user" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="bill_due_gap" attrs="{'readonly': [('state', '=', 'rejected')]}"/>
+                            <field name="ero" options='{"no_open": True, "no_create": True}'/>
+                            <field name="division_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+     <record id="electricity_master_tree" model="ir.ui.view">
+        <field name="name">Electricity Details</field>
+        <field name="model">electricity.details</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="service_number"/>
+                <field name="branch_id"/>
+                <field name="building_id"/>
+                <field name="floor_id"/>
+                <field name="owner_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+     </record>
+     <record id="electricity_master_action" model="ir.actions.act_window">
+            <field name="name">Electricity Details</field>
+            <field name="res_model">electricity.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="branch_master_main_sub_menu" parent="branch_master_main_menu" name="Electricity Details" sequence="1"/>
+    <menuitem id="electricity_master_sub_menu" parent="branch_master_main_sub_menu" action="electricity_master_action" name="Electricity Bill Details" sequence="4"/>
+    <record id="electricity_zonal_master_action" model="ir.actions.act_window">
+            <field name="name">Zonal Approval</field>
+            <field name="res_model">electricity.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[
+                ('state', 'in', ['zonal_approval'])]</field>
+             <field name="context">{
+                    'create': False,
+                    'edit': False
+                }
+              </field>
+     </record>
+    <menuitem id="zonal_approval_main_menu" parent="branch_master_main_menu" name="Approvals" sequence="1"/>
+    <menuitem id="zonal_approval_main_sub_menu" parent="zonal_approval_main_menu" action="electricity_zonal_master_action" name="Zonal Approval" sequence="1"/>
+    <record id="electricity_rfo_master_action" model="ir.actions.act_window">
+            <field name="name">Rfo Approval</field>
+            <field name="res_model">electricity.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[
+                ('state', 'in', ['rfo_approval'])]</field>
+              <field name="context">{
+                    'create': False,
+                    'edit': False
+                }
+              </field>
+     </record>
+    <menuitem id="rfo_approval_main_sub_menu" parent="zonal_approval_main_menu" action="electricity_rfo_master_action"
+              name=" Rfo Approval" sequence="1"/>
+
+
+    <!--branch file number master-->
+    <record id="branch_file_number_master_form" model="ir.ui.view">
+        <field name="name">Branch File Number</field>
+        <field name="model">branch.number</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="branch_file_number_master_tree" model="ir.ui.view">
+        <field name="name">Branch File Number</field>
+        <field name="model">branch.number</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+     </record>
+     <record id="branch_file_number_master_action" model="ir.actions.act_window">
+            <field name="name">Branch File Number</field>
+            <field name="res_model">branch.number</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+
+
+
+        <!--security deposit master-->
+      <record id="security_deposit_master_form" model="ir.ui.view">
+        <field name="name">Security Deposit</field>
+        <field name="model">security.deposit.electricity</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                      <button name="approval_by_co" string="Submit" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object"  class="oe_highlight"/>
+                    <button name="security_button_done" string="Approve" attrs="{'invisible': [('state','not in', 'co_approval')]}"
+                                 type="object" groups="pappaya_electricity.group_co_approval" class="oe_highlight"/>
+                    <button name="security_button_reject" string="Reject"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','not in', 'co_approval')]}"/>
+                        <button name="security_button_cancel" string="Cancel" attrs="{'invisible': [('state','not in', 'draft')]}"
+                                 type="object"  class="oe_highlight"/>
+
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,co_approval,approved"/>
+                </header>
+                <sheet>
+                    <group string="ACD/Security Deposit Proposal">
+                        <group>
+                            <field name="branch_id" required="1" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="service_number" required="1" options='{"no_open": True, "no_create": True}' domain="[('branch_id','=',branch_id),('state','=','approved')]"/>
+                        </group>
+                        <group>
+                                <field name="security_acd" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="ACD/Security Deposit Details">
+                            <group>
+                                <field name="building_id" required="1" options='{"no_open": True, "no_create": True}' domain="[('branch_id','=',branch_id)]"/>
+                                <field name="floor_id" required="1" options='{"no_open": True, "no_create": True}' domain="[('building_id','=',building_id)]"/>
+                            </group>
+                            <group>
+                                <field name="branch_number_id" required="1" options='{"no_open": True, "no_create": True}'/>
+                                <field name="today_date" required="1"/>
+                            </group>
+                            <group>
+                                 <field name="deposit_amount" required="1"/>
+                            </group>
+                            <group>
+                                 <field name="description" required="1"/>
+                            </group>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="security_deposit_master_tree" model="ir.ui.view">
+        <field name="name">Security Deposit</field>
+        <field name="model">security.deposit.electricity</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+               <field name="service_number"/>
+               <field name="branch_number_id"/>
+               <field name="today_date"/>
+                <field name="deposit_amount"/>
+                <field name="description"/>
+            </tree>
+        </field>
+     </record>
+
+         <record id="security_deposit_master_action" model="ir.actions.act_window">
+            <field name="name">Security Deposit</field>
+            <field name="res_model">security.deposit.electricity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="transaction_menu" parent="branch_master_main_menu" name="Transaction" sequence="1"/>
+    <menuitem id="security_deposit_sub_menu" parent="transaction_menu" action="security_deposit_master_action" name="ACD/Security Deposit " sequence="2"/>
+    <menuitem id="branch_number_sub_menu" parent="building_master_main_menu" action="branch_file_number_master_action" name="Branch File Number" sequence="3"/>
+    <record id="electricity_co_approval_action" model="ir.actions.act_window">
+            <field name="name">Co Approval</field>
+            <field name="res_model">security.deposit.electricity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[
+                ('state', 'in', ['co_approval'])]</field>
+              <field name="context">{
+                    'create': False,
+                    'edit': False
+                }
+              </field>
+     </record>
+    <menuitem id="co_approval_main_sub_menu" parent="zonal_approval_main_menu" action="electricity_co_approval_action" name=" CO Approval" sequence="2"/>
+
+
+
+    <!--electricity bill master-->
+     <record id="electricity_bill_form" model="ir.ui.view">
+        <field name="name">Electricity Bill</field>
+        <field name="model">electricity.bill</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                   <header>
+                        <button name="button_confirm" string="Confirm"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,reversed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="branch_id" required="1" options='{"no_open": True, "no_create": True}'/>
+                            <field name="owner_id" required="1" />
+                            <field name="floor_id" required="1" options='{"no_open": True, "no_create": True}' domain="[('building_id','=',building_id)]"/>
+                            <field name="from_date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="service_number" domain="[('branch_id','=',branch_id),('state','=','approved')]" required="1" options='{"no_open": True, "no_create": True}'/>
+                            <field name="building_id" required="1"  domain="[('branch_id','=',branch_id)]"/>
+                            <field name="trans_date" required="1" />
+                            <field name="to_date" required="1" />
+                        </group>
+                        <group>
+                         <div>
+                             <label for="month" string="Month"
+                                    style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                             <field name="month" style="width:110px" required="1"/>
+                             <field name="year" style="width:110px;margin-left: 34px;" required="1"/>
+                         </div>
+                        </group>
+                          <group>
+                            <field name="bill_date" required="1" />
+                            <field name="bill_due_date" required="1" />
+                        </group>
+                        <group>
+                             <field name="present_reading" required="1" />
+                             <field name="previous_reading" required="1" />
+                             <field name="no_units"/>
+                        </group>
+                         <group>
+                             <field name="bill_number" required="1" />
+                             <field name="branch_number_id" required="1"  options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="bill_upload"/>
+                    </group>
+                    <group>
+                            <div>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="bill_amount"/>
+                                    <field name="discount_type" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                                    <field name="discount_amount"/>
+                                    <field name="bill_amount_after_discount"/>
+                                    <field name="acd"/>
+                                    <field name="mis_amount"/>
+                                    <field name="net_amount" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </div>
+                        </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="electricity_bill_master_tree" model="ir.ui.view">
+        <field name="name">Electricity Bill</field>
+        <field name="model">electricity.bill</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id"/>
+               <field name="service_number"/>
+               <field name="owner_id"/>
+               <field name="month"/>
+               <field name="year"/>
+                <field name="trans_date"/>
+               <field name="from_date"/>
+               <field name="to_date"/>
+                <field name="bill_due_date"/>
+               <field name="bill_date"/>
+               <field name="present_reading"/>
+                <field name="previous_reading"/>
+            </tree>
+        </field>
+     </record>
+     <record id="electricity_bill_master_action" model="ir.actions.act_window">
+            <field name="name">Electricity Bill</field>
+            <field name="res_model">electricity.bill</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="electricity_bill_main_menu" parent="transaction_menu" action="electricity_bill_master_action" name="Electricity Bill" sequence="10"/>
+
+      <record id="electricity_meter_reading_form" model="ir.ui.view">
+        <field name="name">Meter Reading</field>
+        <field name="model">meter.reading</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                 <header>
+                        <button name="generate_meter" string="generate"
+                                 type="object"  class="oe_highlight" attrs="{'invisible': [('state','=', 'generated')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,generated"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}' required="1"/>
+                             <field name="service_number" options='{"no_open": True, "no_create": True}' required="1" domain="[('branch_id','=',branch_id), ('state', '=', 'approved')]"/>
+                        </group>
+                        <group>
+                             <field name="building_id" options='{"no_open": True, "no_create": True}' required="1" domain="[('branch_id','=',branch_id)]"/>
+                            <field name="reading_date" required="1"/>
+                        </group>
+                          <group>
+                            <field name="kwh_opening" required="1"/>
+                            <field name="kwh_closing" required="1"/>
+                              <field name="kwh_units" required="1"/>
+                        </group>
+                        <group>
+                             <field name="kvah_opening" required="1"/>
+                             <field name="kvah_closing" required="1"/>
+                             <field name="kvah_units" required="1"/>
+                             <field name="is_latest" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="electricity_meter_reading_master_tree" model="ir.ui.view">
+        <field name="name">Meter Reading</field>
+        <field name="model">meter.reading</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+               <field name="service_number" options='{"no_open": True, "no_create": True}'/>
+               <field name="building_id" options='{"no_open": True, "no_create": True}'/>
+               <field name="reading_date"/>
+                <field name="kwh_opening"/>
+               <field name="kwh_closing"/>
+               <field name="kwh_units"/>
+                <field name="kvah_opening"/>
+               <field name="kvah_closing"/>
+               <field name="kvah_units"/>
+               <field name="state"/>
+            </tree>
+        </field>
+     </record>
+     <record id="electricity_meter_reading_master_action" model="ir.actions.act_window">
+            <field name="name">Meter Reading</field>
+            <field name="res_model">meter.reading</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+    <menuitem id="electricity_meter_reading_main_menu" parent="transaction_menu" action="electricity_meter_reading_master_action" name="Electricity Meter Reading" sequence="11"/>
+
+    <!--electricity division master-->
+    <record id="electricity_division_master_form" model="ir.ui.view">
+        <field name="name">Electricity Division</field>
+        <field name="model">electricity.division</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="electricity_division_tree_view" model="ir.ui.view">
+        <field name="name">Electricity Division</field>
+        <field name="model">electricity.division</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+     <record id="electricity_division_action" model="ir.actions.act_window">
+            <field name="name">Electricity Division</field>
+            <field name="res_model">electricity.division</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="electricity_division_menu" action="electricity_division_action" parent="building_master_main_menu" name="Electricity Division" sequence="13"/>
+
+
+    <!--electricity bill posting master-->
+    <record id="bill_posting_master_form" model="ir.ui.view">
+        <field name="name">Electricity Bill Posting</field>
+        <field name="model">bill.posting</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                        <group col="4">
+                         <field name="branch_id" required="1" options='{"no_open": True, "no_create": True}'/>
+                          <field name="division_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                         <div>
+                               <label for="month" string="Month"
+                                      style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                               <field name="month" style="width:110px" required="1"/>
+                               <field name="year" style="width:110px;margin-left: 34px;" required="1"/>
+                           </div>
+                        <group>
+                            <field name="excel_file"/>
+                        </group>
+                </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="bill_posting_tree_view" model="ir.ui.view">
+        <field name="name">Electricity Bill Posting</field>
+        <field name="model">bill.posting</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="month"/>
+                <field name="division_id"/>
+            </tree>
+        </field>
+    </record>
+     <record id="bill_posting_action" model="ir.actions.act_window">
+            <field name="name">Electricity Bill Posting</field>
+            <field name="res_model">bill.posting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="electricity_bill_posting_master_sub_menu" action="bill_posting_action" parent="transaction_menu" name="Electricity Bill Posting" sequence="13"/>
+
+
+
+    <!--advance payment master-->
+    <record id="advance_payment_form" model="ir.ui.view">
+        <field name="name">Advance Payment</field>
+        <field name="model">advance.payment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                             <field name="proposal_type" widget="radio"/>
+                        </group>
+                    </group>
+
+                           <field name="amount_redeem" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                    <group>
+                        <group>
+                            <field name="electricity_advance" required="1"/>
+                            <field name="previous_advance"/>
+                            <field name="amount" required="1"/>
+                        </group>
+                        <group>
+                            <field name="narration"/>
+                        </group>
+
+                    </group>
+
+                </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="advance_payment_tree_view" model="ir.ui.view">
+        <field name="name">Advance Payment</field>
+        <field name="model">advance.payment</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="electricity_advance"/>
+                <field name="previous_advance"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+     <record id="advance_payment_action" model="ir.actions.act_window">
+            <field name="name">Advance Payment</field>
+            <field name="res_model">advance.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="advance_payment_menu" action="advance_payment_action" parent="transaction_menu" name="Advance Payment" sequence="18"/>
+
+    <!--electricity deposit cheque preparation-->
+     <record id="deposit_cheque_preparation_form" model="ir.ui.view">
+        <field name="name">Cheque Preparation</field>
+        <field name="model">deposit.cheque</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div>
+                        <h1>
+                           <centre>Electricity Deposit Cheque Preparation</centre>
+                        </h1>
+                    </div>
+                    <field name="cash_bank" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                        <group>
+                            <group>
+                                 <field name="bank"/>
+                                <field name="branch_id" options='{"no_open": True, "no_create": True}'/>
+                                <field name="cheque_lot"/>
+                            </group>
+                             <group>
+                                 <field name="trans_date"/>
+                                <field name="bank_balance"/>
+                                <field name="cheque_date"/>
+                            </group>
+                            <group>
+                                <field name="dd_bank_cheque" widget="radio" options="{'horizontal': true}" class="col-md-8 oe_inline"/>
+                                 <field name="cheque_no"/>
+                                <field name="payee_name"/>
+                                <field name="amount"/>
+                            </group>
+                        </group>
+                </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="deposit_cheque_preparation_tree_view" model="ir.ui.view">
+        <field name="name">Cheque Preparation</field>
+        <field name="model">deposit.cheque</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="bank"/>
+                <field name="branch_id"/>
+                <field name="cheque_lot"/>
+                <field name="trans_date"/>
+                <field name="bank_balance"/>
+                <field name="cheque_date"/>
+                 <field name="cheque_no"/>
+                <field name="payee_name"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+     <record id="deposit_cheque_preparation_action" model="ir.actions.act_window">
+            <field name="name">Cheque Preparation</field>
+            <field name="res_model">deposit.cheque</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="deposit_cheque_preparation_menu" action="deposit_cheque_preparation_action" parent="transaction_menu" name="Deposit Cheque Preparation" sequence="19"/>
+
+
+
+    <!--electricity bill posting lock master-->
+    <record id="electricity_bill_posting_lock_form" model="ir.ui.view">
+        <field name="name">Electricity Bill Posting Lock</field>
+        <field name="model">bill.posting.lock</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Electricity Bill Posting Lock">
+                        <group>
+                             <div>
+                                <label for="month" string="Month"
+                                       style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                <field name="month" style="width:110px" required="1"/>
+                                <field name="year" style="width:110px;margin-left: 34px;" required="1"/>
+                            </div>
+                        </group>
+                        <group>
+                           <field name="division_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                    <notebook>
+                            <page string="Locked Electricity Divisions ">
+                                <field name="locked_electricity_division">
+                                    <tree editable="bottom">
+                                         <field name="sl_no"/>
+                                         <field name="service_number" />
+                                         <field name="division_id" options='{"no_open": True, "no_create": True}'/>
+                                         <field name="status"/>
+                                         <field name="bill_id" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="electricity_bill_posting_lock_tree_view" model="ir.ui.view">
+        <field name="name">Electricity Bill Posting Lock</field>
+        <field name="model">bill.posting.lock</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="month"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+     <record id="electricity_bill_posting_lock_action" model="ir.actions.act_window">
+            <field name="name">Electricity Bill Posting Lock</field>
+            <field name="res_model">bill.posting.lock</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+     </record>
+     <menuitem id="electricity_bill_posting_lock_menu" action="electricity_bill_posting_lock_action" parent="transaction_menu" name="Electricity Bill Posting Lock" sequence="15"/>
+</odoo>
+
+

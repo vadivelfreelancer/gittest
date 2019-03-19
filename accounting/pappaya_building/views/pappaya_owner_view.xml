@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		
+        
+        <record id="view_pappaya_owner_tree" model="ir.ui.view">
+			<field name="name">pappaya.owner.tree</field>
+			<field name="model">pappaya.owner</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Owners Creations">
+					<field name="branch_id"/>
+					<field name="building_id"/>
+					<field name="owner_id"/>
+					<field name="owner_status"/>
+					<field name="active"/>
+					<button name="act_active" type="object" attrs="{'readonly':[('active','=',True)]}"/>
+					<button name="act_inactive" type="object"  attrs="{'readonly':[('active','=',False)]}"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_owner_form" model="ir.ui.view">
+			<field name="name">pappaya.owner.form</field>
+			<field name="model">pappaya.owner</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Owners Creation">
+					<header>
+						<button name="act_zonal_approval" states="draft" type="object" string="Building Owner zonal approval" class="oe_highlight"/>
+						<button name="act_dfe_approval" states="building_owner_approval" type="object" string="Building Owner DFE approval" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,building_owner_approval,buiding_owner_dfe_approval"/>
+					</header>
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="branch_id" domain="[('type','=','branch')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="building_rent" readonly="1"/>
+							<field name="building_maitanance_amt" readonly="1"/>
+							<field name="owner_id" required="1" domain="[('type_id.name','ilike','Building')]" options="{'no_open': True, 'no_create': True}"/>
+							<field name="owner_id_number" required="1" />
+							<field name="owner_status" required="1"/>
+							<field name="active"/>
+							<field name="hno"/>
+							<field name="street_vill"/>
+							<field name="area"/>
+							<field name="district_id"/>
+							<field name="mandal_id"/>
+							<field name="state_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="country_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="pin_code"/>
+							<field name="phone_no"/>
+							<field name="mobile_no"/>
+							<field name="email"/>
+							<field name="cheque_in_favour_of"/>
+							<field name="rent"/>
+							<field name="maintanance_amt"/>
+							<field name="owner_percentage"/>
+							<field name="tenant_percentage"/>
+							<field name="arrear_amount" />
+							<field name="maintenance_arrears_amt" />
+						</group>
+						<notebook>
+							<page string="General Information" name="general_info">
+								<group colspan="4" col="4">
+									<field name="pan_no"/>
+									<field name="pan_name"/>
+									<field name="cin_no"/>
+									<field name="tin_no"/>
+									<field name="is_gst_registered"/>
+									<field name='gst_no' attrs="{'required':[('is_gst_registered','=','yes')]}"/>
+									<field name="gst_type"/>
+									<field name="gst_regular" attrs="{'invisible':[('gst_type','!=','regular')]}"/>
+									<field name="gst_composit" attrs="{'invisible':[('gst_type','!=','composit')]}"/>
+								</group>
+							</page>
+							<page string="Other Information" name="other_info">
+								<group colspan="4" col="4">
+									<field name="is_tds_applicable"/>
+									<field name="tds_percentage" attrs="{'required':[('is_tds_applicable','=','yes')]}"/>
+									<field name="maintanance_tds_per" attrs="{'required':[('is_tds_applicable','=','yes')]}"/>
+								</group>
+								<group colspan="4" col="4">
+									<field name="is_st_applicable"/>
+									<field name="service_percentage" attrs="{'required':[('is_st_applicable','=','yes')]}"/>
+									<field name="is_tpa"/>
+									<field name="tpa_name" attrs="{'required':[('is_tpa','=','yes')]}"/>
+								</group>
+							</page>
+							<page string="Bank Details" name="bank_details">
+								<group colspan="4" col="4">
+									<field name="account_no"/>
+									<field name="bank"/>
+									<field name="bank_branch"/>
+									<field name="rtgs"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_owner_search" model="ir.ui.view">
+			<field name="name">pappaya.owner.search</field>
+			<field name="model">pappaya.owner</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Owners Creation">
+					<field name="branch_id"/>
+					<field name="building_id"/>
+					<field name="owner_id"/>
+					<field name="owner_status"/>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_owners_view">
+			<field name="name">Owners Creation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.owner</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_owner_search"/>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_pappaya_attendance_sheet_tree" model="ir.ui.view">
+            <field name="name">pappaya.attendance.sheet.tree</field>
+            <field name="model">pappaya.attendance.sheet</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Attendance Sheet">
+                    <field name="name" />
+                    <field name="register_id" />
+                    <field name="company_id" />
+                    <field name="university_id"  />
+                    <field name="department_id"  />
+                    <field name="attendance_date" />
+                    <field name="total_present" />
+                    <field name="total_absent" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_pappaya_attendance_sheet_form" model="ir.ui.view">
+            <field name="name">pappaya.attendance.sheet.form</field>
+            <field name="model">pappaya.attendance.sheet</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Attendance Sheet">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" />
+                            <field name="register_id" options="{'no_open': True,'no_create':True}"/>
+                            <field name="attendance_date" />
+                            <field name="company_id" options="{'no_open': True,'no_create':True}" />
+                            <field name="university_id" options="{'no_open': True,'no_create':True}" />
+                            <field name="department_id" options="{'no_open': True,'no_create':True}" />
+                            <field name="course_id" options="{'no_open': True,'no_create':True}"/>
+                            <field name="batch_id"  options="{'no_open': True,'no_create':True}"/>
+                        </group>
+                        <group col="4" string="Students">
+                            <header>
+                                <button name="load_student" string="Attendance Sheet Import" type="object" class="oe_highlight"/>
+                            </header>
+                            <field name="attendance_line" colspan="4" nolabel="1">
+                                <tree string="Attendance Line" editable="bottom" create="false">
+                                    <field name="student_id" domain="[('course_id','=',parent.course_id),('batch_id','=',parent.batch_id)]" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="present_morning" />
+                                    <field name="present_afternoon" />
+                                    <field name="remark" />
+                                </tree>
+                            </field>
+                            <field name="total_present" />
+                            <field name="total_present_fn" />
+                            <field name="total_absent" />
+                            <field name="total_absent_fn" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_pappaya_attendance_sheet_search" model="ir.ui.view">
+            <field name="name">pappaya.attendance.sheet.search</field>
+            <field name="model">pappaya.attendance.sheet</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Attendance Sheet">
+                    <field name="register_id" />
+                    <field name="attendance_date" />
+                    <field name="total_present" />
+                    <field name="total_absent" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Register" domain="[]"
+                            context="{'group_by':'register_id'}" />
+                        <filter string="Date" domain="[]" context="{'group_by':'attendance_date'}" />
+                        <filter string="Course" domain="[]" context="{'group_by':'course_id'}" />
+                        <filter string="Batch" domain="[]" context="{'group_by':'batch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_attendance_sheet_calendar" model="ir.ui.view">
+            <field name="name">pappaya.attendance.sheet.calendar</field>
+            <field name="model">pappaya.attendance.sheet</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <calendar string="Attendances" date_start="attendance_date"
+                    mode="month"
+                    quick_add="False" avatar_model="pappaya.attendance.sheet"
+                    color="course_id">
+                    <field name="name" />
+<!--
+                    <field name="total_present" />
+                    <field name="total_absent" />
+-->
+                </calendar>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="act_open_pappaya_attendance_sheet_view">
+            <field name="name">Attendance Sheets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pappaya.attendance.sheet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="search_view_id" ref="view_pappaya_attendance_sheet_search" />
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_pappaya_attendance_sheet_view_form">
+            <field name="act_window_id" ref="act_open_pappaya_attendance_sheet_view" />
+            <field name="sequence" eval="20" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_pappaya_attendance_sheet_form" />
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_pappaya_attendance_sheet_view_tree">
+            <field name="act_window_id" ref="act_open_pappaya_attendance_sheet_view" />
+            <field name="sequence" eval="10" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_pappaya_attendance_sheet_tree" />
+        </record>
+        
+        <record id="act_open_pappaya_attendance_sheet_view_calendar" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="view_pappaya_attendance_sheet_calendar"/>
+            <field name="act_window_id" ref="act_open_pappaya_attendance_sheet_view"/>
+        </record>
+    </data>
+</odoo>

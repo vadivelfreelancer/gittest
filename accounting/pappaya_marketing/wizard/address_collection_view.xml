@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_address_collection" model="ir.ui.view">
+            <field name="name">Address Collection</field>
+            <field name="model">address.collection</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="report_type"/>
+                        </group>
+                        <group/>
+                        <group>
+                            <field name="state_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('report_type','=','employee')]}"/>
+                            <field name="district_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('report_type','=','employee')]}"/>
+                            <field name="branch_ids" widget="many2many_tags" attrs="{'invisible':[('report_type','=','employee')]}" options="{'no_open': True,'no_create':True}"/>
+                            <field name="payroll_branch_ids" widget="many2many_tags" attrs="{'invisible':[('report_type','=','branch')]}" options="{'no_open': True,'no_create':True}"/>
+                        </group>
+                        <group>
+                            <field name="employee_ids" widget="many2many_tags" attrs="{'invisible':[('report_type','=','branch')]}" options="{'no_open': True,'no_create':True}"/>
+                            <field name="course_ids" widget="many2many_tags" options="{'no_open': True,'no_create':True}" attrs="{'invisible':[('is_classwise','=',True)]}"/>
+                            <field name="is_classwise"/>
+                            <field name="is_branch" invisible="1"/>
+                            <field name="is_branch_class" invisible="1"/>
+                            <field name="is_branch_emp" invisible="1"/>
+                            <field name="is_branch_emp_class" invisible="1"/>
+                            <field name="is_employee" invisible="1"/>
+                            <field name="is_employee_class" invisible="1"/>
+                        </group>
+                    </group>
+                    <separator/>
+                        <button string="PDF" name="generate_pdf_report" class="oe_highlight" type="object"/>
+                        <button string="Excel" name="generate_excel_report" type="object" class="oe_highlight"/>
+                        <!--Branch report-->
+                        <button name="action_branch_address" string="Load Data" class="oe_highlight" type="object" attrs="{'invisible':['|',('is_branch','=',False),('report_type','in',['branch_employee','employee'])]}"/>
+                        <button name="action_branch_class_address" string="Load Data" class="oe_highlight" type="object" attrs="{'invisible':['|',('is_branch','=',True),('report_type','in',['branch_employee','employee'])]}"/>
+                        <!--Branch and Employee report-->
+                        <button name="action_branch_emp_address" string="Load Data" type="object" class="oe_highlight" attrs="{'invisible':['|',('is_branch_emp','=',False),('report_type','in',['branch','employee'])]}"/>
+                        <button name="action_branch_emp_class_address" string="Load Data" type="object" class="oe_highlight" attrs="{'invisible':['|',('is_branch_emp','=',True),('report_type','in',['branch','employee'])]}"/>
+                        <!--Employee report-->
+                        <button name="action_employee_address" string="Load Data" type="object" class="oe_highlight" attrs="{'invisible':['|',('is_employee','=',False),('report_type','in',['branch','branch_employee'])]}"/>
+                        <button name="action_employee_class_address" string="Load Data" type="object" class="oe_highlight" attrs="{'invisible':['|',('is_employee','=',True),('report_type','in',['branch','branch_employee'])]}"/>
+                    <separator/>
+                    <!--Branch tree view with class-->
+                    <field name="branch_line_ids" attrs="{'invisible':['|',('is_branch','=',False),('report_type','in',['branch_employee','employee'])]}">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="s_no" readonly="1"/>
+                            <field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="address_count" readonly="1"/>
+                            <field name="address_branch_id" invisible="1" readonly="1"/>
+                            <field name="report_type" invisible="1" readonly="1"/>
+                        </tree>
+                    </field>
+                    <!--Branch tree view without class-->
+                    <field name="branch_class_line_ids" attrs="{'invisible':['|',('is_branch_class','=',False),('report_type','in',['branch_employee','employee'])]}">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="s_no" readonly="1"/>
+                            <field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="course1" attrs="{'invisible':[('course1','=',False)]}" readonly="1"/>
+                            <field name="course2" attrs="{'invisible':[('course2','=',False)]}" readonly="1"/>
+                            <field name="course3" attrs="{'invisible':[('course3','=',False)]}" readonly="1"/>
+                            <field name="course4" attrs="{'invisible':[('course4','=',False)]}" readonly="1"/>
+                            <field name="course5" attrs="{'invisible':[('course5','=',False)]}" readonly="1"/>
+                            <field name="course6" attrs="{'invisible':[('course6','=',False)]}" readonly="1"/>
+                            <field name="course7" attrs="{'invisible':[('course7','=',False)]}" readonly="1"/>
+                            <field name="course8" attrs="{'invisible':[('course8','=',False)]}" readonly="1"/>
+                            <field name="course9" attrs="{'invisible':[('course9','=',False)]}" readonly="1"/>
+                            <field name="course10" attrs="{'invisible':[('course10','=',False)]}" readonly="1"/>
+                            <field name="course11" attrs="{'invisible':[('course11','=',False)]}" readonly="1"/>
+                            <field name="course12" attrs="{'invisible':[('course12','=',False)]}" readonly="1"/>
+                            <field name="course13" attrs="{'invisible':[('course13','=',False)]}" readonly="1"/>
+                            <field name="course14" attrs="{'invisible':[('course14','=',False)]}" readonly="1"/>
+                            <field name="course15" attrs="{'invisible':[('course15','=',False)]}" readonly="1"/>
+                            <field name="address_count" readonly="1"/>
+                            <field name="address_branch_id" invisible="1" readonly="1"/>
+                            <field name="report_type" invisible="1" readonly="1"/>
+                        </tree>
+                    </field>
+                    <!--Branch and employee tree view without class-->
+                    <field name="branch_emp_line_ids" attrs="{'invisible':['|',('is_branch_emp','=',False),('report_type','in',['branch','employee'])]}">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="s_no" readonly="1"/>
+                            <field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="emp_id" readonly="1"/>
+                            <field name="employee_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="emp_mobile" readonly="1"/>
+                            <field name="address_count" readonly="1"/>
+                            <field name="address_branch_employee_id" invisible="1" readonly="1"/>
+                            <field name="report_type" invisible="1" readonly="1"/>
+                        </tree>
+                    </field>
+                    <!--Branch and employee tree view with class-->
+                    <field name="branch_emp_class_line_ids" attrs="{'invisible':['|',('is_branch_emp_class','=',False),('report_type','in',['branch','employee'])]}">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="s_no" readonly="1"/>
+                            <field name="branch_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="course1" attrs="{'invisible':[('course1','=',False)]}" readonly="1"/>
+                            <field name="course2" attrs="{'invisible':[('course2','=',False)]}" readonly="1"/>
+                            <field name="course3" attrs="{'invisible':[('course3','=',False)]}" readonly="1"/>
+                            <field name="course4" attrs="{'invisible':[('course4','=',False)]}" readonly="1"/>
+                            <field name="course5" attrs="{'invisible':[('course5','=',False)]}" readonly="1"/>
+                            <field name="course6" attrs="{'invisible':[('course6','=',False)]}" readonly="1"/>
+                            <field name="course7" attrs="{'invisible':[('course7','=',False)]}" readonly="1"/>
+                            <field name="course8" attrs="{'invisible':[('course8','=',False)]}" readonly="1"/>
+                            <field name="course9" attrs="{'invisible':[('course9','=',False)]}" readonly="1"/>
+                            <field name="course10" attrs="{'invisible':[('course10','=',False)]}" readonly="1"/>
+                            <field name="course11" attrs="{'invisible':[('course11','=',False)]}" readonly="1"/>
+                            <field name="course12" attrs="{'invisible':[('course12','=',False)]}" readonly="1"/>
+                            <field name="course13" attrs="{'invisible':[('course13','=',False)]}" readonly="1"/>
+                            <field name="course14" attrs="{'invisible':[('course14','=',False)]}" readonly="1"/>
+                            <field name="course15" attrs="{'invisible':[('course15','=',False)]}" readonly="1"/>
+                            <field name="emp_id" readonly="1"/>
+                            <field name="employee_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="emp_mobile" readonly="1"/>
+                            <field name="address_count" readonly="1"/>
+                            <field name="address_branch_employee_id" invisible="1" readonly="1"/>
+                            <field name="report_type" invisible="1" readonly="1"/>
+                        </tree>
+                    </field>
+                    <!--Employee tree view without class-->
+                    <field name="employee_line_ids" attrs="{'invisible':['|',('is_employee','=',False),('report_type','in',['branch','branch_employee'])]}">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="s_no" readonly="1"/>
+                            <field name="emp_id" readonly="1"/>
+                            <field name="employee_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="emp_mobile" readonly="1"/>
+                            <field name="address_count" readonly="1"/>
+                            <field name="address_employee_id" invisible="1" readonly="1"/>
+                            <field name="report_type" invisible="1" readonly="1"/>
+                        </tree>
+                    </field>
+                    <!--Employee tree view with class-->
+                    <field name="employee_class_line_ids" attrs="{'invisible':['|',('is_employee_class','=',False),('report_type','in',['branch','branch_employee'])]}">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="s_no" readonly="1"/>
+                            <field name="emp_id" readonly="1"/>
+                            <field name="employee_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                            <field name="emp_mobile" readonly="1"/>
+                            <field name="course1" attrs="{'invisible':[('course1','=',False)]}" readonly="1"/>
+                            <field name="course2" attrs="{'invisible':[('course2','=',False)]}" readonly="1"/>
+                            <field name="course3" attrs="{'invisible':[('course3','=',False)]}" readonly="1"/>
+                            <field name="course4" attrs="{'invisible':[('course4','=',False)]}" readonly="1"/>
+                            <field name="course5" attrs="{'invisible':[('course5','=',False)]}" readonly="1"/>
+                            <field name="course6" attrs="{'invisible':[('course6','=',False)]}" readonly="1"/>
+                            <field name="course7" attrs="{'invisible':[('course7','=',False)]}" readonly="1"/>
+                            <field name="course8" attrs="{'invisible':[('course8','=',False)]}" readonly="1"/>
+                            <field name="course9" attrs="{'invisible':[('course9','=',False)]}" readonly="1"/>
+                            <field name="course10" attrs="{'invisible':[('course10','=',False)]}" readonly="1"/>
+                            <field name="course11" attrs="{'invisible':[('course11','=',False)]}" readonly="1"/>
+                            <field name="course12" attrs="{'invisible':[('course12','=',False)]}" readonly="1"/>
+                            <field name="course13" attrs="{'invisible':[('course13','=',False)]}" readonly="1"/>
+                            <field name="course14" attrs="{'invisible':[('course14','=',False)]}" readonly="1"/>
+                            <field name="course15" attrs="{'invisible':[('course15','=',False)]}" readonly="1"/>
+                            <field name="address_count" readonly="1"/>
+                            <field name="address_employee_id" invisible="1" readonly="1"/>
+                            <field name="report_type" invisible="1" readonly="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                    	<button string="Close" class="btn-default" special="cancel" groups="base.group_no_one"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_address_collection" model="ir.actions.act_window">
+            <field name="name">Address Collection</field>
+            <field name="res_model">address.collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_address_collection"/>
+            <field name="target">new</field>
+        </record>
+
+		<!-- Student Address Collection Import -->
+		
+         <record id="view_student_address_data_import_form" model="ir.ui.view">
+            <field name="name">view.student.address.data.import.form</field>
+            <field name="model">student.address.data.import</field>
+            <field name="arch" type="xml">
+                <form>
+                	<group>
+                		<group>
+                			<field name="payroll_branch_id" options="{'no_open':True,'no_create':True}" />
+                			<field name="branch_type"  widget="radio" options="{'horizontal': true}"/>
+                			<field name="import_template_file" invisible="1" filename="import_template_file_name"/>
+							<field name="file" filename="file_name"/>
+							<field name="file_name" invisible="1"/>                			
+                		</group>
+                		<group>
+                			<field name="employee_id" options="{'no_open':True,'no_create':True}" domain="[('id','!=',1),('payroll_branch_id','=',payroll_branch_id)]" />
+                			<field name="branch_id" options="{'no_open':True,'no_create':True}"  />
+                			<field name="import_template_file_name" invisible="1"/>
+                			<button string="Process" name="process_file" type="object" class="oe_highlight"/>
+                		</group>
+                	</group>
+				     <group>
+				     	<button name="download_import_template" type="object" string="Download Excel Format"  class="oe_link oe_highlight"/>
+				     </group>
+				
+			     	<group>
+			     		<field name="file_wise_imported_details_ids" nolabel="1">
+							<tree editable="bottom">
+								<field name="student_address_data_import_id" invisible="1" />
+								<field name="file_name"/>
+								<field name="valid"/>
+								<field name="invalid"/>
+								<button string="View Address" type="object" name="fetch_address_data" class="oe_highlight"/>
+							</tree>
+						</field>				     	
+			     	</group>
+
+					<notebook>
+						<page string="Student Address">
+							<field name="student_address_data_import_ids" context="{'branch_id':branch_id,'employee_id':employee_id}">
+								<tree editable="bottom">
+									<field name="student_address_data_import_id" invisible="1" />
+									<field name="branch_id" required="1" options="{'no_open':True,'no_create':True}" invisible="1"/>
+									<field name="employee_id" required="1" options="{'no_open':True,'no_create':True}" invisible="1"/>
+									<field name="sequence" readonly="1"/>
+									<field name="name" required="1" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="mobile" required="1" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="studying_course_id" required="1" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									
+<!-- 									<field name="school_state_id" required="1" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="school_district_id" required="1" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="school_mandal_id" required="1" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="lead_school_id" required="1" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									 -->
+									 <field name="studying_school_name"/>
+									<field name="father_name" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<!-- <field name="gender" attrs="{'readonly':[('sequence','!=',False)]}"/> -->
+									<field name="location_type" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="state_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="district_id" options="{'no_open':True,'no_create':True}" domain="[('state_id','=',state_id)]" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									
+									<field name="city" attrs="{'readonly':['|', ('sequence','!=',False), ('location_type','=','rural')]}"/>
+									<field name="ward" attrs="{'readonly':['|', ('sequence','!=',False), ('location_type','=','rural')]}"/>
+									<field name="area" attrs="{'readonly':['|', ('sequence','!=',False), ('location_type','=','rural')]}"/>
+									<field name="mandal" attrs="{'readonly':['|',('sequence','!=',False), ('location_type','=','urban')]}"/>
+									<field name="village" attrs="{'readonly':['|',('sequence','!=',False), ('location_type','=','urban')]}"/>
+									
+<!-- 									<field name="city_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="ward_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="area_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="mandal_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="village_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/> -->
+									
+									<field name="pincode" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('sequence','!=',False)]}"/>
+									<field name="status" attrs="{'readonly':[('sequence','!=',False)]}"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+                    <footer>
+                        <button string="Import" name="import_address_data" class="oe_highlight" type="object"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_student_address_data_import" model="ir.actions.act_window">
+            <field name="name">Address Data Import</field>
+            <field name="res_model">student.address.data.import</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_student_address_data_import_form"/>
+            <field name="target">current</field>
+        </record>
+        
+        
+        <!-- Records to be corrected file -->
+        
+<!--          <record id="view_address_import_acknowledge_form" model="ir.ui.view">
+            <field name="name">view.address.import.acknowledge.form</field>
+            <field name="model">student.address.data.import</field>
+            <field name="arch" type="xml">
+                <form>
+				     <group>
+				     	<h3><strong><field name="import_wizard_status" nolabel="1" readonly="1"/></strong></h3>
+						<field name="records_to_be_correct_file" filename="records_to_be_correct_file_name" readonly="1"
+							attrs="{'invisible':[('records_to_be_correct_file','=',False)]}"/>
+						<field name="records_to_be_correct_file_name" invisible="1"/>
+				     </group>
+                    <footer>
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record> -->
+
+        <template id="pappaya_marketing_assets_backend" name="pappaya_marketing_assets_backend_inherit" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/css" href="/pappaya_marketing/static/src/css/jquery.dataTables.min.css"/>
+                <script type="text/javascript" src="/pappaya_marketing/static/src/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="/pappaya_marketing/static/src/js/report_address_collection.js"></script>
+            	<!-- Multi select widget -->
+            	<link rel="stylesheet" type="text/css" href="/pappaya_marketing/static/src/css/select2.min.css"/>
+            	<script type="text/javascript" src="/pappaya_marketing/static/src/js/select2.min.js"></script>
+            </xpath>
+        </template>
+        
+        <record id="action_address_collection_new" model="ir.actions.client">
+            <field name="name">Address Collection</field>
+            <field name="tag">pappaya_marketing.address_collection</field>
+        </record>
+    </data>
+</odoo>

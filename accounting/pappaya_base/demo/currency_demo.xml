@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		
+        <!-- Purpose : Set INR currency active -->
+        <record id="base.INR" model="res.currency">
+            <field name="active" eval="True"/>
+            <field name="position">before</field>
+        </record>
+        
+        <!-- Purpose : Set USD and EUR inactive -->
+        <record id="base.USD" model="res.currency">
+        	<field name="active" eval="False"/>
+        </record>        
+        <record id="base.EUR" model="res.currency">
+        	<field name="active" eval="False"/>
+        </record>
+        <!-- End -->		
+		
+	</data>
+</odoo>

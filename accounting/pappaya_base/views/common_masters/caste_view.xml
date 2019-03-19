@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="caste_tree_view" model="ir.ui.view">
+			<field name="name">pappaya.caste.tree</field>
+			<field name="model">pappaya.caste</field>
+			<field name="arch" type="xml">
+				<tree string="Caste">
+					<field name="id" groups="base.group_system" invisible="1"/>
+					<field name="name"/>
+					<field name="description"/>
+					<field name="school_id" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="caste_form_view" model="ir.ui.view">
+			<field name="name">pappaya.caste.form</field>
+			<field name="model">pappaya.caste</field>
+			<field name="arch" type="xml">
+				<form string="Caste" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" />
+                        	</group>
+                        	<group>
+								<field name="description"/>
+                        		<field name="school_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1" invisible="1" />
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="caste_action" model="ir.actions.act_window">
+			<field name="name">Caste</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.caste</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Caste.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

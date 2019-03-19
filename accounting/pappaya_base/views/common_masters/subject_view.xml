@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_subject_tree" model="ir.ui.view">
+			<field name="name">pappaya.subject.tree</field>
+			<field name="model">pappaya.subject</field>
+			<field name="arch" type="xml">
+				<tree string="Subject">
+					<field name="branch_id" invisible="1"/>
+					<field name="academic_year_id"/>
+					<field name="name" />
+					<field name="course_id" />
+					<!--<field name="description" />-->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_subject_form" model="ir.ui.view">
+			<field name="name">pappaya.subject.form</field>
+			<field name="model">pappaya.subject</field>
+			<field name="arch" type="xml">
+				<form string="Subject" duplicate="0" delete="false">
+					<sheet>
+                        <group>
+                        	<group>
+                        		<field name="name" default_focus="1" required="1"/>
+                                <field name="academic_year_id" options="{'no_open': True,'no_create':True}" readonly="1"/>
+                                <field name="description"/>
+                        	</group>
+                        	<group>
+                        		<field name="branch_id" invisible="1"/>
+                                <field name="course_id" options="{'no_open': True,'no_create':True}" required="1" widget="many2many_tags"/>
+                        	</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_subject_search" model="ir.ui.view">
+            <field name="name">pappaya.subject.search</field>
+            <field name="model">pappaya.subject</field>
+            <field name="arch" type="xml">
+                <search string="Subject">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+					<field name="description" />
+                    <separator />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_pappaya_subject_form" model="ir.actions.act_window">
+			<field name="name">Subject</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.subject</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_subject_search"/>
+			<field name="help" type="html">
+				<p subject="oe_view_nocontent_create">
+					Click to add a new Subject.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</odoo>

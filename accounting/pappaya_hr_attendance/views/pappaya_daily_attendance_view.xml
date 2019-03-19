@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hr_daily_attendance_tree" model="ir.ui.view">
+            <field name="name">hr.daily.attendance.tree</field>
+            <field name="model">hr.daily.attendance</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Manual Attendance" delete="false" duplicate="false">
+                    <field name="name" invisible="1"/>
+                    <field name="branch_id"/>
+                    <field name="company_id"/>
+                    <field name="attendance_date"/>
+                    <field name="state" string="Status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_daily_attendance_form" model="ir.ui.view">
+            <field name="name">hr.daily.attendance.form</field>
+            <field name="model">hr.daily.attendance</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Manual Attendance" delete="false" duplicate="false">
+                    <header>
+                        <button name="attendance_confirm" string="Confirm" type="object" attrs="{'invisible':[('state','!=','draft')]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <button name="attendance_reset" string="Reset to Draft" type="object" attrs="{'invisible':[('state','=','draft')]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <button name="attendance_update" string="Attendance Update" type="object" attrs="{'invisible':[('daily_attendance_line','not in',[]),('state','!=','draft')]}" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" invisible="1"/>
+                                <field name="company_id" invisible="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True,'no_create':True}" required="1" attrs="{'readonly': [('state','=','done')]}"/>
+                            </group>
+                            <group>
+                                <field name="attendance_date" required="1" force_save="1" attrs="{'readonly': [('state','=','done')]}"/>
+                            </group>
+                        </group>
+                        <field name="daily_attendance_line" force_save="1" attrs="{'readonly': [('state','=','done')]}" >
+                            <tree string="Manual Attendance" editable="bottom" create="false" delete="false">
+                                <field name="employee_id" options="{'no_open': True,'no_create':True}" readonly="1" force_save="1"/>
+                                <field name="employee_code"/>
+                                <field name="biometric_id" readonly="1" force_save="1"/>
+                                <field name="check_in" force_save="1" attrs="{'readonly': [('state','=','done')]}"/>
+                                <field name="check_out" force_save="1" attrs="{'readonly': [('state','=','done')]}"/>
+                                <field name="attendance_status" force_save="1" readonly="1"/>
+                                <field name="attendance_type" force_save="1" readonly="1"/>
+                                <field name="worked_hours" force_save="1" readonly="1"/>
+                                <field name="attendance_reason" attrs="{'required':[('attendance_type','=','manual')]}"/>
+                                <field name="state" readonly="1"/>
+                                <field name="attendance_date" invisible="1"/>
+                            </tree>
+                            <form string="Manual Attendance">
+                                <group col="4">
+                                    <field name="employee_id" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="biometric_id"/>
+                                    <field name="check_in" attrs="{'readonly': ['|',('attendance_status','in',['present','absent']),('state','=','done')]}"/>
+                                    <field name="check_out" attrs="{'readonly': ['|',('attendance_status','in',['present','absent']),('state','=','done')]}"/>
+                                    <field name="attendance_status" force_save="1" readonly="1"/>
+                                    <field name="attendance_type" force_save="1" readonly="1"/>
+                                    <field name="worked_hours"/>
+                                    <field name="state"/>
+                                </group>
+                            </form>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_daily_attendance_search" model="ir.ui.view">
+            <field name="name">hr.daily.attendance.search</field>
+            <field name="model">hr.daily.attendance</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Manual Attendance">
+                    <field name="branch_id" />
+                    <group expand="0" string="Group By...">
+                        <filter name="branch_id" string="Branch" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_hr_daily_attendance_view">
+            <field name="name">Manual Attendance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.daily.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_hr_daily_attendance_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to configure Manual Attendance.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_action_open_calendar_generation_view" parent="hr_attendance.menu_hr_attendance_root" action="pappaya_base.action_open_calendar_generation_view" sequence="-5" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+        <menuitem name="Calendar" id="menu_pappaya_hr_calendar" parent="hr_attendance.menu_hr_attendance_root" action="pappaya_base.action_pappaya_hr_calendar_form"
+                  sequence="1" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+        
+        <menuitem id="menu_hr_daily_attendance" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="action_hr_daily_attendance_view"
+                  sequence="-6" groups="pappaya_base.hr_executives,pappaya_base.hr_operations_head,pappaya_base.hr_cpo"/>
+
+
+        <!--Employee Inherit-->
+        <record id="view_employee_form_attendance_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.attendance.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="pappaya_hr.pappaya_hr_view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='no_of_yrs']" position="after">
+                    <field name="working_days"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

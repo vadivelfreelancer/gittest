@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_pappaya_block_tree" model="ir.ui.view">
+			<field name="name">pappaya.block.tree</field>
+			<field name="model">pappaya.block</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Block">
+					<field name="branch_id"/>
+                    <field name="building_id"/>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_pappaya_block_form" model="ir.ui.view">
+			<field name="name">pappaya.block.form</field>
+			<field name="model">pappaya.block</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Block">
+					<sheet>
+					 <div class="oe_button_box" name="button_box">
+            				<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check" >
+                				<field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+           					 </button>
+         				</div>
+						<group col="4">
+                            <field name="branch_id" domain="[('type','=','branch')]" options="{'no_open': True, 'no_create': True}" required="1"/>
+							<field name="building_id" domain="[('branch_id','=',branch_id),('building_type','!=','own')]" required="1" options="{'no_open': True, 'no_create': True}"/>
+							<field name="number" required="1"/>
+							<field name="name" required="1"/>
+							<field name="no_of_floors" required="1"/>
+							<field name="block_total_area" required="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_pappaya_block_search" model="ir.ui.view">
+			<field name="name">pappaya.block.search</field>
+			<field name="model">pappaya.block</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Block">
+					<field name="name"/>
+					<field name="branch_id"/>
+                    <field name="building_id"/>
+					<group>
+						<filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+						<filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="Building" domain="[]" context="{'group_by':'building_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_pappaya_block_view">
+			<field name="name">Block</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pappaya.block</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_pappaya_block_search"/>
+		</record>
+
+	</data>
+</odoo>

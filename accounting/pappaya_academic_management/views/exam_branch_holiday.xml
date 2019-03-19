@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="exam_branch_holiday_add_view_form" model="ir.ui.view">
+        <field name="name">exam.branch.holiday.add.view.form</field>
+        <field name="model">exam.branch.holiday</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <separator string="Add"/>
+                    <group>
+                        <field name="region_zone" widget="radio" />
+                    </group>
+                    <group>
+                        <field name="zone" attrs="{'invisible': [('region_zone','=','region')]}"/>
+                        <field name="region" attrs="{'invisible': [('region_zone','=','zone')]}"/>
+                    </group>
+
+                    <div class="col-xs-12">
+                        <div class="col-xs-5">
+                            <field name="exam_branch" nolabel="1">
+                                <tree create="false">
+                                    <field name="holiday_name" string="Exam Branch"/>
+                                </tree>
+                            </field>
+                        </div>
+                        <div class="btn-group-vertical col-xs-2">
+                            <button name="" type="object" class="oe_highlight" string="&gt;"/>
+                            <button name="" type="object" class="oe_highlight" style="margin-top:5px" string="&gt;&gt;"/>
+                            <button name="" type="object" class="oe_highlight" style="margin-top:5px" string="&lt;"/>
+                            <button name="" type="object" class="oe_highlight" style="margin-top:5px" string="&lt;&lt;"/>
+                        </div>
+                        <div class="col-xs-5">
+                            <field name="selected_branch" nolabel="1">
+                                <tree create="false">
+                                    <field name="holiday_name" string="Selected"/>
+                                </tree>
+                            </field>
+                        </div>
+
+                    </div>
+                    <group>
+                        <field name="add_holiday_name"/>
+                        <field name="add_holiday_date"/>
+                        <field name="add_description"/>
+                    </group>
+                    <div style="text-align:center">
+                        <button special="cancel" class="oe_highlight" string="Save"/>
+                        <button special="cancel" class="oe_highlight" string="Cancel"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="exam_branch_holiday_view_form_update" model="ir.ui.view">
+        <field name="name">exam.branch.holiday.view.form.update</field>
+        <field name="model">exam.branch.holiday</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Exam Branch Holiday Edit"/>
+                    <group>
+                        <field name="holiday"/>
+                        <field name="holiday_date"/>
+                    </group>
+                    <div style="text-align:center">
+                        <label for="select_all"/>
+                        <field name="select_all"/>
+                    </div>
+                    <group>
+                        <field name="holiday_name" widget="many2many_checkboxes" class="oe_inline" nolabel="1"/>
+                    </group>
+                    <group>
+                        <field name="new_holiday_name"/>
+                        <field name="new_holiday_date"/>
+                        <field name="description"/>
+                    </group>
+
+                    <div style="text-align:center">
+                        <button special="cancel" class="oe_highlight" string="Save"/>
+                        <button special="cancel" class="oe_highlight" string="Cancel"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="exam_branch_update_action" model="ir.actions.act_window">
+        <field name="name">Exam Branch Update</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.branch.holiday</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="exam_branch_holiday_view_form_update"/>
+        <field name="target">inline</field>
+    </record>
+    <record id="exam_branch_add_action" model="ir.actions.act_window">
+        <field name="name">Exam Branch Add</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.branch.holiday</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="exam_branch_holiday_add_view_form"/>
+        <field name="target">inline</field>
+    </record>
+
+    <record id="exam_branch_holiday_view_form" model="ir.ui.view">
+        <field name="name">exam.branch.holiday.view.form</field>
+        <field name="model">exam.branch.holiday</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="academic_year"/>
+                        <field name="institution_type"/>
+                    </group>
+                    <separator string="Exam Branch Holiday Edit"/>
+                    <group>
+                        <field name="holiday"/>
+                        <field name="holiday_date"/>
+                    </group>
+                    <div style="text-align:center">
+                        <label for="select_all"/>
+                        <field name="select_all"/>
+                    </div>
+                    <group>
+                        <field name="holiday_name" widget="many2many_checkboxes" class="oe_inline" nolabel="1"/>
+                    </group>
+
+                    <div style="text-align:center">
+                        <button name="%(pappaya_academic_management.exam_branch_add_action)d" class="oe_highlight" type="action" string="Add" style="margin-right:15px;"/>
+                        <button name="%(pappaya_academic_management.exam_branch_update_action)d" class="oe_highlight" type="action" string="Update" style="margin-right:15px;"/>
+                        <button special="cancel" class="oe_highlight" string="Delete"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="exam_branch_holiday_action" model="ir.actions.act_window">
+        <field name="name">Exam Branch Holiday Edit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">exam.branch.holiday</field>
+        <field name="view_id" ref="exam_branch_holiday_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+
+    <menuitem id="exam_branch_holiday_sub_menu"
+              name="Exam Branch Holiday Entry"
+              parent="pappaya_academic_management.attendance_sub_menu"
+              action="exam_branch_holiday_action"
+              sequence="7"/>
+
+</odoo>
